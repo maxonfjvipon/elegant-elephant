@@ -10,10 +10,8 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
-    "ext-json": "*",
-    "elegant-bro/interfaces": "^1.0",
-    "elegant-bro/arrayee": "0.1.3"
+    "php": ">=8.0",
+    "ext-json": "*"
   },
   "require-dev": {
     "ext-simplexml": "*",
@@ -26,7 +24,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Maxonfjvipon\\Elegant_Elephant\\": "src"
+      "Maxonfjvipon\\Elegant_Elephant\\": "src",
+      "ElegantBro\\": "elegant-bro"
     }
   },
   "autoload-dev": {

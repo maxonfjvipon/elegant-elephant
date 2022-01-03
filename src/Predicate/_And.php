@@ -3,7 +3,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Predicate;
 
-
 use ElegantBro\Interfaces\Predicate;
 use Error;
 

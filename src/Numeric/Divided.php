@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Maxonfjvipon\Elegant_Elephant\Numeric;
-
 
 use DivisionByZeroError;
 use ElegantBro\Interfaces\Numeric;

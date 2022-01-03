@@ -3,7 +3,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Numeric;
 
-
 use ElegantBro\Interfaces\Numeric;
 
 final class Multiplied implements Numeric
