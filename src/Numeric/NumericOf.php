@@ -5,7 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Numeric;
 use ElegantBro\Interfaces\Numeric;
 use TypeError;
 
-final class Just implements Numeric
+final class NumericOf implements Numeric
 {
     private $origin;
 

@@ -7,7 +7,7 @@ use Maxonfjvipon\Elegant_Elephant\Numeric\Decremented;
 use Maxonfjvipon\Elegant_Elephant\Numeric\Divided;
 use Maxonfjvipon\Elegant_Elephant\Numeric\Incremented;
 use Maxonfjvipon\Elegant_Elephant\Numeric\Multiplied;
-use Maxonfjvipon\Elegant_Elephant\Numeric\Just;
+use Maxonfjvipon\Elegant_Elephant\Numeric\NumericOf;
 use Maxonfjvipon\Elegant_Elephant\Numeric\Plused;
 use Maxonfjvipon\Elegant_Elephant\Numeric\Subtracted;
 use PHPUnit\Framework\TestCase;
@@ -21,13 +21,13 @@ final class NumericTest extends TestCase
     {
         $this->assertEquals(
             5,
-            (new Just(5))->asNumber()
+            (new NumericOf(5))->asNumber()
         );
         $this->expectError();
         $this->expectErrorMessage('Should be converted to numeric');
         $this->assertEquals(
             5,
-            (new Just('s'))->asNumber()
+            (new NumericOf('s'))->asNumber()
         );
     }
 
@@ -39,15 +39,15 @@ final class NumericTest extends TestCase
         $this->assertEquals(
             7,
             (new Plused(
-                new Just(4),
-                new Just(3),
+                new NumericOf(4),
+                new NumericOf(3),
             ))->asNumber()
         );
         $this->assertNotEquals(
             10,
             (new Plused(
-                new Just(4),
-                new Just(3)
+                new NumericOf(4),
+                new NumericOf(3)
             ))->asNumber()
         );
     }
@@ -60,15 +60,15 @@ final class NumericTest extends TestCase
         $this->assertEquals(
             3,
             (new Subtracted(
-                new Just(7),
-                new Just(4),
+                new NumericOf(7),
+                new NumericOf(4),
             ))->asNumber()
         );
         $this->assertNotEquals(
             3,
             (new Subtracted(
-                new Just(10),
-                new Just(5)
+                new NumericOf(10),
+                new NumericOf(5)
             ))->asNumber()
         );
     }
@@ -81,15 +81,15 @@ final class NumericTest extends TestCase
         $this->assertEquals(
             6,
             (new Multiplied(
-                new Just(2),
-                new Just(3),
+                new NumericOf(2),
+                new NumericOf(3),
             ))->asNumber()
         );
         $this->assertNotEquals(
             25,
             (new Multiplied(
-                new Just(5),
-                new Just(4)
+                new NumericOf(5),
+                new NumericOf(4)
             ))->asNumber()
         );
     }
@@ -102,15 +102,15 @@ final class NumericTest extends TestCase
         $this->assertEquals(
             2,
             (new Divided(
-                new Just(6),
-                new Just(3),
+                new NumericOf(6),
+                new NumericOf(3),
             ))->asNumber()
         );
         $this->assertNotEquals(
             5,
             (new Divided(
-                new Just(25),
-                new Just(4)
+                new NumericOf(25),
+                new NumericOf(4)
             ))->asNumber()
         );
     }
@@ -123,13 +123,13 @@ final class NumericTest extends TestCase
         $this->assertEquals(
             3,
             (new Incremented(
-                new Just(2)
+                new NumericOf(2)
             ))->asNumber()
         );
         $this->assertNotEquals(
             10,
             (new Incremented(
-                new Just(5)
+                new NumericOf(5)
             ))->asNumber()
         );
     }
@@ -142,13 +142,13 @@ final class NumericTest extends TestCase
         $this->assertEquals(
             5,
             (new Decremented(
-                new Just(6)
+                new NumericOf(6)
             ))->asNumber()
         );
         $this->assertNotEquals(
             5,
             (new Decremented(
-                new Just(7)
+                new NumericOf(7)
             ))->asNumber()
         );
     }
