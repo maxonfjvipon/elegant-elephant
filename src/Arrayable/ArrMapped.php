@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Mapped arrayable.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-class ArrMappedOf implements Arrayable
+final class ArrMapped implements Arrayable
 {
     /**
      * @var Arrayable $arrayable
@@ -25,11 +25,11 @@ class ArrMappedOf implements Arrayable
      * Ctor wrap.
      * @param array $arr
      * @param callable $callback
-     * @return ArrMappedOf
+     * @return ArrMapped
      */
-    public static function array(array $arr, callable $callback): ArrMappedOf
+    public static function ofArray(array $arr, callable $callback): ArrMapped
     {
-        return ArrMappedOf::arrayable(
+        return ArrMapped::ofArrayable(
             ArrayableOf::array($arr),
             $callback
         );
@@ -39,9 +39,9 @@ class ArrMappedOf implements Arrayable
      * Ctor wrap.
      * @param Arrayable $arr
      * @param callable $callback
-     * @return ArrMappedOf
+     * @return ArrMapped
      */
-    public static function arrayable(Arrayable $arr, callable $callback): ArrMappedOf
+    public static function ofArrayable(Arrayable $arr, callable $callback): ArrMapped
     {
         return new self($arr, $callback);
     }

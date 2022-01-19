@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-class ArrayableOf implements Arrayable
+final class ArrayableOf implements Arrayable
 {
     /**
      * @var array $array

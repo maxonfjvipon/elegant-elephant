@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text trimmed.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtTrimmedOf implements Text
+class TxtTrimmed implements Text
 {
     /**
      * @var Text $text
@@ -19,19 +19,19 @@ class TxtTrimmedOf implements Text
     /**
      * Ctor wrap.
      * @param string $string
-     * @return TxtTrimmedOf
+     * @return TxtTrimmed
      */
-    public static function string(string $string): TxtTrimmedOf
+    public static function ofString(string $string): TxtTrimmed
     {
-        return TxtTrimmedOf::text(TextOf::string($string));
+        return TxtTrimmed::ofText(TextOf::string($string));
     }
 
     /**
      * Ctor wrap.
      * @param Text $text
-     * @return TxtTrimmedOf
+     * @return TxtTrimmed
      */
-    public static function text(Text $text): TxtTrimmedOf
+    public static function ofText(Text $text): TxtTrimmed
     {
         return new self($text);
     }

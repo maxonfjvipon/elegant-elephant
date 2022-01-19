@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text lowered of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtLoweredOf implements Text
+class TxtLowered implements Text
 {
     /**
      * @var Text $text
@@ -19,19 +19,19 @@ class TxtLoweredOf implements Text
     /**
      * Ctor wrap.
      * @param string $str
-     * @return TxtLoweredOf
+     * @return TxtLowered
      */
-    public static function string(string $str): TxtLoweredOf
+    public static function ofString(string $str): TxtLowered
     {
-        return TxtLoweredOf::text(TextOf::string($str));
+        return TxtLowered::ofText(TextOf::string($str));
     }
 
     /**
      * Ctor wrap.
      * @param Text $text
-     * @return TxtLoweredOf
+     * @return TxtLowered
      */
-    public static function text(Text $text): TxtLoweredOf
+    public static function ofText(Text $text): TxtLowered
     {
         return new self($text);
     }

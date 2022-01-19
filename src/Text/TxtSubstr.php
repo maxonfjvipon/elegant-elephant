@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Substring of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtSubstrOf implements Text
+class TxtSubstr implements Text
 {
     /**
      * @var Text $text
@@ -31,11 +31,11 @@ class TxtSubstrOf implements Text
      * @param string $str
      * @param int $offset
      * @param null $length
-     * @return TxtSubstrOf
+     * @return TxtSubstr
      */
-    public static function string(string $str, int $offset, $length = null): TxtSubstrOf
+    public static function ofString(string $str, int $offset, $length = null): TxtSubstr
     {
-        return TxtSubstrOf::text(TextOf::string($str), $offset, $length);
+        return TxtSubstr::ofText(TextOf::string($str), $offset, $length);
     }
 
     /**
@@ -43,9 +43,9 @@ class TxtSubstrOf implements Text
      * @param Text $text
      * @param int $offset
      * @param null $length
-     * @return TxtSubstrOf
+     * @return TxtSubstr
      */
-    public static function text(Text $text, int $offset, $length = null): TxtSubstrOf
+    public static function ofText(Text $text, int $offset, $length = null): TxtSubstr
     {
         return new self($text, $offset, $length);
     }

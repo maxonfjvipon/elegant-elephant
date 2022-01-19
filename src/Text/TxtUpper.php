@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text upper of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtUpperOf implements Text
+class TxtUpper implements Text
 {
     /**
      * @var Text $text
@@ -19,21 +19,21 @@ class TxtUpperOf implements Text
     /**
      * Ctor wrap.
      * @param string $str
-     * @return TxtUpperOf
+     * @return TxtUpper
      * @throws Exception
      */
-    public static function string(string $str): TxtUpperOf
+    public static function ofString(string $str): TxtUpper
     {
-        return TxtUpperOf::text(TextOf::string($str));
+        return TxtUpper::ofText(TextOf::string($str));
     }
 
     /**
      * Ctor wrap.
      * @param Text $text
-     * @return TxtUpperOf
+     * @return TxtUpper
      * @throws Exception
      */
-    public static function text(Text $text): TxtUpperOf
+    public static function ofText(Text $text): TxtUpper
     {
         return new self($text);
     }
