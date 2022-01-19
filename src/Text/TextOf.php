@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TextOf implements Text
+final class TextOf implements Text
 {
     /**
      * @var string $origin

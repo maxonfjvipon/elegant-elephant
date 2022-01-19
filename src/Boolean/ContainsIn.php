@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
@@ -11,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Boolean;
  * In array of.
  * @package Maxonfjvipon\Elegant_Elephant\Boolean
  */
-class InArrayOf implements Boolean
+class ContainsIn implements Boolean
 {
     /**
      * @var Arrayable $arrayable
@@ -33,11 +32,11 @@ class InArrayOf implements Boolean
      * @param array $arr
      * @param mixed $needle
      * @param bool $strict
-     * @return InArrayOf
+     * @return ContainsIn
      */
-    public static function array(array $arr, mixed $needle, bool $strict = false): InArrayOf
+    public static function array(array $arr, mixed $needle, bool $strict = false): ContainsIn
     {
-        return InArrayOf::arrayable(ArrayableOf::array($arr), $needle, $strict);
+        return ContainsIn::arrayable(ArrayableOf::array($arr), $needle, $strict);
     }
 
     /**
@@ -45,9 +44,9 @@ class InArrayOf implements Boolean
      * @param Arrayable $arr
      * @param mixed $needle
      * @param bool $strict
-     * @return InArrayOf
+     * @return ContainsIn
      */
-    public static function arrayable(Arrayable $arr, mixed $needle, bool $strict = false): InArrayOf
+    public static function arrayable(Arrayable $arr, mixed $needle, bool $strict = false): ContainsIn
     {
         return new self($arr, $needle, $strict);
     }

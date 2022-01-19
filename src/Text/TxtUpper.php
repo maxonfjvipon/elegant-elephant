@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text upper of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtUpper implements Text
+final class TxtUpper implements Text
 {
     /**
      * @var Text $text

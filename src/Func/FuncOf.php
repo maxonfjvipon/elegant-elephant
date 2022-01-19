@@ -2,8 +2,8 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Func;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Func;
+use Maxonfjvipon\Elegant_Elephant\Proc;
 
 /**
  * FuncOf.
@@ -15,6 +15,16 @@ class FuncOf implements Func
      * @var callable $function
      */
     private $function;
+
+    /**
+     * Ctor wrap.
+     * @param Proc $proc
+     * @return FuncOf
+     */
+    public static function proc(Proc $proc): FuncOf
+    {
+        return FuncOf::callable(static fn(mixed ...$args) => $proc->exec(...$args));
+    }
 
     /**
      * Ctor wrap.
@@ -38,8 +48,8 @@ class FuncOf implements Func
     /**
      * @inheritDoc
      */
-    public function apply(mixed $input): mixed
+    public function apply(mixed ...$args): mixed
     {
-        return call_user_func($this->function, $input);
+        return call_user_func($this->function, ...$args);
     }
 }

@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable sorted
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-class ArrSorted implements Arrayable
+final class ArrSorted implements Arrayable
 {
     /**
      * @var Arrayable $arrayable
@@ -61,7 +61,7 @@ class ArrSorted implements Arrayable
     public function asArray(): array
     {
         $arr = $this->arrayable->asArray();
-        if ($this->compare) {
+        if ($this->compare != null) {
             usort($arr, $this->compare);
         } else {
             sort($arr);

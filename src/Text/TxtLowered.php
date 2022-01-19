@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text lowered of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtLowered implements Text
+final class TxtLowered implements Text
 {
     /**
      * @var Text $text

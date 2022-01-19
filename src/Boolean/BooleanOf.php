@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
-use Maxonfjvipon\Elegant_Elephant\Func;
 
 /**
  * Boolean of.

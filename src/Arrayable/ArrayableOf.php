@@ -18,6 +18,16 @@ final class ArrayableOf implements Arrayable
 
     /**
      * Ctor wrap.
+     * @param mixed ...$items
+     * @return ArrayableOf
+     */
+    public static function items(...$items): ArrayableOf
+    {
+        return ArrayableOf::array($items);
+    }
+
+    /**
+     * Ctor wrap.
      * @param array $array
      * @return ArrayableOf
      */

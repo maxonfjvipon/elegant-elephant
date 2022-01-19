@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Blank text.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtBlank implements Text
+final class TxtBlank implements Text
 {
     /**
      * Ctor wrap.

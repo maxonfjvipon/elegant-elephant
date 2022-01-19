@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable sorted by keys.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-class ArrSortedByKeys implements Arrayable
+final class ArrSortedByKeys implements Arrayable
 {
     /**
      * @var Arrayable $arrayable

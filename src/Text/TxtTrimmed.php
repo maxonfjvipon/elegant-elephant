@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text trimmed.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtTrimmed implements Text
+final class TxtTrimmed implements Text
 {
     /**
      * @var Text $text

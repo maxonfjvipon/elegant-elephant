@@ -19,6 +19,10 @@ class ArrayableOfTest extends TestCase
             $arr,
             ArrayableOf::array($arr)->asArray()
         );
+        $this->assertEquals(
+            $arr,
+            ArrayableOf::items(1, 2, "hello")->asArray()
+        );
         $this->assertNotEquals(
             $arr,
             ArrayableOf::array([1, 2, 3])->asArray()

@@ -6,10 +6,10 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable values
+ * Arrayable unique.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrValues implements Arrayable
+final class ArrUnique implements Arrayable
 {
     /**
      * @var Arrayable $arrayable
@@ -19,19 +19,19 @@ final class ArrValues implements Arrayable
     /**
      * Ctor wrap.
      * @param array $array
-     * @return ArrValues
+     * @return ArrUnique
      */
-    public static function ofArray(array $array): ArrValues
+    public static function ofArray(array $array): ArrUnique
     {
-        return ArrValues::ofArrayble(ArrayableOf::array($array));
+        return ArrUnique::ofArrayble(ArrayableOf::array($array));
     }
 
     /**
      * Ctor wrap.
      * @param Arrayable $arrayable
-     * @return ArrValues
+     * @return ArrUnique
      */
-    public static function ofArrayble(Arrayable $arrayable): ArrValues
+    public static function ofArrayble(Arrayable $arrayable): ArrUnique
     {
         return new self($arrayable);
     }
@@ -50,6 +50,6 @@ final class ArrValues implements Arrayable
      */
     public function asArray(): array
     {
-        return array_values($this->arrayable->asArray());
+        return array_unique($this->arrayable->asArray());
     }
 }

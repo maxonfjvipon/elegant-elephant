@@ -11,7 +11,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Return_;
  * Text joined.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtJoined implements Text
+final class TxtJoined implements Text
 {
     /**
      * @var string[] $args

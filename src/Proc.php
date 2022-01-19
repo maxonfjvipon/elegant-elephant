@@ -2,18 +2,15 @@
 
 namespace Maxonfjvipon\Elegant_Elephant;
 
-use Exception;
-
 /**
- * Function.
+ * Proc.
  * @package Maxonfjvipon\Elegant_Elephant
  */
-interface Func
+interface Proc
 {
     /**
      * @param iterable $args
-     * @return mixed
-     * @throws Exception
+     * @return void
      */
-    public function apply(iterable $args): mixed;
+    public function exec(iterable $args): void;
 }

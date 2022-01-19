@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Substring of.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-class TxtSubstr implements Text
+final class TxtSubstr implements Text
 {
     /**
      * @var Text $text
