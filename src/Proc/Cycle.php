@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Proc;
  * ForEach.
  * @package Maxonfjvipon\Elegant_Elephant\Proc
  */
-class Through
+final class Cycle
 {
     /**
      * @param callable $callback
@@ -18,7 +18,7 @@ class Through
      */
     public static function withCallable(callable $callback): Proc
     {
-        return Through::withProc(ProcOf::callable($callback));
+        return Cycle::withProc(ProcOf::callable($callback));
     }
 
     /**
@@ -27,7 +27,7 @@ class Through
      */
     public static function withFunc(Func $func): Proc
     {
-        return Through::withProc(ProcOf::func($func));
+        return Cycle::withProc(ProcOf::func($func));
     }
 
     /**
@@ -54,7 +54,7 @@ class Through
             /**
              * @param iterable $args
              */
-            public function exec(iterable $args): void
+            public function exec(iterable $args = []): void
             {
                 foreach ($args as $item) {
                     $this->proc->exec($item);

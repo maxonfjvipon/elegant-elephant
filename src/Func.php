@@ -5,7 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant;
 use Exception;
 
 /**
- * Function.
+ * Function that must returns something.
  * @package Maxonfjvipon\Elegant_Elephant
  */
 interface Func

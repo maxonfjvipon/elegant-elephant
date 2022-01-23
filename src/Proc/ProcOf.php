@@ -46,7 +46,7 @@ class ProcOf implements Proc
     /**
      * @inheritDoc
      */
-    public function exec(mixed ...$args): void
+    public function exec(iterable $args = []): void
     {
         call_user_func($this->callback, ...$args);
     }

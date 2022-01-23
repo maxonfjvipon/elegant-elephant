@@ -3,7 +3,7 @@
 namespace Maxonfjvipon\Elegant_Elephant;
 
 /**
- * Proc.
+ * Procedure.
  * @package Maxonfjvipon\Elegant_Elephant
  */
 interface Proc
@@ -12,5 +12,5 @@ interface Proc
      * @param iterable $args
      * @return void
      */
-    public function exec(iterable $args): void;
+    public function exec(iterable $args = []): void;
 }

@@ -4,15 +4,15 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Proc;
 
 use Maxonfjvipon\Elegant_Elephant\Func\FuncOf;
 use Maxonfjvipon\Elegant_Elephant\Proc\ProcOf;
-use Maxonfjvipon\Elegant_Elephant\Proc\Through;
+use Maxonfjvipon\Elegant_Elephant\Proc\Cycle;
 use PHPUnit\Framework\TestCase;
 
-class ThroughTest extends TestCase
+class CycleTest extends TestCase
 {
     public function testExec(): void
     {
         $sum = 0;
-        Through::withCallable(
+        Cycle::withCallable(
             static function ($num) use (&$sum) {
                 $sum += $num;
             }
@@ -20,8 +20,8 @@ class ThroughTest extends TestCase
         $this->assertEquals(10, $sum);
 
         $sum = 0;
-        Through::withProc(
-            Through::withCallable(
+        Cycle::withProc(
+            Cycle::withCallable(
                 static function ($num) use (&$sum) {
                     $sum += $num;
                 }
@@ -30,7 +30,7 @@ class ThroughTest extends TestCase
         $this->assertEquals(13, $sum);
 
         $sum = 0;
-        Through::withFunc(
+        Cycle::withFunc(
             FuncOf::callable(function ($num) use (&$sum) {
                 $sum += $num;
             })
