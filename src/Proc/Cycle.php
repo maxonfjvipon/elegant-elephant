@@ -6,7 +6,6 @@ use Maxonfjvipon\Elegant_Elephant\Func;
 use Maxonfjvipon\Elegant_Elephant\Proc;
 
 /**
- * TODO: think about class name
  * ForEach.
  * @package Maxonfjvipon\Elegant_Elephant\Proc
  */
