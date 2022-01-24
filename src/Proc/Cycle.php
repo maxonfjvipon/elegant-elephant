@@ -7,6 +7,7 @@ use Maxonfjvipon\Elegant_Elephant\Proc;
 
 /**
  * ForEach.
+ * Experimental.
  * @package Maxonfjvipon\Elegant_Elephant\Proc
  */
 final class Cycle

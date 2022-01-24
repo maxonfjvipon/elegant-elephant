@@ -3,9 +3,11 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Logical\Negation;
 use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
 use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
 use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class TrueFalseTest extends TestCase
 {
@@ -14,7 +16,9 @@ class TrueFalseTest extends TestCase
      */
     public function testAsBool(): void
     {
-        $this->assertEquals(true, Truth::new()->asBool());
-        $this->assertEquals(false, Untruth::new()->asBool());
+        assertEquals(true, Truth::new()->asBool());
+        assertEquals(false, Untruth::new()->asBool());
+        assertEquals(false, Negation::new(Truth::new())->asBool());
+        assertEquals(true, Negation::new(Untruth::new())->asBool());
     }
 }

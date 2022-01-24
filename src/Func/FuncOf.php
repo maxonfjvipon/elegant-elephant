@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Proc;
  * FuncOf.
  * @package Maxonfjvipon\Elegant_Elephant\Func
  */
-class FuncOf implements Func
+final class FuncOf implements Func
 {
     /**
      * @var callable $function
@@ -48,7 +48,7 @@ class FuncOf implements Func
     /**
      * @inheritDoc
      */
-    public function apply(mixed ...$args): mixed
+    public function apply(iterable $args = []): mixed
     {
         return call_user_func($this->function, ...$args);
     }

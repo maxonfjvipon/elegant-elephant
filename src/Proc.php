@@ -3,7 +3,7 @@
 namespace Maxonfjvipon\Elegant_Elephant;
 
 /**
- * Procedure.
+ * Procedure that returns nothing.
  * @package Maxonfjvipon\Elegant_Elephant
  */
 interface Proc

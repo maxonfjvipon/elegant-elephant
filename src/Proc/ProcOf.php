@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Proc;
  * Proc of.
  * @package Maxonfjvipon\Elegant_Elephant\Proc
  */
-class ProcOf implements Proc
+final class ProcOf implements Proc
 {
     /**
      * @var callable $callback

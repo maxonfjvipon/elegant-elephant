@@ -15,5 +15,5 @@ interface Func
      * @return mixed
      * @throws Exception
      */
-    public function apply(iterable $args): mixed;
+    public function apply(iterable $args = []): mixed;
 }
