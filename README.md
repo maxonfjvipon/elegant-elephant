@@ -90,7 +90,7 @@ $foo = TextOf::string("foo")->asString(); // "foo"
 *TxtUpper* - text in upper case. Almost every class has 2 ways of creation: from string and from text. So there are 2 static methods:
 ```php
 TxtUpper::ofString("bar")->asString(); // "BAR"
-TxtUpper::ofText($foo)->asString(); // "FOO"
+TxtUpper::ofText(TextOf::string("foo"))->asString(); // "FOO"
 ```
 
 *TxtLowered* - text in lower case.
