@@ -156,7 +156,7 @@ Equality::ofNumerables(
 LengthOf::array([1, 2])->asNumber(); // "2"
 ```
 
-*Addition, Subtraction, Decremented, Incremented" - basic arithmetic operations.
+*Addition, Subtraction, Decremented, Incremented* - basic arithmetic operations.
 Inside `TxtEnsureRegex` class:
 ```php
 public function asString(): string
