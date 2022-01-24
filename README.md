@@ -5,12 +5,17 @@ ElegantElephant - trying to write php code in elegant way. Inspired by [Cactoos]
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 
 ## Principles
-- No null
-- No code in constructors (why?)
-- No getters and setters (why?)
-- No mutable objects (why?)
-- No instanceof, type casting, or reflection (why?)
-- No public methods without a contract (interface) (why?)
+ | Priciple| Yes/No|
+ | ------------- |:------------------:|
+ | No null       | :heavy_minus_sign:    |
+ | No code in constructors     | :heavy_check_mark: |
+ | No getters and setters     | :heavy_check_mark: |
+ | No mutable objects | :heavy_check_mark:         |
+ | No readers, parsers, controllers, sorters, and so on | :heavy_check_mark:         |
+ | No static methods, not even private ones | :x:         |
+ | No instanceof, type casting, or reflection | :heavy_check_mark:         |
+ | No public methods without a contract | :heavy_check_mark:         |
+ | No statements in test methods except assertThat | :heavy_minus_sign:  |
 
 ## Static methods
 Library is full of `public static` methods and here's why. As you know classes in php may have only one `__construct` method. Also there is no methods overloading in php. So, if we want to provide to user many ways to create an object, we have 2 ways:
