@@ -1,4 +1,4 @@
-# ElegantElephant 
+# ElegantElephant (In development)
 
 ElegantElephant - trying to write php code in elegant way. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
 
