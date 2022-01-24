@@ -57,7 +57,7 @@ ArrSorted::ofArray([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1)->asArray(); // [3
 *ArrExploded* - arrayable exploded by separator. `explode` method has 2 arguments, both strings. But we want to give to user a choice, what type of argument he wants to pass. So to create the `ArrExploded` object, you need to call to chain of methods:
 ```php
 ArrExploded::byString("-")->ofString("foo-bar")->asArray(); // ["foo", "bar"]
-ArrExploded::byText(TextOf::string("-"))->ofText(TextOf::string("foo-bar")->asArray(); ["foo", "bar"]
+ArrExploded::byText(TextOf::string("-"))->ofText(TextOf::string("foo-bar"))->asArray(); ["foo", "bar"]
 ArrExploded::byComma()->ofString("foo,bar")->asArray(); ["foo", "bar"]
 ```
 **Note** that you won't be able to call `asArray()` after calling by- method.
