@@ -8,7 +8,7 @@ use Exception;
  * Boolean.
  * @package Maxonfjvipon\Elegant_Elephant
  */
-interface Boolean
+interface Logical
 {
     /**
      * @return bool

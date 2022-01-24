@@ -5,9 +5,9 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrKeys;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
+use PHPUnit\Framework\TestCase;
 
-class ArrKeysTest extends \PHPUnit\Framework\TestCase
+class ArrKeysTest extends TestCase
 {
     /**
      * @throws Exception

@@ -3,9 +3,9 @@
 namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Logical;
 
-class Untruth implements Boolean
+final class Untruth implements Logical
 {
     /**
      * @return Untruth

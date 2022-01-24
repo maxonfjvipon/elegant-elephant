@@ -4,13 +4,13 @@ namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
  * In array of.
  * @package Maxonfjvipon\Elegant_Elephant\Boolean
  */
-class ContainsIn implements Boolean
+final class ContainsIn implements Logical
 {
     /**
      * @var Arrayable $arrayable

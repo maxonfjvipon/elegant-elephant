@@ -3,30 +3,30 @@
 namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Logical;
 
-class Disjunction implements Boolean
+final class Disjunction implements Logical
 {
 
     /**
-     * @var Boolean[] $args
+     * @var Logical[] $args
      */
     private array $args;
 
     /**
-     * @param Boolean ...$args
+     * @param Logical ...$args
      * @return Disjunction
      */
-    public static function new(Boolean ...$args): Disjunction
+    public static function new(Logical ...$args): Disjunction
     {
         return new self(...$args);
     }
 
     /**
      * Ctor.
-     * @param Boolean ...$args
+     * @param Logical ...$args
      */
-    private function __construct(Boolean ...$args)
+    private function __construct(Logical ...$args)
     {
         $this->args = $args;
     }

@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Array keys.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-class ArrKeys implements Arrayable
+final class ArrKeys implements Arrayable
 {
 
     /**

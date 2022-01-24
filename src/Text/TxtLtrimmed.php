@@ -5,7 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
-class TxtLtrimmed implements Text
+final class TxtLtrimmed implements Text
 {
     /**
      * @var Text $origin

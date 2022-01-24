@@ -2,13 +2,13 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
-use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
  * Boolean of.
  * @package Maxonfjvipon\Elegant_Elephant\Boolean
  */
-class BooleanOf implements Boolean
+final class LogicalOf implements Logical
 {
     /**
      * @var bool $bool
@@ -18,9 +18,9 @@ class BooleanOf implements Boolean
     /**
      * Ctor wrap.
      * @param bool $bool
-     * @return BooleanOf
+     * @return LogicalOf
      */
-    public static function bool(bool $bool): BooleanOf
+    public static function bool(bool $bool): LogicalOf
     {
         return new self($bool);
     }
