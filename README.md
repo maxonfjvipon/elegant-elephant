@@ -50,25 +50,29 @@ ArrayableOf::array([1, 2])->asArray(); // [1, 2]
 *ArrSorted* - sorted arrayable
 ```php
 ArrSorted::ofArray([3, 2, 1])->asArray(); [1, 2, 3]
-ArrSorted::ofArrayble(ArryableOf::array([3, 2]))->asArray(); // [2, 3]
+ArrSorted::ofArrayable(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
 ArrSorted::ofArray([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1)->asArray(); // [3, 2, 1]
 ```
 
-*ArrExploded* - arrayable exploded by separator. `explode` method has 2 arguments, both strings. But we want to give to user a choice, what type of argument he wants to pass. So to create the `ArrExploded` object, you need to call to chain of methods:
+*ArrExploded* - arrayable exploded by separator. `explode` method in php has 2 main arguments, both strings. But we want to give to user a choice, what type of argument he wants to pass. We could create static method like byStringOfString, byStringOfText... but it's ugly) So to create the `ArrExploded` object, you need to call to chain of methods:
 ```php
 ArrExploded::byString("-")->ofString("foo-bar")->asArray(); // ["foo", "bar"]
-ArrExploded::byText(TextOf::string("-"))->ofText(TextOf::string("foo-bar"))->asArray(); ["foo", "bar"]
-ArrExploded::byComma()->ofString("foo,bar")->asArray(); ["foo", "bar"]
+ArrExploded::byText(TextOf::string("-"))->ofText(TextOf::string("foo-bar"))->asArray(); // ["foo", "bar"]
+ArrExploded::byComma()->ofString("foo,bar")->asArray(); // ["foo", "bar"]
 ```
 **Note** that you won't be able to call `asArray()` after calling by- method.
 
 *ArrMapped* - arrayble mapped with callback
 ```php
 ArrMapped::ofArray(["foo", "bar"], fn($str) => "Hello, " . $str)->asArray(); // ["Hello, foo", "Hello, bar"]
-ArrMapped::ofArryable(...)->asArray();
+ArrMapped::ofArrayable(...)->asArray();
 ```
 
 *ArrKeys* and *ArrValues* - arrays of keys and values of origin array/Arrayable.
+```php
+ArrValues::ofArray(["key1" => "value1", "key2" => "value"])->asArray(); // ["value1", "value2"] // [0 => "value1", 1 => "value2"]
+ArrKeys::ofArrayable(ArrayableOf::array(["key1" => 1, "key2" => 2]))->asArray(); // ["key1", "key2"] // [0 => "key1", 1 => "key2"]
+```
 
 *ArrMerged* - arrayable merged of arrays/Arrayables.
 ```php
@@ -104,13 +108,13 @@ TxtLowered::ofText(
 *TxtImploded* - text imploded with separator. One more class with 2 chained methods required to create an object.
 ```php
 TxtImploded::withString("-")->ofStrings("foo", "bar")->asString(); // "foo-bar"
-TxtImploded::withComma()->ofTexts(TextOf::string("foo"), TxtUpper::ofString("bar"))->asString; // "foo,Bar"
+TxtImploded::withComma()->ofTexts(TextOf::string("foo"), TxtUpper::ofString("bar"))->asString(); // "foo,BAR"
 ```
 
 *TxtJoined* - alias to `TxtImploded` without separator
 ```php
-TxtImploded::ofStrings("foo", ",", "bar")->asString(); // "foo-bar"
-TxtImploded::ofTexts(...)->asString();
+TxtJoined::ofStrings("foo", ",", "bar")->asString(); // "foo-bar"
+TxtJoined::ofTexts(...)->asString();
 ```
 
 And so on...
