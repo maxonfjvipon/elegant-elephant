@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Boolean;
+namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
  * In array of.
- * @package Maxonfjvipon\Elegant_Elephant\Boolean
+ * @package Maxonfjvipon\Elegant_Elephant\Logical
  */
 final class ContainsIn implements Logical
 {

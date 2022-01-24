@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Boolean;
+namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
  * Boolean of.
- * @package Maxonfjvipon\Elegant_Elephant\Boolean
+ * @package Maxonfjvipon\Elegant_Elephant\Logical
  */
 final class LogicalOf implements Logical
 {

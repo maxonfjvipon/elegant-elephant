@@ -1,10 +1,10 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Truth;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
+use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
 use PHPUnit\Framework\TestCase;
 
 class TrueFalseTest extends TestCase

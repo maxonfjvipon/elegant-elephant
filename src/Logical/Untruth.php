@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Boolean;
+namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
