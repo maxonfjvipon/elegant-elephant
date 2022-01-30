@@ -12,25 +12,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 final class ArrMerged implements Arrayable
 {
     /**
-     * @var array[] $arrays
+     * @var Arrayable[] $arrayables
      */
-    private array $arrays;
-
-    /**
-     * Ctor wrap.
-     * @param Arrayable ...$arrayables
-     * @return ArrMerged
-     * @throws Exception
-     */
-    public static function ofArrayables(Arrayable ...$arrayables): ArrMerged
-    {
-        return ArrMerged::ofArrays(
-            ...array_map(
-                fn(Arrayable $arrayable) => $arrayable->asArray(),
-                $arrayables
-            )
-        );
-    }
+    private array $arrayables;
 
     /**
      * Ctor wrap.
@@ -40,16 +24,32 @@ final class ArrMerged implements Arrayable
      */
     public static function ofArrays(array ...$arrays): ArrMerged
     {
-        return new self(...$arrays);
+        return ArrMerged::ofArrayables(
+            ...array_map(
+                fn(array $arr) => ArrayableOf::array($arr),
+                $arrays
+            )
+        );
+    }
+
+    /**
+     * Ctor wrap.
+     * @param Arrayable ...$arrayables
+     * @return ArrMerged
+     * @throws Exception
+     */
+    public static function ofArrayables(Arrayable ...$arrayables): ArrMerged
+    {
+        return new self(...$arrayables);
     }
 
     /**
      * Ctor.
-     * @param array ...$arrays
+     * @param Arrayable ...$arrayables
      */
-    private function __construct(array ...$arrays)
+    private function __construct(Arrayable ...$arrayables)
     {
-        $this->arrays = $arrays;
+        $this->arrayables = $arrayables;
     }
 
     /**
@@ -57,6 +57,11 @@ final class ArrMerged implements Arrayable
      */
     public function asArray(): array
     {
-        return array_merge(...$this->arrays);
+        return array_merge(
+            ...ArrMapped::ofArray(
+                $this->arrayables,
+                fn(Arrayable $arrayable) => $arrayable->asArray()
+            )
+        );
     }
 }
