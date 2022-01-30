@@ -61,7 +61,7 @@ final class ArrMerged implements Arrayable
             ...ArrMapped::ofArray(
                 $this->arrayables,
                 fn(Arrayable $arrayable) => $arrayable->asArray()
-            )
+            )->asArray()
         );
     }
 }

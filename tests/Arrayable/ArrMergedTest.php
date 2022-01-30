@@ -29,5 +29,9 @@ class ArrMergedTest extends TestCase
             $arr,
             ArrMerged::ofArrays([1, 2], [1, 2])->asArray()
         );
+        $this->assertEquals(
+            $arr,
+            ArrMerged::ofArrayables(ArrayableOf::array($arr), ArrayableOf::array([]))->asArray()
+        );
     }
 }
