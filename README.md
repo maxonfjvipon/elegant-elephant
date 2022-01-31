@@ -49,7 +49,7 @@ ArrayableOf::array([1, 2])->asArray(); // [1, 2]
  
 *ArrSorted* - sorted arrayable
 ```php
-ArrSorted::ofArray([3, 2, 1])->asArray(); [1, 2, 3]
+ArrSorted::ofArray([3, 2, 1])->asArray(); // [1, 2, 3]
 ArrSorted::ofArrayable(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
 ArrSorted::ofArray([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1)->asArray(); // [3, 2, 1]
 ```
@@ -117,6 +117,20 @@ TxtJoined::ofStrings("foo", ",", "bar")->asString(); // "foo-bar"
 TxtJoined::ofTexts(...)->asString();
 ```
 
+*TxtReplaced* - quite interesting case, just look at it:
+```php
+TxtReplaced::string("foo")->toString("bar")->inString("foobar")->asString(); // "barbar"
+```
+You may say that there is so much code we must to write. I would say "Yes", but cmon, it's php :)
+
+So, as you can see now we can create an object with 9 different argument combinations. Your IDE won't let you make a mistake.
+```php
+TxtReplaced::string("foo") // text(...)
+  ->toString("bar")        // toText(...)
+  ->inString("foobar")     // inText(...) 
+  ->asString();
+```
+
 And so on...
 
 ## Logical
@@ -142,7 +156,7 @@ Conjunction::new(
 ```php
 EqualityOf::strings("foo", "bar")->asBool(); // false
 EqualityOf::arrays([1, 2], [1, 2])->asBool(); // true
-EqualityOf::texts(TextOf::string("FOO"), TxtUpper::ofString("foo"))->asBool(); true
+EqualityOf::texts(TextOf::string("FOO"), TxtUpper::ofString("foo"))->asBool(); // true
 ```
 
 And so on...
@@ -161,42 +175,6 @@ LengthOf::array([1, 2])->asNumber(); // "2"
 ```
 
 *Addition, Subtraction, Decremented, Incremented* - basic arithmetic operations.
-Inside `TxtEnsureRegex` class:
-```php
-public function asString(): string
-{
-  $slash = TextOf::string("/");
-  $blank = TxtBlank::new();
-  return TxtJoined::ofTexts(
-    TxtTernary::ofTexts(
-      Negation::new(
-        EqualityOf::texts(
-          TxtSubstr::ofText($this->origin, 0, 1),
-          $slash
-        )
-      ),
-      $slash,
-      $blank
-    ),
-    $this->origin,
-    TxtTernary::ofTexts(
-      Negation::new(
-        EqualityOf::texts(
-          TxtSubstr::ofText(
-            $this->origin,
-              Decremented::new(
-                LengthOf::text($this->origin)
-              )->asNumber(),
-            1),
-          $slash
-        ),
-      ),
-      $slash,
-      $blank
-    )
-  )->asString();
-}
-```
 
 ## Proc and Func (Experimental)
 *Proc* incapculate function that returns nothing, *Func* incapsulate function that returns something.
