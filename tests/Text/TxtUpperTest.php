@@ -16,11 +16,15 @@ class TxtUpperTest extends TestCase
     {
         $this->assertEquals(
             "FOO",
-            TxtUpper::ofString("foo")->asString()
+            TxtUpper::new("foo")->asString()
         );
         $this->assertEquals(
             "FOO",
-            TxtUpper::ofText(TextOf::string("foo"))->asString()
+            TxtUpper::new(TextOf::new("foo"))->asString()
+        );
+        $this->assertEquals(
+            "12",
+            TxtUpper::new(12)->asString()
         );
     }
 }

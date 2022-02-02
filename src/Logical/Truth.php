@@ -18,7 +18,7 @@ final class Truth implements Logical
     /**
      * Ctor.
      */
-    private function __construct()
+    public function __construct()
     {
     }
 

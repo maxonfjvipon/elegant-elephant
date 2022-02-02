@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text of.
@@ -11,28 +12,30 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TextOf implements Text
 {
+    use Overloadable;
+
     /**
-     * @var string $origin
+     * @var float|int|Text|string $origin
      */
-    private string $origin;
+    private float|int|string|Text $origin;
 
     /**
      * Ctor wrap of string.
-     * @param string $str
+     * @param string|int|float|Text $str
      * @return TextOf
      */
-    public static function string(string $str): TextOf
+    public static function new(string|int|float|Text $str): TextOf
     {
         return new self($str);
     }
 
     /**
      * Ctor.
-     * @param string $text
+     * @param string|int|float|Text $str
      */
-    private function __construct(string $text)
+    public function __construct(string|int|float|Text $str)
     {
-        $this->origin = $text;
+        $this->origin = $str;
     }
 
     /**
@@ -40,6 +43,11 @@ final class TextOf implements Text
      */
     public function asString(): string
     {
-        return $this->origin;
+        return self::overload([$this->origin], [[
+            'string',
+            'integer' => fn(int $int) => (string)$int,
+            'double' => fn(float $fl) => (string)$fl,
+            Text::class => fn(Text $txt) => $txt->asString(),
+        ]])[0];
     }
 }

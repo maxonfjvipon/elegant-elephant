@@ -17,15 +17,15 @@ class ArrayableOfTest extends TestCase
         $arr = [1, 2, "hello"];
         $this->assertEquals(
             $arr,
-            ArrayableOf::array($arr)->asArray()
+            ArrayableOf::items(...$arr)->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrayableOf::items(1, 2, "hello")->asArray()
+            (new ArrayableOf([1, 2, "hello"]))->asArray()
         );
         $this->assertNotEquals(
             $arr,
-            ArrayableOf::array([1, 2, 3])->asArray()
+            ArrayableOf::items(1, 2, 3)->asArray()
         );
     }
 }

@@ -16,11 +16,15 @@ class TxtLoweredTest extends TestCase
     {
         $this->assertEquals(
             "hello world",
-            TxtLowered::ofString("Hello World")->asString()
+            TxtLowered::new("Hello World")->asString()
         );
         $this->assertEquals(
             "hello world",
-            TxtLowered::ofText(TextOf::string("Hello World"))->asString()
+            TxtLowered::new(TextOf::new("Hello World"))->asString()
+        );
+        $this->assertEquals(
+            "1",
+            TxtLowered::new(1)->asString()
         );
     }
 }

@@ -16,11 +16,11 @@ class TxtSubstrTest extends TestCase
     {
         $this->assertEquals(
             "world",
-            TxtSubstr::ofString("Hello world", 6)->asString()
+            TxtSubstr::new("Hello world", 6)->asString()
         );
         $this->assertEquals(
             "wo",
-            TxtSubstr::ofText(TextOf::string("Hello world"), 6, 2)->asString()
+            TxtSubstr::new(TextOf::new("Hello world"), 6, 2)->asString()
         );
     }
 }

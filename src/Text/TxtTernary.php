@@ -5,53 +5,45 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 final class TxtTernary implements Text
 {
-    /**
-     * @var Logical $condition
-     */
-    private Logical $condition;
+    use Overloadable;
 
     /**
-     * @var Text $original
+     * @var bool|Logical $condition
      */
-    private Text $original;
+    private Logical|bool $condition;
 
     /**
-     * @var Text $alt
+     * @var Text|string $original
      */
-    private Text $alt;
+    private Text|string $original;
 
     /**
-     * @param Logical $condition
-     * @param string $original
-     * @param string $alt
+     * @var Text|string $alt
+     */
+    private Text|string $alt;
+
+    /**
+     * @param Logical|bool $condition
+     * @param string|Text $original
+     * @param string|Text $alt
      * @return TxtTernary
      */
-    public static function ofStrings(Logical $condition, string $original, string $alt): TxtTernary
-    {
-        return TxtTernary::ofTexts($condition, TextOf::string($original), TextOf::string($alt));
-    }
-
-    /**
-     * @param Logical $condition
-     * @param Text $original
-     * @param Text $alt
-     * @return TxtTernary
-     */
-    public static function ofTexts(Logical $condition, Text $original, Text $alt): TxtTernary
+    public static function new(Logical|bool $condition, string|Text $original, string|Text $alt): TxtTernary
     {
         return new self($condition, $original, $alt);
     }
 
     /**
      * Ctor.
-     * @param Logical $condition
-     * @param Text $original
-     * @param Text $alt
+     * @param Logical|bool $condition
+     * @param string|Text $original
+     * @param string|Text $alt
      */
-    private function __construct(Logical $condition, Text $original, Text $alt)
+    public function __construct(Logical|bool $condition, string|Text $original, string|Text $alt)
     {
         $this->condition = $condition;
         $this->original = $original;
@@ -63,6 +55,22 @@ final class TxtTernary implements Text
      */
     public function asString(): string
     {
-        return $this->condition->asBool() ? $this->original->asString() : $this->alt->asString();
+        return self::overload([$this->condition], [[
+            'boolean',
+            Logical::class => fn(Logical $logical) => $logical->asBool()
+        ]])[0]
+            ? self::overload([$this->original], [$this->rules()])[0]
+            : self::overload([$this->alt], [$this->rules()])[0];
+    }
+
+    /**
+     * @return array
+     */
+    private function rules(): array
+    {
+        return [
+            'string',
+            Text::class => fn(Text $txt) => $txt->asString()
+        ];
     }
 }

@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable sorted
@@ -11,10 +12,12 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrSorted implements Arrayable
 {
+    use Overloadable;
+
     /**
-     * @var Arrayable $arrayable
+     * @var array|Arrayable $arr
      */
-    private Arrayable $arrayable;
+    private array|Arrayable $arr;
 
     /**
      * @var callable $compare
@@ -23,35 +26,23 @@ final class ArrSorted implements Arrayable
 
     /**
      * Ctor wrap.
-     * @param array $array
-     * @param callable|null $compare
-     * @return ArrSorted
-     * @throws Exception
-     */
-    public static function ofArray(array $array, ?callable $compare = null): ArrSorted
-    {
-        return ArrSorted::ofArrayable(ArrayableOf::array($array), $compare);
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Arrayable $arrayable
+     * @param array|Arrayable $arr
      * @param callable|null $compare
      * @return ArrSorted
      */
-    public static function ofArrayable(Arrayable $arrayable, ?callable $compare = null): ArrSorted
+    public static function new(array|Arrayable $arr, callable $compare = null): ArrSorted
     {
-        return new self($arrayable, $compare);
+        return new self($arr, $compare);
     }
 
     /**
      * Ctor.
-     * @param Arrayable $arrayable
+     * @param array|Arrayable $arr
      * @param callable|null $compare
      */
-    private function __construct(Arrayable $arrayable, ?callable $compare = null)
+    public function __construct(array|Arrayable $arr, callable $compare = null)
     {
-        $this->arrayable = $arrayable;
+        $this->arr = $arr;
         $this->compare = $compare;
     }
 
@@ -60,13 +51,15 @@ final class ArrSorted implements Arrayable
      */
     public function asArray(): array
     {
-        $arr = $this->arrayable->asArray();
+        $arr = self::overload([$this->arr], [[
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]])[0];
         if ($this->compare != null) {
             usort($arr, $this->compare);
         } else {
             sort($arr);
         }
-
         return $arr;
     }
 }

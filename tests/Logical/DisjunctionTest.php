@@ -20,15 +20,16 @@ class DisjunctionTest extends TestCase
             true,
             Disjunction::new(
                 Truth::new(),
-                Truth::new(),
-                Untruth::new()
+                true,
+                Untruth::new(),
+                false
             )->asBool()
         );
         $this->assertEquals(
             false,
             Disjunction::new(
                 Untruth::new(),
-                Untruth::new()
+                false
             )->asBool()
         );
     }

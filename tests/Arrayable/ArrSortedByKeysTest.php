@@ -29,15 +29,15 @@ class ArrSortedByKeysTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            ArrSortedByKeys::ofArray($arr)->asArray()
+            ArrSortedByKeys::new($arr)->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrSortedByKeys::ofArrayable(ArrayableOf::array($arr))->asArray()
+            (new ArrSortedByKeys(ArrayableOf::array($arr)))->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrSortedByKeys::ofArray($expected)->asArray()
+            ArrSortedByKeys::new($expected)->asArray()
         );
     }
 }

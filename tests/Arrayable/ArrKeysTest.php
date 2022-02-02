@@ -24,15 +24,15 @@ class ArrKeysTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            ArrKeys::ofArray($arr)->asArray()
+            ArrKeys::new($arr)->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrKeys::ofArrayble(ArrayableOf::array($arr))->asArray()
+            (new ArrKeys(ArrayableOf::array($arr)))->asArray()
         );
         $this->assertNotEquals(
             $expected,
-            ArrKeys::ofArray([
+            ArrKeys::new([
                 0 => 1,
                 1 => 2,
                 2 => 3,

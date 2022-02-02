@@ -19,23 +19,19 @@ class ArrExplodedTest extends TestCase
         $string = "foo-bar";
         $this->assertEquals(
             $arr,
-            ArrExploded::byText(TextOf::string($separator))->ofText(TextOf::string($string))->asArray()
+            ArrExploded::new($separator, $string)->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrExploded::byText(TextOf::string($separator))->ofString($string)->asArray()
+            (new ArrExploded(new TextOf($separator), $string))->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrExploded::byString($separator)->ofText(TextOf::string($string))->asArray()
-        );
-        $this->assertEquals(
-            $arr,
-            ArrExploded::byString($separator)->ofString($string)->asArray()
+            (new ArrExploded($separator, TextOf::new($string)))->asArray()
         );
         $this->assertNotEquals(
             $arr,
-            ArrExploded::byString(",")->ofString($string)->asArray()
+            ArrExploded::new(",", $string)->asArray()
         );
     }
 
@@ -48,15 +44,15 @@ class ArrExplodedTest extends TestCase
         $string = "foo,bar";
         $this->assertEquals(
             $arr,
-            ArrExploded::byComma()->ofText(TextOf::string($string))->asArray()
+            ArrExploded::byComma(TextOf::new($string))->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrExploded::byComma()->ofString($string)->asArray()
+            ArrExploded::byComma($string)->asArray()
         );
         $this->assertNotEquals(
             $arr,
-            ArrExploded::byComma()->ofString("foo-bar")->asArray()
+            ArrExploded::byComma("foo-bar")->asArray()
         );
     }
 }

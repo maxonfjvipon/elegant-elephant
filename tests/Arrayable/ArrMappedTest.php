@@ -19,15 +19,15 @@ class ArrMappedTest extends TestCase
         $callback = fn($item) => $item * $item;
         $this->assertEquals(
             $expected,
-            ArrMapped::ofArray($arr, $callback)->asArray()
+            ArrMapped::new($arr, $callback)->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrMapped::ofArrayable(ArrayableOf::array($arr), $callback)->asArray()
+            ArrMapped::new(ArrayableOf::array($arr), $callback)->asArray()
         );
         $this->assertNotEquals(
             $expected,
-            ArrMapped::ofArray($arr, fn($num) => $num + $num)->asArray()
+            (new ArrMapped($arr, fn($num) => $num + $num))->asArray()
         );
     }
 }

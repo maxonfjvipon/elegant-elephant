@@ -16,12 +16,12 @@ class ArrUniqueTest extends TestCase
     public function testAsArray(): void
     {
         $this->assertEquals(
-            ArrValues::ofArray([1, 2, 3, 4, 5])->asArray(),
-            ArrValues::ofArrayble(ArrUnique::ofArray([1, 1, 2, 3, 4, 5, 5]))->asArray()
+            ArrValues::new([1, 2, 3, 4, 5])->asArray(),
+            ArrValues::new(ArrUnique::new([1, 1, 2, 3, 4, 5, 5]))->asArray()
         );
         $this->assertEquals(
-            ArrValues::ofArray([1, 2, 3, 4, 5])->asArray(),
-            ArrValues::ofArrayble(ArrUnique::ofArrayble(ArrayableOf::items(1, 1, 2, 3, 4, 5, 5)))->asArray()
+            ArrValues::new([1, 2, 3, 4, 5])->asArray(),
+            ArrValues::new(ArrUnique::new(ArrayableOf::items(1, 1, 2, 3, 4, 5, 5)))->asArray()
         );
     }
 }

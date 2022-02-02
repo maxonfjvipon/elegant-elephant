@@ -9,6 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Func\FuncOf;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Equality of.
@@ -16,78 +17,41 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class EqualityOf implements Logical
 {
-    /**
-     * @var Func $func
-     */
-    private Func $func;
+    use Overloadable;
 
     /**
-     * @param Text $text1
-     * @param Text $text2
-     * @return EqualityOf
-     * @throws Exception
+     * @var string|int|float|Text|array|Arrayable|Logical|Numerable
      */
-    public static function texts(Text $text1, Text $text2): EqualityOf
-    {
-        return EqualityOf::callable(fn() => $text1->asString() === $text2->asString());
-    }
+    private string|int|float|Text|array|Arrayable|Logical|Numerable $arg1;
 
     /**
-     * @param string $str1
-     * @param string $str2
-     * @return EqualityOf
+     * @var string|int|float|Text|array|Arrayable|Logical|Numerable
      */
-    public static function strings(string $str1, string $str2): EqualityOf
-    {
-        return EqualityOf::callable(fn() => $str1 === $str2);
-    }
+    private string|int|float|Text|array|Arrayable|Logical|Numerable $arg2;
 
     /**
-     * @param Arrayable $arr1
-     * @param Arrayable $arr2
+     * @param string|int|float|Text|array|Arrayable|Logical|Numerable $arg1
+     * @param string|int|float|Text|array|Arrayable|Logical|Numerable $arg2
      * @return EqualityOf
      */
-    public static function arrayables(Arrayable $arr1, Arrayable $arr2): EqualityOf
-    {
-        return EqualityOf::callable(fn() => $arr1->asArray() === $arr2->asArray());
-    }
-
-    /**
-     * @param array $arr1
-     * @param array $arr2
-     * @return EqualityOf
-     */
-    public static function arrays(array $arr1, array $arr2): EqualityOf
-    {
-        return EqualityOf::callable(fn() => $arr1 === $arr2);
-    }
-
-    /**
-     * @param Numerable $num1
-     * @param Numerable $num2
-     * @return EqualityOf
-     */
-    public static function numerables(Numerable $num1, Numerable $num2): EqualityOf
-    {
-        return EqualityOf::callable(fn() => $num1->asNumber() === $num2->asNumber());
-    }
-
-    /**
-     * @param callable $callable
-     * @return EqualityOf
-     */
-    private static function callable(callable $callable): EqualityOf
-    {
-        return new self(FuncOf::callable($callable));
+    public static function new(
+        string|int|float|Text|array|Arrayable|Logical|Numerable $arg1,
+        string|int|float|Text|array|Arrayable|Logical|Numerable $arg2
+    ) {
+        return new self($arg1, $arg2);
     }
 
     /**
      * Ctor.
-     * @param Func $func
+     * @param string|int|float|Text|array|Arrayable|Logical|Numerable $arg1
+     * @param string|int|float|Text|array|Arrayable|Logical|Numerable $arg2
      */
-    private function __construct(Func $func)
-    {
-        $this->func = $func;
+    public function __construct(
+        string|int|float|Text|array|Arrayable|Logical|Numerable $arg1,
+        string|int|float|Text|array|Arrayable|Logical|Numerable $arg2
+    ) {
+        $this->arg1 = $arg1;
+        $this->arg2 = $arg2;
     }
 
 
@@ -96,6 +60,16 @@ final class EqualityOf implements Logical
      */
     public function asBool(): bool
     {
-        return $this->func->apply();
+        $operands = self::overload([$this->arg1, $this->arg2], [[
+            'string',
+            'integer',
+            'double',
+            'array',
+            Text::class         => fn(Text $txt) => $txt->asString(),
+            Arrayable::class    => fn(Arrayable $arr) => $arr->asArray(),
+            Logical::class      => fn(Logical $logical) => $logical->asBool(),
+            Numerable::class    => fn(Numerable $num) => $num->asNumber()
+        ]]);
+        return $operands[0] === $operands[1];
     }
 }

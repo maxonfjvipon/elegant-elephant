@@ -4,39 +4,31 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 final class TxtLtrimmed implements Text
 {
-    /**
-     * @var Text $origin
-     */
-    private Text $origin;
+    use Overloadable;
 
     /**
-     * Ctor wrap.
-     * @param string $string
-     * @return TxtLtrimmed
+     * @var string|Text $origin
      */
-    public static function ofString(string $string): TxtLtrimmed
-    {
-        return TxtLtrimmed::ofText(TextOf::string($string));
-    }
+    private string|Text $origin;
 
     /**
-     * Ctor wrap.
-     * @param Text $text
+     * @param string|Text $text
      * @return TxtLtrimmed
      */
-    public static function ofText(Text $text): TxtLtrimmed
+    public static function new(string|Text $text): TxtLtrimmed
     {
         return new self($text);
     }
 
     /**
      * Ctor.
-     * @param Text $text
+     * @param string|Text $text
      */
-    private function __construct(Text $text)
+    public function __construct(string|Text $text)
     {
         $this->origin = $text;
     }
@@ -46,6 +38,9 @@ final class TxtLtrimmed implements Text
      */
     public function asString(): string
     {
-        return ltrim($this->origin->asString());
+        return ltrim(...self::overload([$this->origin], [[
+            'string',
+            Text::class => fn(Text $txt) => $txt->asString()
+        ]]));
     }
 }

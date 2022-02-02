@@ -24,19 +24,19 @@ class ArrValuesTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            ArrValues::ofArray($arr)->asArray()
+            ArrValues::new($arr)->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrValues::ofArrayble(ArrayableOf::array($arr))->asArray()
+            ArrValues::new(ArrayableOf::array($arr))->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrValues::ofArray($expected)->asArray()
+            (new ArrValues($expected))->asArray()
         );
         $this->assertNotEquals(
             $expected,
-            ArrValues::ofArray([
+            ArrValues::new([
                 0 => 2,
                 1 => 3,
                 2 => 4,

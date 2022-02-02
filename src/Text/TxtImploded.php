@@ -2,119 +2,79 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Imploded text.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-final class TxtImploded
+final class TxtImploded implements Text
 {
-    /**
-     * @var Text $separator
-     */
-    private Text $separator;
+    use Overloadable;
 
     /**
-     * Imploded with string
-     * @param string $separator
-     * @return TxtImplodedWith
+     * @var string|int|float|Text $separator
      */
-    public static function withString(string $separator): TxtImplodedWith
+    private float|int|string|Text $separator;
+
+    /**
+     * @var array $pieces
+     */
+    private array $pieces;
+
+    /**
+     * @param mixed ...$pieces
+     * @return TxtImploded
+     */
+    public static function withComma(...$pieces): TxtImploded
     {
-        return TxtImploded::withText(TextOf::string($separator));
+        return TxtImploded::new(",", ...$pieces);
     }
 
     /**
-     * Imploded with comma
-     * @return TxtImplodedWith
+     * @param string|int|float|Text $separator
+     * @param mixed ...$pieces
+     * @return TxtImploded
      */
-    public static function withComma(): TxtImplodedWith
+    public static function new(string|int|float|Text $separator, ...$pieces): TxtImploded
     {
-        return TxtImploded::withString(",");
+        return new self($separator, ...$pieces);
     }
 
     /**
-     * Imploded with text
-     * @param Text $separator
-     * @return TxtImplodedWith
+     * Ctor.
+     * @param string|int|float|Text $separator
+     * @param mixed ...$pieces
      */
-    public static function withText(Text $separator): TxtImplodedWith
+    public function __construct(string|int|float|Text $separator, ...$pieces)
     {
-        return new class($separator) implements TxtImplodedWith
-        {
-            /**
-             * @var Text $separator
-             */
-            private Text $separator;
+        $this->separator = $separator;
+        $this->pieces = $pieces;
+    }
 
-            /**
-             * Ctor.
-             * @param Text $separator
-             */
-            public function __construct(Text $separator)
-            {
-                $this->separator = $separator;
-            }
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function asString(): string
+    {
 
-            /**
-             * Imploded of texts
-             * @param Text ...$texts
-             * @return Text
-             */
-            public function ofTexts(Text ...$texts): Text
-            {
-                return self::ofStrings(
-                    ...ArrMapped::ofArray(
-                        $texts,
-                        fn(Text $txt) => $txt->asString()
-                    )->asArray()
-                );
-            }
+        return implode(
+            self::overload([$this->separator], $this->rules())[0],
+            self::overload([...$this->pieces], $this->rules())
+        );
+    }
 
-            /**
-             * Imploded of strings
-             * @param string ...$strings
-             * @return Text
-             */
-            public function ofStrings(string ...$strings): Text
-            {
-                return new class($this->separator, ...$strings) implements Text
-                {
-                    /**
-                     * @var Text $separator
-                     */
-                    private Text $separator;
-
-                    /**
-                     * @var string[] $texts
-                     */
-                    private array $pieces;
-
-                    /**
-                     * Ctor.
-                     * @param Text $separator
-                     * @param string ...$pieces
-                     */
-                    public function __construct(Text $separator, string ...$pieces)
-                    {
-                        $this->separator = $separator;
-                        $this->pieces = $pieces;
-                    }
-
-                    /**
-                     * @inheritDoc
-                     */
-                    public function asString(): string
-                    {
-                        return implode(
-                            $this->separator->asString(),
-                            $this->pieces
-                        );
-                    }
-                };
-            }
-        };
+    private function rules(): array
+    {
+        return [[
+            'string',
+            'double' => fn(float $fl) => (string)$fl,
+            'integer' => fn(int $int) => (string)$int,
+            'boolean' => fn(bool $bl) => $bl ? "true" : "false",
+            Text::class => fn(Text $txt) => $txt->asString()
+        ]];
     }
 }

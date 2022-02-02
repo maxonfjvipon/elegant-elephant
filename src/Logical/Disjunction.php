@@ -4,29 +4,32 @@ namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 final class Disjunction implements Logical
 {
 
+    use Overloadable;
+
     /**
-     * @var Logical[] $args
+     * @var Logical[]|bool[] $args
      */
     private array $args;
 
     /**
-     * @param Logical ...$args
+     * @param Logical|bool ...$args
      * @return Disjunction
      */
-    public static function new(Logical ...$args): Disjunction
+    public static function new(Logical|bool ...$args): Disjunction
     {
         return new self(...$args);
     }
 
     /**
      * Ctor.
-     * @param Logical ...$args
+     * @param Logical|bool ...$args
      */
-    private function __construct(Logical ...$args)
+    public function __construct(Logical|bool ...$args)
     {
         $this->args = $args;
     }
@@ -36,7 +39,10 @@ final class Disjunction implements Logical
      */
     public function asBool(): bool
     {
-        foreach ($this->args as $arg) {
+        foreach (self::overload($this->args, [[
+            'boolean' => fn(bool $bool) => LogicalOf::bool($bool),
+            Logical::class
+        ]]) as $arg) {
             if ($arg->asBool()) {
                 return true;
             }

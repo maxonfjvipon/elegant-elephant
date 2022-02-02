@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Array keys.
@@ -11,39 +12,30 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrKeys implements Arrayable
 {
+    use Overloadable;
 
     /**
-     * @var Arrayable $arrayable
+     * @var array|Arrayable $arrayable
      */
-    private Arrayable $arrayable;
-
-    /**
-     * Ctor wrap.
-     * @param array $array
-     * @return ArrKeys
-     */
-    public static function ofArray(array $array): ArrKeys
-    {
-        return ArrKeys::ofArrayble(ArrayableOf::array($array));
-    }
+    private array|Arrayable $arr;
 
     /**
      * Ctor wrap.
-     * @param Arrayable $arrayable
+     * @param array|Arrayable $arr
      * @return ArrKeys
      */
-    public static function ofArrayble(Arrayable $arrayable): ArrKeys
+    public static function new(array|Arrayable $arr): ArrKeys
     {
-        return new self($arrayable);
+        return new self($arr);
     }
 
     /**
      * Ctor.
-     * @param Arrayable $arrayable
+     * @param array|Arrayable $arr
      */
-    private function __construct(Arrayable $arrayable)
+    public function __construct(array|Arrayable $arr)
     {
-        $this->arrayable = $arrayable;
+        $this->arr = $arr;
     }
 
     /**
@@ -51,6 +43,9 @@ final class ArrKeys implements Arrayable
      */
     public function asArray(): array
     {
-        return array_keys($this->arrayable->asArray());
+        return array_keys(...self::overload([$this->arr], [[
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]]));
     }
 }

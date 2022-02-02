@@ -2,64 +2,57 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Proc;
 
+use Closure;
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Func;
 use Maxonfjvipon\Elegant_Elephant\Proc;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * ForEach.
  * Experimental.
  * @package Maxonfjvipon\Elegant_Elephant\Proc
  */
-final class Cycle
+final class Cycle implements Proc
 {
+    use Overloadable;
+
     /**
-     * @param callable $callback
-     * @return Proc
+     * @var Func|Proc|Closure|callable $callback
      */
-    public static function withCallable(callable $callback): Proc
+    private $function;
+
+    /**
+     * @param Func|Proc|Closure|callable $func
+     * @return Cycle
+     */
+    public static function new(Func|Proc|Closure|callable $func): Cycle
     {
-        return Cycle::withProc(ProcOf::callable($callback));
+        return new self($func);
     }
 
     /**
-     * @param Func $func
-     * @return Proc
+     * ProcOf constructor.
+     * @param Func|Proc|callable $func
      */
-    public static function withFunc(Func $func): Proc
+    public function __construct(Func|Proc|callable $func)
     {
-        return Cycle::withProc(ProcOf::func($func));
+        $this->function = $func;
     }
 
     /**
-     * @param Proc $proc
-     * @return Proc
+     * @param iterable|array $args
+     * @throws Exception
      */
-    public static function withProc(Proc $proc): Proc
+    public function exec(iterable $args = []): void
     {
-        return new class($proc) implements Proc {
-            /**
-             * @var Proc $proc
-             */
-            private Proc $proc;
-
-            /**
-             * Ctor.
-             * @param Proc $proc
-             */
-            public function __construct(Proc $proc)
-            {
-                $this->proc = $proc;
-            }
-
-            /**
-             * @param iterable $args
-             */
-            public function exec(iterable $args = []): void
-            {
-                foreach ($args as $item) {
-                    $this->proc->exec($item);
-                }
-            }
-        };
+        foreach ($args as $item) {
+            self::overload([$this->function], [[
+                'callable',
+                Closure::class,
+                Func::class => fn(Func $func) => fn(...$items) => $func->apply([...$items]),
+                Proc::class => fn(Proc $proc) => fn(...$items) => $proc->exec([...$items]),
+            ]])[0]($item);
+        }
     }
 }

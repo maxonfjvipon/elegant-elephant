@@ -16,15 +16,15 @@ class TxtJoinedTest extends TestCase
     {
         $this->assertEquals(
             "foobar",
-            TxtJoined::ofStrings("foo", "bar")->asString()
+            TxtJoined::new("foo", "bar")->asString()
         );
         $this->assertEquals(
-            "foobar",
-            TxtJoined::ofTexts(TextOf::string("foo"), TextOf::string("bar"))->asString(),
+            "foobar12.2",
+            TxtJoined::new(TextOf::new("foo"), "bar", 1, 2.2)->asString(),
         );
-        $this->assertNotEquals(
-            "foobar",
-            TxtJoined::ofStrings("fooo", "bar")->asString()
+        $this->assertEquals(
+            "foobartrue",
+            TxtJoined::new("foo", TextOf::new("bar"), true)->asString()
         );
     }
 }

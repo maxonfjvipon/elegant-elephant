@@ -2,9 +2,8 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
-use TypeError;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Numerable of.
@@ -12,52 +11,40 @@ use TypeError;
  */
 final class NumerableOf implements Numerable
 {
-    /**
-     * @var string $origin
-     */
-    private string $origin;
+    use Overloadable;
 
     /**
-     * @param float $num
-     * @return NumerableOf
+     * @var float|int|string $origin
      */
-    public static function float(float $num): NumerableOf
-    {
-        return NumerableOf::string($num);
-    }
+    private float|int|string $origin;
 
     /**
-     * @param int $num
+     * @param float|int|string $num
      * @return NumerableOf
      */
-    public static function int(int $num): NumerableOf
+    public static function new(float|int|string $num): NumerableOf
     {
-        return NumerableOf::string($num);
-    }
-
-    /**
-     * @param string $str
-     * @return NumerableOf
-     */
-    public static function string(string $str): NumerableOf
-    {
-        return new self($str);
+        return new self($num);
     }
 
     /**
      * Ctor.
-     * @param string $str
+     * @param float|int|string $num
      */
-    private function __construct(string $str)
+    public function __construct(float|int|string $num)
     {
-        $this->origin = $str;
+        $this->origin = $num;
     }
 
     /**
      * @inheritDoc
      */
-    public function asNumber(): string
+    public function asNumber(): float|int
     {
-        return $this->origin;
+        return self::overload([$this->origin], [[
+            'double',
+            'integer',
+            'string' => fn(string $num) => $num * 1
+        ]])[0];
     }
 }

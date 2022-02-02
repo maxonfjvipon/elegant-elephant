@@ -16,11 +16,11 @@ class TxtTrimmedTest extends TestCase
     {
         $this->assertEquals(
             "Hello world",
-            TxtTrimmed::ofString("  Hello world\r")->asString()
+            TxtTrimmed::new("  Hello world\r")->asString()
         );
         $this->assertEquals(
             "Hello world",
-            TxtTrimmed::ofText(TextOf::string("\r\rHello world\n\t"))->asString()
+            TxtTrimmed::new(TextOf::new("\r\rHello world\n\t"))->asString()
         );
     }
 }

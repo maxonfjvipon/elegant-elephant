@@ -12,8 +12,9 @@ use TypeError;
 interface Numerable
 {
     /**
-     * @return string
-     * @throws Exception|TypeError
+     * @return float|int
+     * @throws Exception
+     * @throws TypeError
      */
-    public function asNumber(): string;
+    public function asNumber(): float|int;
 }

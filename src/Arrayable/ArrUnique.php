@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable unique.
@@ -11,38 +12,30 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrUnique implements Arrayable
 {
+    use Overloadable;
+
     /**
-     * @var Arrayable $arrayable
+     * @var array|Arrayable $arr
      */
-    private Arrayable $arrayable;
+    private array|Arrayable $arr;
 
     /**
      * Ctor wrap.
-     * @param array $array
+     * @param array|Arrayable $arr
      * @return ArrUnique
      */
-    public static function ofArray(array $array): ArrUnique
+    public static function new(array|Arrayable $arr): ArrUnique
     {
-        return ArrUnique::ofArrayble(ArrayableOf::array($array));
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Arrayable $arrayable
-     * @return ArrUnique
-     */
-    public static function ofArrayble(Arrayable $arrayable): ArrUnique
-    {
-        return new self($arrayable);
+        return new self($arr);
     }
 
     /**
      * Ctor.
-     * @param Arrayable $arrayable
+     * @param array|Arrayable $arr
      */
-    private function __construct(Arrayable $arrayable)
+    public function __construct(array|Arrayable $arr)
     {
-        $this->arrayable = $arrayable;
+        $this->arr = $arr;
     }
 
     /**
@@ -50,6 +43,9 @@ final class ArrUnique implements Arrayable
      */
     public function asArray(): array
     {
-        return array_unique($this->arrayable->asArray());
+        return array_unique(self::overload([$this->arr], [[
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]])[0]);
     }
 }

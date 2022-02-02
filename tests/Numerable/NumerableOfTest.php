@@ -15,15 +15,15 @@ class NumerableOfTest extends TestCase
     {
         $this->assertEquals(
             5,
-            NumerableOf::int(5)->asNumber()
+            NumerableOf::new(5)->asNumber()
         );
         $this->assertEquals(
             6,
-            NumerableOf::string("6")->asNumber()
+            NumerableOf::new("6")->asNumber()
         );
         $this->assertEquals(
             7.1,
-            NumerableOf::float(7.1)->asNumber()
+            NumerableOf::new(7.1)->asNumber()
         );
     }
 }

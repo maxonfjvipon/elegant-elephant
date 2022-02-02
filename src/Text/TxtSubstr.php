@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Substring of.
@@ -11,10 +12,12 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtSubstr implements Text
 {
+    use Overloadable;
+
     /**
-     * @var Text $text
+     * @var string|Text $text
      */
-    private Text $text;
+    private string|Text $text;
 
     /**
      * @var int $offset
@@ -27,36 +30,23 @@ final class TxtSubstr implements Text
     private ?int $length;
 
     /**
-     * Ctor wrap.
-     * @param string $str
+     * @param string|Text $txt
      * @param int $offset
-     * @param null $length
+     * @param int|null $length
      * @return TxtSubstr
      */
-    public static function ofString(string $str, int $offset, $length = null): TxtSubstr
+    public static function new(string|Text $txt, int $offset, int $length = null): TxtSubstr
     {
-        return TxtSubstr::ofText(TextOf::string($str), $offset, $length);
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Text $text
-     * @param int $offset
-     * @param null $length
-     * @return TxtSubstr
-     */
-    public static function ofText(Text $text, int $offset, $length = null): TxtSubstr
-    {
-        return new self($text, $offset, $length);
+        return new self($txt, $offset, $length);
     }
 
     /**
      * Ctor.
-     * @param Text $text
+     * @param string|Text $text
      * @param int $offset
      * @param int|null $length
      */
-    private function __construct(Text $text, int $offset, ?int $length)
+    public function __construct(string|Text $text, int $offset, int $length = null)
     {
         $this->text = $text;
         $this->offset = $offset;
@@ -68,6 +58,9 @@ final class TxtSubstr implements Text
      */
     public function asString(): string
     {
-        return substr($this->text->asString(), $this->offset, $this->length);
+        return substr(self::overload([$this->text], [[
+            'string',
+            Text::class => fn(Text $txt) => $txt->asString()
+        ]])[0], $this->offset, $this->length);
     }
 }

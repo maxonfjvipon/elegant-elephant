@@ -2,107 +2,69 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Array exploded
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrExploded
+final class ArrExploded implements Arrayable
 {
+    use Overloadable;
+
     /**
-     * Exploded by string
-     * @param string $separator
-     * @return ArrExplodedBy
+     * @var Text|string $separator
      */
-    public static function byString(string $separator): ArrExplodedBy
-    {
-        return ArrExploded::byText(TextOf::string($separator));
-    }
+    private string|Text $separator;
+
+    /**
+     * @var Text|string $text
+     */
+    private string|Text $text;
 
     /**
      * Exploded by comma
-     * @return ArrExplodedBy
+     * @param string|Text $text
+     * @return ArrExploded
      */
-    public static function byComma(): ArrExplodedBy
+    public static function byComma(string|Text $text): ArrExploded
     {
-        return ArrExploded::byText(TextOf::string(","));
+        return ArrExploded::new(",", $text);
     }
 
     /**
-     * Exploded by text
-     * @param Text $separator
-     * @return ArrExplodedBy
+     * @param string|Text $separator
+     * @param string|Text $text
+     * @return ArrExploded
      */
-    public static function byText(Text $separator): ArrExplodedBy
+    public static function new(string|Text $separator, string|Text $text): ArrExploded
     {
-        return new class($separator) implements ArrExplodedBy
-        {
-            /**
-             * @var Text $separator
-             */
-            private Text $separator;
+        return new self($separator, $text);
+    }
 
-            /**
-             * Ctor.
-             * @param Text $separator
-             */
-            public function __construct(Text $separator)
-            {
-                $this->separator = $separator;
-            }
+    /**
+     * Ctor.
+     * @param string|Text $separator
+     * @param string|Text $text
+     */
+    public function __construct(string|Text $separator, string|Text $text)
+    {
+        $this->separator = $separator;
+        $this->text = $text;
+    }
 
-            /**
-             * Exploded of string
-             * @param string $str
-             * @return Arrayable
-             */
-            public function ofString(string $str): Arrayable
-            {
-                return $this->ofText(TextOf::string($str));
-            }
-
-            /**
-             * Exploded of text
-             * @param Text $text
-             * @return Arrayable
-             */
-            public function ofText(Text $text): Arrayable
-            {
-                return new class($this->separator, $text) implements Arrayable
-                {
-                    /**
-                     * @var Text $separator
-                     */
-                    private Text $separator;
-
-                    /**
-                     * @var Text $text
-                     */
-                    private Text $text;
-
-                    /**
-                     * Ctor.
-                     * @param Text $separator
-                     * @param Text $text
-                     */
-                    public function __construct(Text $separator, Text $text)
-                    {
-                        $this->separator = $separator;
-                        $this->text = $text;
-                    }
-
-                    /**
-                     * @inheritDoc
-                     */
-                    public function asArray(): array
-                    {
-                        return explode($this->separator->asString(), $this->text->asString());
-                    }
-                };
-            }
-        };
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function asArray(): array
+    {
+        return explode(...self::overload([$this->separator, $this->text], [[
+            'string',
+            Text::class => fn(Text $txt) => $txt->asString()
+        ]]));
     }
 }

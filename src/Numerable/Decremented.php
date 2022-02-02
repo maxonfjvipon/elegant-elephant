@@ -11,24 +11,24 @@ use Maxonfjvipon\Elegant_Elephant\Numerable;
 final class Decremented implements Numerable
 {
     /**
-     * @var Numerable $origin
+     * @var float|int|string|Numerable $origin
      */
-    private Numerable $origin;
+    private float|int|string|Numerable $origin;
 
     /**
-     * @param Numerable $origin
+     * @param float|int|Numerable $origin
      * @return Decremented
      */
-    public static function new(Numerable $origin): Decremented
+    public static function new(float|int|string|Numerable $origin): Decremented
     {
         return new self($origin);
     }
 
     /**
      * Ctor.
-     * @param Numerable $origin
+     * @param float|int|string|Numerable $origin
      */
-    private function __construct(Numerable $origin)
+    public function __construct(float|int|string|Numerable $origin)
     {
         $this->origin = $origin;
     }
@@ -36,11 +36,8 @@ final class Decremented implements Numerable
     /**
      * @inheritDoc
      */
-    public function asNumber(): string
+    public function asNumber(): float|int
     {
-        return Subtraction::new(
-            $this->origin,
-            NumerableOf::int(1)
-        )->asNumber();
+        return Addition::new($this->origin, -1)->asNumber();
     }
 }

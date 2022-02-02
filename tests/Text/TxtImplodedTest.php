@@ -16,35 +16,19 @@ class TxtImplodedTest extends TestCase
     {
         $this->assertEquals(
             "foo-bar",
-            TxtImploded::withString("-")->ofStrings("foo", "bar")->asString()
+            TxtImploded::new("-", "foo", "bar")->asString()
         );
         $this->assertEquals(
             "foo-bar",
-            TxtImploded::withString("-")->ofTexts(TextOf::string("foo"), TextOf::string("bar"))->asString()
+            TxtImploded::new("-", TextOf::new("foo"), "bar")->asString()
         );
         $this->assertEquals(
-            "foo-bar",
-            TxtImploded::withText(TextOf::string("-"))->ofStrings("foo", "bar")->asString()
+            "foo-bar-1-1.1-true",
+            TxtImploded::new("-", TextOf::new("foo"), TextOf::new("bar"), 1, 1.1, true)->asString()
         );
-        $this->assertEquals(
-            "foo-bar",
-            TxtImploded::withText(TextOf::string("-"))
-                ->ofTexts(TextOf::string("foo"), TextOf::string("bar"))->asString()
-        );
-        $this->assertNotEquals(
-            "foo-bar",
-            TxtImploded::withString(",")->ofStrings("foo", "bar")->asString()
-        );
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testWithComma(): void
-    {
         $this->assertEquals(
             "foo,bar",
-            TxtImploded::withComma()->ofStrings("foo", "bar")->asString()
+            TxtImploded::withComma("foo", TextOf::new("bar"))->asString()
         );
     }
 }

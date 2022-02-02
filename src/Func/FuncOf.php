@@ -2,8 +2,10 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Func;
 
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Func;
 use Maxonfjvipon\Elegant_Elephant\Proc;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * FuncOf.
@@ -11,36 +13,28 @@ use Maxonfjvipon\Elegant_Elephant\Proc;
  */
 final class FuncOf implements Func
 {
+    use Overloadable;
+
     /**
-     * @var callable $function
+     * @var Closure|Func|Proc|callable $function
      */
     private $function;
 
     /**
      * Ctor wrap.
-     * @param Proc $proc
+     * @param Func|Proc|Closure|callable $function
      * @return FuncOf
      */
-    public static function proc(Proc $proc): FuncOf
+    public static function new(Func|Proc|Closure|callable $function): FuncOf
     {
-        return FuncOf::callable(static fn(mixed ...$args) => $proc->exec(...$args));
-    }
-
-    /**
-     * Ctor wrap.
-     * @param callable $callback
-     * @return FuncOf
-     */
-    public static function callable(callable $callback): FuncOf
-    {
-        return new self($callback);
+        return new self($function);
     }
 
     /**
      * Ctor.
-     * @param callable $func
+     * @param Func|Proc|Closure|callable $func
      */
-    private function __construct(callable $func)
+    public function __construct(Func|Proc|Closure|callable $func)
     {
         $this->function = $func;
     }
@@ -50,6 +44,11 @@ final class FuncOf implements Func
      */
     public function apply(iterable $args = []): mixed
     {
-        return call_user_func($this->function, ...$args);
+        return call_user_func(...self::overload([$this->function], [[
+            'callable',
+            Closure::class,
+            Proc::class => fn(Proc $proc) => fn(...$args) => $proc->exec(...$args),
+            Func::class => fn(Func $func) => fn(...$args) => $func->apply(...$args),
+        ]]), ...$args);
     }
 }

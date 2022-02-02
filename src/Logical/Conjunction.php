@@ -3,28 +3,31 @@
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 final class Conjunction implements Logical
 {
+    use Overloadable;
+
     /**
-     * @var Logical[] $args
+     * @var Logical[]|bool[] $args
      */
     private array $args;
 
     /**
-     * @param Logical ...$args
+     * @param Logical|bool ...$args
      * @return Conjunction
      */
-    public static function new(Logical ...$args): Conjunction
+    public static function new(Logical|bool ...$args): Conjunction
     {
         return new self(...$args);
     }
 
     /**
      * Ctor.
-     * @param Logical ...$args
+     * @param Logical|bool ...$args
      */
-    private function __construct(Logical ...$args)
+    public function __construct(Logical|bool ...$args)
     {
         $this->args = $args;
     }
@@ -34,7 +37,10 @@ final class Conjunction implements Logical
      */
     public function asBool(): bool
     {
-        foreach ($this->args as $arg) {
+        foreach (self::overload($this->args, [[
+            'boolean' => fn(bool $bool) => LogicalOf::bool($bool),
+            Logical::class
+        ]]) as $arg) {
             if (!$arg->asBool()) {
                 return false;
             }

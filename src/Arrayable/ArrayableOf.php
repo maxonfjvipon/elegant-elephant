@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable of.
@@ -11,36 +12,36 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrayableOf implements Arrayable
 {
+    use Overloadable;
+
     /**
      * @var array $array
      */
     private array $array;
 
     /**
-     * Ctor wrap.
      * @param mixed ...$items
      * @return ArrayableOf
      */
     public static function items(...$items): ArrayableOf
     {
-        return ArrayableOf::array($items);
+        return new self($items);
     }
 
     /**
-     * Ctor wrap.
-     * @param array $array
+     * @param array $arr
      * @return ArrayableOf
      */
-    public static function array(array $array): ArrayableOf
+    public static function array(array $arr): ArrayableOf
     {
-        return new self($array);
+        return new self($arr);
     }
 
     /**
      * Ctor.
      * @param array $arr
      */
-    private function __construct(array $arr)
+    public function __construct(array $arr)
     {
         $this->array = $arr;
     }

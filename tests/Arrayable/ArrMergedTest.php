@@ -19,19 +19,19 @@ class ArrMergedTest extends TestCase
         $arr = [1, 2, "hello", "world"];
         $this->assertEquals(
             $arr,
-            ArrMerged::ofArrays([1, 2], ["hello", "world"])->asArray()
+            (new ArrMerged([1, 2], ["hello", "world"]))->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrMerged::ofArrayables(ArrayableOf::array([1, 2]), ArrayableOf::array(["hello", "world"]))->asArray()
+            ArrMerged::new(ArrayableOf::array([1, 2]), ["hello", "world"])->asArray()
         );
         $this->assertNotEquals(
             $arr,
-            ArrMerged::ofArrays([1, 2], [1, 2])->asArray()
+            ArrMerged::new([1, 2], ArrayableOf::items(1, 2))->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrMerged::ofArrayables(ArrayableOf::array($arr), ArrayableOf::array([]))->asArray()
+            ArrMerged::new(ArrayableOf::array($arr), [], [])->asArray()
         );
     }
 }

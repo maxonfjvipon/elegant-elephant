@@ -2,10 +2,11 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Key exists.
@@ -13,10 +14,12 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
  */
 final class KeyExists implements Logical
 {
+    use Overloadable;
+
     /**
-     * @var Arrayable $arr
+     * @var array|Arrayable $arr
      */
-    private Arrayable $arr;
+    private array|Arrayable $arr;
 
     /**
      * @var mixed $key
@@ -25,20 +28,10 @@ final class KeyExists implements Logical
 
     /**
      * @param mixed $key
-     * @param array $array
+     * @param array|Arrayable $arr
      * @return KeyExists
      */
-    public static function inArray(mixed $key, array $array): KeyExists
-    {
-        return KeyExists::inArryable($key, ArrayableOf::array($array));
-    }
-
-    /**
-     * @param mixed $key
-     * @param Arrayable $arr
-     * @return KeyExists
-     */
-    public static function inArryable(mixed $key, Arrayable $arr): KeyExists
+    public static function new(mixed $key, array|Arrayable $arr): KeyExists
     {
         return new self($key, $arr);
     }
@@ -46,9 +39,9 @@ final class KeyExists implements Logical
     /**
      * Ctor.
      * @param mixed $key
-     * @param Arrayable $arr
+     * @param array|Arrayable $arr
      */
-    private function __construct(mixed $key, Arrayable $arr)
+    public function __construct(mixed $key, array|Arrayable $arr)
     {
         $this->key = $key;
         $this->arr = $arr;
@@ -59,6 +52,16 @@ final class KeyExists implements Logical
      */
     public function asBool(): bool
     {
-        return array_key_exists($this->key, $this->arr->asArray());
+        return array_key_exists(...self::overload([$this->key, $this->arr], [[
+            'integer',
+            'double',
+            'string',
+            'boolean',
+            Text::class         => fn(Text $txt) => $txt->asString(),
+            Numerable::class    => fn(Numerable $numerable) => $numerable->asNumber()
+        ], [
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]]));
     }
 }

@@ -19,7 +19,7 @@ class TxtTernatyTest extends TestCase
     {
         $this->assertEquals(
             "foo",
-            TxtTernary::ofStrings(
+            TxtTernary::new(
                 Truth::new(),
                 "foo",
                 "bar"
@@ -27,10 +27,10 @@ class TxtTernatyTest extends TestCase
         );
         $this->assertEquals(
             "bar",
-            TxtTernary::ofTexts(
-                Untruth::new(),
-                TextOf::string("foo"),
-                TextOf::string("bar")
+            TxtTernary::new(
+                false,
+                TextOf::new("foo"),
+                TextOf::new("bar")
             )->asString()
         );
     }

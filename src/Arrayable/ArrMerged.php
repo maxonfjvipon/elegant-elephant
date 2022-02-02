@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable merged of.
@@ -11,45 +12,30 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrMerged implements Arrayable
 {
+    use Overloadable;
+
     /**
      * @var Arrayable[] $arrayables
      */
-    private array $arrayables;
+    private array $arrs;
 
     /**
      * Ctor wrap.
-     * @param array ...$arrays
+     * @param array|Arrayable ...$arrs
      * @return ArrMerged
-     * @throws Exception
      */
-    public static function ofArrays(array ...$arrays): ArrMerged
+    public static function new(array|Arrayable ...$arrs): ArrMerged
     {
-        return ArrMerged::ofArrayables(
-            ...array_map(
-                fn(array $arr) => ArrayableOf::array($arr),
-                $arrays
-            )
-        );
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Arrayable ...$arrayables
-     * @return ArrMerged
-     * @throws Exception
-     */
-    public static function ofArrayables(Arrayable ...$arrayables): ArrMerged
-    {
-        return new self(...$arrayables);
+        return new self(...$arrs);
     }
 
     /**
      * Ctor.
-     * @param Arrayable ...$arrayables
+     * @param array|Arrayable ...$arrs
      */
-    private function __construct(Arrayable ...$arrayables)
+    public function __construct(array|Arrayable ...$arrs)
     {
-        $this->arrayables = $arrayables;
+        $this->arrs = $arrs;
     }
 
     /**
@@ -57,11 +43,9 @@ final class ArrMerged implements Arrayable
      */
     public function asArray(): array
     {
-        return array_merge(
-            ...ArrMapped::ofArray(
-                $this->arrayables,
-                fn(Arrayable $arrayable) => $arrayable->asArray()
-            )->asArray()
-        );
+        return array_merge(...self::overload($this->arrs, [[
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]]));
     }
 }

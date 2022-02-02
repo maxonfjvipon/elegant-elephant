@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text lowered of.
@@ -11,36 +12,28 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtLowered implements Text
 {
+    use Overloadable;
+
     /**
-     * @var Text $text
+     * @var string|Text $text
      */
-    private Text $text;
+    private string|Text $text;
 
     /**
      * Ctor wrap.
-     * @param string $str
+     * @param string|Text $text
      * @return TxtLowered
      */
-    public static function ofString(string $str): TxtLowered
-    {
-        return TxtLowered::ofText(TextOf::string($str));
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Text $text
-     * @return TxtLowered
-     */
-    public static function ofText(Text $text): TxtLowered
+    public static function new(string|Text $text)
     {
         return new self($text);
     }
 
     /**
      * Ctor.
-     * @param Text $txt
+     * @param string|Text $txt
      */
-    private function __construct(Text $txt)
+    public function __construct(string|Text $txt)
     {
         $this->text = $txt;
     }
@@ -50,6 +43,9 @@ final class TxtLowered implements Text
      */
     public function asString(): string
     {
-        return strtolower($this->text->asString());
+        return strtolower(...self::overload([$this->text], [[
+            'string',
+            Text::class => fn(Text $text) => $text->asString()
+        ]]));
     }
 }

@@ -4,36 +4,39 @@ namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 use TypeError;
 
 final class Addition implements Numerable
 {
-    /**
-     * @var Numerable $addTo
-     */
-    private Numerable $addTo;
+    use Overloadable;
 
     /**
-     * @var Numerable $toAdd
+     * @var float|int|string|Numerable $addTo
      */
-    private Numerable $toAdd;
+    private float|int|string|Numerable $addTo;
 
     /**
-     * @param Numerable $addTo
-     * @param Numerable $toAdd
+     * @var float|int|string|Numerable $toAdd
+     */
+    private float|int|string|Numerable $toAdd;
+
+    /**
+     * @param float|int|string|Numerable $addTo
+     * @param float|int|string|Numerable $toAdd
      * @return Addition
      */
-    public static function new(Numerable $addTo, Numerable $toAdd): Addition
+    public static function new(float|int|string|Numerable $addTo, float|int|string|Numerable $toAdd): Addition
     {
         return new self($addTo, $toAdd);
     }
 
     /**
      * Ctor.
-     * @param Numerable $addTo
-     * @param Numerable $toAdd
+     * @param float|int|string|Numerable $addTo
+     * @param float|int|string|Numerable $toAdd
      */
-    private function __construct(Numerable $addTo, Numerable $toAdd)
+    public function __construct(float|int|string|Numerable $addTo, float|int|string|Numerable $toAdd)
     {
         $this->addTo = $addTo;
         $this->toAdd = $toAdd;
@@ -42,8 +45,14 @@ final class Addition implements Numerable
     /**
      * @inheritDoc
      */
-    public function asNumber(): string
+    public function asNumber(): float|int
     {
-        return +$this->addTo->asNumber() + +$this->toAdd->asNumber();
+        $operands = self::overload([$this->addTo, $this->toAdd], [[
+            'double',
+            'integer',
+            'string' => fn(string $str) => $str * 1,
+            Numerable::class => fn(Numerable $numerable) => $numerable->asNumber()
+        ]]);
+        return $operands[0] + $operands[1];
     }
 }

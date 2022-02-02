@@ -19,39 +19,21 @@ final class TxtJoined implements Text
     private array $args;
 
     /**
-     * Ctor wrap.
-     * @param Text ...$texts
+     * @param mixed ...$args
      * @return TxtJoined
-     * @throws Exception
      */
-    public static function ofTexts(Text ...$texts): TxtJoined
+    public static function new(...$args): TxtJoined
     {
-        return TxtJoined::ofStrings(
-            ...ArrMapped::ofArray(
-                $texts,
-                fn(Text $txt) => $txt->asString()
-            )->asArray()
-        );
-    }
-
-    /**
-     * Ctor wrap.
-     * @param string ...$strings
-     * @return TxtJoined
-     * @throws Exception
-     */
-    public static function ofStrings(string ...$strings): TxtJoined
-    {
-        return new self(...$strings);
+        return new self(...$args);
     }
 
     /**
      * Ctor.
-     * @param string ...$texts
+     * @param mixed ...$args
      */
-    private function __construct(string ...$texts)
+    public function __construct(...$args)
     {
-        $this->args = $texts;
+        $this->args = $args;
     }
 
     /**
@@ -59,8 +41,6 @@ final class TxtJoined implements Text
      */
     public function asString(): string
     {
-        return TxtImploded::withText(TxtBlank::new())
-            ->ofStrings(...$this->args)
-            ->asString();
+        return TxtImploded::new(TxtBlank::new(), ...$this->args)->asString();
     }
 }

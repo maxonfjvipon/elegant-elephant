@@ -19,19 +19,19 @@ class ArrSortedTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            ArrSorted::ofArray($arr)->asArray()
+            ArrSorted::new($arr)->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrSorted::ofArrayable(ArrayableOf::array($arr))->asArray()
+            (new ArrSorted(ArrayableOf::array($arr)))->asArray()
         );
         $this->assertEquals(
             [4, 3, 2, 1],
-            ArrSorted::ofArray($arr, fn($a, $b) => $a >= $b ? -1 : 1)->asArray()
+            ArrSorted::new($arr, fn($a, $b) => $a >= $b ? -1 : 1)->asArray()
         );
         $this->assertNotEquals(
             [4, 3, 2, 1],
-            ArrSorted::ofArray($arr)->asArray()
+            ArrSorted::new($arr)->asArray()
         );
     }
 }

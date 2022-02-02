@@ -16,9 +16,9 @@ class LengthOfTest extends TestCase
      */
     public function testAsNumber()
     {
-        assertEquals(3, LengthOf::string("foo")->asNumber());
-        assertEquals(6, LengthOf::text(TextOf::string("foobar"))->asNumber());
-        assertEquals(2, LengthOf::array([1, 2])->asNumber());
-        assertEquals(3, LengthOf::arrayble(ArrayableOf::array([1, 2, 3]))->asNumber());
+        assertEquals(3, LengthOf::new("foo")->asNumber());
+        assertEquals(6, LengthOf::new(TextOf::new("foobar"))->asNumber());
+        assertEquals(2, LengthOf::new([1, 2])->asNumber());
+        assertEquals(3, LengthOf::new(ArrayableOf::array([1, 2, 3]))->asNumber());
     }
 }

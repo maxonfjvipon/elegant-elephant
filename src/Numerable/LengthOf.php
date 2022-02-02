@@ -8,6 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Func;
 use Maxonfjvipon\Elegant_Elephant\Func\FuncOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 use TypeError;
 
 /**
@@ -16,73 +17,42 @@ use TypeError;
  */
 final class LengthOf implements Numerable
 {
-    /**
-     * @var Func $callback
-     */
-    private Func $func;
+    use Overloadable;
 
     /**
-     * @param Text $text
-     * @return LengthOf
-     * @throws Exception
+     * @var array|Arrayable|Text|string $arg
      */
-    public static function text(Text $text): LengthOf
-    {
-        return LengthOf::callable(fn() => strlen($text->asString()));
-    }
+    private Text|string|array|Arrayable $arg;
 
     /**
-     * @param string $string
+     * @param Text|string|array|Arrayable $arg
      * @return LengthOf
      */
-    public static function string(string $string): LengthOf
+    public static function new(Text|string|array|Arrayable $arg): LengthOf
     {
-        return LengthOf::callable(fn() => strlen($string));
-    }
-
-    /**
-     * @param Arrayable $arrayable
-     * @return LengthOf
-     * @throws Exception
-     */
-    public static function arrayble(Arrayable $arrayable): LengthOf
-    {
-        return LengthOf::callable(fn() => count($arrayable->asArray()));
-    }
-
-    /**
-     * @param array $arr
-     * @return LengthOf
-     */
-    public static function array(array $arr): LengthOf
-    {
-        return LengthOf::callable(fn() => count($arr));
-    }
-
-    /**
-     * @param callable $callback
-     * @return LengthOf
-     */
-    private static function callable(callable $callback): LengthOf
-    {
-        return new self(FuncOf::callable($callback));
+        return new self($arg);
     }
 
     /**
      * Ctor.
-     * @param Func $func
+     * @param Text|string|array|Arrayable $arg
      */
-    private function __construct(Func $func)
+    public function __construct(Text|string|array|Arrayable $arg)
     {
-        $this->func = $func;
+        $this->arg = $arg;
     }
 
     /**
      * @inheritDoc
      * @throws Exception|TypeError
      */
-    public function asNumber(): string
+    public function asNumber(): float|int
     {
-        return $this->func->apply();
+        return self::overload([$this->arg], [[
+            'string'            => fn(string $str) => strlen($str),
+            'array'             => fn(array $arr) => count($arr),
+            Text::class         => fn(Text $text) => strlen($text->asString()),
+            Arrayable::class    => fn(Arrayable $arr) => count($arr->asArray())
+        ]])[0];
     }
 }

@@ -5,6 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * In array of.
@@ -12,10 +13,12 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
  */
 final class ContainsIn implements Logical
 {
+    use Overloadable;
+
     /**
-     * @var Arrayable $arrayable
+     * @var array|Arrayable $arr
      */
-    private Arrayable $arrayable;
+    private array|Arrayable $arr;
 
     /**
      * @var mixed $needle
@@ -29,37 +32,25 @@ final class ContainsIn implements Logical
 
     /**
      * Ctor wrap.
-     * @param array $arr
+     * @param array|Arrayable $arr
      * @param mixed $needle
      * @param bool $strict
      * @return ContainsIn
      */
-    public static function array(array $arr, mixed $needle, bool $strict = false): ContainsIn
-    {
-        return ContainsIn::arrayable(ArrayableOf::array($arr), $needle, $strict);
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Arrayable $arr
-     * @param mixed $needle
-     * @param bool $strict
-     * @return ContainsIn
-     */
-    public static function arrayable(Arrayable $arr, mixed $needle, bool $strict = false): ContainsIn
+    public static function new(array|Arrayable $arr, mixed $needle, bool $strict = false): ContainsIn
     {
         return new self($arr, $needle, $strict);
     }
 
     /**
      * Ctor.
-     * @param Arrayable $arrayable
+     * @param array|Arrayable $arr
      * @param mixed $needle
      * @param bool $strict
      */
-    public function __construct(Arrayable $arrayable, mixed $needle, bool $strict = false)
+    public function __construct(array|Arrayable $arr, mixed $needle, bool $strict = false)
     {
-        $this->arrayable = $arrayable;
+        $this->arr = $arr;
         $this->needle = $needle;
         $this->strict = $strict;
     }
@@ -69,6 +60,9 @@ final class ContainsIn implements Logical
      */
     public function asBool(): bool
     {
-        return in_array($this->needle, $this->arrayable->asArray(), $this->strict);
+        return in_array($this->needle, self::overload([$this->arr], [[
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]])[0], $this->strict);
     }
 }

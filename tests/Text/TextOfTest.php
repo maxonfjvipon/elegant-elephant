@@ -17,11 +17,19 @@ class TextOfTest extends TestCase
     {
         $this->assertEquals(
             "foo",
-            TextOf::string("foo")->asString()
+            TextOf::new("foo")->asString()
         );
-        $this->assertNotEquals(
+        $this->assertEquals(
+            "1",
+            TextOf::new(1)->asString()
+        );
+        $this->assertEquals(
+            "1.2",
+            TextOf::new(1.2)->asString()
+        );
+        $this->assertEquals(
             "foo",
-            TextOf::string("bar")->asString()
+            TextOf::new(TextOf::new("foo"))->asString()
         );
     }
 }

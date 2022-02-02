@@ -11,31 +11,31 @@ use Maxonfjvipon\Elegant_Elephant\Numerable;
 final class Subtraction implements Numerable
 {
     /**
-     * @var Numerable $toReduce
+     * @var float|int|Numerable $toReduce
      */
-    private Numerable $toReduce;
+    private float|int|Numerable $toReduce;
 
     /**
-     * @var Numerable $toSubtract
+     * @var float|int|Numerable $toSubtract
      */
-    private Numerable $toSubtract;
+    private float|int|Numerable $toSubtract;
 
     /**
-     * @param Numerable $toReduce
-     * @param Numerable $toSubtract
+     * @param float|int|Numerable $toReduce
+     * @param float|int|Numerable $toSubtract
      * @return Subtraction
      */
-    public static function new(Numerable $toReduce, Numerable $toSubtract): Subtraction
+    public static function new(float|int|Numerable $toReduce, float|int|Numerable $toSubtract): Subtraction
     {
         return new self($toReduce, $toSubtract);
     }
 
     /**
      * Ctor.
-     * @param Numerable $toReduce
-     * @param Numerable $toSubtract
+     * @param float|int|Numerable $toReduce
+     * @param float|int|Numerable $toSubtract
      */
-    private function __construct(Numerable $toReduce, Numerable $toSubtract)
+    public function __construct(float|int|Numerable $toReduce, float|int|Numerable $toSubtract)
     {
         $this->toReduce = $toReduce;
         $this->toSubtract = $toSubtract;
@@ -44,8 +44,11 @@ final class Subtraction implements Numerable
     /**
      * @inheritDoc
      */
-    public function asNumber(): string
+    public function asNumber(): float|int
     {
-        return $this->toReduce->asNumber() - $this->toSubtract->asNumber();
+        return Addition::new(
+            $this->toReduce,
+            Multiplication::new($this->toSubtract, -1)
+        )->asNumber();
     }
 }

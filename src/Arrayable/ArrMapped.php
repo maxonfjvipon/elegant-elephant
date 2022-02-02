@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Mapped arrayable.
@@ -11,10 +12,12 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrMapped implements Arrayable
 {
+    use Overloadable;
+
     /**
-     * @var Arrayable $arrayable
+     * @var array|Arrayable $arrayable
      */
-    private Arrayable $arrayable;
+    private array|Arrayable $arr;
 
     /**
      * @var callable $callback
@@ -23,37 +26,23 @@ final class ArrMapped implements Arrayable
 
     /**
      * Ctor wrap.
-     * @param array $arr
+     * @param array|Arrayable $arr
      * @param callable $callback
      * @return ArrMapped
      */
-    public static function ofArray(array $arr, callable $callback): ArrMapped
-    {
-        return ArrMapped::ofArrayable(
-            ArrayableOf::array($arr),
-            $callback
-        );
-    }
-
-    /**
-     * Ctor wrap.
-     * @param Arrayable $arr
-     * @param callable $callback
-     * @return ArrMapped
-     */
-    public static function ofArrayable(Arrayable $arr, callable $callback): ArrMapped
+    public static function new(array|Arrayable $arr, callable $callback): ArrMapped
     {
         return new self($arr, $callback);
     }
 
     /**
      * ArrMappedOf constructor.
-     * @param Arrayable $arr
+     * @param array|Arrayable $arr
      * @param callable $callback
      */
-    private function __construct(Arrayable $arr, callable $callback)
+    public function __construct(array|Arrayable $arr, callable $callback)
     {
-        $this->arrayable = $arr;
+        $this->arr = $arr;
         $this->callback = $callback;
     }
 
@@ -62,6 +51,9 @@ final class ArrMapped implements Arrayable
      */
     public function asArray(): array
     {
-        return array_map($this->callback, $this->arrayable->asArray());
+        return array_map($this->callback, self::overload([$this->arr], [[
+            'array',
+            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
+        ]])[0]);
     }
 }

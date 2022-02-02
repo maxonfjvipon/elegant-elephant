@@ -20,15 +20,15 @@ class ArrFilteredTest extends TestCase
 
         $this->assertEquals(
             $expected,
-            ArrFiltered::ofArray($arr, $callback)->asArray()
+            ArrFiltered::new($arr, $callback)->asArray()
         );
         $this->assertEquals(
             $expected,
-            ArrFiltered::ofArrayable(ArrayableOf::array($arr), $callback)->asArray()
+            ArrFiltered::new(ArrayableOf::items(...$arr), $callback)->asArray()
         );
         $this->assertNotEquals(
             $expected,
-            ArrFiltered::ofArray($arr, fn($num) => $num > 3)->asArray()
+            ArrFiltered::new($arr, fn($num) => $num > 3)->asArray()
         );
     }
 }
