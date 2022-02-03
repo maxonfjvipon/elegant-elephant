@@ -179,4 +179,4 @@ Cycle::withCallable(
 ```
 
 ## Contribution
-There are so many classes you and me may create. So if you are interested, send a pull request. Don't forget to write tests and make sure they are passed.
+There are so many classes you and me may create. So if you are interested, send a pull request. Don't forget to write tests and make sure they passed.
