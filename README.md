@@ -49,7 +49,7 @@ ArrSorted::new(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
 (new ArrSorted([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1))->asArray(); // [3, 2, 1]
 ```
 
-*ArrExploded* - arrayable exploded by separator. The library support [arguments overloading](https://github.com/maxonfjvipon/overloaded-elephant), so you can provide arguments not only of `string` type (`Text` for example)
+*ArrExploded* - arrayable exploded by separator. The library supports [arguments overloading](https://github.com/maxonfjvipon/overloaded-elephant), so you can provide arguments not only of `string` type (`Text` for example)
 ```php
 ArrExploded::new("-", "foo-bar")->asArray(); // ["foo", "bar"]
 ArrExploded::new(TextOf::new("-"), "foo-bar")->asArray(); // ["foo", "bar"]
@@ -166,7 +166,7 @@ LengthOf::new([1, 2])->asNumber(); // 2
 *Addition, Subtraction, Decremented, Incremented* - basic arithmetic operations.
 
 ## Proc and Func (Experimental)
-*Proc* incapculate function that returns nothing, *Func* incapsulate function that returns something.
+*Proc* incapculates function that returns nothing, *Func* incapsulates function that returns something.
 
 *Cycle* - Object Oriented ForEach (Does not work correctly for now)
 ```php
@@ -179,4 +179,4 @@ Cycle::withCallable(
 ```
 
 ## Contribution
-There are so may classes you and me may create. So if you are interesting, send a pull request. Be sure to write tests and they passed.
+There are so many classes you and me may create. So if you are interested, send a pull request. Don't forget to write tests and make sure they passed.
