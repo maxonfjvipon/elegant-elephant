@@ -42,7 +42,7 @@ final class NumerableOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return self::overload([$this->origin], [[
+        return $this->overload([$this->origin], [[
             'double',
             'integer',
             'string'    => fn(string $num) => $num * 1,

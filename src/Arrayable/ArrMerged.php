@@ -43,7 +43,7 @@ final class ArrMerged implements Arrayable
      */
     public function asArray(): array
     {
-        return array_merge(...self::overload($this->arrs, [[
+        return array_merge(...$this->overload($this->arrs, [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]]));

@@ -49,7 +49,7 @@ final class PregMatch implements Logical
 
     public function asBool(): bool
     {
-        return preg_match(...self::overload([$this->pattern, $this->subject], [[
+        return preg_match(...$this->overload([$this->pattern, $this->subject], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]]));

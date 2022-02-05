@@ -45,7 +45,7 @@ final class ProcOf implements Proc
      */
     public function exec(iterable $args = []): void
     {
-        call_user_func(self::overload([$this->function], [[
+        call_user_func($this->overload([$this->function], [[
             'callable',
             Closure::class,
             Func::class => fn(Func $func) => fn(...$args) => $func->apply(...$args)

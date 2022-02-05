@@ -43,7 +43,7 @@ final class ArrKeys implements Arrayable
      */
     public function asArray(): array
     {
-        return array_keys(...self::overload([$this->arr], [[
+        return array_keys(...$this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]]));

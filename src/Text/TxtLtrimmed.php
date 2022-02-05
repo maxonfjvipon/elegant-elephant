@@ -38,7 +38,7 @@ final class TxtLtrimmed implements Text
      */
     public function asString(): string
     {
-        return ltrim(...self::overload([$this->origin], [[
+        return ltrim(...$this->overload([$this->origin], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]]));

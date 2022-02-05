@@ -47,7 +47,7 @@ final class Cycle implements Proc
     public function exec(iterable $args = []): void
     {
         foreach ($args as $item) {
-            self::overload([$this->function], [[
+            $this->overload([$this->function], [[
                 'callable',
                 Closure::class,
                 Func::class => fn(Func $func) => fn(...$items) => $func->apply([...$items]),

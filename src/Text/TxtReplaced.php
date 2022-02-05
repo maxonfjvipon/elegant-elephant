@@ -59,7 +59,7 @@ final class TxtReplaced implements Text
      */
     public function asString(): string
     {
-        return str_replace(...self::overload([$this->search, $this->replace, $this->subject], [[
+        return str_replace(...$this->overload([$this->search, $this->replace, $this->subject], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]]));

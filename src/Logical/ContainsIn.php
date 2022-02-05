@@ -60,7 +60,7 @@ final class ContainsIn implements Logical
      */
     public function asBool(): bool
     {
-        return in_array($this->needle, self::overload([$this->arr], [[
+        return in_array($this->needle, $this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]])[0], $this->strict);

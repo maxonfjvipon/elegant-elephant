@@ -60,10 +60,9 @@ final class TxtImploded implements Text
      */
     public function asString(): string
     {
-
         return implode(
-            self::overload([$this->separator], $this->rules())[0],
-            self::overload([...$this->pieces], $this->rules())
+            $this->overload([$this->separator], $this->rules())[0],
+            $this->overload([...$this->pieces], $this->rules())
         );
     }
 

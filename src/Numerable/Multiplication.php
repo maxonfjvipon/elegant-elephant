@@ -46,7 +46,7 @@ final class Multiplication implements Numerable
      */
     public function asNumber(): float|int
     {
-        $operands = self::overload([$this->arg1, $this->arg2], [[
+        $operands = $this->overload([$this->arg1, $this->arg2], [[
             'double',
             'integer',
             'string' => fn(string $str) => $str * 1,

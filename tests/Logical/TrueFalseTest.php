@@ -20,6 +20,6 @@ class TrueFalseTest extends TestCase
         assertEquals(false, Untruth::new()->asBool());
         assertEquals(false, Negation::new(Truth::new())->asBool());
         assertEquals(true, Negation::new(Untruth::new())->asBool());
-        assertEquals(false, Negation::new(false)->asBool());
+        assertEquals(true, Negation::new(false)->asBool());
     }
 }

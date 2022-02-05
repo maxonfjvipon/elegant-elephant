@@ -37,7 +37,7 @@ final class Conjunction implements Logical
      */
     public function asBool(): bool
     {
-        foreach (self::overload($this->args, [[
+        foreach ($this->overload($this->args, [[
             'boolean' => fn(bool $bool) => LogicalOf::bool($bool),
             Logical::class
         ]]) as $arg) {

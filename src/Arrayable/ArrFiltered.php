@@ -52,7 +52,7 @@ final class ArrFiltered implements Arrayable
      */
     public function asArray(): array
     {
-        return array_filter(self::overload([$this->arr], [[
+        return array_filter($this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]])[0], $this->callback, ARRAY_FILTER_USE_BOTH);

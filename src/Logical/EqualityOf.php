@@ -60,7 +60,7 @@ final class EqualityOf implements Logical
      */
     public function asBool(): bool
     {
-        $operands = self::overload([$this->arg1, $this->arg2], [[
+        $operands = $this->overload([$this->arg1, $this->arg2], [[
             'string',
             'integer',
             'double',

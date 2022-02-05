@@ -42,7 +42,7 @@ final class TxtTrimmed implements Text
      */
     public function asString(): string
     {
-        return trim(...self::overload([$this->origin], [[
+        return trim(...$this->overload([$this->origin], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]]));

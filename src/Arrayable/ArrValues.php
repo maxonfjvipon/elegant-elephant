@@ -43,7 +43,7 @@ final class ArrValues implements Arrayable
      */
     public function asArray(): array
     {
-        return array_values(self::overload([$this->arr], [[
+        return array_values($this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]])[0]);

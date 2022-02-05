@@ -43,7 +43,7 @@ final class ArrUnique implements Arrayable
      */
     public function asArray(): array
     {
-        return array_unique(self::overload([$this->arr], [[
+        return array_unique($this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]])[0]);

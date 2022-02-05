@@ -17,15 +17,15 @@ class MatchRegexTest extends TestCase
     {
         $this->assertEquals(
             true,
-            PregMatch::string("/Hello world/")->inString("Hello world")->asBool()
+            PregMatch::new("/Hello world/", "Hello world")->asBool()
         );
         $this->assertEquals(
             false,
-            PregMatch::string("/^Hello$/")->inText(TextOf::new("Hello world"))->asBool()
+            PregMatch::new("/^Hello$/", TextOf::new("Hello world"))->asBool()
         );
         $this->assertEquals(
             true,
-            PregMatch::text(TextOf::new("/world/"))->inText(TextOf::new("Hello world"))->asBool()
+            PregMatch::new(TextOf::new("/world/"), TextOf::new("Hello world"))->asBool()
         );
     }
 }

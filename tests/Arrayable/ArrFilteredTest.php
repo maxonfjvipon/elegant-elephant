@@ -30,5 +30,11 @@ class ArrFilteredTest extends TestCase
             $expected,
             ArrFiltered::new($arr, fn($num) => $num > 3)->asArray()
         );
+        $this->assertEquals(
+            $expected,
+            (new ArrFiltered($arr, function ($num) {
+                return $num > 5;
+            }))->asArray()
+        );
     }
 }

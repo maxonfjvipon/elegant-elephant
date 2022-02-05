@@ -44,7 +44,7 @@ final class FuncOf implements Func
      */
     public function apply(iterable $args = []): mixed
     {
-        return call_user_func(...self::overload([$this->function], [[
+        return call_user_func(...$this->overload([$this->function], [[
             'callable',
             Closure::class,
             Proc::class => fn(Proc $proc) => fn(...$args) => $proc->exec(...$args),

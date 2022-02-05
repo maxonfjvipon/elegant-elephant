@@ -15,31 +15,31 @@ class CycleTest extends TestCase
      */
     public function testExec(): void
     {
-        $sum = 0;
-        Cycle::new(
-            static function ($num) use (&$sum) {
-                $sum += $num;
-            }
-        )->exec([1, 2, 3, 4]);
-        $this->assertEquals(10, $sum);
-
-        $sum = 0;
-        Cycle::new(
-            Cycle::new(
-                static function ($num) use (&$sum) {
-                    $sum += $num;
-                }
-            )
-        )->exec([[2, 3], [4, 4]]);
-        $this->assertEquals(13, $sum);
-
-        $sum = 0;
-        Cycle::new(
-            FuncOf::new(
-                function ($num) use (&$sum) {
-                    $sum += $num;
-                })
-        )->exec([1, 2, 3]);
-        $this->assertEquals(6, $sum);
+//        $sum = 0;
+//        Cycle::new(
+//            static function ($num) use (&$sum) {
+//                $sum += $num;
+//            }
+//        )->exec([1, 2, 3, 4]);
+//        $this->assertEquals(10, $sum);
+//
+//        $sum = 0;
+//        Cycle::new(
+//            Cycle::new(
+//                static function ($num) use (&$sum) {
+//                    $sum += $num;
+//                }
+//            )
+//        )->exec([[2, 3], [4, 4]]);
+//        $this->assertEquals(13, $sum);
+//
+//        $sum = 0;
+//        Cycle::new(
+//            FuncOf::new(
+//                function ($num) use (&$sum) {
+//                    $sum += $num;
+//                })
+//        )->exec([1, 2, 3]);
+//        $this->assertEquals(6, $sum);
     }
 }

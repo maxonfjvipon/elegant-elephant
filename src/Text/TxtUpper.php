@@ -42,7 +42,7 @@ final class TxtUpper implements Text
      */
     public function asString(): string
     {
-        return strtoupper(...self::overload([$this->origin], [[
+        return strtoupper(...$this->overload([$this->origin], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]]));

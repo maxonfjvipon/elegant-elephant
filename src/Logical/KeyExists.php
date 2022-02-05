@@ -52,7 +52,7 @@ final class KeyExists implements Logical
      */
     public function asBool(): bool
     {
-        return array_key_exists(...self::overload([$this->key, $this->arr], [[
+        return array_key_exists(...$this->overload([$this->key, $this->arr], [[
             'integer',
             'double',
             'string',

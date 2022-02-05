@@ -62,7 +62,7 @@ final class ArrExploded implements Arrayable
      */
     public function asArray(): array
     {
-        return explode(...self::overload([$this->separator, $this->text], [[
+        return explode(...$this->overload([$this->separator, $this->text], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]]));

@@ -43,7 +43,7 @@ final class TxtLowered implements Text
      */
     public function asString(): string
     {
-        return strtolower(...self::overload([$this->text], [[
+        return strtolower(...$this->overload([$this->text], [[
             'string',
             Text::class => fn(Text $text) => $text->asString()
         ]]));

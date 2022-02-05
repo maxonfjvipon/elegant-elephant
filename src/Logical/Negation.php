@@ -42,8 +42,8 @@ final class Negation implements Logical
      */
     public function asBool(): bool
     {
-        return !self::overload([$this->origin], [[
-            'bool',
+        return !$this->overload([$this->origin], [[
+            'boolean',
             Logical::class => fn(Logical $log) => $log->asBool()
         ]])[0];
     }

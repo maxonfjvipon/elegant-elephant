@@ -51,7 +51,7 @@ final class ArrSorted implements Arrayable
      */
     public function asArray(): array
     {
-        $arr = self::overload([$this->arr], [[
+        $arr = $this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]])[0];

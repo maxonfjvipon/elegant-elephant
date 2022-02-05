@@ -47,7 +47,7 @@ final class Addition implements Numerable
      */
     public function asNumber(): float|int
     {
-        $operands = self::overload([$this->addTo, $this->toAdd], [[
+        $operands = $this->overload([$this->addTo, $this->toAdd], [[
             'double',
             'integer',
             'string' => fn(string $str) => $str * 1,

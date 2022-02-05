@@ -58,7 +58,7 @@ final class TxtSubstr implements Text
      */
     public function asString(): string
     {
-        return substr(self::overload([$this->text], [[
+        return substr($this->overload([$this->text], [[
             'string',
             Text::class => fn(Text $txt) => $txt->asString()
         ]])[0], $this->offset, $this->length);

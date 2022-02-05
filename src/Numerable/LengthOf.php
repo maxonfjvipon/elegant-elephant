@@ -48,7 +48,7 @@ final class LengthOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return self::overload([$this->arg], [[
+        return $this->overload([$this->arg], [[
             'string'            => fn(string $str) => strlen($str),
             'array'             => fn(array $arr) => count($arr),
             Text::class         => fn(Text $text) => strlen($text->asString()),

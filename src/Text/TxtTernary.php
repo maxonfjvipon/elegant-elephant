@@ -55,12 +55,12 @@ final class TxtTernary implements Text
      */
     public function asString(): string
     {
-        return self::overload([$this->condition], [[
+        return $this->overload([$this->condition], [[
             'boolean',
             Logical::class => fn(Logical $logical) => $logical->asBool()
         ]])[0]
-            ? self::overload([$this->original], [$this->rules()])[0]
-            : self::overload([$this->alt], [$this->rules()])[0];
+            ? $this->overload([$this->original], [$this->rules()])[0]
+            : $this->overload([$this->alt], [$this->rules()])[0];
     }
 
     /**

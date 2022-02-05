@@ -51,7 +51,7 @@ final class ArrMapped implements Arrayable
      */
     public function asArray(): array
     {
-        return array_map($this->callback, self::overload([$this->arr], [[
+        return array_map($this->callback, $this->overload([$this->arr], [[
             'array',
             Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
         ]])[0]);

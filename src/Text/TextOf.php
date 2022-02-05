@@ -43,7 +43,7 @@ final class TextOf implements Text
      */
     public function asString(): string
     {
-        return self::overload([$this->origin], [[
+        return $this->overload([$this->origin], [[
             'string',
             'integer' => fn(int $int) => (string)$int,
             'double' => fn(float $fl) => (string)$fl,
