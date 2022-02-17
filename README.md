@@ -88,7 +88,7 @@ TextOf::new("foo")->asString(); // "foo"
 TextOf::new(1.2)->asString(); // "1.2"
 ```
 
-*TxtUpper* - text in upper case. Almost every class has 2 ways of creation: from string and from text. So there are 2 static methods:
+*TxtUpper* - text in upper case:
 ```php
 TxtUpper::new("bar")->asString(); // "BAR"
 TxtUpper::new(TextOf::new("foo"))->asString(); // "FOO"
@@ -102,7 +102,7 @@ TxtLowered::new(
 )->asString(); // "foo"
 ```
 
-*TxtImploded* - text imploded with separator. One more class with 2 chained methods required to create an object.
+*TxtImploded* - text imploded with separator:
 ```php
 TxtImploded::new("-", "foo", "bar")->asString(); // "foo-bar"
 TxtImploded::new("-", new TextOf("foo"), "bar")->asString(); // "foo-bar"
@@ -153,7 +153,7 @@ And so on...
 ## Numerable
 Elegant numbers.
 
-*LengthOf* - may decorates length of Text, string, array, arrayable, ;
+*LengthOf* - may decorates length of Text, string, array, arrayable:
 ```php
 Equality::new(
   NumerableOf::new("5"),
@@ -163,10 +163,13 @@ Equality::new(
 LengthOf::new([1, 2])->asNumber(); // 2
 ```
 
-*Addition, Subtraction, Decremented, Incremented* - basic arithmetic operations.
+*Addition, Subtraction, Decremented, Incremented, Multiplication* - basic arithmetic operations (needs more):
+```php
+Subtruction::new(5, Addition::new(1, Incremented::new(2)))->asNumber(); // 1
+```
 
 ## Proc and Func (Experimental)
-*Proc* incapculates function that returns nothing, *Func* incapsulates function that returns something.
+*Proc* incapsulates function that returns nothing, *Func* incapsulates function that returns something.
 
 *Cycle* - Object Oriented ForEach (Does not work correctly for now)
 ```php
