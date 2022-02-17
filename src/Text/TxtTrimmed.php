@@ -4,7 +4,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text trimmed.
@@ -12,7 +11,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TxtTrimmed implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var string|Text $origin
@@ -42,9 +41,6 @@ final class TxtTrimmed implements Text
      */
     public function asString(): string
     {
-        return trim(...$this->overload([$this->origin], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]]));
+        return trim(...$this->txtOverloaded($this->origin));
     }
 }

@@ -4,7 +4,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Imploded text.
@@ -12,12 +11,12 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TxtImploded implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
-     * @var string|int|float|Text $separator
+     * @var string|Text $separator
      */
-    private float|int|string|Text $separator;
+    private string|Text $separator;
 
     /**
      * @var array $pieces
@@ -34,21 +33,21 @@ final class TxtImploded implements Text
     }
 
     /**
-     * @param string|int|float|Text $separator
+     * @param string|Text $separator
      * @param mixed ...$pieces
      * @return TxtImploded
      */
-    public static function new(string|int|float|Text $separator, ...$pieces): TxtImploded
+    public static function new(string|Text $separator, ...$pieces): TxtImploded
     {
         return new self($separator, ...$pieces);
     }
 
     /**
      * Ctor.
-     * @param string|int|float|Text $separator
+     * @param string|Text $separator
      * @param mixed ...$pieces
      */
-    public function __construct(string|int|float|Text $separator, ...$pieces)
+    public function __construct(string|Text $separator, ...$pieces)
     {
         $this->separator = $separator;
         $this->pieces = $pieces;
@@ -61,19 +60,8 @@ final class TxtImploded implements Text
     public function asString(): string
     {
         return implode(
-            $this->overload([$this->separator], $this->rules())[0],
-            $this->overload([...$this->pieces], $this->rules())
+            $this->firstTxtOverloaded($this->separator),
+            $this->txtOverloaded(...$this->pieces)
         );
-    }
-
-    private function rules(): array
-    {
-        return [[
-            'string',
-            'double' => fn(float $fl) => (string)$fl,
-            'integer' => fn(int $int) => (string)$int,
-            'boolean' => fn(bool $bl) => $bl ? "true" : "false",
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]];
     }
 }

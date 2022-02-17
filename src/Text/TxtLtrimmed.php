@@ -8,7 +8,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 final class TxtLtrimmed implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var string|Text $origin
@@ -38,9 +38,6 @@ final class TxtLtrimmed implements Text
      */
     public function asString(): string
     {
-        return ltrim(...$this->overload([$this->origin], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]]));
+        return ltrim(...$this->txtOverloaded($this->origin));
     }
 }

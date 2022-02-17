@@ -2,10 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 /**
  * Text joined.

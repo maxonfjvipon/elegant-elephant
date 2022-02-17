@@ -2,10 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 /**
  * Arrayable filtered of.
@@ -13,7 +10,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Return_;
  */
 final class ArrFiltered implements Arrayable
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arrayable
@@ -52,9 +49,6 @@ final class ArrFiltered implements Arrayable
      */
     public function asArray(): array
     {
-        return array_filter($this->overload([$this->arr], [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]])[0], $this->callback, ARRAY_FILTER_USE_BOTH);
+        return array_filter($this->firstArrayableOverloaded($this->arr), $this->callback, ARRAY_FILTER_USE_BOTH);
     }
 }

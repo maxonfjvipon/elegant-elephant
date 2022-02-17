@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Mapped arrayable.
@@ -12,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArrMapped implements Arrayable
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arrayable
@@ -51,9 +49,6 @@ final class ArrMapped implements Arrayable
      */
     public function asArray(): array
     {
-        return array_map($this->callback, $this->overload([$this->arr], [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]])[0]);
+        return array_map($this->callback, $this->firstArrayableOverloaded($this->arr));
     }
 }

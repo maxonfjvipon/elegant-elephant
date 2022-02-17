@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable merged of.
@@ -12,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArrMerged implements Arrayable
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var Arrayable[] $arrayables
@@ -43,9 +41,6 @@ final class ArrMerged implements Arrayable
      */
     public function asArray(): array
     {
-        return array_merge(...$this->overload($this->arrs, [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]]));
+        return array_merge(...$this->arrayableOverloaded(...$this->arrs));
     }
 }

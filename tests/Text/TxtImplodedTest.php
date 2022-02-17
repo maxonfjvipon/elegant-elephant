@@ -23,7 +23,7 @@ class TxtImplodedTest extends TestCase
             TxtImploded::new("-", TextOf::new("foo"), "bar")->asString()
         );
         $this->assertEquals(
-            "foo-bar-1-1.1-true",
+            "foo-bar-1-1.1-1",
             TxtImploded::new("-", TextOf::new("foo"), TextOf::new("bar"), 1, 1.1, true)->asString()
         );
         $this->assertEquals(

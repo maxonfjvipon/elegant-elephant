@@ -2,14 +2,13 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 final class TxtTernary implements Text
 {
-    use Overloadable;
+    use TxtOverloadable, LogicalOverloadable;
 
     /**
      * @var bool|Logical $condition
@@ -55,22 +54,8 @@ final class TxtTernary implements Text
      */
     public function asString(): string
     {
-        return $this->overload([$this->condition], [[
-            'boolean',
-            Logical::class => fn(Logical $logical) => $logical->asBool()
-        ]])[0]
-            ? $this->overload([$this->original], [$this->rules()])[0]
-            : $this->overload([$this->alt], [$this->rules()])[0];
-    }
-
-    /**
-     * @return array
-     */
-    private function rules(): array
-    {
-        return [
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ];
+        return $this->firstLogicalOverloaded($this->condition)
+            ? $this->firstTxtOverloaded($this->original)
+            : $this->firstTxtOverloaded($this->alt);
     }
 }

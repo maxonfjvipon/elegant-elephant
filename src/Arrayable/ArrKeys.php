@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Array keys.
@@ -12,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArrKeys implements Arrayable
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arrayable
@@ -43,9 +41,6 @@ final class ArrKeys implements Arrayable
      */
     public function asArray(): array
     {
-        return array_keys(...$this->overload([$this->arr], [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]]));
+        return array_keys(...$this->arrayableOverloaded($this->arr));
     }
 }

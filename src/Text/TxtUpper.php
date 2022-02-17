@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text upper of.
@@ -12,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TxtUpper implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var string|Text $origin
@@ -42,9 +40,6 @@ final class TxtUpper implements Text
      */
     public function asString(): string
     {
-        return strtoupper(...$this->overload([$this->origin], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]]));
+        return strtoupper($this->firstTxtOverloaded($this->origin));
     }
 }

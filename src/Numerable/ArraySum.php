@@ -3,8 +3,8 @@
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOverloaded;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Sum of array elements.
@@ -12,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArraySum implements Numerable
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arr
@@ -43,9 +43,6 @@ final class ArraySum implements Numerable
      */
     public function asNumber(): float|int
     {
-        return array_sum($this->overload([$this->arr], [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]])[0]);
+        return array_sum($this->firstArrayableOverloaded($this->arr));
     }
 }

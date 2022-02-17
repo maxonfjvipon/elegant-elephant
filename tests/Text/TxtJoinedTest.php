@@ -23,7 +23,7 @@ class TxtJoinedTest extends TestCase
             TxtJoined::new(TextOf::new("foo"), "bar", 1, 2.2)->asString(),
         );
         $this->assertEquals(
-            "foobartrue",
+            "foobar1",
             TxtJoined::new("foo", TextOf::new("bar"), true)->asString()
         );
     }

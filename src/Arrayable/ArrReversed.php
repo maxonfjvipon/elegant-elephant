@@ -4,13 +4,11 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
- * Arrayable values
- * @package Maxonfjvipon\Elegant_Elephant\Arrayable
+ * Reversed array
  */
-final class ArrValues implements Arrayable
+final class ArrReversed implements Arrayable
 {
     use ArrayableOverloaded;
 
@@ -22,9 +20,9 @@ final class ArrValues implements Arrayable
     /**
      * Ctor wrap.
      * @param array|Arrayable $arr
-     * @return ArrValues
+     * @return ArrReversed
      */
-    public static function new(array|Arrayable $arr): ArrValues
+    public static function new(array|Arrayable $arr): ArrReversed
     {
         return new self($arr);
     }
@@ -43,6 +41,6 @@ final class ArrValues implements Arrayable
      */
     public function asArray(): array
     {
-        return array_values($this->firstArrayableOverloaded($this->arr));
+        return array_reverse($this->firstArrayableOverloaded($this->arr));
     }
 }

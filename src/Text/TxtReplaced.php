@@ -12,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TxtReplaced implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var Text|string $search
@@ -59,9 +59,6 @@ final class TxtReplaced implements Text
      */
     public function asString(): string
     {
-        return str_replace(...$this->overload([$this->search, $this->replace, $this->subject], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]]));
+        return str_replace(...$this->txtOverloaded($this->search, $this->replace, $this->subject));
     }
 }

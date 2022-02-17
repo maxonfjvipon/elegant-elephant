@@ -5,7 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
+use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
 
 /**
  * Array exploded
@@ -13,7 +13,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArrExploded implements Arrayable
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var Text|string $separator
@@ -62,9 +62,6 @@ final class ArrExploded implements Arrayable
      */
     public function asArray(): array
     {
-        return explode(...$this->overload([$this->separator, $this->text], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]]));
+        return explode(...$this->txtOverloaded($this->separator, $this->text));
     }
 }

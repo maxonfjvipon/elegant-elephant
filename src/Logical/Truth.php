@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
 final class Truth implements Logical
@@ -13,13 +12,6 @@ final class Truth implements Logical
     public static function new(): Truth
     {
         return new self();
-    }
-
-    /**
-     * Ctor.
-     */
-    public function __construct()
-    {
     }
 
     /**

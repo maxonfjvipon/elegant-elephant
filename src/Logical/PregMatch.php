@@ -6,6 +6,7 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
@@ -14,7 +15,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class PregMatch implements Logical
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var string|Text $pattern
@@ -49,9 +50,6 @@ final class PregMatch implements Logical
 
     public function asBool(): bool
     {
-        return preg_match(...$this->overload([$this->pattern, $this->subject], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]]));
+        return preg_match(...$this->txtOverloaded($this->pattern, $this->subject));
     }
 }

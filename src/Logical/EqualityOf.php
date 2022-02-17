@@ -2,10 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Func;
-use Maxonfjvipon\Elegant_Elephant\Func\FuncOf;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Text;

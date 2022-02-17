@@ -12,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArrSortedByKeys implements Arrayable
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arr
@@ -51,10 +51,7 @@ final class ArrSortedByKeys implements Arrayable
      */
     public function asArray(): array
     {
-        $arr = $this->overload([$this->arr], [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]])[0];
+        $arr = $this->firstArrayableOverloaded($this->arr);
         uksort($arr, $this->compare ?? fn($a, $b) => $a <=> $b);
 
         return $arr;

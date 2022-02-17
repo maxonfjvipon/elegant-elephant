@@ -3,9 +3,8 @@
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOverloaded;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * In array of.
@@ -13,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ContainsIn implements Logical
 {
-    use Overloadable;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arr
@@ -60,9 +59,6 @@ final class ContainsIn implements Logical
      */
     public function asBool(): bool
     {
-        return in_array($this->needle, $this->overload([$this->arr], [[
-            'array',
-            Arrayable::class => fn(Arrayable $arr) => $arr->asArray()
-        ]])[0], $this->strict);
+        return in_array($this->needle, $this->firstArrayableOverloaded($this->arr), $this->strict);
     }
 }

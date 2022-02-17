@@ -3,6 +3,7 @@
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOverloaded;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
@@ -12,7 +13,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class Negation implements Logical
 {
-    use Overloadable;
+    use LogicalOverloadable;
 
     /**
      * @var bool|Logical $origin
@@ -42,9 +43,6 @@ final class Negation implements Logical
      */
     public function asBool(): bool
     {
-        return !$this->overload([$this->origin], [[
-            'boolean',
-            Logical::class => fn(Logical $log) => $log->asBool()
-        ]])[0];
+        return !$this->firstLogicalOverloaded($this->origin);
     }
 }

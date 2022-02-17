@@ -12,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TxtSubstr implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var string|Text $text
@@ -58,9 +58,6 @@ final class TxtSubstr implements Text
      */
     public function asString(): string
     {
-        return substr($this->overload([$this->text], [[
-            'string',
-            Text::class => fn(Text $txt) => $txt->asString()
-        ]])[0], $this->offset, $this->length);
+        return substr($this->firstTxtOverloaded($this->text), $this->offset, $this->length);
     }
 }

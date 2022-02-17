@@ -12,28 +12,28 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TextOf implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
-     * @var float|int|Text|string $origin
+     * @var string|Text $origin
      */
-    private float|int|string|Text $origin;
+    private string|Text $origin;
 
     /**
      * Ctor wrap of string.
-     * @param string|int|float|Text $str
+     * @param string|Text $str
      * @return TextOf
      */
-    public static function new(string|int|float|Text $str): TextOf
+    public static function new(string|Text $str): TextOf
     {
         return new self($str);
     }
 
     /**
      * Ctor.
-     * @param string|int|float|Text $str
+     * @param string|Text $str
      */
-    public function __construct(string|int|float|Text $str)
+    public function __construct(string|Text $str)
     {
         $this->origin = $str;
     }
@@ -43,11 +43,6 @@ final class TextOf implements Text
      */
     public function asString(): string
     {
-        return $this->overload([$this->origin], [[
-            'string',
-            'integer' => fn(int $int) => (string)$int,
-            'double' => fn(float $fl) => (string)$fl,
-            Text::class => fn(Text $txt) => $txt->asString(),
-        ]])[0];
+        return $this->firstTxtOverloaded($this->origin);
     }
 }

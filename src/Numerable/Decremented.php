@@ -16,7 +16,7 @@ final class Decremented implements Numerable
     private float|int|string|Numerable $origin;
 
     /**
-     * @param float|int|Numerable $origin
+     * @param float|int|string|Numerable $origin
      * @return Decremented
      */
     public static function new(float|int|string|Numerable $origin): Decremented

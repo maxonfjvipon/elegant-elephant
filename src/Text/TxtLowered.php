@@ -12,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class TxtLowered implements Text
 {
-    use Overloadable;
+    use TxtOverloadable;
 
     /**
      * @var string|Text $text
@@ -43,9 +43,6 @@ final class TxtLowered implements Text
      */
     public function asString(): string
     {
-        return strtolower(...$this->overload([$this->text], [[
-            'string',
-            Text::class => fn(Text $text) => $text->asString()
-        ]]));
+        return strtolower(...$this->txtOverloaded($this->text));
     }
 }
