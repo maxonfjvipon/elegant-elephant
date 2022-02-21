@@ -4,7 +4,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical\PregMatch;
-use Maxonfjvipon\Elegant_Elephant\Logical\MatchToIn;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\TestCase;
 

@@ -12,27 +12,27 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class NumerableOf implements Numerable
 {
-    use Overloadable;
+    use NumerableOverloaded;
 
     /**
-     * @var float|int|Text|string $origin
+     * @var float|int $origin
      */
-    private float|int|string|Text $origin;
+    private float|int $origin;
 
     /**
-     * @param float|int|Text|string $num
+     * @param float|int $num
      * @return NumerableOf
      */
-    public static function new(float|int|Text|string $num): NumerableOf
+    public static function new(float|int $num): NumerableOf
     {
         return new self($num);
     }
 
     /**
      * Ctor.
-     * @param float|int|Text|string $num
+     * @param float|int $num
      */
-    public function __construct(float|int|Text|string $num)
+    public function __construct(float|int $num)
     {
         $this->origin = $num;
     }
@@ -42,11 +42,6 @@ final class NumerableOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return $this->overload([$this->origin], [[
-            'double',
-            'integer',
-            'string'    => fn(string $num) => $num * 1,
-            Text::class => fn(Text $text) => $text->asString() * 1
-        ]])[0];
+        return $this->firstNumerableOverloaded($this->asNumber());
     }
 }

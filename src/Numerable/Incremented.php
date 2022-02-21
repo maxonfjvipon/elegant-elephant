@@ -7,24 +7,24 @@ use Maxonfjvipon\Elegant_Elephant\Numerable;
 final class Incremented implements Numerable
 {
     /**
-     * @var float|int|Numerable|string $origin
+     * @var float|int|Numerable $origin
      */
-    private float|int|string|Numerable $origin;
+    private float|int|Numerable $origin;
 
     /**
-     * @param float|int|string|Numerable $origin
+     * @param float|int|Numerable $origin
      * @return Incremented
      */
-    public static function new(float|int|string|Numerable $origin): Incremented
+    public static function new(float|int|Numerable $origin): Incremented
     {
         return new self($origin);
     }
 
     /**
      * Ctor.
-     * @param float|int|string|Numerable $origin
+     * @param float|int|Numerable $origin
      */
-    public function __construct(float|int|string|Numerable $origin)
+    public function __construct(float|int|Numerable $origin)
     {
         $this->origin = $origin;
     }
