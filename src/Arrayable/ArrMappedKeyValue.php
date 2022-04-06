@@ -22,6 +22,16 @@ final class ArrMappedKeyValue implements Arrayable
     private $callback;
 
     /**
+     * @param array|Arrayable $arr
+     * @param callable $callback
+     * @return ArrMappedKeyValue
+     */
+    public static function new(array|Arrayable $arr, callable $callback): ArrMappedKeyValue
+    {
+        return new self($arr, $callback);
+    }
+
+    /**
      * Ctor.
      * @param array|Arrayable $arr
      * @param callable $callback

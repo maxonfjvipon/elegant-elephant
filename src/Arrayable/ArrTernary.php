@@ -35,7 +35,7 @@ final class ArrTernary implements Arrayable
      * @param array|Arrayable $alt
      * @return ArrTernary
      */
-    public static function new(Logical|bool $cond, array|Arrayable $first, array|Arrayable $alt)
+    public static function new(Logical|bool $cond, array|Arrayable $first, array|Arrayable $alt): ArrTernary
     {
         return new self($cond, $first, $alt);
     }
