@@ -39,9 +39,12 @@ final class ArrFromCallback implements Arrayable
     public function asArray(): array
     {
         $arr = call_user_func($this->callback);
-        if (!is_array($arr)) {
-            throw new Exception("Callback must return an array!");
+        if (is_array($arr)) {
+            return $arr;
         }
-        return $arr;
+        if ($arr instanceof Arrayable) {
+            return $arr->asArray();
+        }
+        throw new Exception("Callback must return an array or Arrayable!");
     }
 }
