@@ -42,6 +42,6 @@ final class NumerableOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return $this->firstNumerableOverloaded($this->asNumber());
+        return $this->origin;
     }
 }
