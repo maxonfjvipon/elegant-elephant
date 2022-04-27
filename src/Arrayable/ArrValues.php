@@ -10,9 +10,9 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  * Arrayable values
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrValues extends ArrEnvelope
+final class ArrValues implements Arrayable
 {
-    use ArrayableOverloaded;
+    use ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var array|Arrayable $arr

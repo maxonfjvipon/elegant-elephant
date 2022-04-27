@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Array mapped with key and value handling
  */
-final class ArrMappedKeyValue extends ArrEnvelope
+final class ArrMappedKeyValue implements Arrayable
 {
-    use ArrayableOverloaded;
+    use ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var array|Arrayable $arrayable

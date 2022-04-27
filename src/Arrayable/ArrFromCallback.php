@@ -8,8 +8,10 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Array from callback
  */
-final class ArrFromCallback extends ArrEnvelope
+final class ArrFromCallback implements Arrayable
 {
+    use HasArrIterator;
+
     /**
      * @var callable $callback
      */

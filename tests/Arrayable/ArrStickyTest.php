@@ -7,6 +7,7 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEnvelope;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSticky;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\HasArrIterator;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 
@@ -19,7 +20,9 @@ class ArrStickyTest extends TestCase
     {
         $num = 2;
         $arr = new ArrSticky(
-            new class($num) extends ArrEnvelope {
+            new class($num) implements Arrayable {
+                use HasArrIterator;
+
                 private int $num;
 
                 public function __construct(int $num)

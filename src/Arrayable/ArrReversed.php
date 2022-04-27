@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Reversed array
  */
-final class ArrReversed extends ArrEnvelope
+final class ArrReversed implements Arrayable
 {
-    use ArrayableOverloaded;
+    use ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var array|Arrayable $arr

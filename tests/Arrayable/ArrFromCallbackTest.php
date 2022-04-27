@@ -18,7 +18,7 @@ class ArrFromCallbackTest extends TestCase
             (new ArrFromCallback(fn() => [1, 2, 3]))->asArray()
         );
 
-        $this->expectExceptionMessage("Callback must return an array!");
+        $this->expectExceptionMessage("Callback must return an array or Arrayable!");
         (new ArrFromCallback(fn() => 'string'))->asArray();
     }
 }

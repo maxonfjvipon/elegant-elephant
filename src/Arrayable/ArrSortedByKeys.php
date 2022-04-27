@@ -10,9 +10,9 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  * Arrayable sorted by keys.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrSortedByKeys extends ArrEnvelope
+final class ArrSortedByKeys implements Arrayable
 {
-    use ArrayableOverloaded;
+    use ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var array|Arrayable $arr

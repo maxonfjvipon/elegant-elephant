@@ -3,14 +3,13 @@
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use ArrayIterator;
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Traversable;
 
-abstract class ArrEnvelope implements Arrayable
+/**
+ * @method array asArray()
+ */
+trait HasArrIterator
 {
-    /**
-     * @inheritDoc
-     */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->asArray());

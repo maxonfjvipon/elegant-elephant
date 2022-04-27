@@ -9,9 +9,9 @@ use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
 /**
  * Ternary array
  */
-final class ArrTernary extends ArrEnvelope
+final class ArrTernary implements Arrayable
 {
-    use LogicalOverloadable, ArrayableOverloaded;
+    use LogicalOverloadable, ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var bool|Logical $condition

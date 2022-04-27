@@ -7,8 +7,10 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Arrayable with caching
  */
-final class ArrSticky extends ArrEnvelope
+final class ArrSticky implements Arrayable
 {
+    use HasArrIterator;
+
     /**
      * @var Arrayable $arr
      */
@@ -20,6 +22,17 @@ final class ArrSticky extends ArrEnvelope
     private array $cache = [];
 
     /**
+     * Ctor wrap.
+     * @param Arrayable $arr
+     * @return ArrSticky
+     */
+    public static function new(Arrayable $arr)
+    {
+        return new  self($arr);
+    }
+
+    /**
+     * Ctor.
      * @param Arrayable $arrayable
      */
     public function __construct(Arrayable $arrayable)

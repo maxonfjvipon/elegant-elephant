@@ -11,9 +11,9 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
  * Array exploded
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrExploded extends ArrEnvelope
+final class ArrExploded implements Arrayable
 {
-    use TxtOverloadable;
+    use TxtOverloadable, HasArrIterator;
 
     /**
      * @var Text|string $separator

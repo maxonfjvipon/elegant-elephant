@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable filtered of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrFiltered extends ArrEnvelope
+final class ArrFiltered implements Arrayable
 {
-    use ArrayableOverloaded;
+    use ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var array|Arrayable $arrayable

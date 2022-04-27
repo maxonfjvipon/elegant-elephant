@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Array keys.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrKeys extends ArrEnvelope
+final class ArrKeys implements Arrayable
 {
-    use ArrayableOverloaded;
+    use ArrayableOverloaded, HasArrIterator;
 
     /**
      * @var array|Arrayable $arrayable
