@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable filtered of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrFiltered implements Arrayable
+final class ArrFiltered extends ArrEnvelope
 {
     use ArrayableOverloaded;
 

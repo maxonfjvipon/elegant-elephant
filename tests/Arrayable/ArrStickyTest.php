@@ -2,10 +2,13 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
+use ArrayIterator;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEnvelope;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSticky;
 use PHPUnit\Framework\TestCase;
+use Traversable;
 
 class ArrStickyTest extends TestCase
 {
@@ -16,7 +19,7 @@ class ArrStickyTest extends TestCase
     {
         $num = 2;
         $arr = new ArrSticky(
-            new class($num) implements Arrayable {
+            new class($num) extends ArrEnvelope {
                 private int $num;
 
                 public function __construct(int $num)

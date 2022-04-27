@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Reversed array
  */
-final class ArrReversed implements Arrayable
+final class ArrReversed extends ArrEnvelope
 {
     use ArrayableOverloaded;
 

@@ -9,7 +9,7 @@ use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
 /**
  * Ternary array
  */
-final class ArrTernary implements Arrayable
+final class ArrTernary extends ArrEnvelope
 {
     use LogicalOverloadable, ArrayableOverloaded;
 

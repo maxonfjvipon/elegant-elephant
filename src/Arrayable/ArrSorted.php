@@ -10,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  * Arrayable sorted
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrSorted implements Arrayable
+final class ArrSorted extends ArrEnvelope
 {
     use ArrayableOverloaded;
 

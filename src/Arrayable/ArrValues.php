@@ -10,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  * Arrayable values
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrValues implements Arrayable
+final class ArrValues extends ArrEnvelope
 {
     use ArrayableOverloaded;
 

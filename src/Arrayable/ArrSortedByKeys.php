@@ -10,7 +10,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  * Arrayable sorted by keys.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrSortedByKeys implements Arrayable
+final class ArrSortedByKeys extends ArrEnvelope
 {
     use ArrayableOverloaded;
 

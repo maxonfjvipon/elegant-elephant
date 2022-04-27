@@ -11,7 +11,7 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
  * Array exploded
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrExploded implements Arrayable
+final class ArrExploded extends ArrEnvelope
 {
     use TxtOverloadable;
 

@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Array from callback
  */
-final class ArrFromCallback implements Arrayable
+final class ArrFromCallback extends ArrEnvelope
 {
     /**
      * @var callable $callback

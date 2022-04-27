@@ -7,7 +7,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Array mapped with key and value handling
  */
-final class ArrMappedKeyValue implements Arrayable
+final class ArrMappedKeyValue extends ArrEnvelope
 {
     use ArrayableOverloaded;
 

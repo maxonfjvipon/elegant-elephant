@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Mapped arrayable.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrMapped implements Arrayable
+final class ArrMapped extends ArrEnvelope
 {
     use ArrayableOverloaded;
 
