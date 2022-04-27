@@ -11,9 +11,9 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
  * Arrayable object
  * behave like [key => Arrayable]
  */
-final class ArrObject implements Arrayable
+final class ArrObject extends ArrayableIterable
 {
-    use TxtOverloadable, HasArrIterator;
+    use TxtOverloadable;
 
     /**
      * @var string|Text

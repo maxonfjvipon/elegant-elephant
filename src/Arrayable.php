@@ -3,13 +3,12 @@
 namespace Maxonfjvipon\Elegant_Elephant;
 
 use Exception;
-use IteratorAggregate;
 
 /**
  * Arrayable.
  * @package Maxonfjvipon\Elegant_Elephant
  */
-interface Arrayable extends IteratorAggregate
+interface Arrayable
 {
     /**
      * @return array

@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable merged of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrMerged implements Arrayable
+final class ArrMerged extends ArrayableIterable
 {
-    use ArrayableOverloaded, HasArrIterator;
+    use ArrayableOverloaded;
 
     /**
      * @var Arrayable[] $arrayables

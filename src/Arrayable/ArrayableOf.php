@@ -2,16 +2,15 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrayableOf implements Arrayable
+final class ArrayableOf extends ArrayableIterable
 {
-    use Overloadable, HasArrIterator;
+    use Overloadable;
 
     /**
      * @var array $array

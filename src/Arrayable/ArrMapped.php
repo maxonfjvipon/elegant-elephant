@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Mapped arrayable.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrMapped implements Arrayable
+final class ArrMapped extends ArrayableIterable
 {
-    use ArrayableOverloaded, HasArrIterator;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arrayable

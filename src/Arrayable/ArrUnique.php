@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  * Arrayable unique.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrUnique implements Arrayable
+final class ArrUnique extends ArrayableIterable
 {
-    use ArrayableOverloaded, HasArrIterator;
+    use ArrayableOverloaded;
 
     /**
      * @var array|Arrayable $arr

@@ -9,10 +9,8 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
  * Represents {@see Arrayable} if {@code $cond} is TRUE
  * [] otherwise
  */
-final class ArrIf implements Arrayable
+final class ArrIf extends ArrayableIterable
 {
-    use HasArrIterator;
-
     /**
      * @var bool|Logical $condition
      */

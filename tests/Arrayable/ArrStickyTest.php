@@ -2,14 +2,11 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
-use ArrayIterator;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEnvelope;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSticky;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\HasArrIterator;
 use PHPUnit\Framework\TestCase;
-use Traversable;
 
 class ArrStickyTest extends TestCase
 {

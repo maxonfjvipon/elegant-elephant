@@ -3,7 +3,6 @@
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
 
@@ -11,9 +10,9 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
  * Array exploded
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrExploded implements Arrayable
+final class ArrExploded extends ArrayableIterable
 {
-    use TxtOverloadable, HasArrIterator;
+    use TxtOverloadable;
 
     /**
      * @var Text|string $separator

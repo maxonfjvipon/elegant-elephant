@@ -7,10 +7,8 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Arrayable with caching
  */
-final class ArrSticky implements Arrayable
+final class ArrSticky extends ArrayableIterable
 {
-    use HasArrIterator;
-
     /**
      * @var Arrayable $arr
      */
