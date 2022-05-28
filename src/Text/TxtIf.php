@@ -5,7 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
-class TxtIf implements Text
+final class TxtIf implements Text
 {
 
     /**
