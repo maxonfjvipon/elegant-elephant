@@ -33,5 +33,13 @@ class ArrSortedTest extends TestCase
             [4, 3, 2, 1],
             ArrSorted::new($arr)->asArray()
         );
+        $this->assertEquals(
+            array(array('a' => 1), array('a' => 2), array('a' => 3)),
+            ArrSorted::new(array(
+                array('a' => 1),
+                array('a' => 3),
+                array('a' => 2)
+            ), 'a')->asArray()
+        );
     }
 }

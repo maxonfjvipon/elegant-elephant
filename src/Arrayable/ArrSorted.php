@@ -20,7 +20,7 @@ final class ArrSorted extends ArrayableIterable
     private array|Arrayable $arr;
 
     /**
-     * @var callable $compare
+     * @var callable|string $compare
      */
     private $compare;
 
@@ -30,7 +30,7 @@ final class ArrSorted extends ArrayableIterable
      * @param callable|null $compare
      * @return ArrSorted
      */
-    public static function new(array|Arrayable $arr, callable $compare = null): ArrSorted
+    public static function new(array|Arrayable $arr, callable|string $compare = null): ArrSorted
     {
         return new self($arr, $compare);
     }
@@ -38,9 +38,9 @@ final class ArrSorted extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param callable|null $compare
+     * @param callable|string|null $compare
      */
-    public function __construct(array|Arrayable $arr, callable $compare = null)
+    public function __construct(array|Arrayable $arr, callable|string $compare = null)
     {
         $this->arr = $arr;
         $this->compare = $compare;
@@ -53,7 +53,9 @@ final class ArrSorted extends ArrayableIterable
     {
         $arr = $this->firstArrayableOverloaded($this->arr);
         if ($this->compare != null) {
-            usort($arr, $this->compare);
+            usort($arr, is_string($this->compare)
+                ? fn($a, $b) => $a[$this->compare] <=> $b[$this->compare]
+                : $this->compare);
         } else {
             sort($arr);
         }
