@@ -33,5 +33,21 @@ class TxtTernatyTest extends TestCase
                 TextOf::new("bar")
             )->asString()
         );
+        $this->assertEquals(
+            "foo",
+            (new TxtTernary(
+                true,
+                fn() => "foo",
+                "bar"
+            ))->asString()
+        );
+        $this->assertEquals(
+            "foo",
+            (new TxtTernary(
+                false,
+                fn() => "bar",
+                new TextOf("foo")
+            ))->asString()
+        );
     }
 }

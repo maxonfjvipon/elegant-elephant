@@ -10,6 +10,8 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtFromCallback implements Text
 {
+    use TxtOverloadable;
+
     /**
      * @var callable $callback
      */
@@ -37,13 +39,6 @@ final class TxtFromCallback implements Text
      */
     public function asString(): string
     {
-        $str = call_user_func($this->callback);
-        if (is_string($str)) {
-            return $str;
-        }
-        if ($str instanceof Text) {
-            return $str->asString();
-        }
-        throw new Exception("Callback must return a string or Text!");
+        return $this->firstTxtOverloaded($this->callback);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
 use Maxonfjvipon\Elegant_Elephant\Text;
@@ -16,33 +17,36 @@ final class TxtTernary implements Text
     private Logical|bool $condition;
 
     /**
-     * @var Text|string $original
+     * @var Closure|string|Text $original
      */
-    private Text|string $original;
+    private Text|Closure|string $original;
 
     /**
-     * @var Text|string $alt
+     * @var string|Closure|Text $alt
      */
-    private Text|string $alt;
+    private Text|string|Closure $alt;
 
     /**
      * @param Logical|bool $condition
-     * @param string|Text $original
-     * @param string|Text $alt
+     * @param string|Text|callable $original
+     * @param string|Text|callable $alt
      * @return TxtTernary
      */
-    public static function new(Logical|bool $condition, string|Text $original, string|Text $alt): TxtTernary
-    {
+    public static function new(
+        Logical|bool        $condition,
+        string|Text|callable $original,
+        string|Text|callable $alt
+    ): TxtTernary {
         return new self($condition, $original, $alt);
     }
 
     /**
      * Ctor.
      * @param Logical|bool $condition
-     * @param string|Text $original
-     * @param string|Text $alt
+     * @param string|Text|callable $original
+     * @param string|Text|callable $alt
      */
-    public function __construct(Logical|bool $condition, string|Text $original, string|Text $alt)
+    public function __construct(Logical|bool $condition, string|Text|callable $original, string|Text|callable $alt)
     {
         $this->condition = $condition;
         $this->original = $original;
