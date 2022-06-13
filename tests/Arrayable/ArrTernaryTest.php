@@ -31,6 +31,14 @@ class ArrTernaryTest extends TestCase
                 ArrayableOf::items(3, 2, 1)
             )->asArray()
         );
+        $this->assertEquals(
+            [1, 2],
+            (new ArrTernary(
+                true,
+                fn() => [1, 2],
+                fn() => [2, 1]
+            ))->asArray()
+        );
     }
 
 }

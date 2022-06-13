@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
@@ -19,34 +20,37 @@ final class ArrTernary extends ArrayableIterable
     private Logical|bool $condition;
 
     /**
-     * @var array|Arrayable $origin
+     * @var array|Closure|Arrayable $origin
      */
-    private array|Arrayable $origin;
+    private array|Closure|Arrayable $origin;
 
     /**
-     * @var array|Arrayable $alt
+     * @var array|Closure|Arrayable $alt
      */
-    private array|Arrayable $alt;
+    private array|Closure|Arrayable $alt;
 
     /**
      * Ctor wrap.
      * @param Logical|bool $cond
-     * @param array|Arrayable $first
-     * @param array|Arrayable $alt
+     * @param array|callable|Arrayable $first
+     * @param array|callable|Arrayable $alt
      * @return ArrTernary
      */
-    public static function new(Logical|bool $cond, array|Arrayable $first, array|Arrayable $alt): ArrTernary
-    {
+    public static function new(
+        Logical|bool             $cond,
+        array|callable|Arrayable $first,
+        array|callable|Arrayable $alt
+    ): ArrTernary {
         return new self($cond, $first, $alt);
     }
 
     /**
      * Ctor.
      * @param Logical|bool $cond
-     * @param array|Arrayable $first
-     * @param array|Arrayable $alt
+     * @param array|callable|Arrayable $first
+     * @param array|callable|Arrayable $alt
      */
-    public function __construct(Logical|bool $cond, array|Arrayable $first, array|Arrayable $alt)
+    public function __construct(Logical|bool $cond, array|callable|Arrayable $first, array|callable|Arrayable $alt)
     {
         $this->condition = $cond;
         $this->origin = $first;

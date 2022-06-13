@@ -28,5 +28,12 @@ class ArrIfTest extends TestCase
                 [1, 2, 3]
             ))->asArray()
         );
+        $this->assertEquals(
+            [1, 2],
+            (new ArrIf(
+                true,
+                fn() => [1, 2]
+            ))->asArray()
+        );
     }
 }
