@@ -19,9 +19,9 @@ ElegantElephant - trying to write php code in elegant way. Inspired by [Cactoos]
 ## Static methods
 Every class has at least one `public static` method (mostly it's `new` method). Motivation: getting rid of extra brackets `(` and `)` around the `new Class` if we want to call method just after object creating. 
 
-For example, if we write regular in a regular way:
+For example, if we call a method after creating an object in a regular way:
 ```php
-(new LengthOf("foo"))->asNumber();
+(new LengthOf("foo"))->asNumber(); // extra brackets
 ```
 
 Example from the library (no extra brackets, looks prettier in my opinion):
@@ -30,53 +30,270 @@ LengthOf::new("foo")->asNumber();
 ```
 Constuctors are public, so if you want, you can use them instead of this static `new`
 
-Let's see what's inside.
-
 ## Arrayable
-Elegant arrays
+Elegant arrays. Every Arrayable classes implements `Arrayable` interface that has one public method `asArray()` that should return `array`.  
 
-*ArrayableOf* - just `array` decorator
+### Spreading
+Every `Arrayable` class can be spread. If you want your custom `Arrayable` class to be able to spread it should extend `ArrayableIterable` or use `HarArrIterator` trait. And here is the example for better understanding:
+
+```php
+// regular php
+$arr = array_merge(
+  ...array_map(
+    fn($num) => array_map(
+      fn($letter) => "$num $letter",
+      ["a", "b"]
+    ),
+    [1, 2]
+  )
+);
+echo $arr; // ["1 a", "1 b", "2 a", "2 b"]
+
+// the same result can be got with Arrayable
+$arr = ArrMerged::new(
+  ...new ArrMapped(
+    [1, 2],
+    fn($num) => new ArrMapped(
+      ["a", "b"],
+      fn($letter) => "$num $letter"
+    )
+  )
+)->asArray();
+```
+
+### Arguments overloading
+The library support [arguments overloading](https://github.com/maxonfjvipon/overloaded-elephant). This means that almost every classes in the library can accept arguments of multiple types. For example, almost every `Arrayable` class can accept `Arrayable|array` as argument. It allows you to no call `asArray()` on argument you pass to object. Here what you can do:
+
+```php
+// ArrMerged merges given arrays
+ArrMerged::new(
+  [1, 2],
+  new ArrFiltered(
+    [3, 10],
+    fn($num) => $num > 5
+  ),
+  ["Hello", "World"],
+  new ArrIf(
+    false,
+    [20, 21]
+  )
+)->asArray();  // [1, 2, 10, "Hello", "World"]
+```
+
+#### *ArrayableOf*
+Just decorator for `array`. No need to use because of overloading, but no need to get rid of it for now
 ```php
 ArrayableOf::array([1, 2])->asArray(); // [1, 2]
 ArrayableOf::items(1, 2)->asArray(); // [1, 2]
 (new ArrayableOf([1, 2]))->asArray(); // [1, 2]
 ```
- 
-*ArrSorted* - sorted arrayable
+
+#### *ArrExploded*
+Arrayable exploded by separator. Separator and string to explode can be `string` or [`Text`](#text)
+```php
+ArrExploded::new("-", "foo-bar")->asArray(); // ["foo", "bar"]
+(new ArrExploded(TextOf::new("-"), "foo-bar"))->asArray(); // ["foo", "bar"]
+ArrExploded::byComma(new TextOf("foo,bar"))->asArray(); // ["foo", "bar"]
+```
+
+#### *ArrFiltered* 
+Arrayable filtered by given callback.
+```php
+ArrFiltered::new([1, 2], fn($num) => $num > 1)->asArray(); // [2]
+(new ArrFiltered(new ArrExploded("-", "foo-bar-baz"), fn($string) => $string !== "foo"))->asArray(); // ["bar", "baz"]
+```
+
+#### *ArrIf*
+Conditionable arrayable. Returns given array if condition is `true` or `[]` otherwise. Condition can be `bool` or [`Logical`](#logical)  When to use: for example you want to merge some arrays and one of them is not empty only if some condition is `true`. In regular php you can do it like this:
+```php
+$arr = array_merge(
+  [...],
+  [...],
+  $condition 
+    ? [...] // not empty
+    : [] // empty
+  ...
+)
+```
+Or you can use `ArrIf`:
+```php
+$arr = ArrMerged::new(
+  [...],
+  [...],
+  new ArrIf(
+    $condition,
+    [...] // not empty
+  ),
+  ...
+)->asArray();
+```
+
+Since this is a declarative way to use conditional arrays your array will be created before the condition is checked. It's kind of performance and logical issue if you're dealing with arrays from database:
+
+```php
+ArrIf::new(
+  false,
+  $database->query(...)->get() // this query will be executed before object checks that condition is false 
+)->asArray();
+```
+
+To avoid issues like this you can use `ArrFromCallback` (see below) or callback as second argument. In that case object checks the condition and then call your callback.
+
+```php
+ArrIf::new(
+  false,
+  new ArrFromCallback(
+    fn() => $database->query(...)->get() // will not be executed before the condition is checked
+  )
+)->asArray();
+// or
+ArrIf::new(
+  false,
+  fn() => $database->query(...)->get() // will not be executed before the condition is checked too
+)->asArray();
+```
+
+#### *ArrFromCallback* 
+Arrayable from callback. Callback must return an `array` or an instance of `Arrayable`
+
+```php
+ArrFromCallback::new(
+  fn() => new ArrIf(
+    true,
+    new ArrFromCallback(
+      fn() => [1, 2]
+    )
+  )
+)->asArray(); // [1, 2]
+```
+
+#### *ArrTernary*
+One more conditionable Arrayble but returns other array if condition is `false`. All advices about using callbacks are relevant.
+
+```php
+ArrTernary::new(
+  false,
+  fn() => new ArrIf(
+    true,
+    new ArrFromCallback(fn() => [3, 2, 1])
+  )
+  [1, 2, 3]
+)->asArray(); // [1, 2, 3]
+```
+
+#### *ArrSorted*
+Sorted by values arrayable. You can use `string` or `callable` as comparison callback.
 ```php
 ArrSorted::new([3, 2, 1])->asArray(); // [1, 2, 3]
 ArrSorted::new(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
 (new ArrSorted([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1))->asArray(); // [3, 2, 1]
 ```
 
-*ArrExploded* - arrayable exploded by separator. The library supports [arguments overloading](https://github.com/maxonfjvipon/overloaded-elephant), so you can provide arguments not only of `string` type (`Text` for example)
+#### *ArrSortedByKeys*
+Sorted by keys arrayable. You can use `string` or `callable` as comparison callback.
 ```php
-ArrExploded::new("-", "foo-bar")->asArray(); // ["foo", "bar"]
-ArrExploded::new(TextOf::new("-"), "foo-bar")->asArray(); // ["foo", "bar"]
-ArrExploded::byComma(new TextOf("foo,bar"))->asArray(); // ["foo", "bar"]
+ArrSortedByKeys::new([1 => 32, 3 => 2, 0 => 10])->asArray(); // [0 => 10, 1 => 32, 3 => 2]
 ```
 
-*ArrMapped* - arrayble mapped with callback
+#### *ArrMapped*
+Arrayble mapped with callback
 ```php
 ArrMapped::new(["foo", "bar"], fn($str) => "Hello, " . $str)->asArray(); // ["Hello, foo", "Hello, bar"]
 (new ArrMapped(ArrayableOf::items("foo", "bar"), fn($str) => $str . "!"))->asArray(); // ["foo!", "bar!"]
 ```
 
-*ArrKeys* and *ArrValues* - arrays of keys and values of origin array/Arrayable.
+#### *ArrMappedKeyValue*
+Arrayble mapped with callback that accepts key an value.
 ```php
-ArrValues::new(["key1" => "value1", "key2" => "value"])->asArray(); // ["value1", "value2"] // [0 => "value1", 1 => "value2"]
-(new ArrValues(ArrayableOf::array(["key1" => 1, "key2" => 2])))->asArray(); // ["key1", "key2"] // [0 => "key1", 1 => "key2"]
+ArrMappedKeyValue::new([1 => "foo", 10 => "bar"], fn($key, $value) => "$key - $value")->asArray(); // ["1 - foo", "10 - bar"]
+(new ArrMappedKeyValue(new ArrTernary(false, [10, 20], [20, 10]), fn($key, $value) => $key + $value))->asArray(); // [21, 11]
 ```
 
-*ArrMerged* - arrayable merged of arrays/Arrayables.
+#### *ArrMerged*
+Arrayable merged of arrays/Arrayables.
 ```php
 ArrMerged::new(
   [1, 2],
-  new ArrayableOf([3, 4])
-)->asArray(); // [1, 2, 3, 4]
+  new ArrayableOf([3, 4]),
+  new ArrIf(
+    true,
+    [10, 12]
+  ),
+  new ArrIf(
+    false,
+    fn() => [15, 17]
+  )
+)->asArray(); // [1, 2, 3, 4, 10, 12]
 ```
 
-And so on...
+#### *ArrKeys* and *ArrValues*
+Arrays of keys and values of origin array/Arrayable.
+```php
+ArrValues::new(["key1" => "value1", "key2" => "value"])->asArray(); // ["value1", "value2"] // [0 => "value1", 1 => "value2"]
+(new ArrKeys(ArrayableOf::array(["key1" => 1, "key2" => 2])))->asArray(); // ["key1", "key2"] // [0 => "key1", 1 => "key2"]
+```
+
+#### *ArrReversed*
+Reversed arrayable
+```php
+ArrReversed::new(new ArrReversed([1, 2, 3]))->asArray(); // [1, 2, 3]
+```
+
+#### *ArrSticky*
+Arrayable with cache mechanism. Use when you need to call `asArray()` multiple times but you don't want to use regular arrays or call `asArray()` in advance.
+```php
+$arr = new ArrSticky(
+   new ArrMerged(
+      [...],
+      [...],
+      new ArrMerged(
+         [...],
+         [...],
+         new ArrIf(
+            true,
+            fn() => $database->query()->get()
+         )
+      )
+   )
+)
+foo($arr); // foo calls $arr->asArray(). Merging and database query will be executed only here
+bar($arr); // bar calls $arr->asArray() too. No merging and executing database query
+baz($arr); // baz calla $arr->asArray() too. No merging and executing database query
+```
+
+
+#### *ArrUnique*
+Arrayable with unique elements.
+```php
+ArrUnique::new([1, 1, 2, 3, 3, 4])->asArray(); // [1, 2, 3, 4]
+(new ArrUnique(new ArrMerged([1, 2], [2, 3])))->asArray(); // [1, 2, 3]
+```
+
+#### *ArrObject*
+Arrayable with one element. `asArray` give you \[key => value]. When to use: if you pass somewhere an array with single element and this element is instance of `Arrayable`. You could do it like:
+```php
+['key' => (new SomeArrayable(...))->asArray()]
+```
+or you can:
+```php
+ArrObject::new(
+  'key',
+  new SomeArrayble(...)
+)->asArray()
+```
+For example:
+```php
+ArrMerged(
+  [...],
+  [...],
+  new SomeOtherArrayable(...),
+  new ArrObject( // insted of ['key' => (new SomeArrayable(...))->asArray()]
+    'key',
+    new SomeArrayable(...)
+  )
+)->asArray()
+```
+`ArrObject` will be unnecessary soon, when overloading will allow to do \['key' => new SomeArrayable(...)]
 
 ## Text
 Elegant strings
