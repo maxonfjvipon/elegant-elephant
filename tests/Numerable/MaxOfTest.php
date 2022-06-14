@@ -18,9 +18,5 @@ class MaxOfTest extends TestCase
             10,
             (new MaxOf(2, 4, 10, 1, -1))->asNumber()
         );
-        $this->assertEquals(
-            5,
-            MaxOf::new(Addition::new(2, 3), 1, 2, 3)->asNumber()
-        );
     }
 }

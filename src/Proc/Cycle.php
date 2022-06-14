@@ -48,7 +48,6 @@ final class Cycle implements Proc
     {
         foreach ($args as $item) {
             $this->overload([$this->function], [[
-                'callable',
                 Closure::class,
                 Func::class => fn(Func $func) => fn(...$items) => $func->apply([...$items]),
                 Proc::class => fn(Proc $proc) => fn(...$items) => $proc->exec([...$items]),

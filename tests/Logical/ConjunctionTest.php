@@ -22,12 +22,5 @@ class ConjunctionTest extends TestCase
                 true
             )->asBool()
         );
-//        $this->assertEquals(
-//            false,
-//            Conjunction::new(
-//                Truth::new(),
-//                false
-//            )->asBool()
-//        );
     }
 }

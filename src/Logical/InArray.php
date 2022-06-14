@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
  * In array of.
  * @package Maxonfjvipon\Elegant_Elephant\Logical
  */
-final class ContainsIn implements Logical
+final class InArray implements Logical
 {
     use ArrayableOverloaded;
 
@@ -34,9 +34,9 @@ final class ContainsIn implements Logical
      * @param array|Arrayable $arr
      * @param mixed $needle
      * @param bool $strict
-     * @return ContainsIn
+     * @return InArray
      */
-    public static function new(array|Arrayable $arr, mixed $needle, bool $strict = false): ContainsIn
+    public static function new(array|Arrayable $arr, mixed $needle, bool $strict = false): InArray
     {
         return new self($arr, $needle, $strict);
     }

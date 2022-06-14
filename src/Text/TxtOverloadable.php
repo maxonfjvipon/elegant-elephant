@@ -32,7 +32,6 @@ trait TxtOverloadable
         return $this->overload($args, [[
             'string',
             Text::class => fn(Text $text) => $text->asString(),
-            'callable' => fn(callable $callback) => $this->firstTxtOverloaded(call_user_func($callback)),
             Closure::class => fn(Closure $closure) => $this->firstTxtOverloaded(call_user_func($closure))
         ]]);
     }

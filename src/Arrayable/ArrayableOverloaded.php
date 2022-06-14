@@ -30,7 +30,6 @@ trait ArrayableOverloaded
         return $this->overload($args, [[
             'array',
             Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
-            'callable' => fn(callable $callback) => $this->firstArrayableOverloaded(call_user_func($callback)),
             Closure::class => fn(Closure $closure) => $this->firstArrayableOverloaded(call_user_func($closure))
         ]]);
     }
