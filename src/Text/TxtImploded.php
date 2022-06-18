@@ -19,7 +19,7 @@ final class TxtImploded implements Text
     private string|Text $separator;
 
     /**
-     * @var array $pieces
+     * @var array<string|Text> $pieces
      */
     private array $pieces;
 
@@ -27,17 +27,17 @@ final class TxtImploded implements Text
      * @param mixed ...$pieces
      * @return TxtImploded
      */
-    public static function withComma(...$pieces): TxtImploded
+    public static function withComma(string|Text ...$pieces): TxtImploded
     {
         return TxtImploded::new(",", ...$pieces);
     }
 
     /**
      * @param string|Text $separator
-     * @param mixed ...$pieces
+     * @param string|Text ...$pieces
      * @return TxtImploded
      */
-    public static function new(string|Text $separator, ...$pieces): TxtImploded
+    public static function new(string|Text $separator, string|Text ...$pieces): TxtImploded
     {
         return new self($separator, ...$pieces);
     }
@@ -45,9 +45,9 @@ final class TxtImploded implements Text
     /**
      * Ctor.
      * @param string|Text $separator
-     * @param mixed ...$pieces
+     * @param string|Text ...$pieces
      */
-    public function __construct(string|Text $separator, ...$pieces)
+    public function __construct(string|Text $separator, string|Text ...$pieces)
     {
         $this->separator = $separator;
         $this->pieces = $pieces;

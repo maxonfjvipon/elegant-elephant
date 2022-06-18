@@ -11,24 +11,24 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 final class TxtJoined implements Text
 {
     /**
-     * @var string[] $args
+     * @var array<string|Text> $args
      */
     private array $args;
 
     /**
-     * @param mixed ...$args
+     * @param string|Text ...$args
      * @return TxtJoined
      */
-    public static function new(...$args): TxtJoined
+    public static function new(string|Text ...$args): TxtJoined
     {
         return new self(...$args);
     }
 
     /**
      * Ctor.
-     * @param mixed ...$args
+     * @param string|Text ...$args
      */
-    public function __construct(...$args)
+    public function __construct(string|Text...$args)
     {
         $this->args = $args;
     }
