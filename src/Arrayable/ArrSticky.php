@@ -43,6 +43,6 @@ final class ArrSticky extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return $this->cache[0] ?? ($this->cache[0] = $this->arr->asArray());
+        return $this->cache[0] ??= $this->arr->asArray();
     }
 }
