@@ -70,6 +70,7 @@ final class ArrayableOf extends ArrayableIterable
                 'string',
                 'array',
                 'null',
+                'object',
                 \Closure::class => fn(\Closure $closure) => call_user_func($closure),
                 Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
                 Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),

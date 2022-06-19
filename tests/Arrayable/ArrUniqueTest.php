@@ -21,7 +21,7 @@ class ArrUniqueTest extends TestCase
         );
         $this->assertEquals(
             ArrValues::new([1, 2, 3, 4, 5])->asArray(),
-            ArrValues::new(ArrUnique::new(ArrayableOf::items(1, 1, 2, 3, 4, 5, 5)))->asArray()
+            ArrValues::new(ArrUnique::new(ArrayableOf::new([1, 1, 2, 3, 4, 5, 5], false)))->asArray()
         );
     }
 }

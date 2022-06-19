@@ -22,10 +22,6 @@ class ArrFilteredTest extends TestCase
             $expected,
             ArrFiltered::new($arr, $callback)->asArray()
         );
-        $this->assertEquals(
-            $expected,
-            ArrFiltered::new(ArrayableOf::items(...$arr), $callback)->asArray()
-        );
         $this->assertNotEquals(
             $expected,
             ArrFiltered::new($arr, fn($num) => $num > 3)->asArray()

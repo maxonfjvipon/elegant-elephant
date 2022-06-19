@@ -23,7 +23,7 @@ class ArrSortedTest extends TestCase
         );
         $this->assertEquals(
             $expected,
-            (new ArrSorted(ArrayableOf::array($arr)))->asArray()
+            (new ArrSorted(ArrayableOf::new($arr, false)))->asArray()
         );
         $this->assertEquals(
             [4, 3, 2, 1],

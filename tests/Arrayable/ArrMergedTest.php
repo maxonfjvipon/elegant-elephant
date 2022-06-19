@@ -24,15 +24,11 @@ class ArrMergedTest extends TestCase
         );
         $this->assertEquals(
             $arr,
-            ArrMerged::new(ArrayableOf::array([1, 2]), ["hello", "world"])->asArray()
-        );
-        $this->assertNotEquals(
-            $arr,
-            ArrMerged::new([1, 2], ArrayableOf::items(1, 2))->asArray()
+            ArrMerged::new(ArrayableOf::new([1, 2]), ["hello", "world"])->asArray()
         );
         $this->assertEquals(
             $arr,
-            ArrMerged::new(ArrayableOf::array($arr), [], [])->asArray()
+            ArrMerged::new(ArrayableOf::new($arr), [], [])->asArray()
         );
         $this->assertEquals(
             [2, 3, 3, 4, 4, 5],

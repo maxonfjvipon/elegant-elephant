@@ -33,10 +33,6 @@ class ArrSortedByKeysTest extends TestCase
         );
         $this->assertEquals(
             $expected,
-            (new ArrSortedByKeys(ArrayableOf::array($arr)))->asArray()
-        );
-        $this->assertEquals(
-            $expected,
             ArrSortedByKeys::new($expected)->asArray()
         );
     }
