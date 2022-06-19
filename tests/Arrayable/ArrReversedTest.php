@@ -19,9 +19,5 @@ class ArrReversedTest extends TestCase
             ArrValues::new([1, 2, 3, 4, 5])->asArray(),
             ArrValues::new(ArrReversed::new([5, 4, 3, 2, 1]))->asArray()
         );
-        $this->assertEquals(
-            ArrValues::new([1, 2, 3, 4, 5])->asArray(),
-            ArrValues::new(ArrReversed::new(ArrayableOf::items(5, 4, 3, 2, 1)))->asArray()
-        );
     }
 }

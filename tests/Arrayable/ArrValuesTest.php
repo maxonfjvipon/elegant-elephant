@@ -28,7 +28,7 @@ class ArrValuesTest extends TestCase
         );
         $this->assertEquals(
             $expected,
-            ArrValues::new(ArrayableOf::array($arr))->asArray()
+            ArrValues::new(ArrayableOf::new($arr, false))->asArray()
         );
         $this->assertEquals(
             $expected,

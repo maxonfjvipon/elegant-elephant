@@ -26,10 +26,6 @@ class ArrKeysTest extends TestCase
             $expected,
             ArrKeys::new($arr)->asArray()
         );
-        $this->assertEquals(
-            $expected,
-            (new ArrKeys(ArrayableOf::array($arr)))->asArray()
-        );
         $this->assertNotEquals(
             $expected,
             ArrKeys::new([

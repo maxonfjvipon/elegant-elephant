@@ -21,10 +21,6 @@ class ArrMappedTest extends TestCase
             $expected,
             ArrMapped::new($arr, $callback)->asArray()
         );
-        $this->assertEquals(
-            $expected,
-            ArrMapped::new(ArrayableOf::array($arr), $callback)->asArray()
-        );
         $this->assertNotEquals(
             $expected,
             (new ArrMapped($arr, fn($num) => $num + $num))->asArray()

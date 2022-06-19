@@ -28,7 +28,7 @@ class ArrTernaryTest extends TestCase
             ArrTernary::new(
                 false,
                 [1, 2, 3],
-                ArrayableOf::items(3, 2, 1)
+                ArrayableOf::new([3, 2, 1], false)
             )->asArray()
         );
         $this->assertEquals(
