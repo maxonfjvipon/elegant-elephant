@@ -55,7 +55,7 @@ final class ArrayableOf extends ArrEnvelope
             new ArrTernary(
                 $override,
                 fn() => $this->overload(
-                    $this->firstArrayableOverloaded($this->array),
+                    $this->firstArrayableOverloaded($arr),
                     [[
                         'integer',
                         'double',
@@ -68,7 +68,7 @@ final class ArrayableOf extends ArrEnvelope
                         Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
                         Text::class => fn(Text $text) => $text->asString(),
                         Logical::class => fn(Logical $logical) => $logical->asBool(),
-                        ...$this->rules,
+                        ...$rules,
                     ]]
                 ),
                 $arr,
