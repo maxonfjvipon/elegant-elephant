@@ -6,7 +6,7 @@ use Closure;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
-final class TxtIf implements Text
+final class TxtIf extends TxtEnvelope
 {
 
     /**
@@ -37,19 +37,12 @@ final class TxtIf implements Text
      */
     public function __construct(bool|Logical $cond, string|callable|Text $text)
     {
-        $this->condition = $cond;
-        $this->text = $text;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function asString(): string
-    {
-        return (new TxtTernary(
-            $this->condition,
-            $this->text,
-            new TxtBlank()
-        ))->asString();
+        parent::__construct(
+            new TxtTernary(
+                $cond,
+                $text,
+                new TxtBlank()
+            )
+        );
     }
 }

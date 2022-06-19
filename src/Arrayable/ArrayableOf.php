@@ -12,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  * Arrayable of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrayableOf extends ArrayableIterable
+final class ArrayableOf extends ArrEnvelope
 {
     use Overloadable, ArrayableOverloaded;
 
@@ -51,36 +51,28 @@ final class ArrayableOf extends ArrayableIterable
      */
     public function __construct(array|Arrayable $arr, bool $override = true, array $rules = [])
     {
-        $this->array = $arr;
-        $this->override = $override;
-        $this->rules = $rules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function asArray(): array
-    {
-        return ArrTernary::new(
-            $this->override,
-            fn() => $this->overload(
-                $this->firstArrayableOverloaded($this->array),
-                [[
-                    'integer',
-                    'double',
-                    'boolean',
-                    'string',
-                    'array',
-                    'null',
-                    \Closure::class => fn(\Closure $closure) => call_user_func($closure),
-                    Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
-                    Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
-                    Text::class => fn(Text $text) => $text->asString(),
-                    Logical::class => fn(Logical $logical) => $logical->asBool(),
-                    ...$this->rules,
-                ]]
-            ),
-            $this->array,
-        )->asArray();
+        parent::__construct(
+            new ArrTernary(
+                $override,
+                fn() => $this->overload(
+                    $this->firstArrayableOverloaded($this->array),
+                    [[
+                        'integer',
+                        'double',
+                        'boolean',
+                        'string',
+                        'array',
+                        'null',
+                        \Closure::class => fn(\Closure $closure) => call_user_func($closure),
+                        Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
+                        Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
+                        Text::class => fn(Text $text) => $text->asString(),
+                        Logical::class => fn(Logical $logical) => $logical->asBool(),
+                        ...$this->rules,
+                    ]]
+                ),
+                $arr,
+            )
+        );
     }
 }

@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
  * Represents {@see Arrayable} if {@code $cond} is TRUE
  * [] otherwise
  */
-final class ArrIf extends ArrayableIterable
+final class ArrIf extends ArrEnvelope
 {
     /**
      * @var bool|Logical $condition
@@ -35,24 +35,17 @@ final class ArrIf extends ArrayableIterable
 
     /**
      * Ctor.
-     * @param bool|Logical $cond
+     * @param bool|Logical $condition
      * @param array|callable|Arrayable $arr
      */
-    public function __construct(bool|Logical $cond, array|callable|Arrayable $arr)
+    public function __construct(bool|Logical $condition, array|callable|Arrayable $arr)
     {
-        $this->condition = $cond;
-        $this->arr = $arr;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function asArray(): array
-    {
-        return (new ArrTernary(
-            $this->condition,
-            $this->arr,
-            []
-        ))->asArray();
+        parent::__construct(
+            new ArrTernary(
+                $condition,
+                $arr,
+                []
+            )
+        );
     }
 }

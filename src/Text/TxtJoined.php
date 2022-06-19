@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  * Text joined.
  * @package Maxonfjvipon\Elegant_Elephant\Text
  */
-final class TxtJoined implements Text
+final class TxtJoined extends TxtEnvelope
 {
     /**
      * @var array<string|Text> $args
@@ -30,14 +30,11 @@ final class TxtJoined implements Text
      */
     public function __construct(string|Text...$args)
     {
-        $this->args = $args;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function asString(): string
-    {
-        return TxtImploded::new(TxtBlank::new(), ...$this->args)->asString();
+        parent::__construct(
+            new TxtImploded(
+                new TxtBlank(),
+                ...$args
+            )
+        );
     }
 }
