@@ -3,8 +3,8 @@
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
-use PHP_CodeSniffer\Generators\Text;
 
 /**
  * String contains.
