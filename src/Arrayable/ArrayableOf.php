@@ -17,9 +17,9 @@ final class ArrayableOf extends ArrEnvelope
     use Overloadable, ArrayableOverloaded;
 
     /**
-     * @var array|Arrayable $array
+     * @var array $array
      */
-    private array|Arrayable $array;
+    private array $array;
 
     /**
      * @var bool $override
@@ -32,30 +32,39 @@ final class ArrayableOf extends ArrEnvelope
     private array $rules;
 
     /**
+     * @param mixed ...$array
+     * @return ArrayableOf
+     */
+    public static function items(mixed ...$array): ArrayableOf
+    {
+        return new self($array);
+    }
+
+    /**
      * Ctor wrap.
-     * @param array|Arrayable $arr
+     * @param array $arr
      * @param bool $override
      * @param array $rules
      * @return ArrayableOf
      */
-    public static function new(array|Arrayable $arr, bool $override = true, array $rules = []): ArrayableOf
+    public static function new(array $arr, bool $override = true, array $rules = []): ArrayableOf
     {
         return new self($arr, $override, $rules);
     }
 
     /**
      * Ctor.
-     * @param array|Arrayable $arr
+     * @param array $arr
      * @param bool $override
      * @param array $rules
      */
-    public function __construct(array|Arrayable $arr, bool $override = true, array $rules = [])
+    public function __construct(array $arr, bool $override = true, array $rules = [])
     {
         parent::__construct(
             new ArrTernary(
                 $override,
                 fn() => $this->overload(
-                    $this->firstArrayableOverloaded($arr),
+                    $arr,
                     [[
                         'integer',
                         'double',
