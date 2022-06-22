@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Closure;
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
@@ -12,15 +13,16 @@ trait TxtOverloadable
     use Overloadable;
 
     /**
-     * @param string|Text ...$args
+     * @param string|Text|Any ...$args
      * @return array
      * @throws Exception
      */
-    private function txtOverloaded(string|Text ...$args): array
+    private function txtOverloaded(string|Text|Any ...$args): array
     {
         return $this->overload($args, [[
             'string',
-            Text::class => fn(Text $text) => $text->asString()
+            Text::class => fn(Text $text) => $text->asString(),
+            Any::class => fn(Any $any) => $this->firstTxtOverloaded($any->asAny())
         ]]);
     }
 
@@ -37,11 +39,11 @@ trait TxtOverloadable
     }
 
     /**
-     * @param string|callable|Text $arg
+     * @param string|callable|Text|Any $arg
      * @return mixed
      * @throws Exception
      */
-    private function firstTxtOverloaded(string|callable|Text $arg): string
+    private function firstTxtOverloaded(string|callable|Text|Any $arg): string
     {
         if (is_callable($arg)) {
             $str = $this->txtOrCallableOverloaded($arg)[0];

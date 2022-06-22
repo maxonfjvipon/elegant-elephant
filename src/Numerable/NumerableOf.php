@@ -2,9 +2,8 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
-use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Numerable of.
@@ -15,26 +14,20 @@ final class NumerableOf implements Numerable
     use NumerableOverloaded;
 
     /**
-     * @var float|int $origin
-     */
-    private float|int $origin;
-
-    /**
-     * @param float|int $num
+     * @param float|int|Any $num
      * @return NumerableOf
      */
-    public static function new(float|int $num): NumerableOf
+    public static function new(float|int|Any $num): NumerableOf
     {
         return new self($num);
     }
 
     /**
      * Ctor.
-     * @param float|int $num
+     * @param float|int|Any $origin
      */
-    public function __construct(float|int $num)
+    public function __construct(private float|int|Any $origin)
     {
-        $this->origin = $num;
     }
 
     /**
@@ -42,6 +35,6 @@ final class NumerableOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return $this->origin;
+        return $this->firstNumerableOverloaded($this->origin);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
@@ -77,6 +78,7 @@ final class ArrayableOf extends ArrEnvelope
                         Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
                         Text::class => fn(Text $text) => $text->asString(),
                         Logical::class => fn(Logical $logical) => $logical->asBool(),
+                        Any::class => fn(Any $any) => $any->asAny(),
                         ...$rules,
                     ]]
                 ),

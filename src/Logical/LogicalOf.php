@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
@@ -10,17 +11,14 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
  */
 final class LogicalOf implements Logical
 {
-    /**
-     * @var bool $bool
-     */
-    private bool $bool;
+    use LogicalOverloadable;
 
     /**
      * Ctor wrap.
      * @param bool $bool
      * @return LogicalOf
      */
-    public static function bool(bool $bool): LogicalOf
+    public static function bool(bool|Any $bool): LogicalOf
     {
         return new self($bool);
     }
@@ -29,9 +27,8 @@ final class LogicalOf implements Logical
      * Ctor.
      * @param bool $bool
      */
-    private function __construct(bool $bool)
+    private function __construct(private bool|Any $bool)
     {
-        $this->bool = $bool;
     }
 
     /**
@@ -39,6 +36,6 @@ final class LogicalOf implements Logical
      */
     public function asBool(): bool
     {
-        return $this->bool;
+        return $this->firstLogicalOverloaded($this->bool);
     }
 }

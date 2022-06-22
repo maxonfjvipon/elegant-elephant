@@ -3,6 +3,7 @@
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
@@ -15,27 +16,21 @@ final class TextOf implements Text
     use TxtOverloadable;
 
     /**
-     * @var string|Text $origin
-     */
-    private string|Text $origin;
-
-    /**
      * Ctor wrap of string.
-     * @param string|Text $str
+     * @param string|Text|Any $str
      * @return TextOf
      */
-    public static function new(string|Text $str): TextOf
+    public static function new(string|Text|Any $str): TextOf
     {
         return new self($str);
     }
 
     /**
      * Ctor.
-     * @param string|Text $str
+     * @param string|Text|Any $origin
      */
-    public function __construct(string|Text $str)
+    public function __construct(private string|Text|Any $origin)
     {
-        $this->origin = $str;
     }
 
     /**
