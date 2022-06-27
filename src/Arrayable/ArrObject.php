@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
@@ -19,24 +18,14 @@ final class ArrObject extends ArrayableIterable
     use TxtOverloadable;
 
     /**
-     * @var string|Text
-     */
-    private mixed $key;
-
-    /**
-     * @var mixed $arrayable
-     */
-    private mixed $origin;
-
-    /**
      * Ctor wrap.
      * @param mixed $key
-     * @param Arrayable $arrayable
+     * @param mixed $object
      * @return ArrObject
      */
-    public static function new(mixed $key, Arrayable $arrayable)
+    public static function new(mixed $key, mixed $object)
     {
-        return new self($key, $arrayable);
+        return new self($key, $object);
     }
 
     /**
@@ -44,13 +33,8 @@ final class ArrObject extends ArrayableIterable
      * @param mixed $key
      * @param mixed $object
      */
-    public function __construct(
-        mixed $key,
-        mixed $object
-    )
+    public function __construct(private mixed $key, private mixed $object)
     {
-        $this->key = $key;
-        $this->origin = $object;
     }
 
     /**
@@ -58,7 +42,7 @@ final class ArrObject extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return [$this->key => $this->overload([$this->origin], [[
+        return [$this->key => $this->overload([$this->object], [[
             Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
             Text::class => fn(Text $text) => $text->asString(),
             Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
