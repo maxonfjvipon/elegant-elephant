@@ -3,7 +3,6 @@
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
  * Array from callback

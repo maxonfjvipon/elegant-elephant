@@ -18,21 +18,6 @@ final class ArrayableOf extends ArrEnvelope
     use Overloadable, ArrayableOverloaded;
 
     /**
-     * @var array $array
-     */
-    private array $array;
-
-    /**
-     * @var bool $override
-     */
-    private bool $override;
-
-    /**
-     * @var array $rules
-     */
-    private array $rules;
-
-    /**
      * @param mixed ...$array
      * @return ArrayableOf
      */
@@ -45,21 +30,19 @@ final class ArrayableOf extends ArrEnvelope
      * Ctor wrap.
      * @param array $arr
      * @param bool $override
-     * @param array $rules
      * @return ArrayableOf
      */
-    public static function new(array $arr, bool $override = true, array $rules = []): ArrayableOf
+    public static function new(array $arr, bool $override = true): ArrayableOf
     {
-        return new self($arr, $override, $rules);
+        return new self($arr, $override);
     }
 
     /**
      * Ctor.
      * @param array $arr
      * @param bool $override
-     * @param array $rules
      */
-    public function __construct(array $arr, bool $override = true, array $rules = [])
+    public function __construct(private array $arr, private bool $override = true)
     {
         parent::__construct(
             new ArrTernary(
@@ -67,19 +50,12 @@ final class ArrayableOf extends ArrEnvelope
                 fn() => $this->overload(
                     $arr,
                     [[
-                        'integer',
-                        'double',
-                        'boolean',
-                        'string',
-                        'array',
-                        'null',
                         \Closure::class => fn(\Closure $closure) => call_user_func($closure),
                         Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
                         Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
                         Text::class => fn(Text $text) => $text->asString(),
                         Logical::class => fn(Logical $logical) => $logical->asBool(),
                         Any::class => fn(Any $any) => $any->asAny(),
-                        ...$rules,
                     ]]
                 ),
                 $arr,

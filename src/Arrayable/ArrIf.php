@@ -13,16 +13,6 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
 final class ArrIf extends ArrEnvelope
 {
     /**
-     * @var bool|Logical $condition
-     */
-    private bool|Logical $condition;
-
-    /**
-     * @var array|Closure|Arrayable $arr
-     */
-    private array|Closure|Arrayable $arr;
-
-    /**
      * Ctor wrap.
      * @param bool|Logical $cond
      * @param array|callable|Arrayable $arr
@@ -36,9 +26,9 @@ final class ArrIf extends ArrEnvelope
     /**
      * Ctor.
      * @param bool|Logical $condition
-     * @param array|callable|Arrayable $arr
+     * @param array|Closure|Arrayable $arr
      */
-    public function __construct(bool|Logical $condition, array|callable|Arrayable $arr)
+    public function __construct(bool|Logical $condition, array|Closure|Arrayable $arr)
     {
         parent::__construct(
             new ArrTernary(

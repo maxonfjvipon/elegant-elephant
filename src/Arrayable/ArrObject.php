@@ -3,13 +3,16 @@
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
 
 /**
  * Arrayable object
- * behave like [key => Arrayable]
+ * behave like [key => object]
  */
 final class ArrObject extends ArrayableIterable
 {
@@ -21,9 +24,9 @@ final class ArrObject extends ArrayableIterable
     private mixed $key;
 
     /**
-     * @var Arrayable $arrayable
+     * @var mixed $arrayable
      */
-    private Arrayable $origin;
+    private mixed $origin;
 
     /**
      * Ctor wrap.
@@ -39,12 +42,15 @@ final class ArrObject extends ArrayableIterable
     /**
      * Ctor.
      * @param mixed $key
-     * @param Arrayable $arrayable
+     * @param mixed $object
      */
-    public function __construct(mixed $key, Arrayable $arrayable)
+    public function __construct(
+        mixed $key,
+        mixed $object
+    )
     {
         $this->key = $key;
-        $this->origin = $arrayable;
+        $this->origin = $object;
     }
 
     /**
@@ -52,6 +58,13 @@ final class ArrObject extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return [$this->key => $this->origin->asArray()];
+        return [$this->key => $this->overload([$this->origin], [[
+            Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
+            Text::class => fn(Text $text) => $text->asString(),
+            Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
+            Logical::class => fn(Logical $logical) => $logical->asBool(),
+            \Closure::class => fn(\Closure $closure) => call_user_func($closure),
+            Any::class => fn(Any $any) => $any->asAny(),
+        ]])[0]];
     }
 }

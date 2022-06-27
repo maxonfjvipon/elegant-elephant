@@ -54,12 +54,12 @@ final class ArrFlatten extends ArrayableIterable
 
     /**
      * @param array $arr
-     * @param $new
+     * @param array $new
      * @param int $deep
      * @return array
      * @throws Exception
      */
-    private function flat(array $arr, $new, int $deep = 0): array
+    private function flat(array $arr, array $new, int $deep = 0): array
     {
         foreach ($arr as $item) {
             if ($this->deep !== $deep && (is_array($item) || $item instanceof Arrayable)) {
