@@ -18,9 +18,9 @@ final class LastOf implements Any
     /**
      * Ctor wrap.
      * @param string|Text|array|Arrayable $container
-     * @return FirstOf
+     * @return LastOf
      */
-    public static function new(string|Text|array|Arrayable $container): FirstOf
+    public static function new(string|Text|array|Arrayable $container): LastOf
     {
         return new self($container);
     }

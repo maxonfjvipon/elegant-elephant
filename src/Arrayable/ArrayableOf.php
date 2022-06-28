@@ -50,6 +50,13 @@ final class ArrayableOf extends ArrEnvelope
                 fn() => $this->overload(
                     $arr,
                     [[
+                        'array',
+                        'integer',
+                        'string',
+                        'double',
+                        'null',
+                        'boolean',
+                        'unknown type',
                         \Closure::class => fn(\Closure $closure) => call_user_func($closure),
                         Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
                         Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),

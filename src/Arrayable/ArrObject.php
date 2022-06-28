@@ -43,6 +43,13 @@ final class ArrObject extends ArrayableIterable
     public function asArray(): array
     {
         return [$this->key => $this->overload([$this->object], [[
+            'array',
+            'integer',
+            'string',
+            'double',
+            'null',
+            'boolean',
+            'unknown type',
             Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
             Text::class => fn(Text $text) => $text->asString(),
             Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
