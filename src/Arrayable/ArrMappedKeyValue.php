@@ -19,7 +19,7 @@ final class ArrMappedKeyValue extends ArrayableIterable
      * @param bool $cast
      * @return ArrMappedKeyValue
      */
-    public static function new(array|Arrayable $arr, callable $callback, bool $cast): ArrMappedKeyValue
+    public static function new(array|Arrayable $arr, callable $callback, bool $cast = false): ArrMappedKeyValue
     {
         return new self($arr, $callback, $cast);
     }
