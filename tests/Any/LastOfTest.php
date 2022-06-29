@@ -28,7 +28,7 @@ final class LastOfTest extends TestCase
         );
         $this->assertEquals(
             3,
-            (new LastOf(new ArrayableOf([1, 2, 3], false)))->asAny()
+            (new LastOf(new ArrayableOf([1, 2, 3])))->asAny()
         );
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text lowered of.
@@ -13,11 +11,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 final class TxtLowered implements Text
 {
     use TxtOverloadable;
-
-    /**
-     * @var string|Text $text
-     */
-    private string|Text $text;
 
     /**
      * Ctor wrap.
@@ -31,11 +24,10 @@ final class TxtLowered implements Text
 
     /**
      * Ctor.
-     * @param string|Text $txt
+     * @param string|Text $text
      */
-    public function __construct(string|Text $txt)
+    public function __construct(private string|Text $text)
     {
-        $this->text = $txt;
     }
 
     /**
@@ -43,6 +35,6 @@ final class TxtLowered implements Text
      */
     public function asString(): string
     {
-        return strtolower(...$this->txtOverloaded($this->text));
+        return strtolower($this->firstTxtOverloaded($this->text));
     }
 }

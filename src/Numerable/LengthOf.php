@@ -4,11 +4,8 @@ namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Func;
-use Maxonfjvipon\Elegant_Elephant\Func\FuncOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 use TypeError;
 
 /**
@@ -17,18 +14,11 @@ use TypeError;
  */
 final class LengthOf implements Numerable
 {
-    use Overloadable;
-
-    /**
-     * @var array|Arrayable|Text|string $arg
-     */
-    private Text|string|array|Arrayable $arg;
-
     /**
      * @param Text|string|array|Arrayable $arg
      * @return LengthOf
      */
-    public static function new(Text|string|array|Arrayable $arg): LengthOf
+    public static function new(string|array|Text|Arrayable $arg): LengthOf
     {
         return new self($arg);
     }
@@ -37,9 +27,8 @@ final class LengthOf implements Numerable
      * Ctor.
      * @param Text|string|array|Arrayable $arg
      */
-    public function __construct(Text|string|array|Arrayable $arg)
+    public function __construct(private string|array|Text|Arrayable $arg)
     {
-        $this->arg = $arg;
     }
 
     /**
@@ -48,11 +37,14 @@ final class LengthOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return $this->overload([$this->arg], [[
-            'string'            => fn(string $str) => strlen($str),
-            'array'             => fn(array $arr) => count($arr),
-            Text::class         => fn(Text $text) => strlen($text->asString()),
-            Arrayable::class    => fn(Arrayable $arr) => count($arr->asArray())
-        ]])[0];
+        if (is_string($this->arg)) {
+            return strlen($this->arg);
+        } elseif (is_array($this->arg)) {
+            return count($this->arg);
+        } elseif ($this->arg instanceof Text) {
+            return strlen($this->arg->asString());
+        } else {
+            return count($this->arg->asArray());
+        }
     }
 }

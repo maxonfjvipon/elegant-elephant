@@ -18,16 +18,6 @@ final class PregMatch implements Logical
     use TxtOverloadable;
 
     /**
-     * @var string|Text $pattern
-     */
-    private string|Text $pattern;
-
-    /**
-     * @var string|Text $subject
-     */
-    private string|Text $subject;
-
-    /**
      * @param string|Text $pttrn
      * @param string|Text $sbjct
      * @return PregMatch
@@ -39,13 +29,11 @@ final class PregMatch implements Logical
 
     /**
      * Ctor.
-     * @param string|Text $pttrn
-     * @param string|Text $sbjct
+     * @param string|Text $pattern
+     * @param string|Text $subject
      */
-    public function __construct(string|Text $pttrn, string|Text $sbjct)
+    public function __construct(private string|Text $pattern, private string|Text $subject)
     {
-        $this->pattern = $pttrn;
-        $this->subject = $sbjct;
     }
 
     public function asBool(): bool

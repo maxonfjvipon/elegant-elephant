@@ -12,45 +12,32 @@ final class TxtTernary implements Text
     use TxtOverloadable, LogicalOverloadable;
 
     /**
-     * @var bool|Logical $condition
-     */
-    private Logical|bool $condition;
-
-    /**
-     * @var Closure|string|Text $original
-     */
-    private Text|Closure|string $original;
-
-    /**
-     * @var string|Closure|Text $alt
-     */
-    private Text|string|Closure $alt;
-
-    /**
      * @param Logical|bool $condition
      * @param string|Text|callable $original
      * @param string|Text|callable $alt
      * @return TxtTernary
      */
     public static function new(
-        Logical|bool        $condition,
+        Logical|bool         $condition,
         string|Text|callable $original,
         string|Text|callable $alt
-    ): TxtTernary {
+    ): TxtTernary
+    {
         return new self($condition, $original, $alt);
     }
 
     /**
      * Ctor.
      * @param Logical|bool $condition
-     * @param string|Text|callable $original
-     * @param string|Text|callable $alt
+     * @param string|Text|Closure $original
+     * @param string|Text|Closure $alt
      */
-    public function __construct(Logical|bool $condition, string|Text|callable $original, string|Text|callable $alt)
+    public function __construct(
+        private Logical|bool        $condition,
+        private string|Text|Closure $original,
+        private string|Text|Closure $alt
+    )
     {
-        $this->condition = $condition;
-        $this->original = $original;
-        $this->alt = $alt;
     }
 
     /**

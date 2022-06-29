@@ -19,7 +19,7 @@ class KeyExistsTest extends TestCase
     public function testAsBool(): void
     {
         assertEquals(true, KeyExists::new("foo", ["foo" => 1, "bar" => 2])->asBool());
-        assertEquals(true, KeyExists::new(TextOf::new("bar"), ArrayableOf::array(["foo" => 1, "bar" => 2]))->asBool());
+        assertEquals(true, KeyExists::new(TextOf::new("bar"), ArrayableOf::new(["foo" => 1, "bar" => 2]))->asBool());
         assertEquals(true, KeyExists::new(NumerableOf::new(4), [4 => "foo", 5 => "bar"])->asBool());
     }
 }

@@ -13,11 +13,6 @@ final class ArrUnique extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
-     * @var array|Arrayable $arr
-     */
-    private array|Arrayable $arr;
-
-    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @return ArrUnique
@@ -31,9 +26,8 @@ final class ArrUnique extends ArrayableIterable
      * Ctor.
      * @param array|Arrayable $arr
      */
-    public function __construct(array|Arrayable $arr)
+    public function __construct(private array|Arrayable $arr)
     {
-        $this->arr = $arr;
     }
 
     /**

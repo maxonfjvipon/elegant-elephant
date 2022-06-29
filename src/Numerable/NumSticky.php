@@ -2,10 +2,11 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
-use TypeError;
 
+/**
+ * Numerable with cache.
+ */
 final class NumSticky implements Numerable
 {
     /**

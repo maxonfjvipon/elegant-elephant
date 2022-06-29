@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
@@ -36,6 +37,12 @@ final class LogicalOf implements Logical
      */
     public function asBool(): bool
     {
-        return $this->firstLogicalOverloaded($this->bool);
+        if ($this->bool instanceof Any) {
+            if (!is_bool($res = $this->bool->asAny())) {
+                throw new Exception("Any object must return a bool");
+            }
+            return $res;
+        }
+        return $this->bool;
     }
 }

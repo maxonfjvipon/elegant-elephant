@@ -2,11 +2,8 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Maxonfjvipon\Elegant_Elephant\Any;
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
-use Maxonfjvipon\Elegant_Elephant\Text;
+use Exception;
+use Maxonfjvipon\Elegant_Elephant\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
 
 /**
@@ -15,7 +12,7 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
  */
 final class ArrObject extends ArrayableIterable
 {
-    use TxtOverloadable;
+    use TxtOverloadable, CastMixed;
 
     /**
      * Ctor wrap.
@@ -42,20 +39,6 @@ final class ArrObject extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return [$this->key => $this->overload([$this->object], [[
-            'array',
-            'integer',
-            'string',
-            'double',
-            'null',
-            'boolean',
-            'unknown type',
-            Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
-            Text::class => fn(Text $text) => $text->asString(),
-            Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
-            Logical::class => fn(Logical $logical) => $logical->asBool(),
-            \Closure::class => fn(\Closure $closure) => call_user_func($closure),
-            Any::class => fn(Any $any) => $any->asAny(),
-        ]])[0]];
+        return [$this->key => $this->castMixed($this->object)];
     }
 }

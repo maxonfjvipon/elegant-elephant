@@ -3,32 +3,32 @@
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
+/**
+ * Logical overloading.
+ */
 trait LogicalOverloadable
 {
-    use Overloadable;
-
     /**
      * @throws Exception
      */
-    private function logicalOverloaded(bool|Logical|Any ...$args): array
+    private function logicalOverloaded(bool|Logical ...$args): array
     {
-        return $this->overload($args, [[
-            'bool',
-            Logical::class => fn(Logical $logical) => $logical->asBool(),
-            Any::class => fn(Any $any) => $this->firstLogicalOverloaded($any->asAny())
-        ]]);
+        return array_map(
+            fn(bool|Logical $logical) => is_bool($logical) ? $logical : $logical->asBool(),
+            $args
+        );
     }
 
     /**
      * @throws Exception
      */
-    private function firstLogicalOverloaded(bool|Logical|Any $arg): bool
+    private function firstLogicalOverloaded(bool|Logical|callable $arg): bool
     {
-        return $this->logicalOverloaded($arg)[0];
+        if (is_callable($arg)) {
+            return $this->firstLogicalOverloaded(call_user_func($arg));
+        }
+        return is_bool($arg) ? $arg : $arg->asBool();
     }
 }

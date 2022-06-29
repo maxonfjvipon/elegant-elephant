@@ -2,14 +2,14 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
+/**
+ * Logical OR.
+ */
 final class Disjunction implements Logical
 {
-
-    use Overloadable;
+    use LogicalOverloadable;
 
     /**
      * @var Logical[]|bool[] $args
@@ -39,11 +39,8 @@ final class Disjunction implements Logical
      */
     public function asBool(): bool
     {
-        foreach ($this->overload($this->args, [[
-            'boolean' => fn(bool $bool) => LogicalOf::bool($bool),
-            Logical::class
-        ]]) as $arg) {
-            if ($arg->asBool()) {
+        foreach ($this->args as $arg) {
+            if ($this->firstLogicalOverloaded($arg)) {
                 return true;
             }
         }

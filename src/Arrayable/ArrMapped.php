@@ -2,7 +2,9 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\CastMixed;
 
 /**
  * Mapped arrayable.
@@ -10,38 +12,31 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrMapped extends ArrayableIterable
 {
-    use ArrayableOverloaded;
-
-    /**
-     * @var array|Arrayable $arrayable
-     */
-    private array|Arrayable $arr;
-
-    /**
-     * @var callable $callback
-     */
-    private $callback;
+    use ArrayableOverloaded, CastMixed;
 
     /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @param callable $callback
+     * @param bool $cast
      * @return ArrMapped
      */
-    public static function new(array|Arrayable $arr, callable $callback): ArrMapped
+    public static function new(array|Arrayable $arr, callable $callback, bool $cast = false): ArrMapped
     {
-        return new self($arr, $callback);
+        return new self($arr, $callback, $cast);
     }
 
     /**
      * ArrMappedOf constructor.
      * @param array|Arrayable $arr
-     * @param callable $callback
+     * @param Closure $callback
+     * @param bool $cast
      */
-    public function __construct(array|Arrayable $arr, callable $callback)
-    {
-        $this->arr = $arr;
-        $this->callback = $callback;
+    public function __construct(
+        private array|Arrayable $arr,
+        private Closure $callback,
+        private bool $cast = false
+    ) {
     }
 
     /**
@@ -49,6 +44,14 @@ final class ArrMapped extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return array_map($this->callback, $this->firstArrayableOverloaded($this->arr));
+        if (!$this->cast) {
+            return array_map($this->callback, $this->firstArrayableOverloaded($this->arr));
+        } else {
+            $res = [];
+            foreach ($this->firstArrayableOverloaded($this->arr) as $key => $value) {
+                $res[$key] = $this->castMixed(call_user_func($this->callback, $value));
+            }
+            return $res;
+        }
     }
 }

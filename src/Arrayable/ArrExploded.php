@@ -15,23 +15,13 @@ final class ArrExploded extends ArrayableIterable
     use TxtOverloadable;
 
     /**
-     * @var Text|string $separator
-     */
-    private string|Text $separator;
-
-    /**
-     * @var Text|string $text
-     */
-    private string|Text $text;
-
-    /**
      * Exploded by comma
      * @param string|Text $text
      * @return ArrExploded
      */
     public static function byComma(string|Text $text): ArrExploded
     {
-        return ArrExploded::new(",", $text);
+        return new self(",", $text);
     }
 
     /**
@@ -49,10 +39,8 @@ final class ArrExploded extends ArrayableIterable
      * @param string|Text $separator
      * @param string|Text $text
      */
-    public function __construct(string|Text $separator, string|Text $text)
+    public function __construct(private string|Text $separator, private string|Text $text)
     {
-        $this->separator = $separator;
-        $this->text = $text;
     }
 
     /**

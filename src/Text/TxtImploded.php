@@ -14,11 +14,6 @@ final class TxtImploded implements Text
     use TxtOverloadable;
 
     /**
-     * @var string|Text $separator
-     */
-    private string|Text $separator;
-
-    /**
      * @var array<string|Text> $pieces
      */
     private array $pieces;
@@ -29,7 +24,7 @@ final class TxtImploded implements Text
      */
     public static function withComma(string|Text ...$pieces): TxtImploded
     {
-        return TxtImploded::new(",", ...$pieces);
+        return new self(",", ...$pieces);
     }
 
     /**
@@ -47,9 +42,8 @@ final class TxtImploded implements Text
      * @param string|Text $separator
      * @param string|Text ...$pieces
      */
-    public function __construct(string|Text $separator, string|Text ...$pieces)
+    public function __construct(private string|Text $separator, string|Text ...$pieces)
     {
-        $this->separator = $separator;
         $this->pieces = $pieces;
     }
 

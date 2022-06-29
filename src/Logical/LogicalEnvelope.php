@@ -5,16 +5,16 @@ namespace Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
- * Logical TRUE
+ * Logical envelope.
  */
-final class Truth implements Logical
+class LogicalEnvelope implements Logical
 {
     /**
-     * @return Truth
+     * Ctor.
+     * @param Logical $logical
      */
-    public static function new(): Truth
+    public function __construct(private Logical $logical)
     {
-        return new self();
     }
 
     /**
@@ -22,6 +22,6 @@ final class Truth implements Logical
      */
     public function asBool(): bool
     {
-        return true;
+        return $this->logical->asBool();
     }
 }

@@ -2,56 +2,42 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Closure;
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 trait TxtOverloadable
 {
-    use Overloadable;
-
     /**
-     * @param string|Text|Any ...$args
+     * @param string|Text ...$args
      * @return array
      * @throws Exception
      */
-    private function txtOverloaded(string|Text|Any ...$args): array
+    private function txtOverloaded(string|Text ...$args): array
     {
-        return $this->overload($args, [[
-            'string',
-            Text::class => fn(Text $text) => $text->asString(),
-            Any::class => fn(Any $any) => $this->firstTxtOverloaded($any->asAny())
-        ]]);
+        return array_map(
+            fn(string|Text $arg) => is_string($arg) ? $arg : $arg->asString(),
+            $args
+        );
     }
 
     /**
-     * @throws Exception
-     */
-    private function txtOrCallableOverloaded(string|callable|Text ...$args): array
-    {
-        return $this->overload($args, [[
-            'string',
-            Text::class => fn(Text $text) => $text->asString(),
-            Closure::class => fn(Closure $closure) => $this->firstTxtOverloaded(call_user_func($closure))
-        ]]);
-    }
-
-    /**
-     * @param string|callable|Text|Any $arg
+     * @param string|callable|Text $arg
      * @return mixed
      * @throws Exception
      */
-    private function firstTxtOverloaded(string|callable|Text|Any $arg): string
+    private function firstTxtOverloaded(string|callable|Text $arg): string
     {
         if (is_callable($arg)) {
-            $str = $this->txtOrCallableOverloaded($arg)[0];
-            if (!is_string($str)) {
-                throw new Exception("Callback must return a string or instance of Text");
+            $str = call_user_func($arg);
+            if (is_string($str)) {
+                return $str;
             }
-            return $str;
+            if ($str instanceof Text) {
+                return $str->asString();
+            }
+            throw new Exception("Callback must return a string or instance of Text");
         }
-        return $this->txtOverloaded($arg)[0];
+        return is_string($arg) ? $arg : $arg->asString();
     }
 }

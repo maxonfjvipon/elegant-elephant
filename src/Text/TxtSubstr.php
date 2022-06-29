@@ -2,9 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Substring of.
@@ -13,21 +11,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 final class TxtSubstr implements Text
 {
     use TxtOverloadable;
-
-    /**
-     * @var string|Text $text
-     */
-    private string|Text $text;
-
-    /**
-     * @var int $offset
-     */
-    private int $offset;
-
-    /**
-     * @var int|null $length
-     */
-    private ?int $length;
 
     /**
      * @param string|Text $txt
@@ -46,11 +29,8 @@ final class TxtSubstr implements Text
      * @param int $offset
      * @param int|null $length
      */
-    public function __construct(string|Text $text, int $offset, int $length = null)
+    public function __construct(private string|Text $text, private int $offset, private ?int $length = null)
     {
-        $this->text = $text;
-        $this->offset = $offset;
-        $this->length = $length;
     }
 
     /**

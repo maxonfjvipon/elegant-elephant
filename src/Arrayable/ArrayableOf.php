@@ -2,20 +2,17 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
-use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable of.
  * @package Maxonfjvipon\Elegant_Elephant\Arrayable
  */
-final class ArrayableOf extends ArrEnvelope
+final class ArrayableOf implements Arrayable
 {
-    use Overloadable, ArrayableOverloaded;
+    use ArrayableOverloaded;
 
     /**
      * @param mixed ...$array
@@ -28,45 +25,34 @@ final class ArrayableOf extends ArrEnvelope
 
     /**
      * Ctor wrap.
-     * @param array $arr
-     * @param bool $override
+     * @param array|Any $arr
      * @return ArrayableOf
      */
-    public static function new(array $arr, bool $override = true): ArrayableOf
+    public static function new(array|Any $arr): ArrayableOf
     {
-        return new self($arr, $override);
+        return new self($arr);
     }
 
     /**
      * Ctor.
-     * @param array $arr
-     * @param bool $override
+     * @param array|Any $arr
      */
-    public function __construct(private array $arr, private bool $override = true)
+    public function __construct(private array|Any $arr)
     {
-        parent::__construct(
-            new ArrTernary(
-                $override,
-                fn() => $this->overload(
-                    $arr,
-                    [[
-                        'array',
-                        'integer',
-                        'string',
-                        'double',
-                        'null',
-                        'boolean',
-                        'unknown type',
-                        \Closure::class => fn(\Closure $closure) => call_user_func($closure),
-                        Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
-                        Numerable::class => fn(Numerable $numerable) => $numerable->asNumber(),
-                        Text::class => fn(Text $text) => $text->asString(),
-                        Logical::class => fn(Logical $logical) => $logical->asBool(),
-                        Any::class => fn(Any $any) => $any->asAny(),
-                    ]]
-                ),
-                $arr,
-            )
-        );
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function asArray(): array
+    {
+        if ($this->arr instanceof Any) {
+            if (!is_array($res = $this->arr->asAny())) {
+                throw new Exception("Any object must return an array");
+            }
+            return $res;
+        }
+        return $this->arr;
     }
 }

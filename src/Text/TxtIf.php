@@ -2,22 +2,14 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Closure;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
+/**
+ * Text if.
+ */
 final class TxtIf extends TxtEnvelope
 {
-
-    /**
-     * @var bool|Logical $condition
-     */
-    private bool|Logical $condition;
-
-    /**
-     * @var string|Closure|Text $arr
-     */
-    private string|Closure|Text $text;
 
     /**
      * Ctor wrap.

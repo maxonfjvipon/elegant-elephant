@@ -2,9 +2,8 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable sorted by keys.
@@ -13,16 +12,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 final class ArrSortedByKeys extends ArrayableIterable
 {
     use ArrayableOverloaded;
-
-    /**
-     * @var array|Arrayable $arr
-     */
-    private array|Arrayable $arr;
-
-    /**
-     * @var callable $compare
-     */
-    private $compare;
 
     /**
      * Ctor wrap.
@@ -38,12 +27,10 @@ final class ArrSortedByKeys extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param callable|null $compare
+     * @param Closure|null $compare
      */
-    public function __construct(array|Arrayable $arr, callable $compare = null)
+    public function __construct(private array|Arrayable $arr, private ?Closure $compare = null)
     {
-        $this->arr = $arr;
-        $this->compare = $compare;
     }
 
     /**

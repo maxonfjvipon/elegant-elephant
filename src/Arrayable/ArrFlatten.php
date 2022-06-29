@@ -13,16 +13,6 @@ final class ArrFlatten extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
-     * @var array|Arrayable $arr
-     */
-    private array|Arrayable $arr;
-
-    /**
-     * @var int $deep
-     */
-    private int $deep;
-
-    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @param int $deep
@@ -38,10 +28,8 @@ final class ArrFlatten extends ArrayableIterable
      * @param array|Arrayable $arr
      * @param int $deep
      */
-    public function __construct(array|Arrayable $arr, int $deep = 1)
+    public function __construct(private array|Arrayable $arr, private int $deep = 1)
     {
-        $this->arr = $arr;
-        $this->deep = $deep;
     }
 
     /**

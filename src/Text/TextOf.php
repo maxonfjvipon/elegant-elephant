@@ -5,7 +5,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text of.
@@ -17,19 +16,19 @@ final class TextOf implements Text
 
     /**
      * Ctor wrap of string.
-     * @param string|Text|Any $str
+     * @param string|Any $text
      * @return TextOf
      */
-    public static function new(string|Text|Any $str): TextOf
+    public static function new(string|Any $text): TextOf
     {
-        return new self($str);
+        return new self($text);
     }
 
     /**
      * Ctor.
-     * @param string|Text|Any $origin
+     * @param string|Any $text
      */
-    public function __construct(private string|Text|Any $origin)
+    public function __construct(private string|Any $text)
     {
     }
 
@@ -38,6 +37,12 @@ final class TextOf implements Text
      */
     public function asString(): string
     {
-        return $this->firstTxtOverloaded($this->origin);
+        if ($this->text instanceof Any) {
+            if (!is_array($res = $this->text->asAny())) {
+                throw new Exception("Any object must return an array");
+            }
+            return $res;
+        }
+        return $this->text;
     }
 }

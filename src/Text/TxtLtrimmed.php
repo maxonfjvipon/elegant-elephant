@@ -11,11 +11,6 @@ final class TxtLtrimmed implements Text
     use TxtOverloadable;
 
     /**
-     * @var string|Text $origin
-     */
-    private string|Text $origin;
-
-    /**
      * @param string|Text $text
      * @return TxtLtrimmed
      */
@@ -28,9 +23,8 @@ final class TxtLtrimmed implements Text
      * Ctor.
      * @param string|Text $text
      */
-    public function __construct(string|Text $text)
+    public function __construct(private string|Text $text)
     {
-        $this->origin = $text;
     }
 
     /**
@@ -38,6 +32,6 @@ final class TxtLtrimmed implements Text
      */
     public function asString(): string
     {
-        return ltrim(...$this->txtOverloaded($this->origin));
+        return ltrim($this->firstTxtOverloaded($this->text));
     }
 }
