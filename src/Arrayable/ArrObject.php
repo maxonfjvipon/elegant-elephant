@@ -39,6 +39,6 @@ final class ArrObject extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return [$this->key => $this->castMixed($this->object)];
+        return [$this->castMixed($this->key) => $this->castMixed($this->object)];
     }
 }
