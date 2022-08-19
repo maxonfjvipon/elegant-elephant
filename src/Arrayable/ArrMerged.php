@@ -13,7 +13,7 @@ final class ArrMerged extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
-     * @var Arrayable[] $arrayables
+     * @var array $arrayables
      */
     private array $arrs;
 

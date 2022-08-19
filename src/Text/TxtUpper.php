@@ -13,11 +13,6 @@ final class TxtUpper implements Text
     use TxtOverloadable;
 
     /**
-     * @var string|Text $origin
-     */
-    private string|Text $origin;
-
-    /**
      * @param string|Text $text
      * @return TxtUpper
      */
@@ -30,9 +25,8 @@ final class TxtUpper implements Text
      * Ctor.
      * @param string|Text $text
      */
-    public function __construct(string|Text $text)
+    public function __construct(private string|Text $text)
     {
-        $this->origin = $text;
     }
 
     /**
@@ -40,6 +34,6 @@ final class TxtUpper implements Text
      */
     public function asString(): string
     {
-        return strtoupper($this->firstTxtOverloaded($this->origin));
+        return strtoupper($this->firstTxtOverloaded($this->text));
     }
 }

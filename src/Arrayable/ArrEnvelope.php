@@ -10,17 +10,11 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 class ArrEnvelope extends ArrayableIterable
 {
     /**
-     * @var Arrayable $origin
-     */
-    private Arrayable $origin;
-
-    /**
      * Ctor.
-     * @param Arrayable $arrayable
+     * @param Arrayable $origin
      */
-    public function __construct(Arrayable $arrayable)
+    public function __construct(private Arrayable $origin)
     {
-        $this->origin = $arrayable;
     }
 
     /**

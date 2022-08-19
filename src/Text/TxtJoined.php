@@ -11,11 +11,6 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 final class TxtJoined extends TxtEnvelope
 {
     /**
-     * @var array<string|Text> $args
-     */
-    private array $args;
-
-    /**
      * @param string|Text ...$args
      * @return TxtJoined
      */

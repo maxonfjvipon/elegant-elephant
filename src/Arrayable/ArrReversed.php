@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
@@ -11,11 +10,6 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 final class ArrReversed extends ArrayableIterable
 {
     use ArrayableOverloaded;
-
-    /**
-     * @var array|Arrayable $arr
-     */
-    private array|Arrayable $arr;
 
     /**
      * Ctor wrap.
@@ -31,9 +25,8 @@ final class ArrReversed extends ArrayableIterable
      * Ctor.
      * @param array|Arrayable $arr
      */
-    public function __construct(array|Arrayable $arr)
+    public function __construct(private array|Arrayable $arr)
     {
-        $this->arr = $arr;
     }
 
     /**

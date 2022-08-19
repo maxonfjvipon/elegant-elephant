@@ -4,7 +4,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Text replaced.
@@ -13,21 +12,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 final class TxtReplaced implements Text
 {
     use TxtOverloadable;
-
-    /**
-     * @var Text|string $search
-     */
-    private string|Text $search;
-
-    /**
-     * @var Text|string $replace
-     */
-    private string|Text $replace;
-
-    /**
-     * @var Text|string $subject
-     */
-    private string|Text $subject;
 
     /**
      * @param string|Text $search
@@ -46,11 +30,12 @@ final class TxtReplaced implements Text
      * @param string|Text $replace
      * @param string|Text $subject
      */
-    public function __construct(string|Text $search, string|Text $replace, string|Text $subject)
+    public function __construct(
+        private string|Text $search,
+        private string|Text $replace,
+        private string|Text $subject
+    )
     {
-        $this->search = $search;
-        $this->replace = $replace;
-        $this->subject = $subject;
     }
 
     /**

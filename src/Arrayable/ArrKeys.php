@@ -13,11 +13,6 @@ final class ArrKeys extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
-     * @var array|Arrayable $arrayable
-     */
-    private array|Arrayable $arr;
-
-    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @return ArrKeys
@@ -31,9 +26,8 @@ final class ArrKeys extends ArrayableIterable
      * Ctor.
      * @param array|Arrayable $arr
      */
-    public function __construct(array|Arrayable $arr)
+    public function __construct(private array|Arrayable $arr)
     {
-        $this->arr = $arr;
     }
 
     /**
@@ -41,6 +35,6 @@ final class ArrKeys extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return array_keys(...$this->arrayableOverloaded($this->arr));
+        return array_keys($this->arrayableOverloaded($this->arr));
     }
 }

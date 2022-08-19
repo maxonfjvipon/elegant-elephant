@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Any;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Text;
@@ -38,11 +37,13 @@ final class LastOf implements Any
      */
     public function asAny(): mixed
     {
-        return $this->overload([$this->container], [[
-            'string' => fn(string $str) => substr($str, -1),
-            Text::class => fn(Text $text) => substr($text->asString(), -1),
-            'array' => fn(array $array) => $array[count($array) - 1],
-            Arrayable::class => fn(Arrayable $arrayable) => ($arr = $arrayable->asArray())[count($arr) - 1]
-        ]])[0];
+        if (is_string($this->container)) {
+            return substr($this->container, -1);
+        } elseif (is_array($this->container)) {
+            return $this->container[count($this->container) - 1];
+        } elseif ($this->container instanceof Text) {
+            return substr($this->container->asString(), -1);
+        }
+        return ($arr = $this->container->asArray())[count($arr) - 1];
     }
 }

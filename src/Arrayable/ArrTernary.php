@@ -15,21 +15,6 @@ final class ArrTernary extends ArrayableIterable
     use LogicalOverloadable, ArrayableOverloaded;
 
     /**
-     * @var bool|Logical $condition
-     */
-    private Logical|bool $condition;
-
-    /**
-     * @var array|Closure|Arrayable $origin
-     */
-    private array|Closure|Arrayable $origin;
-
-    /**
-     * @var array|Closure|Arrayable $alt
-     */
-    private array|Closure|Arrayable $alt;
-
-    /**
      * Ctor wrap.
      * @param Logical|bool $cond
      * @param array|callable|Arrayable $first
@@ -46,15 +31,15 @@ final class ArrTernary extends ArrayableIterable
 
     /**
      * Ctor.
-     * @param Logical|bool $cond
-     * @param array|callable|Arrayable $first
-     * @param array|callable|Arrayable $alt
+     * @param Logical|bool $condition
+     * @param array|Closure|Arrayable $first
+     * @param array|Closure|Arrayable $alt
      */
-    public function __construct(Logical|bool $cond, array|callable|Arrayable $first, array|callable|Arrayable $alt)
-    {
-        $this->condition = $cond;
-        $this->origin = $first;
-        $this->alt = $alt;
+    public function __construct(
+        private Logical|bool $condition,
+        private array|Closure|Arrayable $first,
+        private array|Closure|Arrayable $alt
+    ) {
     }
 
     /**
@@ -63,7 +48,7 @@ final class ArrTernary extends ArrayableIterable
     public function asArray(): array
     {
         return $this->firstLogicalOverloaded($this->condition)
-            ? $this->firstArrayableOverloaded($this->origin)
+            ? $this->firstArrayableOverloaded($this->first)
             : $this->firstArrayableOverloaded($this->alt);
     }
 }

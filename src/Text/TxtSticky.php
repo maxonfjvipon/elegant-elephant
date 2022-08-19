@@ -10,11 +10,6 @@ final class TxtSticky implements Text
     use TxtOverloadable;
 
     /**
-     * @var Text $text
-     */
-    private Text $text;
-
-    /**
      * @var array $cache
      */
     private array $cache = [];
@@ -33,9 +28,8 @@ final class TxtSticky implements Text
      * Ctor.
      * @param Text $text
      */
-    public function __construct(Text $text)
+    public function __construct(private Text $text)
     {
-        $this->text = $text;   
     }
 
     /**

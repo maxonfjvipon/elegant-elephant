@@ -10,11 +10,6 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 final class ArrSticky extends ArrayableIterable
 {
     /**
-     * @var Arrayable $arr
-     */
-    private Arrayable $arr;
-
-    /**
      * @var array $cache
      */
     private array $cache = [];
@@ -31,11 +26,10 @@ final class ArrSticky extends ArrayableIterable
 
     /**
      * Ctor.
-     * @param Arrayable $arrayable
+     * @param Arrayable $arr
      */
-    public function __construct(Arrayable $arrayable)
+    public function __construct(private Arrayable $arr)
     {
-        $this->arr = $arrayable;
     }
 
     /**

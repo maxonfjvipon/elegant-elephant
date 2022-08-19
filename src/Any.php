@@ -6,6 +6,7 @@ use Exception;
 
 /**
  * Any.
+ * @package Maxonfjvipon\Elegant_Elephant
  */
 interface Any
 {

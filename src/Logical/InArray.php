@@ -15,21 +15,6 @@ final class InArray implements Logical
     use ArrayableOverloaded;
 
     /**
-     * @var array|Arrayable $arr
-     */
-    private array|Arrayable $arr;
-
-    /**
-     * @var mixed $needle
-     */
-    private mixed $needle;
-
-    /**
-     * @var bool $strict
-     */
-    private bool $strict;
-
-    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @param mixed $needle
@@ -47,11 +32,11 @@ final class InArray implements Logical
      * @param mixed $needle
      * @param bool $strict
      */
-    public function __construct(array|Arrayable $arr, mixed $needle, bool $strict = false)
-    {
-        $this->arr = $arr;
-        $this->needle = $needle;
-        $this->strict = $strict;
+    public function __construct(
+        private array|Arrayable $arr,
+        private mixed $needle,
+        private bool $strict = false
+    ) {
     }
 
     /**

@@ -17,16 +17,15 @@ final class ArrRange implements Arrayable
 
     /**
      * Ctor.
-     * @param int|float|Numerable|Any $from
-     * @param int|float|Numerable|Any $to
-     * @param int|float|Numerable|Any $step
+     * @param int|float|Numerable $from
+     * @param int|float|Numerable $to
+     * @param int|float|Numerable $step
      */
     public function __construct(
-        private int|float|Numerable|Any $from,
-        private int|float|Numerable|Any $to,
-        private int|float|Numerable|Any $step = 1
-    )
-    {
+        private int|float|Numerable $from,
+        private int|float|Numerable $to,
+        private int|float|Numerable $step = 1
+    ) {
     }
 
     /**

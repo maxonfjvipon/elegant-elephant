@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -12,11 +11,6 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 final class TxtTrimmed implements Text
 {
     use TxtOverloadable;
-
-    /**
-     * @var string|Text $origin
-     */
-    private string|Text $origin;
 
     /**
      * @param string|Text $text
@@ -31,9 +25,8 @@ final class TxtTrimmed implements Text
      * Ctor.
      * @param string|Text $text
      */
-    public function __construct(string|Text $text)
+    public function __construct(private string|Text $text)
     {
-        $this->origin = $text;
     }
 
     /**
@@ -41,6 +34,6 @@ final class TxtTrimmed implements Text
      */
     public function asString(): string
     {
-        return trim(...$this->txtOverloaded($this->origin));
+        return trim($this->firstTxtOverloaded($this->text));
     }
 }

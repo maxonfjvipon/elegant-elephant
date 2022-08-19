@@ -2,8 +2,8 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Closure;
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\OverloadedElephant\Overloadable;
 
@@ -16,22 +16,10 @@ trait ArrayableOverloaded
      */
     private function arrayableOverloaded(array|Arrayable ...$args): array
     {
-        return $this->overload($args, [[
-            'array',
-            Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray()
-        ]]);
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function arrayableOrCallableOverloaded(array|callable|Arrayable ...$args): array
-    {
-        return $this->overload($args, [[
-            'array',
-            Arrayable::class => fn(Arrayable $arrayable) => $arrayable->asArray(),
-            Closure::class => fn(Closure $closure) => $this->firstArrayableOverloaded(call_user_func($closure))
-        ]]);
+        return array_map(
+            fn(array|Arrayable $arg) => is_array($arg) ? $arg : $arg->asArray(),
+            $args
+        );
     }
 
     /**
@@ -40,11 +28,14 @@ trait ArrayableOverloaded
     private function firstArrayableOverloaded(array|callable|Arrayable $arg): array
     {
         if (is_callable($arg)) {
-            $arr = $this->arrayableOrCallableOverloaded($arg)[0];
-            if (!is_array($arr)) {
-                throw new Exception("Callback must return an array or instance of Arrayable");
+            $arr = call_user_func($arg);
+            if (is_array($arr)) {
+                return $arg;
             }
-            return $arr;
+            if ($arr instanceof Arrayable) {
+                return $arr->asArray();
+            }
+            throw new Exception("Callback must return an array or an instance of Arrayable");
         }
         return $this->arrayableOverloaded($arg)[0];
     }

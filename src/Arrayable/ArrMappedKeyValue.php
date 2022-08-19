@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
@@ -10,16 +11,6 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 final class ArrMappedKeyValue extends ArrayableIterable
 {
     use ArrayableOverloaded;
-
-    /**
-     * @var array|Arrayable $arrayable
-     */
-    private array|Arrayable $arr;
-
-    /**
-     * @var callable $callback;
-     */
-    private $callback;
 
     /**
      * @param array|Arrayable $arr
@@ -34,12 +25,10 @@ final class ArrMappedKeyValue extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param callable $callback
+     * @param Closure $callback
      */
-    public function __construct(array|Arrayable $arr, callable $callback)
+    public function __construct(private array|Arrayable $arr, private Closure $callback)
     {
-        $this->arr = $arr;
-        $this->callback = $callback;
     }
 
     /**
