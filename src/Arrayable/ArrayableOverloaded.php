@@ -3,14 +3,13 @@
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
+/**
+ * Arrayable overloading
+ */
 trait ArrayableOverloaded
 {
-    use Overloadable;
-
     /**
      * @throws Exception
      */
@@ -28,15 +27,8 @@ trait ArrayableOverloaded
     private function firstArrayableOverloaded(array|callable|Arrayable $arg): array
     {
         if (is_callable($arg)) {
-            $arr = call_user_func($arg);
-            if (is_array($arr)) {
-                return $arg;
-            }
-            if ($arr instanceof Arrayable) {
-                return $arr->asArray();
-            }
-            throw new Exception("Callback must return an array or an instance of Arrayable");
+            return $this->firstArrayableOverloaded(call_user_func($arg));
         }
-        return $this->arrayableOverloaded($arg)[0];
+        return is_array($arg) ? $arg : $arg->asArray();
     }
 }

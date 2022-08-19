@@ -19,8 +19,9 @@ final class ArrFlattenTest extends TestCase
         );
         $this->assertEquals(
             [1, 2, 3, 4, 5, 6],
-            ArrFlatten::new(new ArrayableOf([1, new ArrayableOf([2, 3], false), [[4]],
-                new ArrayableOf(new ArrayableOf([5, 6], false), false)]),
+            ArrFlatten::new(
+                new ArrayableOf(
+                    [1, new ArrayableOf([2, 3]), [[4]], [new ArrayableOf([5, 6])]]),
                 2
             )->asArray()
         );

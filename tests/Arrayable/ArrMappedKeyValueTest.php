@@ -15,9 +15,9 @@ class ArrMappedKeyValueTest extends TestCase
     {
         $this->assertEquals(
             [
-                'foo1',
-                'bar2',
-                'baz3',
+                'foo' => 'foo1',
+                'bar' => 'bar2',
+                'baz' => 'baz3',
             ],
             (new ArrMappedKeyValue([
                 'foo' => 1,

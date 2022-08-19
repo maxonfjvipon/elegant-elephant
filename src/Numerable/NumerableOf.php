@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 
@@ -35,6 +36,12 @@ final class NumerableOf implements Numerable
      */
     public function asNumber(): float|int
     {
-        return $this->firstNumerableOverloaded($this->origin);
+        if ($this->origin instanceof Any) {
+            if (!is_numeric($res = $this->origin->asAny())) {
+                throw new Exception("Any object must return a float or an integer");
+            }
+            return $res;
+        }
+        return $this->origin;
     }
 }

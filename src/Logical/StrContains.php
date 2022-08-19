@@ -14,16 +14,6 @@ final class StrContains implements Logical
     use TxtOverloadable;
 
     /**
-     * @var string|Text $haystack
-     */
-    private string|Text $haystack;
-
-    /**
-     * @var string|Text
-     */
-    private string|Text $needle;
-
-    /**
      * Ctor wrap.
      * @param string|Text $haystack
      * @param string|Text $needle
@@ -39,10 +29,8 @@ final class StrContains implements Logical
      * @param string|Text $haystack
      * @param string|Text $needle
      */
-    public function __construct(string|Text $haystack, string|Text $needle)
+    public function __construct(private string|Text $haystack, private string|Text $needle)
     {
-        $this->haystack = $haystack;
-        $this->needle = $needle;
     }
 
     /**

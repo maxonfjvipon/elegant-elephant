@@ -28,7 +28,7 @@ final class FirstOfTest extends TestCase
         );
         $this->assertEquals(
             1,
-            (new FirstOf(new ArrayableOf([1, 2, 3], false)))->asAny()
+            (new FirstOf(new ArrayableOf([1, 2, 3])))->asAny()
         );
     }
 }

@@ -4,6 +4,9 @@ namespace Maxonfjvipon\Elegant_Elephant;
 
 use Exception;
 
+/**
+ * Cast mixed.
+ */
 trait CastMixed
 {
     /**
@@ -23,7 +26,8 @@ trait CastMixed
             return $mixed->asBool();
         } elseif ($mixed instanceof Any) {
             return $mixed->asAny();
+        } else {
+            return $mixed;
         }
-        return $mixed;
     }
 }

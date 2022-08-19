@@ -11,8 +11,7 @@
   ],
   "require": {
     "php": "^8.0",
-    "ext-json": "*",
-    "maxonfjvipon/overloaded-elephant": "dev-main"
+    "ext-json": "*"
   },
   "require-dev": {
     "ext-simplexml": "*",

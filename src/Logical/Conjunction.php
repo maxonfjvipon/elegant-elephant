@@ -39,8 +39,8 @@ final class Conjunction implements Logical
      */
     public function asBool(): bool
     {
-        foreach ($this->logicalOverloaded(...$this->args) as $arg) {
-            if (!$arg->asBool()) {
+        foreach ($this->args as $arg) {
+            if (!$this->firstLogicalOverloaded($arg)) {
                 return false;
             }
         }

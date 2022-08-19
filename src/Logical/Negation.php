@@ -2,10 +2,7 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
-use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOverloaded;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Negation
@@ -14,11 +11,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 final class Negation implements Logical
 {
     use LogicalOverloadable;
-
-    /**
-     * @var bool|Logical $origin
-     */
-    private bool|Logical $origin;
 
     /**
      * @param bool|Logical $origin
@@ -33,9 +25,8 @@ final class Negation implements Logical
      * Ctor.
      * @param bool|Logical $origin
      */
-    public function __construct(bool|Logical $origin)
+    public function __construct(private bool|Logical $origin)
     {
-        $this->origin = $origin;
     }
 
     /**

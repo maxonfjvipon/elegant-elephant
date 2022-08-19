@@ -4,12 +4,12 @@ namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
+/**
+ * Logical overloading.
+ */
 trait LogicalOverloadable
 {
-    use Overloadable;
-
     /**
      * @throws Exception
      */
@@ -27,15 +27,8 @@ trait LogicalOverloadable
     private function firstLogicalOverloaded(bool|Logical|callable $arg): bool
     {
         if (is_callable($arg)) {
-            $bool = call_user_func($arg);
-            if (is_bool($bool)) {
-                return $bool;
-            }
-            if ($bool instanceof Logical) {
-                return $bool->asBool();
-            }
-            throw new Exception("Callback must return a bool");
+            return $this->firstLogicalOverloaded(call_user_func($arg));
         }
-        return $this->logicalOverloaded($arg)[0];
+        return is_bool($arg) ? $arg : $arg->asBool();
     }
 }

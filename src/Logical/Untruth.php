@@ -4,6 +4,9 @@ namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
+/**
+ * Logical FALSE
+ */
 final class Untruth implements Logical
 {
     /**

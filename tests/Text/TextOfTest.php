@@ -27,9 +27,5 @@ class TextOfTest extends TestCase
             "1.2",
             TextOf::new(1.2)->asString()
         );
-        $this->assertEquals(
-            "foo",
-            TextOf::new(TextOf::new("foo"))->asString()
-        );
     }
 }

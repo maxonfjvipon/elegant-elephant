@@ -3,7 +3,6 @@
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Maxonfjvipon\Elegant_Elephant\Numerable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Rounded number
@@ -11,16 +10,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 final class Rounded implements Numerable
 {
     use NumerableOverloaded;
-
-    /**
-     * @var float|int|Numerable $number
-     */
-    private float|int|Numerable $number;
-
-    /**
-     * @var int $precision
-     */
-    private int $precision;
 
     /**
      * Ctor wrap.
@@ -38,10 +27,8 @@ final class Rounded implements Numerable
      * @param float|int|Numerable $num
      * @param int $precision
      */
-    public function __construct(float|int|Numerable $num, int $precision = 0)
+    public function __construct(private float|int|Numerable $num, private int $precision = 0)
     {
-        $this->number = $num;
-        $this->precision = $precision;
     }
 
     /**
@@ -49,6 +36,6 @@ final class Rounded implements Numerable
      */
     public function asNumber(): float|int
     {
-        return round($this->firstNumerableOverloaded($this->number), $this->precision);
+        return round($this->firstNumerableOverloaded($this->num), $this->precision);
     }
 }

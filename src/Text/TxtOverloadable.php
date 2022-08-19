@@ -8,8 +8,6 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 trait TxtOverloadable
 {
-    use Overloadable;
-
     /**
      * @param string|Text ...$args
      * @return array

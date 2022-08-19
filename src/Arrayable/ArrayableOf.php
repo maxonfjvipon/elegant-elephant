@@ -5,7 +5,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
 /**
  * Arrayable of.
@@ -13,7 +12,7 @@ use Maxonfjvipon\OverloadedElephant\Overloadable;
  */
 final class ArrayableOf implements Arrayable
 {
-    use Overloadable, ArrayableOverloaded;
+    use ArrayableOverloaded;
 
     /**
      * @param mixed ...$array

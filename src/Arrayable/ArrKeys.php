@@ -35,6 +35,6 @@ final class ArrKeys extends ArrayableIterable
      */
     public function asArray(): array
     {
-        return array_keys($this->arrayableOverloaded($this->arr));
+        return array_keys($this->firstArrayableOverloaded($this->arr));
     }
 }
