@@ -36,7 +36,8 @@ final class ArrTernary extends ArrayableIterable
         Logical|bool             $cond,
         array|callable|Arrayable $first,
         array|callable|Arrayable $alt
-    ): ArrTernary {
+    ): ArrTernary
+    {
         return new self($cond, $first, $alt);
     }
 
@@ -47,16 +48,13 @@ final class ArrTernary extends ArrayableIterable
      * @param array|callable|Arrayable $alt
      */
     public function __construct(
-        private Logical|bool $condition,
+        private Logical|bool     $condition,
         array|callable|Arrayable $first,
         array|callable|Arrayable $alt
-    ) {
-        if (is_callable($first)) {
-            $this->first = new SerializableClosure($first);
-        }
-        if (is_callable($alt)) {
-            $this->alt = new SerializableClosure($alt);
-        }
+    )
+    {
+        $this->first = is_callable($first) ? new SerializableClosure($first) : $first;
+        $this->alt = is_callable($alt) ? new SerializableClosure($alt) : $alt;
     }
 
     /**
