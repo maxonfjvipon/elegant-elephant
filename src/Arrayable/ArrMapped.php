@@ -5,6 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\CastMixed;
+use Opis\Closure\SerializableClosure;
 
 /**
  * Mapped arrayable.
@@ -13,6 +14,11 @@ use Maxonfjvipon\Elegant_Elephant\CastMixed;
 final class ArrMapped extends ArrayableIterable
 {
     use ArrayableOverloaded, CastMixed;
+
+    /**
+     * @var SerializableClosure $callback
+     */
+    private SerializableClosure $callback;
 
     /**
      * Ctor wrap.
@@ -29,14 +35,15 @@ final class ArrMapped extends ArrayableIterable
     /**
      * ArrMappedOf constructor.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      * @param bool $cast
      */
     public function __construct(
         private array|Arrayable $arr,
-        private Closure $callback,
+        callable $callback,
         private bool $cast = false
     ) {
+        $this->callback = new SerializableClosure($callback);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Opis\Closure\SerializableClosure;
 
 /**
  * Represents {@see Arrayable} if {@code $cond} is TRUE
@@ -26,9 +27,9 @@ final class ArrIf extends ArrEnvelope
     /**
      * Ctor.
      * @param bool|Logical $condition
-     * @param array|Closure|Arrayable $arr
+     * @param array|callable|Arrayable $arr
      */
-    public function __construct(bool|Logical $condition, array|Closure|Arrayable $arr)
+    public function __construct(bool|Logical $condition, array|callable|Arrayable $arr)
     {
         parent::__construct(
             new ArrTernary(
