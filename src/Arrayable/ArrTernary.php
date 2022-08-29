@@ -6,7 +6,6 @@ use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
-use Opis\Closure\SerializableClosure;
 
 /**
  * Ternary array
@@ -16,26 +15,16 @@ final class ArrTernary extends ArrayableIterable
     use LogicalOverloadable, ArrayableOverloaded;
 
     /**
-     * @var array|SerializableClosure|Arrayable $first
-     */
-    private array|SerializableClosure|Arrayable $first;
-
-    /**
-     * @var array|SerializableClosure|Arrayable $alt
-     */
-    private array|SerializableClosure|Arrayable $alt;
-
-    /**
      * Ctor wrap.
      * @param Logical|bool $cond
-     * @param array|callable|Arrayable $first
-     * @param array|callable|Arrayable $alt
+     * @param array|Closure|Arrayable $first
+     * @param array|Closure|Arrayable $alt
      * @return ArrTernary
      */
     public static function new(
         Logical|bool             $cond,
-        array|callable|Arrayable $first,
-        array|callable|Arrayable $alt
+        array|Closure|Arrayable $first,
+        array|Closure|Arrayable $alt
     ): ArrTernary
     {
         return new self($cond, $first, $alt);
@@ -44,17 +33,15 @@ final class ArrTernary extends ArrayableIterable
     /**
      * Ctor.
      * @param Logical|bool $condition
-     * @param array|callable|Arrayable $first
-     * @param array|callable|Arrayable $alt
+     * @param array|Closure|Arrayable $first
+     * @param array|Closure|Arrayable $alt
      */
     public function __construct(
         private Logical|bool     $condition,
-        array|callable|Arrayable $first,
-        array|callable|Arrayable $alt
+        private array|Closure|Arrayable $first,
+        private array|Closure|Arrayable $alt
     )
     {
-        $this->first = is_callable($first) ? new SerializableClosure($first) : $first;
-        $this->alt = is_callable($alt) ? new SerializableClosure($alt) : $alt;
     }
 
     /**
