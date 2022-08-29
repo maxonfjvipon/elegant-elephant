@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Opis\Closure\SerializableClosure;
 
 /**
  * Arrayable filtered of.
@@ -12,6 +13,11 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 final class ArrFiltered extends ArrayableIterable
 {
     use ArrayableOverloaded;
+
+    /**
+     * @var SerializableClosure $callback
+     */
+    private SerializableClosure $callback;
 
     /**
      * Ctor wrap.
@@ -27,10 +33,11 @@ final class ArrFiltered extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      */
-    public function __construct(private array|Arrayable $arr, private Closure $callback)
+    public function __construct(private array|Arrayable $arr, callable $callback)
     {
+        $this->callback = new SerializableClosure($callback);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Closure;
 use Exception;
+use Opis\Closure\SerializableClosure;
 
 /**
  * Array from callback
@@ -11,6 +12,11 @@ use Exception;
 final class ArrFromCallback extends ArrayableIterable
 {
     use ArrayableOverloaded;
+
+    /**
+     * @var SerializableClosure $callback
+     */
+    private SerializableClosure $callback;
 
     /**
      * @param callable $callback
@@ -22,10 +28,13 @@ final class ArrFromCallback extends ArrayableIterable
     }
 
     /**
-     * @param Closure $callback
+     * Ctor.
+     *
+     * @param callable $callback
      */
-    public function __construct(private Closure $callback)
+    public function __construct(callable $callback)
     {
+        $this->callback = new SerializableClosure($callback);
     }
 
     /**
