@@ -15,10 +15,10 @@ final class ArrIf extends ArrEnvelope
     /**
      * Ctor wrap.
      * @param bool|Logical $cond
-     * @param array|Closure|Arrayable $arr
+     * @param array|callable|Arrayable $arr
      * @return ArrIf
      */
-    public static function new(bool|Logical $cond, array|Closure|Arrayable $arr): ArrIf
+    public static function new(bool|Logical $cond, array|callable|Arrayable $arr): ArrIf
     {
         return new self($cond, $arr);
     }
@@ -26,9 +26,9 @@ final class ArrIf extends ArrEnvelope
     /**
      * Ctor.
      * @param bool|Logical $condition
-     * @param array|Closure|Arrayable $arr
+     * @param array|callable|Arrayable $arr
      */
-    public function __construct(bool|Logical $condition, array|Closure|Arrayable $arr)
+    public function __construct(bool|Logical $condition, array|callable|Arrayable $arr)
     {
         parent::__construct(
             new ArrTernary(

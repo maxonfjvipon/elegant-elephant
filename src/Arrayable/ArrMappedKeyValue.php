@@ -14,12 +14,17 @@ final class ArrMappedKeyValue extends ArrayableIterable
     use ArrayableOverloaded, CastMixed;
 
     /**
+     * @var callable $callback
+     */
+    private $callback;
+
+    /**
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      * @param bool $cast
      * @return ArrMappedKeyValue
      */
-    public static function new(array|Arrayable $arr, Closure $callback, bool $cast = false): ArrMappedKeyValue
+    public static function new(array|Arrayable $arr, callable $callback, bool $cast = false): ArrMappedKeyValue
     {
         return new self($arr, $callback, $cast);
     }
@@ -27,11 +32,12 @@ final class ArrMappedKeyValue extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      * @param bool $cast
      */
-    public function __construct(private array|Arrayable $arr, private Closure $callback, private bool $cast = false)
+    public function __construct(private array|Arrayable $arr, callable $callback, private bool $cast = false)
     {
+        $this->callback = $callback;
     }
 
     /**

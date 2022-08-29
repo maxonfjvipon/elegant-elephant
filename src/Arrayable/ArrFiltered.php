@@ -14,12 +14,17 @@ final class ArrFiltered extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
+     * @var callable $callback
+     */
+    private $callback;
+
+    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      * @return ArrFiltered
      */
-    public static function new(array|Arrayable $arr, Closure $callback): ArrFiltered
+    public static function new(array|Arrayable $arr, callable $callback): ArrFiltered
     {
         return new self($arr, $callback);
     }
@@ -27,10 +32,11 @@ final class ArrFiltered extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      */
-    public function __construct(private array|Arrayable $arr, private Closure $callback)
+    public function __construct(private array|Arrayable $arr, callable $callback)
     {
+        $this->callback = $callback;
     }
 
     /**

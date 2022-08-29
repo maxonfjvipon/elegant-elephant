@@ -15,16 +15,26 @@ final class ArrTernary extends ArrayableIterable
     use LogicalOverloadable, ArrayableOverloaded;
 
     /**
+     * @var callable $first
+     */
+    private $first;
+
+    /**
+     * @var callable $alt
+     */
+    private $alt;
+
+    /**
      * Ctor wrap.
      * @param Logical|bool $cond
-     * @param array|Closure|Arrayable $first
-     * @param array|Closure|Arrayable $alt
+     * @param array|callable|Arrayable $first
+     * @param array|callable|Arrayable $alt
      * @return ArrTernary
      */
     public static function new(
         Logical|bool             $cond,
-        array|Closure|Arrayable $first,
-        array|Closure|Arrayable $alt
+        array|callable|Arrayable $first,
+        array|callable|Arrayable $alt
     ): ArrTernary
     {
         return new self($cond, $first, $alt);
@@ -33,13 +43,13 @@ final class ArrTernary extends ArrayableIterable
     /**
      * Ctor.
      * @param Logical|bool $condition
-     * @param array|Closure|Arrayable $first
-     * @param array|Closure|Arrayable $alt
+     * @param array|callable|Arrayable $first
+     * @param array|callable|Arrayable $alt
      */
     public function __construct(
         private Logical|bool     $condition,
-        private array|Closure|Arrayable $first,
-        private array|Closure|Arrayable $alt
+        array|callable|Arrayable $first,
+        array|callable|Arrayable $alt
     )
     {
     }

@@ -15,13 +15,18 @@ final class ArrMapped extends ArrayableIterable
     use ArrayableOverloaded, CastMixed;
 
     /**
+     * @var callable $callback
+     */
+    private $callback;
+
+    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      * @param bool $cast
      * @return ArrMapped
      */
-    public static function new(array|Arrayable $arr, Closure $callback, bool $cast = false): ArrMapped
+    public static function new(array|Arrayable $arr, callable $callback, bool $cast = false): ArrMapped
     {
         return new self($arr, $callback, $cast);
     }
@@ -29,14 +34,15 @@ final class ArrMapped extends ArrayableIterable
     /**
      * ArrMappedOf constructor.
      * @param array|Arrayable $arr
-     * @param Closure $callback
+     * @param callable $callback
      * @param bool $cast
      */
     public function __construct(
         private array|Arrayable $arr,
-        private Closure $callback,
+        callable $callback,
         private bool $cast = false
     ) {
+        $this->callback = $callback;
     }
 
     /**
