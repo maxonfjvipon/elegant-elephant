@@ -12,16 +12,28 @@ final class LogicalTernary implements Logical
     use LogicalOverloadable;
 
     /**
+     * @var callable|bool|Logical $first
+     */
+    private $first;
+
+    /**
+     * @var callable|bool|Logical $alt
+     */
+    private $alt;
+
+    /**
      * Ctor.
      * @param bool|Logical $condition
-     * @param bool|Logical|\Closure $first
-     * @param bool|Logical|\Closure $alt
+     * @param bool|Logical|callable $first
+     * @param bool|Logical|callable $alt
      */
     public function __construct(
         private bool|Logical $condition,
-        private bool|Logical|\Closure $first,
-        private bool|Logical|\Closure $alt,
+        bool|Logical|callable $first,
+        bool|Logical|callable $alt,
     ) {
+        $this->first = $first;
+        $this->alt = $alt;
     }
 
     /**

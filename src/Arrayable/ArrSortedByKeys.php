@@ -14,6 +14,11 @@ final class ArrSortedByKeys extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
+     * @var callable|null $compare
+     */
+    private $compare;
+
+    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @param callable|null $compare
@@ -27,10 +32,11 @@ final class ArrSortedByKeys extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param Closure|null $compare
+     * @param callable|null $compare
      */
-    public function __construct(private array|Arrayable $arr, private ?Closure $compare = null)
+    public function __construct(private array|Arrayable $arr, ?callable $compare = null)
     {
+        $this->compare = $compare;
     }
 
     /**

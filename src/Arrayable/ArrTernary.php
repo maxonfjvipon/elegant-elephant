@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
@@ -15,12 +14,12 @@ final class ArrTernary extends ArrayableIterable
     use LogicalOverloadable, ArrayableOverloaded;
 
     /**
-     * @var callable $first
+     * @var array|callable|Arrayable $first
      */
     private $first;
 
     /**
-     * @var callable $alt
+     * @var array|callable|Arrayable $alt
      */
     private $alt;
 
@@ -52,6 +51,8 @@ final class ArrTernary extends ArrayableIterable
         array|callable|Arrayable $alt
     )
     {
+        $this->first = $first;
+        $this->alt = $alt;
     }
 
     /**

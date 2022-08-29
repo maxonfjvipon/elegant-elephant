@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Closure;
 use Exception;
 
 /**

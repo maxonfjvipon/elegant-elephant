@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Closure;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
 use Maxonfjvipon\Elegant_Elephant\Text;
@@ -10,6 +9,16 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 final class TxtTernary implements Text
 {
     use TxtOverloadable, LogicalOverloadable;
+
+    /**
+     * @var string|Text|callable $original
+     */
+    private $original;
+
+    /**
+     * @var string|Text|callable $alt
+     */
+    private $alt;
 
     /**
      * @param Logical|bool $condition
@@ -29,13 +38,13 @@ final class TxtTernary implements Text
     /**
      * Ctor.
      * @param Logical|bool $condition
-     * @param string|Text|Closure $original
-     * @param string|Text|Closure $alt
+     * @param string|Text|callable $original
+     * @param string|Text|callable $alt
      */
     public function __construct(
         private Logical|bool        $condition,
-        private string|Text|Closure $original,
-        private string|Text|Closure $alt
+        string|Text|callable $original,
+        string|Text|callable $alt
     )
     {
     }

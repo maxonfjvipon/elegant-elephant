@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
@@ -14,12 +13,17 @@ final class ArrSorted extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
+     * @var string|callable|null $compare
+     */
+    private $compare;
+
+    /**
      * Ctor wrap.
      * @param array|Arrayable $arr
      * @param callable|string|null $compare
      * @return ArrSorted
      */
-    public static function new(array|Arrayable $arr, callable|string $compare = null): ArrSorted
+    public static function new(array|Arrayable $arr, callable|string|null $compare = null): ArrSorted
     {
         return new self($arr, $compare);
     }
@@ -27,10 +31,11 @@ final class ArrSorted extends ArrayableIterable
     /**
      * Ctor.
      * @param array|Arrayable $arr
-     * @param Closure|string|null $compare
+     * @param callable|string|null $compare
      */
-    public function __construct(private array|Arrayable $arr, private Closure|string|null $compare = null)
+    public function __construct(private array|Arrayable $arr, callable|string|null $compare = null)
     {
+        $this->compare = $compare;
     }
 
     /**
