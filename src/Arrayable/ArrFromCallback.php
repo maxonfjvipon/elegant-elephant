@@ -13,6 +13,11 @@ final class ArrFromCallback extends ArrayableIterable
     use ArrayableOverloaded;
 
     /**
+     * @var Closure $callback
+     */
+    private Closure $callback;
+
+    /**
      * @param Closure $callback
      * @return ArrFromCallback
      */
@@ -26,8 +31,9 @@ final class ArrFromCallback extends ArrayableIterable
      *
      * @param Closure $callback
      */
-    public function __construct(private Closure $callback)
+    public function __construct(Closure $callback)
     {
+        $this->callback = $callback;
     }
 
     /**
