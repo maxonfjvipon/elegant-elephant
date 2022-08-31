@@ -47,6 +47,8 @@ final class TxtTernary implements Text
         string|Text|callable $alt
     )
     {
+        $this->original = $original;
+        $this->alt = $alt;
     }
 
     /**
