@@ -6,6 +6,8 @@ merge:
   script: |-
     echo "Validate composer..."
     composer validate --strict
+    echo "Dependencies..."
+    apt-get install php-xml
     echo "Run composer..."
     composer install --prefer-dist --no-progress
     echo "PHPStan..."
