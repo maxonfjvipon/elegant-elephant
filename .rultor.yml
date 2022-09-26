@@ -1,0 +1,15 @@
+architect:
+  - maxonfjvipon
+merge:
+  commanders:
+    - maxonfjvipon
+  script: |
+    echo "Validate composer..."
+    composer validate --strict
+    echo "Run composer..."
+    composer install --prefer-dist --no-progress
+    echo "PHPStan..."
+    composer run-scripts phpstan
+    echo "PHPUnit..."
+    composer run-scripts tests
+    
