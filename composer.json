@@ -3,6 +3,7 @@
   "license": [
     "MIT"
   ],
+  "description": "Small library of PHP primitives in EO style",
   "authors": [
     {
       "name": "Max Trunnikov",
