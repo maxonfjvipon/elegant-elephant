@@ -13,8 +13,6 @@ merge:
     echo "PHPUnit..."
     composer run-scripts tests
 release:
-  commanders:
-    - maxonfjvipon
   script: |-
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit -1
     echo "Validate composer..."
