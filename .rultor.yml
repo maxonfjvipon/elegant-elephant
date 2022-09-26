@@ -9,7 +9,7 @@ merge:
     echo "Validate composer..."
     composer validate --strict
     echo "Run composer..."
-    sudo apt-get install php-xml
+    sudo apt-get install php-xml -y
     composer install --prefer-dist --no-progress
     echo "PHPStan..."
     composer run-scripts phpstan
