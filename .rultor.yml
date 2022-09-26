@@ -3,7 +3,7 @@ architect:
 merge:
   commanders:
     - maxonfjvipon
-  script: |
+  script: |-
     echo "Validate composer..."
     composer validate --strict
     echo "Run composer..."
@@ -12,4 +12,16 @@ merge:
     composer run-scripts phpstan
     echo "PHPUnit..."
     composer run-scripts tests
-    
+release:
+  commanders:
+    - maxonfjvipon
+  script: |-
+    [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit -1
+    echo "Validate composer..."
+    composer validate --strict
+    echo "Run composer..."
+    composer install --prefer-dist --no-progress
+    echo "PHPStan..."
+    composer run-scripts phpstan
+    echo "PHPUnit..."
+    composer run-scripts tests
