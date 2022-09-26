@@ -2,6 +2,9 @@ architect:
   - maxonfjvipon
 docker:
   as_root: true
+install:
+  script: |-
+    sudo apt-get update
 merge:
   commanders:
     - maxonfjvipon
