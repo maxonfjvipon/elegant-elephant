@@ -1,22 +1,21 @@
 architect:
   - maxonfjvipon
+docker:
+  as_root: true
 merge:
   commanders:
     - maxonfjvipon
   script: |-
     echo "Validate composer..."
     composer validate --strict
-    echo "Dependencies..."
-    apt-get install php-xml
     echo "Run composer..."
+    sudo apt-get install php-xml
     composer install --prefer-dist --no-progress
     echo "PHPStan..."
     composer run-scripts phpstan
     echo "PHPUnit..."
     composer run-scripts tests
 release:
-  commanders:
-    - maxonfjvipon
   script: |-
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit -1
     echo "Validate composer..."
