@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -9,7 +12,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtFromCallback implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
      * @var callable $callback
@@ -17,15 +20,19 @@ final class TxtFromCallback implements Text
     private $callback;
 
     /**
+     * Ctor wrap.
+     *
      * @param callable $callback
-     * @return TxtFromCallback
+     * @return self
      */
-    public static function new(callable $callback): TxtFromCallback
+    public static function new(callable $callback): self
     {
         return new self($callback);
     }
 
     /**
+     * Ctor.
+     *
      * @param callable $callback
      */
     public function __construct(callable $callback)
@@ -34,10 +41,11 @@ final class TxtFromCallback implements Text
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        return $this->firstTxtOverloaded($this->callback);
+        return $this->textOrCallableCast($this->callback);
     }
 }

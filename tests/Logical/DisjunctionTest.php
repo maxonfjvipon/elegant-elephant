@@ -7,30 +7,42 @@ use Maxonfjvipon\Elegant_Elephant\Logical\Conjunction;
 use Maxonfjvipon\Elegant_Elephant\Logical\Disjunction;
 use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
 use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsFalse;
+use PHPUnit\Framework\Constraint\IsTrue;
 use PHPUnit\Framework\TestCase;
 
-class DisjunctionTest extends TestCase
+final class DisjunctionTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsBool(): void
+    public function disjunctionIsTrue(): void
     {
-        $this->assertEquals(
-            true,
+        Assert::assertThat(
             Disjunction::new(
                 Truth::new(),
                 true,
                 Untruth::new(),
                 false
-            )->asBool()
+            )->asBool(),
+            new IsTrue()
         );
-        $this->assertEquals(
-            false,
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function disjunctionIsFalse(): void
+    {
+        Assert::assertThat(
             Disjunction::new(
+                false,
                 Untruth::new(),
-                false
-            )->asBool()
+            )->asBool(),
+            new IsFalse()
         );
     }
 }

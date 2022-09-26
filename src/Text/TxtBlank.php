@@ -1,26 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Blank text.
- * @package Maxonfjvipon\Elegant_Elephant\Text
  */
 final class TxtBlank implements Text
 {
     /**
      * Ctor wrap.
-     * @return TxtBlank
+     *
+     * @return self
      */
-    public static function new(): TxtBlank
+    public static function new(): self
     {
         return new self();
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
     public function asString(): string
     {

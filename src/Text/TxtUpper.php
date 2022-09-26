@@ -1,39 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
- * Text upper of.
- * @package Maxonfjvipon\Elegant_Elephant\Text
+ * Text in upper case.
  */
 final class TxtUpper implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
-     * @param string|Text $text
-     * @return TxtUpper
+     * @var string|Text $origin
      */
-    public static function new(string|Text $text): TxtUpper
+    private $origin;
+
+    /**
+     * Ctor.
+     *
+     * @param string|Text $text
+     * @return self
+     */
+    public static function new($text): self
     {
         return new self($text);
     }
 
     /**
      * Ctor.
+     *
      * @param string|Text $text
      */
-    public function __construct(private string|Text $text)
+    public function __construct($text)
     {
+        $this->origin = $text;
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        return strtoupper($this->firstTxtOverloaded($this->text));
+        return strtoupper($this->textCast($this->origin));
     }
 }

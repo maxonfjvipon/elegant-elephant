@@ -1,41 +1,59 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 
 /**
- * Rounded number
+ * Rounded number.
  */
 final class Rounded implements Numerable
 {
-    use NumerableOverloaded;
+    use CastNumerable;
+
+    /**
+     * @var float|int|Numerable $origin
+     */
+    private $origin;
+
+    /**
+     * @var int $precision
+     */
+    private int $precision;
 
     /**
      * Ctor wrap.
+     *
      * @param float|int|Numerable $num
      * @param int $precision
-     * @return Rounded
+     * @return self
      */
-    public static function new(float|int|Numerable $num, int $precision = 0)
+    public static function new($num, int $precision = 0): self
     {
         return new self($num, $precision);
     }
 
     /**
      * Ctor.
+     *
      * @param float|int|Numerable $num
      * @param int $precision
      */
-    public function __construct(private float|int|Numerable $num, private int $precision = 0)
+    public function __construct($num, int $precision = 0)
     {
+        $this->origin = $num;
+        $this->precision = $precision;
     }
 
     /**
-     * @inheritDoc
+     * @return float
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber(): float
     {
-        return round($this->firstNumerableOverloaded($this->num), $this->precision);
+        return round($this->numerableCast($this->origin), $this->precision);
     }
 }

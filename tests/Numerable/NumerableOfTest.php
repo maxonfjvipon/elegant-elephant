@@ -4,26 +4,33 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class NumerableOfTest extends TestCase
+final class NumerableOfTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsNumber(): void
+    public function numerableOfInt(): void
     {
-        $this->assertEquals(
-            5,
-            NumerableOf::new(5)->asNumber()
+        Assert::assertThat(
+            NumerableOf::new(4)->asNumber(),
+            new IsEqual(4)
         );
-        $this->assertEquals(
-            6,
-            NumerableOf::new("6")->asNumber()
-        );
-        $this->assertEquals(
-            7.1,
-            NumerableOf::new(7.1)->asNumber()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function numerableOfFloat(): void
+    {
+        Assert::assertThat(
+            NumerableOf::new(12.1)->asNumber(),
+            new IsEqual(12.1)
         );
     }
 }

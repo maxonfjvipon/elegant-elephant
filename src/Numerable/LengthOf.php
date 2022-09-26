@@ -1,50 +1,59 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 use TypeError;
 
 /**
- * Length of.
- * @package Maxonfjvipon\Elegant_Elephant\Numerable
+ * Length.
  */
 final class LengthOf implements Numerable
 {
+    use CastText;
+
     /**
-     * @param Text|string|array|Arrayable $arg
-     * @return LengthOf
+     * @var string|array<mixed>|Text|Arrayable $origin
      */
-    public static function new(string|array|Text|Arrayable $arg): LengthOf
+    private $origin;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param string|array<mixed>|Text|Arrayable $arg
+     * @return self
+     */
+    public static function new($arg): self
     {
         return new self($arg);
     }
 
     /**
      * Ctor.
-     * @param Text|string|array|Arrayable $arg
+     *
+     * @param string|array<mixed>|Text|Arrayable $arg
      */
-    public function __construct(private string|array|Text|Arrayable $arg)
+    public function __construct($arg)
     {
+        $this->origin = $arg;
     }
 
     /**
-     * @inheritDoc
-     * @throws Exception|TypeError
+     * @return int
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber(): int
     {
-        if (is_string($this->arg)) {
-            return strlen($this->arg);
-        } elseif (is_array($this->arg)) {
-            return count($this->arg);
-        } elseif ($this->arg instanceof Text) {
-            return strlen($this->arg->asString());
-        } else {
-            return count($this->arg->asArray());
+        if (is_array($this->origin) || $this->origin instanceof Arrayable) {
+            return count($this->origin);
         }
+
+        return strlen($this->textCast($this->origin));
     }
 }

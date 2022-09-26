@@ -5,14 +5,18 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
+use function Symfony\Component\String\s;
 
-class ArrValuesTest extends TestCase
+final class ArrValuesTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsArray(): void
+    public function arrValuesWorks(): void
     {
         $expected = [1, 2, 3, 4];
         $arr = [
@@ -21,27 +25,9 @@ class ArrValuesTest extends TestCase
             "key3" => 3,
             "key4" => 4
         ];
-
-        $this->assertEquals(
-            $expected,
-            ArrValues::new($arr)->asArray()
-        );
-        $this->assertEquals(
-            $expected,
-            ArrValues::new(ArrayableOf::new($arr))->asArray()
-        );
-        $this->assertEquals(
-            $expected,
-            (new ArrValues($expected))->asArray()
-        );
-        $this->assertNotEquals(
-            $expected,
-            ArrValues::new([
-                0 => 2,
-                1 => 3,
-                2 => 4,
-                3 => 5
-            ])->asArray()
+        Assert::assertThat(
+            ArrValues::new($arr)->asArray(),
+            new IsEqual($expected)
         );
     }
 }

@@ -1,45 +1,57 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 
 /**
- * Max of
+ * Max.
  */
 final class MaxOf implements Numerable
 {
-    use NumerableOverloaded;
+    use CastNumerable;
 
     /**
-     * @var float[]|int[]|Numerable[] $items
+     * @var array<float|int|Numerable> $items
      */
     private array $items;
 
     /**
      * Ctor wrap.
+     *
      * @param float|int|Numerable ...$items
-     * @return MaxOf
+     * @return self
      */
-    public static function new(float|int|Numerable ...$items)
+    public static function new(...$items): self
     {
         return new self(...$items);
     }
 
     /**
      * Ctor.
+     *
      * @param float|int|Numerable ...$items
      */
-    public function __construct(float|int|Numerable ...$items)
+    public function __construct(...$items)
     {
         $this->items = $items;
     }
 
     /**
-     * @inheritDoc
+     * @return float|int
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber()
     {
-        return max(...$this->numerableOverloaded(...$this->items));
+        $max = max(...$this->numerablesCast(...$this->items));
+
+        if (!is_numeric($max)) {
+            throw new Exception("Max can work with numbers only!");
+        }
+
+        return $max;
     }
 }

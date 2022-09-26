@@ -6,22 +6,21 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrUnique;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class ArrUniqueTest extends TestCase
+final class ArrUniqueTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsArray(): void
+    public function uniqueWorks(): void
     {
-        $this->assertEquals(
-            ArrValues::new([1, 2, 3, 4, 5])->asArray(),
-            ArrValues::new(ArrUnique::new([1, 1, 2, 3, 4, 5, 5]))->asArray()
-        );
-        $this->assertEquals(
-            ArrValues::new([1, 2, 3, 4, 5])->asArray(),
-            ArrValues::new(ArrUnique::new(ArrayableOf::new([1, 1, 2, 3, 4, 5, 5])))->asArray()
+        Assert::assertThat(
+            ArrValues::new(ArrUnique::new([1, 1, 2, 3, 4, 5, 5]))->asArray(),
+            new IsEqual([1, 2, 3, 4, 5])
         );
     }
 }

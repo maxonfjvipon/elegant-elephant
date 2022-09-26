@@ -5,26 +5,34 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtJoined;
+use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class TxtJoinedTest extends TestCase
+final class TxtJoinedTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsString(): void
+    public function joinedOfStrings(): void
     {
-        $this->assertEquals(
-            "foobar",
-            TxtJoined::new("foo", "bar")->asString()
+        Assert::assertThat(
+            TxtJoined::new("foo", "-", "bar")->asString(),
+            new IsEqual("foo-bar")
         );
-        $this->assertEquals(
-            "foobar12.2",
-            TxtJoined::new(TextOf::new("foo"), "bar", 1, 2.2)->asString(),
-        );
-        $this->assertEquals(
-            "foobar1",
-            TxtJoined::new("foo", TextOf::new("bar"), true)->asString()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function joinedOfTexts(): void
+    {
+        Assert::assertThat(
+            TxtJoined::new(new TextOf("foo"), "-", new TxtUpper(new TextOf("bar")))->asString(),
+            new IsEqual("foo-BAR")
         );
     }
 }

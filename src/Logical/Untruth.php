@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
 use Maxonfjvipon\Elegant_Elephant\Logical;
@@ -10,15 +12,17 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
 final class Untruth implements Logical
 {
     /**
-     * @return Untruth
+     * Ctor wrap.
+     *
+     * @return self
      */
-    public static function new(): Untruth
+    public static function new(): self
     {
         return new self();
     }
 
     /**
-     * @inheritDoc
+     * @return bool
      */
     public function asBool(): bool
     {

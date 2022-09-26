@@ -4,18 +4,22 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtBlank;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEmpty;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class TxtBlankTest extends TestCase
+final class TxtBlankTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsString(): void
+    public function textBlankIsEmpty(): void
     {
-        $this->assertEquals(
-            "",
-            TxtBlank::new()->asString()
+        Assert::assertThat(
+            TxtBlank::new()->asString(),
+            new IsEmpty()
         );
     }
 }

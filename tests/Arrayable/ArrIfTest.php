@@ -2,38 +2,79 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
-use Exception;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrIf;
+use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
 use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\TestCase;
 
-class ArrIfTest extends TestCase
+final class ArrIfTest extends TestCase
 {
     /**
-     * @throws Exception
+     * @test
+     * @return void
      */
-    public function testAsArray()
+    public function arrayIfTrue(): void
     {
-        $this->assertEquals(
-            [1, 2, 3],
-            (new ArrIf(
-                true,
-                [1, 2, 3]
-            ))->asArray()
+        Assert::assertThat(
+            ArrIf::new(true, [1, 2, 3]),
+            new Count(3)
         );
-        $this->assertEquals(
-            [],
-            (new ArrIf(
-                new Untruth(),
-                [1, 2, 3]
-            ))->asArray()
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function arrayIfFalse(): void
+    {
+        Assert::assertThat(
+            ArrIf::new(false, [1, 2, 3]),
+            new Count(0)
         );
-        $this->assertEquals(
-            [1, 2],
-            (new ArrIf(
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function arrayIfTrueWithCallback(): void
+    {
+        Assert::assertThat(
+            new ArrIf(true, fn () => new ArrayableOf([1, 2, 3])),
+            new Count(3)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function arrayIfWithLogical(): void
+    {
+        Assert::assertThat(
+            new ArrIf(new Untruth(), fn () => new ArrayableOf([1, 2, 3])),
+            new Count(0)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function arrayIfWithArrayIf(): void
+    {
+        Assert::assertThat(
+            new ArrIf(
                 true,
-                fn() => [1, 2]
-            ))->asArray()
+                new ArrIf(
+                    new Truth(),
+                    fn () => [1, 2, 3]
+                )
+            ),
+            new Count(3)
         );
     }
 }

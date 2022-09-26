@@ -1,63 +1,72 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
+use Maxonfjvipon\Elegant_Elephant\Logical\CastLogical;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
+/**
+ * Ternary text.
+ */
 final class TxtTernary implements Text
 {
-    use TxtOverloadable, LogicalOverloadable;
+    use CastText;
+    use CastLogical;
 
     /**
-     * @var string|Text|callable $original
+     * @var bool|Logical $condition
      */
-    private $original;
+    private $condition;
 
     /**
-     * @var string|Text|callable $alt
+     * @var string|callable|Text $origin
+     */
+    private $origin;
+
+    /**
+     * @var string|callable|Text $alt
      */
     private $alt;
 
     /**
-     * @param Logical|bool $condition
-     * @param string|Text|callable $original
-     * @param string|Text|callable $alt
-     * @return TxtTernary
+     * Ctor wrap.
+     *
+     * @param bool|Logical $condition
+     * @param string|callable|Text $original
+     * @param string|callable|Text $alt
+     * @return self
      */
-    public static function new(
-        Logical|bool         $condition,
-        string|Text|callable $original,
-        string|Text|callable $alt
-    ): TxtTernary
+    public static function new($condition, $original, $alt): self
     {
         return new self($condition, $original, $alt);
     }
 
     /**
      * Ctor.
-     * @param Logical|bool $condition
-     * @param string|Text|callable $original
-     * @param string|Text|callable $alt
+     *
+     * @param bool|Logical $condition
+     * @param string|callable|Text $original
+     * @param string|callable|Text $alt
      */
-    public function __construct(
-        private Logical|bool        $condition,
-        string|Text|callable $original,
-        string|Text|callable $alt
-    )
+    public function __construct($condition, $original, $alt)
     {
-        $this->original = $original;
+        $this->condition = $condition;
+        $this->origin = $original;
         $this->alt = $alt;
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        return $this->firstLogicalOverloaded($this->condition)
-            ? $this->firstTxtOverloaded($this->original)
-            : $this->firstTxtOverloaded($this->alt);
+        return $this->logicalCast($this->condition)
+            ? $this->textOrCallableCast($this->origin)
+            : $this->textOrCallableCast($this->alt);
     }
 }

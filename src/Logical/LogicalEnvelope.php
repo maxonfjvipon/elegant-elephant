@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 
 /**
@@ -10,18 +13,26 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
 class LogicalEnvelope implements Logical
 {
     /**
-     * Ctor.
-     * @param Logical $logical
+     * @var Logical $origin
      */
-    public function __construct(private Logical $logical)
+    private Logical $origin;
+
+    /**
+     * Ctor.
+     *
+     * @param Logical $origin
+     */
+    public function __construct(Logical $origin)
     {
+        $this->origin = $origin;
     }
 
     /**
-     * @inheritDoc
+     * @return bool
+     * @throws Exception
      */
     public function asBool(): bool
     {
-        return $this->logical->asBool();
+        return $this->origin->asBool();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Maxonfjvipon\Elegant_Elephant\Logical;
@@ -10,28 +12,29 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtIf extends TxtEnvelope
 {
-
     /**
      * Ctor wrap.
-     * @param bool|Logical $cond
+     *
+     * @param bool|Logical $condition
      * @param string|callable|Text $text
-     * @return TxtIf
+     * @return self
      */
-    public static function new(bool|Logical $cond, string|callable|Text $text): TxtIf
+    public static function new($condition, $text): self
     {
-        return new self($cond, $text);
+        return new self($condition, $text);
     }
 
     /**
      * Ctor.
-     * @param bool|Logical $cond
+     *
+     * @param bool|Logical $condition
      * @param string|callable|Text $text
      */
-    public function __construct(bool|Logical $cond, string|callable|Text $text)
+    public function __construct($condition, $text)
     {
         parent::__construct(
             new TxtTernary(
-                $cond,
+                $condition,
                 $text,
                 new TxtBlank()
             )

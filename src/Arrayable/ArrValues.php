@@ -1,40 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable values
- * @package Maxonfjvipon\Elegant_Elephant\Arrayable
+ * Array values
  */
-final class ArrValues extends ArrayableIterable
+final class ArrValues extends AbstractArrayable
 {
-    use ArrayableOverloaded;
+    use CastArrayable;
+
+    /**
+     * @var array<mixed>|Arrayable $origin;
+     */
+    private $origin;
 
     /**
      * Ctor wrap.
-     * @param array|Arrayable $arr
-     * @return ArrValues
+     *
+     * @param array<mixed>|Arrayable $arr
+     * @return self
      */
-    public static function new(array|Arrayable $arr): ArrValues
+    public static function new($arr): self
     {
         return new self($arr);
     }
 
     /**
      * Ctor.
-     * @param array|Arrayable $arr
+     *
+     * @param array<mixed>|Arrayable $arr
      */
-    public function __construct(private array|Arrayable $arr)
+    public function __construct($arr)
     {
+        $this->origin = $arr;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
-        return array_values($this->firstArrayableOverloaded($this->arr));
+        return array_values($this->arrayableCast($this->origin));
     }
 }

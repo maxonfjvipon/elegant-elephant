@@ -5,41 +5,68 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSorted;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class ArrSortedTest extends TestCase
+final class ArrSortedTest extends TestCase
 {
+    const GIVEN = [2, 4, 1, 3];
+    const EXPECTED = [1, 2, 3, 4];
+
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsArray(): void
+    public function sortedWorks(): void
     {
-        $expected = [1, 2, 3, 4];
-        $arr = [2, 4, 1, 3];
+        Assert::assertThat(
+            ArrSorted::new(self::GIVEN)->asArray(),
+            new IsEqual(self::EXPECTED)
+        );
+    }
 
-        $this->assertEquals(
-            $expected,
-            ArrSorted::new($arr)->asArray()
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function sortedOfArrayableWorks(): void
+    {
+        Assert::assertThat(
+            ArrSorted::new(ArrayableOf::new(self::GIVEN))->asArray(),
+            new IsEqual(self::EXPECTED)
         );
-        $this->assertEquals(
-            $expected,
-            (new ArrSorted(ArrayableOf::new($arr, false)))->asArray()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function sortedWithCompareAsCallbackWorks(): void
+    {
+        Assert::assertThat(
+            ArrSorted::new(self::GIVEN, fn ($a, $b) => $a >= $b ? -1 : 1)->asArray(),
+            new IsEqual(array_reverse(self::EXPECTED))
         );
-        $this->assertEquals(
-            [4, 3, 2, 1],
-            ArrSorted::new($arr, fn($a, $b) => $a >= $b ? -1 : 1)->asArray()
-        );
-        $this->assertNotEquals(
-            [4, 3, 2, 1],
-            ArrSorted::new($arr)->asArray()
-        );
-        $this->assertEquals(
-            array(array('a' => 1), array('a' => 2), array('a' => 3)),
-            ArrSorted::new(array(
-                array('a' => 1),
-                array('a' => 3),
-                array('a' => 2)
-            ), 'a')->asArray()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function sortedWithCompareAsStringWorks(): void
+    {
+        Assert::assertThat(
+            ArrSorted::new([
+                ['a' => 3],
+                ['a' => 1],
+                ['a' => 2]
+            ], 'a')->asArray(),
+            new IsEqual([
+                ['a' => 1],
+                ['a' => 2],
+                ['a' => 3]
+            ])
         );
     }
 }

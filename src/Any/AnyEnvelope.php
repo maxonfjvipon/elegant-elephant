@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Any;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 
 /**
@@ -10,19 +13,26 @@ use Maxonfjvipon\Elegant_Elephant\Any;
 class AnyEnvelope implements Any
 {
     /**
+     * @var Any $origin
+     */
+    private Any $origin;
+
+    /**
      * Ctor.
      *
      * @param Any $any
      */
-    public function __construct(private Any $any)
+    public function __construct(Any $any)
     {
+        $this->origin = $any;
     }
 
     /**
-     * @inheritDoc
+     * @return mixed
+     * @throws Exception
      */
-    public function asAny(): mixed
+    public function asAny()
     {
-        return $this->any->asAny();
+        return $this->origin->asAny();
     }
 }

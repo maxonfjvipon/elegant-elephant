@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 
 /**
@@ -23,9 +26,10 @@ class NumEnvelope implements Numerable
     }
 
     /**
-     * @inheritDoc
+     * @return float|int
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber()
     {
         return $this->origin->asNumber();
     }

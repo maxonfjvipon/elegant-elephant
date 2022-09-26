@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
@@ -7,9 +9,9 @@ use Exception;
 /**
  * Array from callback
  */
-final class ArrFromCallback extends ArrayableIterable
+final class ArrFromCallback extends AbstractArrayable
 {
-    use ArrayableOverloaded;
+    use CastArrayable;
 
     /**
      * @var callable $callback
@@ -17,10 +19,12 @@ final class ArrFromCallback extends ArrayableIterable
     private $callback;
 
     /**
+     * Ctor wrap.
+     *
      * @param callable $callback
-     * @return ArrFromCallback
+     * @return self
      */
-    public static function new(callable $callback): ArrFromCallback
+    public static function new(callable $callback): self
     {
         return new self($callback);
     }
@@ -36,11 +40,11 @@ final class ArrFromCallback extends ArrayableIterable
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      * @throws Exception
      */
     public function asArray(): array
     {
-        return $this->firstArrayableOverloaded($this->callback);
+        return $this->arrayableOrCallableCast($this->callback);
     }
 }

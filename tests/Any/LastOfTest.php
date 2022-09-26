@@ -2,33 +2,65 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Any;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any\LastOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
 final class LastOfTest extends TestCase
 {
     /**
-     * @throws \Exception
+     * @test
+     * @return void
+     * @throws Exception
      */
-    public function testAsAny()
+    public function lastOfString(): void
     {
-        $this->assertEquals(
-            "o",
-            (new LastOf("Hello"))->asAny()
+        Assert::assertThat(
+            (new LastOf("Hello world"))->asAny(),
+            new IsEqual("d"),
         );
-        $this->assertEquals(
-            "o",
-            (new LastOf(new TextOf("Hello")))->asAny()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function lastOfText(): void
+    {
+        Assert::assertThat(
+            (new LastOf(new TextOf("Hello world!")))->asAny(),
+            new IsEqual("!"),
         );
-        $this->assertEquals(
-            3,
-            (new LastOf([1, 2, 3,]))->asAny()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function lastOfArray(): void
+    {
+        Assert::assertThat(
+            (new LastOf([42, 33.2, "Hello world!"]))->asAny(),
+            new IsEqual("Hello world!"),
         );
-        $this->assertEquals(
-            3,
-            (new LastOf(new ArrayableOf([1, 2, 3])))->asAny()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function lastOfArrayable(): void
+    {
+        Assert::assertThat(
+            (new LastOf(new ArrayableOf([33, 12, "Hello there!"])))->asAny(),
+            new IsEqual("Hello there!"),
         );
     }
 }

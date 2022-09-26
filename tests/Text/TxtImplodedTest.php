@@ -4,31 +4,47 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtImploded;
 
-class TxtImplodedTest extends TestCase
+final class TxtImplodedTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsString(): void
+    public function implodedOfStrings(): void
     {
-        $this->assertEquals(
-            "foo-bar",
-            TxtImploded::new("-", "foo", "bar")->asString()
+        Assert::assertThat(
+            TxtImploded::new("-", "foo", "bar")->asString(),
+            new IsEqual("foo-bar")
         );
-        $this->assertEquals(
-            "foo-bar",
-            TxtImploded::new("-", TextOf::new("foo"), "bar")->asString()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function implodedOfTexts(): void
+    {
+        Assert::assertThat(
+            TxtImploded::new(new TextOf("/"), new TxtUpper("foo"), "bar")->asString(),
+            new IsEqual("FOO/bar")
         );
-        $this->assertEquals(
-            "foo-bar-1-1.1-1",
-            TxtImploded::new("-", TextOf::new("foo"), TextOf::new("bar"), 1, 1.1, true)->asString()
-        );
-        $this->assertEquals(
-            "foo,bar",
-            TxtImploded::withComma("foo", TextOf::new("bar"))->asString()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function implodedWithComma(): void
+    {
+        Assert::assertThat(
+            TxtImploded::withComma(new TxtUpper("foo"), "bar")->asString(),
+            new IsEqual("FOO,bar")
         );
     }
 }

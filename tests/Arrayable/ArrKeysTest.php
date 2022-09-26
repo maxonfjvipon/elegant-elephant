@@ -3,37 +3,30 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrKeys;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class ArrKeysTest extends TestCase
+final class ArrKeysTest extends TestCase
 {
+    const EXPECTED = [1, 2, 3, 4];
+    const GIVEN = [
+        1 => "value1",
+        2 => "value2",
+        3 => "value3",
+        4 => "value4"
+    ];
+
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsArray(): void
+    public function arrValuesWorks(): void
     {
-        $expected = [1, 2, 3, 4];
-        $arr = [
-            1 => "value1",
-            2 => "value2",
-            3 => "value3",
-            4 => "value4"
-        ];
-
-        $this->assertEquals(
-            $expected,
-            ArrKeys::new($arr)->asArray()
-        );
-        $this->assertNotEquals(
-            $expected,
-            ArrKeys::new([
-                0 => 1,
-                1 => 2,
-                2 => 3,
-                3 => 4
-            ])->asArray()
+        Assert::assertThat(
+            ArrKeys::new(self::GIVEN)->asArray(),
+            new IsEqual(self::EXPECTED)
         );
     }
 }

@@ -5,14 +5,17 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSortedByKeys;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class ArrSortedByKeysTest extends TestCase
+final class ArrSortedByKeysTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsArray(): void
+    public function sortedByKeysWorks(): void
     {
         $expected = [
             0 => "hello",
@@ -26,14 +29,9 @@ class ArrSortedByKeysTest extends TestCase
             3 => "friend",
             2 => "dear"
         ];
-
-        $this->assertEquals(
-            $expected,
-            ArrSortedByKeys::new($arr)->asArray()
-        );
-        $this->assertEquals(
-            $expected,
-            ArrSortedByKeys::new($expected)->asArray()
+        Assert::assertThat(
+            ArrSortedByKeys::new($arr)->asArray(),
+            new IsEqual($expected)
         );
     }
 }

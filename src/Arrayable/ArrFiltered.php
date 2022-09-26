@@ -1,16 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable filtered of.
- * @package Maxonfjvipon\Elegant_Elephant\Arrayable
+ * Filtered array.
  */
-final class ArrFiltered extends ArrayableIterable
+final class ArrFiltered extends AbstractArrayable
 {
-    use ArrayableOverloaded;
+    use CastArrayable;
+
+    /**
+     * @var array<mixed>|Arrayable $origin
+     */
+    private $origin;
 
     /**
      * @var callable $callback
@@ -19,30 +26,34 @@ final class ArrFiltered extends ArrayableIterable
 
     /**
      * Ctor wrap.
-     * @param array|Arrayable $arr
+     *
+     * @param array<mixed>|Arrayable $arr
      * @param callable $callback
-     * @return ArrFiltered
+     * @return self
      */
-    public static function new(array|Arrayable $arr, callable $callback): ArrFiltered
+    public static function new($arr, callable $callback): self
     {
         return new self($arr, $callback);
     }
 
     /**
      * Ctor.
-     * @param array|Arrayable $arr
+     *
+     * @param array<mixed>|Arrayable $arr
      * @param callable $callback
      */
-    public function __construct(private array|Arrayable $arr, callable $callback)
+    public function __construct($arr, callable $callback)
     {
+        $this->origin = $arr;
         $this->callback = $callback;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
-        return array_filter($this->firstArrayableOverloaded($this->arr), $this->callback, ARRAY_FILTER_USE_BOTH);
+        return array_filter($this->arrayableCast($this->origin), $this->callback, ARRAY_FILTER_USE_BOTH);
     }
 }

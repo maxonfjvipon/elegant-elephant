@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant;
 
 use Exception;
@@ -14,20 +16,28 @@ trait CastMixed
      * @return mixed
      * @throws Exception
      */
-    private function castMixed(mixed $mixed): mixed
+    private function castMixed($mixed)
     {
         if ($mixed instanceof Arrayable) {
             return $mixed->asArray();
-        } elseif ($mixed instanceof Numerable) {
-            return $mixed->asNumber();
-        } elseif ($mixed instanceof Text) {
-            return $mixed->asString();
-        } elseif ($mixed instanceof Logical) {
-            return $mixed->asBool();
-        } elseif ($mixed instanceof Any) {
-            return $mixed->asAny();
-        } else {
-            return $mixed;
         }
+
+        if ($mixed instanceof Numerable) {
+            return $mixed->asNumber();
+        }
+
+        if ($mixed instanceof Text) {
+            return $mixed->asString();
+        }
+
+        if ($mixed instanceof Logical) {
+            return $mixed->asBool();
+        }
+
+        if ($mixed instanceof Any) {
+            return $mixed->asAny();
+        }
+
+        return $mixed;
     }
 }

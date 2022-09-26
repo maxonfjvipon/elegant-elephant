@@ -1,42 +1,54 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 
 /**
- * Numerable with cache.
+ * Cached number.
  */
 final class NumSticky implements Numerable
 {
     /**
-     * @var array $cache
+     * @var array<float|int> $cache
      */
     private array $cache = [];
 
     /**
-     * Ctor wrap.
-     * @param Numerable $num
-     * @return NumSticky
+     * @var Numerable $origin
      */
-    public static function new(Numerable $num): NumSticky
+    private Numerable $origin;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param Numerable $num
+     * @return self
+     */
+    public static function new(Numerable $num): self
     {
         return new self($num);
     }
 
     /**
      * Ctor.
+     *
      * @param Numerable $num
      */
-    public function __construct(private Numerable $num)
+    public function __construct(Numerable $num)
     {
+        $this->origin = $num;
     }
 
     /**
-     * @inheritDoc
+     * @return float|int
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber()
     {
-        return $this->cache[0] ??= $this->num->asNumber();
+        return $this->cache[0] ??= $this->origin->asNumber();
     }
 }

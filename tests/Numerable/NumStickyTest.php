@@ -2,32 +2,47 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumSticky;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class NumStickyTest extends TestCase
+final class NumStickyTest extends TestCase
 {
     /**
-     * @throws \Exception
+     * @test
+     * @throws Exception
      */
-    public function testAsNumber()
+    public function doesNotChangeValue(): void
     {
         $num = 2;
-        $nnum = new NumSticky(
-            new class($num) implements Numerable {
-                public function __construct(private int $num)
+        $cached = new NumSticky(
+            new class ($num) implements Numerable {
+                private int $num;
+
+                public function __construct(int $num)
                 {
+                    $this->num = $num;
                 }
 
-                public function asNumber(): float|int
+                /**
+                 * @return int
+                 */
+                public function asNumber(): int
                 {
                     $this->num += 2;
                     return $this->num;
                 }
             }
         );
-        $this->assertEquals(4, $nnum->asNumber());
-        $this->assertEquals(4, $nnum->asNumber());
+        $cached->asNumber();
+        $result = $cached->asNumber();
+
+        Assert::assertThat(
+            $result,
+            new IsEqual(4)
+        );
     }
 }

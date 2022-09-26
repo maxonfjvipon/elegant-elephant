@@ -1,17 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\CastMixed;
 
 /**
- * Mapped arrayable.
- * @package Maxonfjvipon\Elegant_Elephant\Arrayable
+ * Mapped array.
  */
-final class ArrMapped extends ArrayableIterable
+final class ArrMapped extends AbstractArrayable
 {
-    use ArrayableOverloaded, CastMixed;
+    use CastArrayable;
+    use CastMixed;
+
+    /**
+     * @var array<mixed>|Arrayable $origin
+     */
+    private $origin;
 
     /**
      * @var callable $callback
@@ -19,44 +27,53 @@ final class ArrMapped extends ArrayableIterable
     private $callback;
 
     /**
+     * @var bool $cast
+     */
+    private bool $cast;
+
+    /**
      * Ctor wrap.
-     * @param array|Arrayable $arr
+     *
+     * @param array<mixed>|Arrayable $arr
      * @param callable $callback
      * @param bool $cast
-     * @return ArrMapped
+     * @return self
      */
-    public static function new(array|Arrayable $arr, callable $callback, bool $cast = false): ArrMapped
+    public static function new($arr, callable $callback, bool $cast = false): self
     {
         return new self($arr, $callback, $cast);
     }
 
     /**
-     * ArrMappedOf constructor.
-     * @param array|Arrayable $arr
+     * Ctor.
+     *
+     * @param array<mixed>|Arrayable $arr
      * @param callable $callback
      * @param bool $cast
      */
-    public function __construct(
-        private array|Arrayable $arr,
-        callable $callback,
-        private bool $cast = false
-    ) {
+    public function __construct($arr, callable $callback, bool $cast = false)
+    {
+        $this->origin = $arr;
         $this->callback = $callback;
+        $this->cast = $cast;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
         if (!$this->cast) {
-            return array_map($this->callback, $this->firstArrayableOverloaded($this->arr));
-        } else {
-            $res = [];
-            foreach ($this->firstArrayableOverloaded($this->arr) as $key => $value) {
-                $res[$key] = $this->castMixed(call_user_func($this->callback, $value));
-            }
-            return $res;
+            return array_map($this->callback, $this->arrayableCast($this->origin));
         }
+
+        $res = [];
+
+        foreach ($this->arrayableCast($this->origin) as $key => $value) {
+            $res[$key] = $this->castMixed(call_user_func($this->callback, $value));
+        }
+
+        return $res;
     }
 }

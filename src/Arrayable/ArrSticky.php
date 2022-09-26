@@ -1,42 +1,54 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable with caching
+ * Cached array.
  */
-final class ArrSticky extends ArrayableIterable
+final class ArrSticky extends AbstractArrayable
 {
     /**
-     * @var array $cache
+     * @var Arrayable $origin;
+     */
+    private Arrayable $origin;
+
+    /**
+     * @var array<array> $cache
      */
     private array $cache = [];
 
     /**
      * Ctor wrap.
+     *
      * @param Arrayable $arr
-     * @return ArrSticky
+     * @return self
      */
-    public static function new(Arrayable $arr)
+    public static function new(Arrayable $arr): self
     {
-        return new  self($arr);
+        return new self($arr);
     }
 
     /**
      * Ctor.
+     *
      * @param Arrayable $arr
      */
-    public function __construct(private Arrayable $arr)
+    public function __construct(Arrayable $arr)
     {
+        $this->origin = $arr;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
-        return $this->cache[0] ??= $this->arr->asArray();
+        return $this->cache[0] ??= $this->origin->asArray();
     }
 }

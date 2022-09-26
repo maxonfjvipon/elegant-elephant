@@ -1,33 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
- * Txt envelope.
+ * Text envelope.
  */
 class TxtEnvelope implements Text
 {
     /**
-     * @var Text $text
+     * @var Text $origin
      */
-    private Text $text;
+    private Text $origin;
 
     /**
      * Ctor.
+     *
      * @param Text $text
      */
     public function __construct(Text $text)
     {
-        $this->text = $text;
+        $this->origin = $text;
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        return $this->text->asString();
+        return $this->origin->asString();
     }
 }

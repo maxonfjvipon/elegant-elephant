@@ -1,16 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable sorted
- * @package Maxonfjvipon\Elegant_Elephant\Arrayable
+ * Array sorted.
  */
-final class ArrSorted extends ArrayableIterable
+final class ArrSorted extends AbstractArrayable
 {
-    use ArrayableOverloaded;
+    use CastArrayable;
+
+    /**
+     * @var array<mixed>|Arrayable $origin;
+     */
+    private $origin;
 
     /**
      * @var string|callable|null $compare
@@ -19,38 +26,44 @@ final class ArrSorted extends ArrayableIterable
 
     /**
      * Ctor wrap.
-     * @param array|Arrayable $arr
+     *
+     * @param array<mixed>|Arrayable $arr
      * @param callable|string|null $compare
-     * @return ArrSorted
+     * @return self
      */
-    public static function new(array|Arrayable $arr, callable|string|null $compare = null): ArrSorted
+    public static function new($arr, $compare = null): self
     {
         return new self($arr, $compare);
     }
 
     /**
      * Ctor.
-     * @param array|Arrayable $arr
+     *
+     * @param array<mixed>|Arrayable $arr
      * @param callable|string|null $compare
      */
-    public function __construct(private array|Arrayable $arr, callable|string|null $compare = null)
+    public function __construct($arr, $compare = null)
     {
+        $this->origin = $arr;
         $this->compare = $compare;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
-        $arr = $this->firstArrayableOverloaded($this->arr);
+        $arr = $this->arrayableCast($this->origin);
+
         if ($this->compare != null) {
             usort($arr, is_string($this->compare)
-                ? fn($a, $b) => $a[$this->compare] <=> $b[$this->compare]
+                ? fn ($a, $b) => $a[$this->compare] <=> $b[$this->compare]
                 : $this->compare);
         } else {
             sort($arr);
         }
+
         return $arr;
     }
 }

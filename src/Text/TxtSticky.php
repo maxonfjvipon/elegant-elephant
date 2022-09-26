@@ -1,23 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
+/**
+ * Cached text.
+ */
 final class TxtSticky implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
-     * @var array $cache
+     * @var array<string> $cache
      */
     private array $cache = [];
-    
+
+    /**
+     * @var Text $origin
+     */
+    private Text $origin;
+
     /**
      * Ctor wrap.
+     *
      * @param Text $text
-     * @return TxtSticky
+     * @return self
      */
     public static function new(Text $text): self
     {
@@ -26,17 +37,20 @@ final class TxtSticky implements Text
 
     /**
      * Ctor.
+     *
      * @param Text $text
      */
-    public function __construct(private Text $text)
+    public function __construct(Text $text)
     {
+        $this->origin = $text;
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        return $this->cache[0] ??= $this->text->asString();
+        return $this->cache[0] ??= $this->origin->asString();
     }
 }

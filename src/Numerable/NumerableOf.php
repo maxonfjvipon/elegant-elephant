@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
@@ -8,40 +10,53 @@ use Maxonfjvipon\Elegant_Elephant\Numerable;
 
 /**
  * Numerable of.
- * @package Maxonfjvipon\Elegant_Elephant\Numerable
  */
 final class NumerableOf implements Numerable
 {
-    use NumerableOverloaded;
+    use CastNumerable;
 
     /**
-     * @param float|int|Any $num
-     * @return NumerableOf
+     * @var float|int|Any $origin
      */
-    public static function new(float|int|Any $num): NumerableOf
+    private $origin;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param float|int|Any $num
+     * @return self
+     */
+    public static function new($num): self
     {
         return new self($num);
     }
 
     /**
      * Ctor.
-     * @param float|int|Any $origin
+     *
+     * @param float|int|Any $num
      */
-    public function __construct(private float|int|Any $origin)
+    public function __construct($num)
     {
+        $this->origin = $num;
     }
 
     /**
-     * @inheritDoc
+     * @return float|int
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber()
     {
         if ($this->origin instanceof Any) {
-            if (!is_numeric($res = $this->origin->asAny())) {
-                throw new Exception("Any object must return a float or an integer");
+            $res = $this->origin->asAny();
+
+            if (!is_float($res) && !is_integer($res)) {
+                throw new Exception("Any object must be wrapper of Numerable");
             }
+
             return $res;
         }
+
         return $this->origin;
     }
 }

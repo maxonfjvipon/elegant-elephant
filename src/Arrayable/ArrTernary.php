@@ -1,67 +1,72 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOverloadable;
+use Maxonfjvipon\Elegant_Elephant\Logical\CastLogical;
 
 /**
- * Ternary array
+ * Ternary array.
  */
-final class ArrTernary extends ArrayableIterable
+final class ArrTernary extends AbstractArrayable
 {
-    use LogicalOverloadable, ArrayableOverloaded;
+    use CastLogical;
+    use CastArrayable;
 
     /**
-     * @var array|callable|Arrayable $first
+     * @var bool|Logical $condition
+     */
+    private $condition;
+
+    /**
+     * @var array<mixed>|callable|Arrayable $first
      */
     private $first;
 
     /**
-     * @var array|callable|Arrayable $alt
+     * @var array<mixed>|callable|Arrayable $alt
      */
     private $alt;
 
     /**
      * Ctor wrap.
-     * @param Logical|bool $cond
-     * @param array|callable|Arrayable $first
-     * @param array|callable|Arrayable $alt
-     * @return ArrTernary
+     *
+     * @param Logical|bool $condition
+     * @param array<mixed>|callable|Arrayable $first
+     * @param array<mixed>|callable|Arrayable $alt
+     * @return self
      */
-    public static function new(
-        Logical|bool             $cond,
-        array|callable|Arrayable $first,
-        array|callable|Arrayable $alt
-    ): ArrTernary
+    public static function new($condition, $first, $alt): self
     {
-        return new self($cond, $first, $alt);
+        return new self($condition, $first, $alt);
     }
 
     /**
      * Ctor.
+     *
      * @param Logical|bool $condition
-     * @param array|callable|Arrayable $first
-     * @param array|callable|Arrayable $alt
+     * @param array<mixed>|callable|Arrayable $first
+     * @param array<mixed>|callable|Arrayable $alt
      */
-    public function __construct(
-        private Logical|bool     $condition,
-        array|callable|Arrayable $first,
-        array|callable|Arrayable $alt
-    )
+    public function __construct($condition, $first, $alt)
     {
+        $this->condition = $condition;
         $this->first = $first;
         $this->alt = $alt;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
-        return $this->firstLogicalOverloaded($this->condition)
-            ? $this->firstArrayableOverloaded($this->first)
-            : $this->firstArrayableOverloaded($this->alt);
+        return $this->logicalCast($this->condition)
+            ? $this->arrayableOrCallableCast($this->first)
+            : $this->arrayableOrCallableCast($this->alt);
     }
 }

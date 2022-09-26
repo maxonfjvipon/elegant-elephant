@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant;
 
+use Countable;
 use Exception;
 
 /**
  * Arrayable.
- * @package Maxonfjvipon\Elegant_Elephant
  */
-interface Arrayable
+interface Arrayable extends Countable
 {
     /**
-     * @return array
+     * @return array<mixed>
      * @throws Exception
      */
     public function asArray(): array;

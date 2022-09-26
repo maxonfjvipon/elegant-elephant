@@ -1,43 +1,61 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtOverloadable;
+use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 
 /**
  * String contains.
  */
 final class StrContains implements Logical
 {
-    use TxtOverloadable;
+    use CastText;
+
+    /**
+     * @var string|Text $haystack
+     */
+    private $haystack;
+
+    /**
+     * @var string|Text $needle
+     */
+    private $needle;
 
     /**
      * Ctor wrap.
+     *
      * @param string|Text $haystack
      * @param string|Text $needle
-     * @return StrContains
+     * @return self
      */
-    public static function new(string|Text $haystack, string|Text $needle): StrContains
+    public static function new($haystack, $needle): self
     {
         return new self($haystack, $needle);
     }
 
     /**
      * Ctor.
+     *
      * @param string|Text $haystack
      * @param string|Text $needle
      */
-    public function __construct(private string|Text $haystack, private string|Text $needle)
+    public function __construct($haystack, $needle)
     {
+        $this->haystack = $haystack;
+        $this->needle = $needle;
     }
 
     /**
-     * @inheritDoc
+     * @return bool
+     * @throws Exception
      */
     public function asBool(): bool
     {
-        return str_contains(...$this->txtOverloaded($this->haystack, $this->needle));
+        return strpos(...$this->textsCast($this->haystack, $this->needle)) !== false;
     }
 }

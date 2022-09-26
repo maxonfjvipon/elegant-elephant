@@ -1,46 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable merged of.
- * @package Maxonfjvipon\Elegant_Elephant\Arrayable
+ * Merged array.
  */
-final class ArrMerged extends ArrayableIterable
+final class ArrMerged extends AbstractArrayable
 {
-    use ArrayableOverloaded;
+    use CastArrayable;
 
     /**
-     * @var array $arrayables
+     * @var array<array<mixed>|Arrayable> $items
      */
-    private array $arrs;
+    private array $items;
 
     /**
      * Ctor wrap.
-     * @param array|Arrayable ...$arrs
-     * @return ArrMerged
+     *
+     * @param array<mixed>|Arrayable ...$items
+     * @return self
      */
-    public static function new(array|Arrayable ...$arrs): ArrMerged
+    public static function new(...$items): self
     {
-        return new self(...$arrs);
+        return new self(...$items);
     }
 
     /**
      * Ctor.
-     * @param array|Arrayable ...$arrs
+     *
+     * @param array<mixed>|Arrayable ...$items
      */
-    public function __construct(array|Arrayable ...$arrs)
+    public function __construct(...$items)
     {
-        $this->arrs = $arrs;
+        $this->items = $items;
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
+     * @throws Exception
      */
     public function asArray(): array
     {
-        return array_merge(...$this->arrayableOverloaded(...$this->arrs));
+        return array_merge(...$this->arrayablesCast(...$this->items));
     }
 }

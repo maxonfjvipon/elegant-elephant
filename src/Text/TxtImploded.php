@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
@@ -7,11 +9,10 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Imploded text.
- * @package Maxonfjvipon\Elegant_Elephant\Text
  */
 final class TxtImploded implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
      * @var array<string|Text> $pieces
@@ -19,31 +20,40 @@ final class TxtImploded implements Text
     private array $pieces;
 
     /**
-     * @param mixed ...$pieces
-     * @return TxtImploded
+     * @var string|Text $separator
      */
-    public static function withComma(string|Text ...$pieces): TxtImploded
+    private $separator;
+
+    /**
+     * @param string|Text ...$pieces
+     * @return self
+     */
+    public static function withComma(...$pieces): self
     {
         return new self(",", ...$pieces);
     }
 
     /**
+     * Ctor wrap.
+     *
      * @param string|Text $separator
      * @param string|Text ...$pieces
-     * @return TxtImploded
+     * @return self
      */
-    public static function new(string|Text $separator, string|Text ...$pieces): TxtImploded
+    public static function new($separator, ...$pieces): self
     {
         return new self($separator, ...$pieces);
     }
 
     /**
      * Ctor.
+     *
      * @param string|Text $separator
      * @param string|Text ...$pieces
      */
-    public function __construct(private string|Text $separator, string|Text ...$pieces)
+    public function __construct($separator, ...$pieces)
     {
+        $this->separator = $separator;
         $this->pieces = $pieces;
     }
 
@@ -54,8 +64,8 @@ final class TxtImploded implements Text
     public function asString(): string
     {
         return implode(
-            $this->firstTxtOverloaded($this->separator),
-            $this->txtOverloaded(...$this->pieces)
+            $this->textCast($this->separator),
+            $this->textsCast(...$this->pieces)
         );
     }
 }

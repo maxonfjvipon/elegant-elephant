@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Any;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Text;
@@ -12,34 +15,45 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 final class FirstOf implements Any
 {
     /**
-     * Ctor wrap.
-     * @param string|Text|array|Arrayable $container
-     * @return FirstOf
+     * @var string|array<mixed>|Text|Arrayable $container
      */
-    public static function new(string|Text|array|Arrayable $container): FirstOf
+    private $container;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param string|array<mixed>|Text|Arrayable $container
+     * @return self
+     */
+    public static function new($container): self
     {
         return new self($container);
     }
 
     /**
-     * Ctor
-     * @param string|Text|array|Arrayable $container
+     * Ctor.
+     *
+     * @param string|array<mixed>|Text|Arrayable $container
      */
-    public function __construct(private string|Text|array|Arrayable $container)
+    public function __construct($container)
     {
+        $this->container = $container;
     }
 
     /**
-     * @inheritDoc
+     * @return mixed
+     * @throws Exception
      */
-    public function asAny(): mixed
+    public function asAny()
     {
         if (is_string($this->container) || is_array($this->container)) {
             return $this->container[0];
-        } elseif ($this->container instanceof Text) {
-            return $this->container->asString()[0];
-        } else {
-            return $this->container->asArray()[0];
         }
+
+        if ($this->container instanceof Text) {
+            return $this->container->asString()[0];
+        }
+
+        return $this->container->asArray()[0];
     }
 }

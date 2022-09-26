@@ -3,10 +3,19 @@
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use ArrayIterator;
+use Exception;
+use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Traversable;
 
+/**
+ * Array iterator for {@see Arrayable}
+ */
 trait HasArrIterator
 {
+    /**
+     * @return Traversable<mixed>
+     * @throws Exception
+     */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->asArray());

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
@@ -7,35 +9,51 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Text replaced.
- * @package Maxonfjvipon\Elegant_Elephant\Text
  */
 final class TxtReplaced implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
+     * @var string|Text $search
+     */
+    private $search;
+
+    /**
+     * @var string|Text $replace
+     */
+    private $replace;
+
+    /**
+     * @var string|Text $subject
+     */
+    private $subject;
+
+    /**
+     * Ctor wrap.
+     *
      * @param string|Text $search
      * @param string|Text $replace
      * @param string|Text $subject
-     * @return TxtReplaced
+     * @return self
      */
-    public static function new(string|Text $search, string|Text $replace, string|Text $subject): TxtReplaced
+    public static function new($search, $replace, $subject): self
     {
         return new self($search, $replace, $subject);
     }
 
     /**
      * Ctor.
+     *
      * @param string|Text $search
      * @param string|Text $replace
      * @param string|Text $subject
      */
-    public function __construct(
-        private string|Text $search,
-        private string|Text $replace,
-        private string|Text $subject
-    )
+    public function __construct($search, $replace, $subject)
     {
+        $this->search = $search;
+        $this->replace = $replace;
+        $this->subject = $subject;
     }
 
     /**
@@ -44,6 +62,8 @@ final class TxtReplaced implements Text
      */
     public function asString(): string
     {
-        return str_replace(...$this->txtOverloaded($this->search, $this->replace, $this->subject));
+        $cast = $this->textsCast($this->search, $this->replace, $this->subject);
+
+        return str_replace($cast[0], $cast[1], $cast[2]);
     }
 }

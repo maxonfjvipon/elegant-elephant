@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
@@ -8,41 +10,51 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Text of.
- * @package Maxonfjvipon\Elegant_Elephant\Text
  */
 final class TextOf implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
-     * Ctor wrap of string.
-     * @param string|Any $text
-     * @return TextOf
+     * @var string|Any $origin
      */
-    public static function new(string|Any $text): TextOf
+    private $origin;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param string|Any $text
+     * @return self
+     */
+    public static function new($text): self
     {
         return new self($text);
     }
 
     /**
      * Ctor.
+     *
      * @param string|Any $text
      */
-    public function __construct(private string|Any $text)
+    public function __construct($text)
     {
+        $this->origin = $text;
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        if ($this->text instanceof Any) {
-            if (!is_array($res = $this->text->asAny())) {
-                throw new Exception("Any object must return an array");
+        if ($this->origin instanceof Any) {
+            if (!is_string($res = $this->origin->asAny())) {
+                throw new Exception("Any object must be wrapper of string");
             }
+
             return $res;
         }
-        return $this->text;
+
+        return (string) $this->origin;
     }
 }

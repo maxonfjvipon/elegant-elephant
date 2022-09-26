@@ -1,36 +1,63 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Any;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\CastArrayable;
 use Maxonfjvipon\Elegant_Elephant\CastMixed;
-use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * At key.
  */
 final class AtKey implements Any
 {
-    use Arrayable\ArrayableOverloaded;
+    use CastArrayable;
     use CastMixed;
+
+    /**
+     * @var array<mixed>|Arrayable $arr
+     */
+    private $arr;
+
+    /**
+     * @var mixed $key
+     */
+    private $key;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param array<mixed>|Arrayable $arr
+     * @param mixed $key
+     * @return self
+     */
+    public static function new($arr, $key): self
+    {
+        return new self($arr, $key);
+    }
 
     /**
      * Ctor.
      *
-     * @param string|Text $key
-     * @param array|Arrayable $arr
+     * @param array<mixed>|Arrayable $arr
+     * @param mixed $key
      */
-    public function __construct(private array|Arrayable $arr, private mixed $key)
+    public function __construct($arr, $key)
     {
+        $this->arr = $arr;
+        $this->key = $key;
     }
 
     /**
-     * @inheritDoc
+     * @return mixed
+     * @throws Exception
      */
-    public function asAny(): mixed
+    public function asAny()
     {
-        return $this->firstArrayableOverloaded($this->arr)[$this->castMixed($this->key)];
+        return $this->arrayableCast($this->arr)[$this->castMixed($this->key)];
     }
 }

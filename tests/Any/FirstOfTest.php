@@ -2,33 +2,65 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Any;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Any\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
 final class FirstOfTest extends TestCase
 {
     /**
-     * @throws \Exception
+     * @test
+     * @return void
+     * @throws Exception
      */
-    public function testAsAny()
+    public function firstOfString(): void
     {
-        $this->assertEquals(
-            "H",
-            (new FirstOf("Hello"))->asAny()
+        Assert::assertThat(
+            (new FirstOf("Hello world"))->asAny(),
+            new IsEqual("H"),
         );
-        $this->assertEquals(
-            "H",
-            (new FirstOf(new TextOf("Hello")))->asAny()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function firstOfText(): void
+    {
+        Assert::assertThat(
+            (new FirstOf(new TextOf("Hello world")))->asAny(),
+            new IsEqual("H"),
         );
-        $this->assertEquals(
-            1,
-            (new FirstOf([1, 2, 3,]))->asAny()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function firstOfArray(): void
+    {
+        Assert::assertThat(
+            (new FirstOf([42, 33.2, "Hello world!"]))->asAny(),
+            new IsEqual(42),
         );
-        $this->assertEquals(
-            1,
-            (new FirstOf(new ArrayableOf([1, 2, 3])))->asAny()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function firstOfArrayable(): void
+    {
+        Assert::assertThat(
+            (new FirstOf(new ArrayableOf([33, 12, "Hello there!"])))->asAny(),
+            new IsEqual(33),
         );
     }
 }

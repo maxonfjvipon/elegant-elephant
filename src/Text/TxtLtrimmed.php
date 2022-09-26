@@ -1,37 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\OverloadedElephant\Overloadable;
 
+/**
+ * Text trimmed from left.
+ */
 final class TxtLtrimmed implements Text
 {
-    use TxtOverloadable;
+    use CastText;
 
     /**
-     * @param string|Text $text
-     * @return TxtLtrimmed
+     * @var string|Text $origin
      */
-    public static function new(string|Text $text): TxtLtrimmed
+    private $origin;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param string|Text $text
+     * @return self
+     */
+    public static function new($text): self
     {
         return new self($text);
     }
 
     /**
      * Ctor.
+     *
      * @param string|Text $text
      */
-    public function __construct(private string|Text $text)
+    public function __construct($text)
     {
+        $this->origin = $text;
     }
 
     /**
-     * @inheritDoc
+     * @return string
+     * @throws Exception
      */
     public function asString(): string
     {
-        return ltrim($this->firstTxtOverloaded($this->text));
+        return ltrim($this->textCast($this->origin));
     }
 }

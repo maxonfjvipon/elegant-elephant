@@ -4,28 +4,21 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHP_CodeSniffer\Generators\Text;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class TextOfTest extends TestCase
+final class TextOfTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsString()
+    public function textOfStringTest(): void
     {
-        $this->assertEquals(
-            "foo",
-            TextOf::new("foo")->asString()
-        );
-        $this->assertEquals(
-            "1",
-            TextOf::new(1)->asString()
-        );
-        $this->assertEquals(
-            "1.2",
-            TextOf::new(1.2)->asString()
+        Assert::assertThat(
+            TextOf::new("foo")->asString(),
+            new IsEqual("foo")
         );
     }
 }

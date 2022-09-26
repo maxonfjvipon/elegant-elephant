@@ -1,44 +1,65 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Logical;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOverloaded;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\CastArrayable;
 use Maxonfjvipon\Elegant_Elephant\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Key exists.
- * @package Maxonfjvipon\Elegant_Elephant\Logical
  */
 final class KeyExists implements Logical
 {
-    use CastMixed, ArrayableOverloaded;
+    use CastMixed;
+    use CastArrayable;
 
     /**
-     * @param mixed $key
-     * @param array|Arrayable $arr
-     * @return KeyExists
+     * @var int|string|Numerable|Text $key
      */
-    public static function new(mixed $key, array|Arrayable $arr): KeyExists
+    private $key;
+
+    /**
+     * @var array<mixed>|Arrayable $arr
+     */
+    private $arr;
+
+    /**
+     * Ctor wrap.
+     *
+     * @param int|string|Numerable|Text $key
+     * @param array<mixed>|Arrayable $arr
+     * @return self
+     */
+    public static function new($key, $arr): self
     {
         return new self($key, $arr);
     }
 
     /**
      * Ctor.
-     * @param mixed $key
-     * @param array|Arrayable $arr
+     *
+     * @param int|string|Numerable|Text $key
+     * @param array<mixed>|Arrayable $arr
      */
-    public function __construct(private mixed $key, private array|Arrayable $arr)
+    public function __construct($key, $arr)
     {
+        $this->key = $key;
+        $this->arr = $arr;
     }
 
     /**
-     * @inheritDoc
+     * @return bool
+     * @throws Exception
      */
     public function asBool(): bool
     {
-        return array_key_exists($this->castMixed($this->key), $this->firstArrayableOverloaded($this->arr));
+        return array_key_exists($this->castMixed($this->key), $this->arrayableCast($this->arr));
     }
 }

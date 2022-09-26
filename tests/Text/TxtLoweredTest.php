@@ -5,26 +5,36 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtLowered;
+use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class TxtLoweredTest extends TestCase
+final class TxtLoweredTest extends TestCase
 {
     /**
+     * @test
+     * @return void
      * @throws Exception
      */
-    public function testAsString(): void
+    public function loweredOfString(): void
     {
-        $this->assertEquals(
-            "hello world",
-            TxtLowered::new("Hello World")->asString()
+        Assert::assertThat(
+            TxtLowered::new("Hello world!")->asString(),
+            new IsEqual("hello world!")
         );
-        $this->assertEquals(
-            "hello world",
-            TxtLowered::new(TextOf::new("Hello World"))->asString()
-        );
-        $this->assertEquals(
-            "1",
-            TxtLowered::new(1)->asString()
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function loweredOfText(): void
+    {
+        Assert::assertThat(
+            TxtLowered::new(new TxtUpper(new TextOf("Hello world!")))->asString(),
+            new IsEqual("hello world!")
         );
     }
 }

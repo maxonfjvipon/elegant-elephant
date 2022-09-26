@@ -5,26 +5,34 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical\PregMatch;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsFalse;
+use PHPUnit\Framework\Constraint\IsTrue;
 use PHPUnit\Framework\TestCase;
 
-class MatchRegexTest extends TestCase
+final class MatchRegexTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsBool(): void
+    public function simpleRegex(): void
     {
-        $this->assertEquals(
-            true,
-            PregMatch::new("/Hello world/", "Hello world")->asBool()
+        Assert::assertThat(
+            PregMatch::new("/Hello world/", "Hello world")->asBool(),
+            new IsTrue()
         );
-        $this->assertEquals(
-            false,
-            PregMatch::new("/^Hello$/", TextOf::new("Hello world"))->asBool()
-        );
-        $this->assertEquals(
-            true,
-            PregMatch::new(TextOf::new("/world/"), TextOf::new("Hello world"))->asBool()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function moreComplexRegexWithText(): void
+    {
+        Assert::assertThat(
+            PregMatch::new("/^Hello$/", TextOf::new("Hello world"))->asBool(),
+            new IsFalse()
         );
     }
 }

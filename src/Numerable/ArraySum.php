@@ -1,42 +1,53 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOverloaded;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\CastArrayable;
 use Maxonfjvipon\Elegant_Elephant\Numerable;
 
 /**
  * Sum of array elements.
- * @package Maxonfjvipon\Elegant_Elephant\Numerable
  */
 final class ArraySum implements Numerable
 {
-    use ArrayableOverloaded;
+    use CastArrayable;
+
+    /**
+     * @var array<float|int>|Arrayable $container
+     */
+    private $container;
 
     /**
      * Ctor wrap.
-     * @param array|Arrayable $arr
-     * @return ArraySum
+     *
+     * @param array<float|int>|Arrayable $arr
+     * @return self
      */
-    public static function new(array|Arrayable $arr): ArraySum
+    public static function new($arr): self
     {
         return new self($arr);
     }
 
     /**
      * Ctor.
-     * @param array|Arrayable $arr
+     *
+     * @param array<int|float>|Arrayable $arr
      */
-    public function __construct(private array|Arrayable $arr)
+    public function __construct($arr)
     {
+        $this->container = $arr;
     }
 
     /**
-     * @inheritDoc
+     * @return float|int
+     * @throws Exception
      */
-    public function asNumber(): float|int
+    public function asNumber()
     {
-        return array_sum($this->firstArrayableOverloaded($this->arr));
+        return array_sum($this->arrayableCast($this->container));
     }
 }

@@ -5,54 +5,51 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrExploded;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class ArrExplodedTest extends TestCase
+final class ArrExplodedTest extends TestCase
 {
+    public const SEPARATOR = "-";
+    public const STRING = "foo-bar";
+    public const STRING_WITH_COMMA = "foo,bar,baz";
+    public const EXPLODED = ["foo", "bar"];
+    public const EXPLODED_BY_COMMA = ["foo", 'bar', 'baz'];
+
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsArray(): void
+    public function explodedWithStrings(): void
     {
-        $arr = ['foo', 'bar'];
-        $separator = "-";
-        $string = "foo-bar";
-        $this->assertEquals(
-            $arr,
-            ArrExploded::new($separator, $string)->asArray()
-        );
-        $this->assertEquals(
-            $arr,
-            (new ArrExploded(new TextOf($separator), $string))->asArray()
-        );
-        $this->assertEquals(
-            $arr,
-            (new ArrExploded($separator, TextOf::new($string)))->asArray()
-        );
-        $this->assertNotEquals(
-            $arr,
-            ArrExploded::new(",", $string)->asArray()
+        Assert::assertThat(
+            ArrExploded::new(self::SEPARATOR, self::STRING)->asArray(),
+            new IsEqual(self::EXPLODED)
         );
     }
 
     /**
+     * @test
      * @throws Exception
      */
-    public function testByComma(): void
+    public function explodedWithTexts(): void
     {
-        $arr = ['foo', 'bar'];
-        $string = "foo,bar";
-        $this->assertEquals(
-            $arr,
-            ArrExploded::byComma(TextOf::new($string))->asArray()
+        Assert::assertThat(
+            ArrExploded::new(new TextOf(self::SEPARATOR), new TextOf(self::STRING))->asArray(),
+            new IsEqual(self::EXPLODED)
         );
-        $this->assertEquals(
-            $arr,
-            ArrExploded::byComma($string)->asArray()
-        );
-        $this->assertNotEquals(
-            $arr,
-            ArrExploded::byComma("foo-bar")->asArray()
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function explodedByComma(): void
+    {
+        Assert::assertThat(
+            ArrExploded::byComma(self::STRING_WITH_COMMA)->asArray(),
+            new IsEqual(self::EXPLODED_BY_COMMA)
         );
     }
 }

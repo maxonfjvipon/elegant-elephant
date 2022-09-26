@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\Elegant_Elephant;
 
 use Exception;
 
 /**
  * Text.
- * @package Maxonfjvipon\Elegant_Elephant
  */
 interface Text
 {

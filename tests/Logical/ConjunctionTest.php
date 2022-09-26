@@ -6,21 +6,34 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Logical\Conjunction;
 use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
 use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsFalse;
+use PHPUnit\Framework\Constraint\IsTrue;
 use PHPUnit\Framework\TestCase;
 
-class ConjunctionTest extends TestCase
+final class ConjunctionTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsBool(): void
+    public function conjunctionIsTrue(): void
     {
-        $this->assertEquals(
-            true,
-            Conjunction::new(
-                Truth::new(),
-                true
-            )->asBool()
+        Assert::assertThat(
+            Conjunction::new(Truth::new(), true)->asBool(),
+            new IsTrue()
+        );
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function conjunctionIsFalse(): void
+    {
+        Assert::assertThat(
+            Conjunction::new(new Untruth(), false)->asBool(),
+            new IsFalse()
         );
     }
 }

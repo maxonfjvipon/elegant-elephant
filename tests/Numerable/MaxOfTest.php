@@ -3,20 +3,40 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable\Addition;
+use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\MaxOf;
+use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\TestCase;
 
-class MaxOfTest extends TestCase
+final class MaxOfTest extends TestCase
 {
     /**
+     * @test
      * @throws Exception
      */
-    public function testAsNumber()
+    public function maxOfPrimitives(): void
     {
-        $this->assertEquals(
-            10,
-            (new MaxOf(2, 4, 10, 1, -1))->asNumber()
+        Assert::assertThat(
+            MaxOf::new(2, 4, 10, -1)->asNumber(),
+            new IsEqual(10)
+        );
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function maxOfNumerablesAndPrimitives(): void
+    {
+        Assert::assertThat(
+            MaxOf::new(
+                new SumOf(10, 10),
+                15,
+                new LengthOf([1, 2, 3])
+            )->asNumber(),
+            new IsEqual(20)
         );
     }
 }
