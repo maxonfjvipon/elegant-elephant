@@ -12,6 +12,7 @@ merge:
     composer validate --strict
     echo "Run composer..."
     sudo apt-get install php-xml -y
+    sudo apt-get install php-mbstring -y
     composer install --prefer-dist --no-progress
     echo "Run PHPStan..."
     composer run-script phpstan
@@ -23,6 +24,8 @@ release:
     echo "Validate composer..."
     composer validate --strict
     echo "Run composer..."
+    sudo apt-get install php-xml -y
+    sudo apt-get install php-mbstring -y
     composer install --prefer-dist --no-progress
     echo "Run PHPStan..."
     composer run-script phpstan
