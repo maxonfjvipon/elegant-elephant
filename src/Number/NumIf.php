@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maxonfjvipon\Elegant_Elephant\Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Number;
 
 use Maxonfjvipon\Elegant_Elephant\Boolean;
 use Maxonfjvipon\Elegant_Elephant\Number;

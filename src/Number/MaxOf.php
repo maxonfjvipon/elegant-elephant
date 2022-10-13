@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Maxonfjvipon\Elegant_Elephant\Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
- * Min.
+ * Max.
  */
-final class MinOf implements Number
+final class MaxOf implements Number
 {
     use CastScalar;
 
@@ -36,12 +36,12 @@ final class MinOf implements Number
      */
     public function value()
     {
-        $min = min(...$this->scalarsCast(...$this->items));
+        $max = max(...$this->scalarsCast(...$this->items));
 
-        if (!is_numeric($min)) {
-            throw new Exception("Min can work with numbers only!");
+        if (!is_numeric($max)) {
+            throw new Exception("Max can work with numbers only!");
         }
 
-        return +$min;
+        return +$max;
     }
 }

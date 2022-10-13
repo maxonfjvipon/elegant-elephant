@@ -4,9 +4,9 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumIf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
+use Maxonfjvipon\Elegant_Elephant\Number\NumIf;
+use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

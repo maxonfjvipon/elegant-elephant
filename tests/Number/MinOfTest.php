@@ -3,9 +3,9 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\MinOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use Maxonfjvipon\Elegant_Elephant\Number\LengthOf;
+use Maxonfjvipon\Elegant_Elephant\Number\MinOf;
+use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

@@ -7,7 +7,7 @@ use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
 use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
+use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtJsonEncoded;

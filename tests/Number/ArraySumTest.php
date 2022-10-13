@@ -4,7 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\ArraySum;
+use Maxonfjvipon\Elegant_Elephant\Number\ArraySum;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

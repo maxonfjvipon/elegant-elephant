@@ -4,7 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumSticky;
+use Maxonfjvipon\Elegant_Elephant\Number\NumSticky;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

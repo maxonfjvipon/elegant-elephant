@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
 use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
-use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;

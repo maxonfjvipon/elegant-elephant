@@ -5,7 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Boolean\KeyExists;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
+use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Constraint\IsTrue;

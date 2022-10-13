@@ -4,7 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
+use Maxonfjvipon\Elegant_Elephant\Number\LengthOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;

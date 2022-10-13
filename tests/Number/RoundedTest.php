@@ -3,8 +3,8 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable\Rounded;
-use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use Maxonfjvipon\Elegant_Elephant\Number\Rounded;
+use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

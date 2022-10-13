@@ -8,7 +8,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrReversed;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
 use Maxonfjvipon\Elegant_Elephant\Boolean\EqualityOf;
-use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtLowered;
 use PHPUnit\Framework\Constraint\IsTrue;

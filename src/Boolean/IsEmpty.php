@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
+use Maxonfjvipon\Elegant_Elephant\Number\LengthOf;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
