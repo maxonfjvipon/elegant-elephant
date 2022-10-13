@@ -1,16 +1,14 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\Rounded;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class RoundedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class RoundedTest extends TestCase
 {
     /**
      * @test
@@ -19,7 +17,7 @@ final class RoundedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function roundedOfFloatWithPrecision(): void
     {
         $this->assertScalarThat(
-            Rounded(10.4567, 2)->value(),
+            new Rounded(10.4567, 2),
             new IsEqual(10.46)
         );
     }
@@ -31,7 +29,7 @@ final class RoundedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function roundedOfNumerableWithoutPrecision(): void
     {
         $this->assertScalarThat(
-            Rounded(new SumOf(10, 0.55))->value(),
+            new Rounded(new SumOf(10, 0.55)),
             new IsEqual(11)
         );
     }

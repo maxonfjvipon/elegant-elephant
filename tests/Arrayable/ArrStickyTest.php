@@ -4,14 +4,13 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\AbstractArrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSticky;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\CountArrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\HasArrayableIterator;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrStickyTest extends TestCase
 {
     /**
      * @test
@@ -21,14 +20,26 @@ final class ArrStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     {
         $num = 2;
         $arr = new ArrSticky(
-            new class($num) extends AbstractArrayable {
+            new class($num) implements Arrayable {
+                use CountArrayable;
+                use HasArrayableIterator;
+
+                /** @var int $num */
                 private int $num;
 
+                /**
+                 * Ctor.
+                 *
+                 * @param int $num
+                 */
                 public function __construct(int $num)
                 {
                     $this->num = $num;
                 }
 
+                /**
+                 * @return array<int>
+                 */
                 public function value(): array
                 {
                     $this->num = $this->num + 2; // BIG calculations :)
@@ -38,7 +49,7 @@ final class ArrStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
         );
         $arr->value();
         $this->assertScalarThat(
-            $arr->value(),
+            $arr,
             new IsEqual([4]) // no recalculation
         );
     }

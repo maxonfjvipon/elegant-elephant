@@ -1,19 +1,16 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-use function PHPUnit\Framework\assertEquals;
-
-final class LengthOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class LengthOfTest extends TestCase
 {
     /**
      * @test
@@ -22,7 +19,7 @@ final class LengthOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function lengthOfString(): void
     {
         $this->assertScalarThat(
-            LengthOf("foo")->value(),
+            new LengthOf("foo"),
             new IsEqual(3)
         );
     }
@@ -34,7 +31,7 @@ final class LengthOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function lengthOfText(): void
     {
         $this->assertScalarThat(
-            LengthOf(new TxtUpper(new TextOf("foo-bar")))->value(),
+            new LengthOf(new TxtUpper(new TextOf("foo-bar"))),
             new IsEqual(7)
         );
     }
@@ -46,7 +43,7 @@ final class LengthOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function lengthOfArray(): void
     {
         $this->assertScalarThat(
-            LengthOf([1, 2, 3, 4])->value(),
+            new LengthOf([1, 2, 3, 4]),
             new IsEqual(4)
         );
     }
@@ -58,7 +55,7 @@ final class LengthOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function lengthOfArrayable(): void
     {
         $this->assertScalarThat(
-            LengthOf(ArrayableOf::items(1, 2, 3, 4, 5))->value(),
+            new LengthOf(ArrayableOf::items(1, 2, 3, 4, 5)),
             new IsEqual(5)
         );
     }

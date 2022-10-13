@@ -4,11 +4,10 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrRange;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrRangeTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrRangeTest extends TestCase
 {
     /**
      * @test
@@ -17,7 +16,7 @@ final class ArrRangeTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function defaultRangeWithInts(): void
     {
         $this->assertScalarThat(
-            ArrRange(1, 4)->value(),
+            new ArrRange(1, 4),
             new IsEqual([1, 2, 3, 4])
         );
     }
@@ -29,7 +28,7 @@ final class ArrRangeTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function rangeWithFloats(): void
     {
         $this->assertScalarThat(
-            ArrRange(1, 3, 0.5)->value(),
+            new ArrRange(1, 3, 0.5),
             new IsEqual([1, 1.5, 2, 2.5, 3])
         );
     }

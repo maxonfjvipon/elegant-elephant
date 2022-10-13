@@ -1,18 +1,17 @@
 <?php
 
-namespace Arrayable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Scalar\LastOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCombined;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrCombinedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrCombinedTest extends TestCase
 {
     /**
      * @test
@@ -21,7 +20,7 @@ final class ArrCombinedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function combinedWorks(): void
     {
         $this->assertScalarThat(
-            ArrCombined([
+            new ArrCombined([
                 new TextOf("key1"),
                 'key2',
                 new NumberOf(10),
@@ -31,7 +30,7 @@ final class ArrCombinedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
                 'value2',
                 new NumberOf(20),
                 new LastOf(['bar', 'baz'])
-            ])->value(),
+            ]),
             new IsEqual([
                 'key1' => 'value1',
                 'key2' => 'value2',
@@ -50,6 +49,6 @@ final class ArrCombinedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Array can't be the key of array");
-        ArrCombined([['key']], [['value']])->value();
+        (new ArrCombined([['key']], [['value']]))->value();
     }
 }

@@ -7,13 +7,11 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrTernary;
-use Maxonfjvipon\Elegant_Elephant\Boolean\True;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrTernaryTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrTernaryTest extends TestCase
 {
     /**
      * @test
@@ -22,7 +20,7 @@ final class ArrTernaryTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function arrTernaryWithPrimitives(): void
     {
         $this->assertScalarThat(
-            ArrTernary(true, [1, 2], [3, 4])->value(),
+            new ArrTernary(true, [1, 2], [3, 4]),
             new IsEqual([1, 2])
         );
     }
@@ -34,7 +32,7 @@ final class ArrTernaryTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function arrTernaryWithLogicalAndArrayable(): void
     {
         $this->assertScalarThat(
-            ArrTernary(new Untruth(), new ArrayableOf([1, 2]), new ArrObject('key', 'value'))->value(),
+            new ArrTernary(new BooleanOf(false), new ArrayableOf([1, 2]), new ArrObject('key', 'value')),
             new IsEqual(['key' => 'value'])
         );
     }
@@ -46,11 +44,11 @@ final class ArrTernaryTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function arrTernaryWithCallbacks(): void
     {
         $this->assertScalarThat(
-            ArrTernary(
-                new True(),
+            new ArrTernary(
+                new BooleanOf(true),
                 fn () => new ArrayableOf([1, 2]),
                 fn () => new ArrEmpty()
-            )->value(),
+            ),
             new IsEqual([1, 2])
         );
     }

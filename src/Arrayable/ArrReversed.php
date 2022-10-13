@@ -23,7 +23,7 @@ final class ArrReversed extends ArrEnvelope
     {
         parent::__construct(
             new ArrFromCallback(
-                fn () => array_reverse($this->scalarsCast($arr))
+                fn () => array_reverse((array) $this->scalarCast($arr))
             )
         );
     }

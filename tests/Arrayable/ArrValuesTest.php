@@ -3,14 +3,11 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-use function Symfony\Component\String\s;
-
-final class ArrValuesTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrValuesTest extends TestCase
 {
     /**
      * @test
@@ -26,7 +23,7 @@ final class ArrValuesTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
             "key4" => 4
         ];
         $this->assertScalarThat(
-            ArrValues($arr)->value(),
+            new ArrValues($arr),
             new IsEqual($expected)
         );
     }

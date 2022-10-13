@@ -1,16 +1,15 @@
 <?php
 
-namespace Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\MinOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class MinOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class MinOfTest extends TestCase
 {
     /**
      * @test
@@ -19,7 +18,7 @@ final class MinOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function minOfPrimitives(): void
     {
         $this->assertScalarThat(
-            MinOf(2, 4, 10, -1)->value(),
+            new MinOf(2, 4, 10, -1),
             new IsEqual(-1)
         );
     }
@@ -31,11 +30,11 @@ final class MinOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function minOfNumerablesAndPrimitives(): void
     {
         $this->assertScalarThat(
-            MinOf(
+            new MinOf(
                 new SumOf(10, 10),
                 15,
                 new LengthOf([1, 2, 3])
-            )->value(),
+            ),
             new IsEqual(3)
         );
     }

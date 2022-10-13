@@ -1,14 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class NumerableOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class NumberOfTest extends TestCase
 {
     /**
      * @test
@@ -17,7 +16,7 @@ final class NumerableOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function numerableOfInt(): void
     {
         $this->assertScalarThat(
-            NumberOf(4)->value(),
+            new NumberOf(4),
             new IsEqual(4)
         );
     }
@@ -29,7 +28,7 @@ final class NumerableOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function numerableOfFloat(): void
     {
         $this->assertScalarThat(
-            NumberOf(12.1)->value(),
+            new NumberOf(12.1),
             new IsEqual(12.1)
         );
     }

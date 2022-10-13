@@ -49,6 +49,10 @@ final class ArrFromCallback implements Arrayable
      */
     public function value(): array
     {
-        return (array) $this->scalarOrCallableCast($this->callback);
+        if (!is_array($res = $this->scalarOrCallableCast($this->callback))) {
+            throw new Exception("Callback must return an array or Arrayable!");
+        }
+
+        return $res;
     }
 }

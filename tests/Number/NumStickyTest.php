@@ -1,15 +1,14 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumSticky;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class NumStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class NumStickyTest extends TestCase
 {
     /**
      * @test
@@ -20,8 +19,14 @@ final class NumStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
         $num = 2;
         $cached = new NumSticky(
             new class ($num) implements Number {
+                /** @var int $num */
                 private int $num;
 
+                /**
+                 * Ctor.
+                 *
+                 * @param int $num
+                 */
                 public function __construct(int $num)
                 {
                     $this->num = $num;
@@ -38,10 +43,9 @@ final class NumStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
             }
         );
         $cached->value();
-        $result = $cached->value();
 
         $this->assertScalarThat(
-            $result,
+            $cached,
             new IsEqual(4)
         );
     }

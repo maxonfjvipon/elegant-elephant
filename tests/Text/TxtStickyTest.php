@@ -1,15 +1,16 @@
 <?php
 
-namespace Text;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Maxonfjvipon\Elegant_Elephant\Text\StringableText;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtSticky;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 
-final class TxtStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class TxtStickyTest extends TestCase
 {
     /**
      * @test
@@ -20,8 +21,18 @@ final class TxtStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
         $str = "hello";
         $cached = new TxtSticky(
             new class($str) implements Text {
+                use StringableText;
+
+                /**
+                 * @var string $text
+                 */
                 private string $text;
 
+                /**
+                 * Ctor.
+                 *
+                 * @param string $text
+                 */
                 public function __construct(string $text)
                 {
                     $this->text = $text;
@@ -38,10 +49,9 @@ final class TxtStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
             }
         );
         $cached->value();
-        $result = $cached->value();
 
         $this->assertScalarThat(
-            $result,
+            $cached,
             new IsEqual("hello world!")
         );
     }

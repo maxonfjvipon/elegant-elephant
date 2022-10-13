@@ -1,19 +1,18 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
 use Maxonfjvipon\Elegant_Elephant\Boolean\IsNotEmpty;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtBlank;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-
-final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class IsNotEmptyTest extends TestCase
 {
     /**
      * @test
@@ -22,7 +21,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfArrayIsTrue(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty([])->value(),
+            new IsNotEmpty([]),
             new IsFalse()
         );
     }
@@ -34,7 +33,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfArrayIsFalse(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty([1, 2, 3])->value(),
+            new IsNotEmpty([1, 2, 3]),
             new IsTrue()
         );
     }
@@ -46,7 +45,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfArrayableIsTrue(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty(new ArrEmpty())->value(),
+            new IsNotEmpty(new ArrEmpty()),
             new IsFalse()
         );
     }
@@ -58,7 +57,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfArrayableIsFalse(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty(new ArrayableOf([1, 2, 3]))->value(),
+            new IsNotEmpty(new ArrayableOf([1, 2, 3])),
             new IsTrue()
         );
     }
@@ -70,7 +69,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfStringIsTrue(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty("")->value(),
+            new IsNotEmpty(""),
             new IsFalse()
         );
     }
@@ -82,7 +81,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfStringIsFalse(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty("Hello world!")->value(),
+            new IsNotEmpty("Hello world!"),
             new IsTrue()
         );
     }
@@ -94,7 +93,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfTextIsTrue(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty(new TxtBlank())->value(),
+            new IsNotEmpty(new TxtBlank()),
             new IsFalse()
         );
     }
@@ -106,7 +105,7 @@ final class IsNotEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function isNotEmptyOfTextIsFalse(): void
     {
         $this->assertScalarThat(
-            IsNotEmpty(new TxtUpper("foo"))->value(),
+            new IsNotEmpty(new TxtUpper("foo")),
             new IsTrue()
         );
     }

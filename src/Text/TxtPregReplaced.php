@@ -26,9 +26,9 @@ final class TxtPregReplaced extends TxtEnvelope
         parent::__construct(
             new TxtFromCallback(
                 fn () => preg_replace(
-                    (string) $this->scalarCast($pattern),
-                    (string) $this->scalarCast($replacement),
-                    (string) $this->scalarCast($subject)
+                    $this->scalarCast($pattern),
+                    $this->scalarCast($replacement),
+                    $this->scalarCast($subject)
                 )
             )
         );

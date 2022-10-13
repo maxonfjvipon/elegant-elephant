@@ -1,21 +1,19 @@
 <?php
 
-namespace Arrayable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
 use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
 use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrCastTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrCastTest extends TestCase
 {
     /**
      * @test
@@ -24,18 +22,18 @@ final class ArrCastTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function arrCastWorks(): void
     {
         $this->assertScalarThat(
-            ArrCast([
+            new ArrCast([
                 42, // int
                 12.5, // float
                 'hello there', // string
                 ['foo', 'bar'], // array
                 true, // boolean
-                new SumOf(2, 3), // Numerable
+                new SumOf(2, 3), // Number
                 new TxtUpper("foo"), // Text
                 new ArrObject('key', 'value'), // Arrayable
-                new Not(new Untruth()), // Logical
-                new FirstOf([1, 2, 3]), // Any
-            ])->value(),
+                new BooleanOf(true), // Boolean
+                new FirstOf([1, 2, 3]), // Scalar
+            ]),
             new IsEqual([
                 42,
                 12.5,

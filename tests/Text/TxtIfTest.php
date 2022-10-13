@@ -1,6 +1,6 @@
 <?php
 
-namespace Text;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;

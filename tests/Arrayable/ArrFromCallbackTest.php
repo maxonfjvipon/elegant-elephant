@@ -5,11 +5,10 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFromCallback;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 
-
-final class ArrFromCallbackTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrFromCallbackTest extends TestCase
 {
     /**
      * @test
@@ -18,7 +17,7 @@ final class ArrFromCallbackTest extends \Maxonfjvipon\Elegant_Elephant\Tests\Tes
     public function arrayFromCallback(): void
     {
         $this->assertScalarThat(
-            ArrFromCallback(fn () => [1, 2, 3]),
+            new ArrFromCallback(fn () => [1, 2, 3]),
             new Count(3)
         );
     }
@@ -26,11 +25,12 @@ final class ArrFromCallbackTest extends \Maxonfjvipon\Elegant_Elephant\Tests\Tes
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function arrayableFromCallback(): void
     {
         $this->assertScalarThat(
-            ArrFromCallback(fn () => new ArrayableOf([1, 2, 3, 4])),
+            new ArrFromCallback(fn () => new ArrayableOf([1, 2, 3, 4])),
             new Count(4)
         );
     }
@@ -42,7 +42,7 @@ final class ArrFromCallbackTest extends \Maxonfjvipon\Elegant_Elephant\Tests\Tes
      */
     public function withError(): void
     {
-        $this->expectError();
-        ArrFromCallback(fn () => "Hello world")->value();
+        $this->expectExceptionMessage("Callback must return an array or Arrayable!");
+        (new ArrFromCallback(fn () => "Hello world"))->value();
     }
 }

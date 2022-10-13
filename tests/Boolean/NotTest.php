@@ -1,28 +1,25 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
 use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
-use Maxonfjvipon\Elegant_Elephant\Boolean\True;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-
-use function PHPUnit\Framework\assertEquals;
-
-final class TrueFalseTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class NotTest extends TestCase
 {
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function truth(): void
     {
         $this->assertScalarThat(
-            True()->value(),
+            new BooleanOf(true),
             new IsTrue()
         );
     }
@@ -30,11 +27,12 @@ final class TrueFalseTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function untruth(): void
     {
         $this->assertScalarThat(
-            Untruth()->value(),
+            new BooleanOf(false),
             new IsFalse()
         );
     }
@@ -46,9 +44,7 @@ final class TrueFalseTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function notTrue(): void
     {
         $this->assertScalarThat(
-            Not(
-                true
-            )->value(),
+            new Not(true),
             new IsFalse()
         );
     }
@@ -60,9 +56,7 @@ final class TrueFalseTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function notFalse(): void
     {
         $this->assertScalarThat(
-            Not(
-                false
-            )->value(),
+            new Not(false),
             new IsTrue()
         );
     }
@@ -74,24 +68,8 @@ final class TrueFalseTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function notTrueObj(): void
     {
         $this->assertScalarThat(
-            Not(
-                new True()
-            )->value(),
+            new Not(new BooleanOf(true)),
             new IsFalse()
-        );
-    }
-
-    /**
-     * @test
-     * @throws Exception
-     */
-    public function notFalseObj(): void
-    {
-        $this->assertScalarThat(
-            Not(
-                new Untruth()
-            )->value(),
-            new IsTrue()
         );
     }
 }

@@ -3,15 +3,12 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtLtrimmed;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtRtrimmed;
-use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class TxtRtrimmedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class TxtRtrimmedTest extends TestCase
 {
     /**
      * @test
@@ -20,7 +17,7 @@ final class TxtRtrimmedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function rtrimmedOfString(): void
     {
         $this->assertScalarThat(
-            TxtRtrimmed("  Hello   ")->value(),
+            new TxtRtrimmed("  Hello   "),
             new IsEqual("  Hello")
         );
     }
@@ -32,7 +29,7 @@ final class TxtRtrimmedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function rtrimmedOfText(): void
     {
         $this->assertScalarThat(
-            TxtRtrimmed(TextOf("\rFoo\r"))->value(),
+            new TxtRtrimmed(new TextOf("\rFoo\r")),
             new IsEqual("\rFoo")
         );
     }

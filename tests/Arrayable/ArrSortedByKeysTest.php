@@ -3,13 +3,11 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSortedByKeys;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrSortedByKeysTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrSortedByKeysTest extends TestCase
 {
     /**
      * @test
@@ -30,7 +28,7 @@ final class ArrSortedByKeysTest extends \Maxonfjvipon\Elegant_Elephant\Tests\Tes
             2 => "dear"
         ];
         $this->assertScalarThat(
-            ArrSortedByKeys($arr)->value(),
+            new ArrSortedByKeys($arr),
             new IsEqual($expected)
         );
     }

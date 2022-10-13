@@ -5,6 +5,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrReversed;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
@@ -12,7 +13,7 @@ use PHPUnit\Framework\Constraint\IsEqual;
 /**
  * Array reversed test
  */
-final class ArrReversedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrReversedTest extends TestCase
 {
     /**
      * @test
@@ -21,9 +22,9 @@ final class ArrReversedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function reversedWorks(): void
     {
         $this->assertScalarThat(
-            ArrValues(
-                ArrReversed([1, 2, 3, 4, 5])
-            )->value(),
+            new ArrValues(
+                new ArrReversed([1, 2, 3, 4, 5])
+            ),
             new IsEqual([5, 4, 3, 2, 1])
         );
     }
@@ -35,11 +36,11 @@ final class ArrReversedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function reversedAndBack(): void
     {
         $this->assertScalarThat(
-            ArrValues(
-                ArrReversed(
-                    ArrReversed([1, 2, 3, 4, 5])
+            new ArrValues(
+                new ArrReversed(
+                    new ArrReversed([1, 2, 3, 4, 5])
                 )
-            )->value(),
+            ),
             new IsEqual([1, 2, 3, 4, 5])
         );
     }

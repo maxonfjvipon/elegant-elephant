@@ -1,14 +1,14 @@
 <?php
 
-namespace Text;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtPregReplaced;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 
-final class TxtPregReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class TxtPregReplacedTest extends TestCase
 {
     /**
      * @test
@@ -17,7 +17,7 @@ final class TxtPregReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\Tes
     public function pregReplacedWithSingleValues(): void
     {
         $this->assertScalarThat(
-            TxtPregReplaced("/{[a-z_]+}/", "[0-9]+", '/projects/{project}/update')->value(),
+            new TxtPregReplaced("/{[a-z_]+}/", "[0-9]+", '/projects/{project}/update'),
             new IsEqual('/projects/[0-9]+/update')
         );
     }
@@ -29,7 +29,7 @@ final class TxtPregReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\Tes
     public function pregReplacedWithArrays(): void
     {
         $this->assertScalarThat(
-            TxtPregReplaced(["/{[a-z_]+}/", "/\//"], ["[0-9]+", "\/"], '/projects/{project}/update')->value(),
+            new TxtPregReplaced(["/{[a-z_]+}/", "/\//"], ["[0-9]+", "\/"], '/projects/{project}/update'),
             new IsEqual('\/projects\/[0-9]+\/update')
         );
     }

@@ -7,11 +7,10 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrMergedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrMergedTest extends TestCase
 {
     /**
      * @test
@@ -20,7 +19,7 @@ final class ArrMergedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function mergedOfArrays(): void
     {
         $this->assertScalarThat(
-            ArrMerged([1, 2], ['foo', 'bar'])->value(),
+            new ArrMerged([1, 2], ['foo', 'bar']),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
     }
@@ -32,7 +31,7 @@ final class ArrMergedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function mergedOfArrayables(): void
     {
         $this->assertScalarThat(
-            ArrMerged(new ArrayableOf([1, 2]), ['foo', 'bar'])->value(),
+            new ArrMerged(new ArrayableOf([1, 2]), ['foo', 'bar']),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
     }
@@ -45,7 +44,7 @@ final class ArrMergedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function mergedOfSelfAndEmpties(): void
     {
         $this->assertScalarThat(
-            ArrMerged($self = [1, 2, 3], new ArrEmpty(), [])->value(),
+            new ArrMerged($self = [1, 2, 3], new ArrEmpty(), []),
             new IsEqual($self)
         );
     }
@@ -57,15 +56,15 @@ final class ArrMergedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function mergedOfTwoMapped(): void
     {
         $this->assertScalarThat(
-            ArrMerged(
-                ...ArrMapped(
+            new ArrMerged(
+                ...new ArrMapped(
                     [1, 2],
-                    fn ($num) => ArrMapped(
+                    fn ($num) => new ArrMapped(
                         ["A", "B"],
                         fn ($sym) => "$num$sym"
                     )
                 )
-            )->value(),
+            ),
             new IsEqual(["1A", "1B", "2A", "2B"])
         );
     }

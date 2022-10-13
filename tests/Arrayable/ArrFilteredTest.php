@@ -4,12 +4,11 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFiltered;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrFilteredTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrFilteredTest extends TestCase
 {
     public const GIVEN = [1, 2, 5, 6, 7, 8];
     public const EXPECTED = [3 => 6, 4 => 7, 5 => 8];
@@ -31,7 +30,7 @@ final class ArrFilteredTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function filteredWithGivenCallback(): void
     {
         $this->assertScalarThat(
-            ArrFiltered(self::GIVEN, \Closure::fromCallable([$this, 'filter']))->value(),
+            new ArrFiltered(self::GIVEN, \Closure::fromCallable([$this, 'filter'])),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -39,11 +38,12 @@ final class ArrFilteredTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function countOfFiltered(): void
     {
         $this->assertScalarThat(
-            ArrFiltered(self::GIVEN, fn ($num) => $num > 4),
+            new ArrFiltered(self::GIVEN, fn ($num) => $num > 4),
             new Count(4)
         );
     }

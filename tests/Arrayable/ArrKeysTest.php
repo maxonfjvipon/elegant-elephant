@@ -4,11 +4,10 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrKeys;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrKeysTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrKeysTest extends TestCase
 {
     const EXPECTED = [1, 2, 3, 4];
     const GIVEN = [
@@ -25,7 +24,7 @@ final class ArrKeysTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function arrValuesWorks(): void
     {
         $this->assertScalarThat(
-            ArrKeys(self::GIVEN)->value(),
+            new ArrKeys(self::GIVEN),
             new IsEqual(self::EXPECTED)
         );
     }

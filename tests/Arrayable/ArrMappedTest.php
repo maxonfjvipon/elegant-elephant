@@ -3,15 +3,13 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
-use GuzzleHttp\Promise\Is;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrMappedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrMappedTest extends TestCase
 {
     const GIVEN = [1, 2, 3, 4, 5];
     const EXPECTED = [1, 4, 9, 16, 25];
@@ -20,13 +18,13 @@ final class ArrMappedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      * @test
      * @throws Exception
      */
-    public function mappedNotCast(): void
+    public function mapped(): void
     {
         $this->assertScalarThat(
-            ArrMapped(
+            new ArrMapped(
                 self::GIVEN,
-                fn ($value) => $value * $value
-            )->value(),
+                fn($value) => $value * $value
+            ),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -39,17 +37,35 @@ final class ArrMappedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function mappedCast(): void
     {
         $this->assertScalarThat(
-            ArrMapped(
-                self::GIVEN,
-                fn ($num) => new TextOf($num . "L"),
-                true
-            )->value(),
+            new ArrCast(
+                new ArrMapped(
+                    self::GIVEN,
+                    fn($num) => new TextOf($num . "L"),
+                )
+            ),
             new IsEqual([
                 "1L",
                 "2L",
                 "3L",
                 "4L",
                 "5L"
+            ])
+        );
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function mappedKeyValue(): void
+    {
+        $this->assertScalarThat(
+            new ArrMapped(
+                self::GIVEN,
+                fn ($key, $value) => $key * $value
+            ),
+            new IsEqual([
+                0, 2, 6, 12, 20
             ])
         );
     }

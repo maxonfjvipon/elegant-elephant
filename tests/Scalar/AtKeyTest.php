@@ -1,15 +1,14 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Any;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Scalar;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Scalar\AtKey;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class AtKeyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class AtKeyTest extends TestCase
 {
     /**
      * @test
@@ -19,11 +18,14 @@ final class AtKeyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function atKeyOfArray(): void
     {
         $this->assertScalarThat(
-            (new AtKey([
-                'key1' => 2,
-                'key2' => "Hello world!",
-                'key3' => new \stdClass(),
-            ], 'key1'))->asAny(),
+            new AtKey(
+                'key1',
+                [
+                    'key1' => 2,
+                    'key2' => "Hello world!",
+                    'key3' => new \stdClass(),
+                ]
+            ),
             new IsEqual(2)
         );
     }
@@ -36,14 +38,14 @@ final class AtKeyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function atKeyOfArrayable(): void
     {
         $this->assertScalarThat(
-            (new AtKey(
+            new AtKey(
+                'key3',
                 new ArrayableOf([
                     'key1' => 2,
                     'key2' => "Hello world!",
                     'key3' => new \stdClass(),
                 ]),
-                'key3'
-            ))->asAny(),
+            ),
             new IsEqual(new \stdClass())
         );
     }

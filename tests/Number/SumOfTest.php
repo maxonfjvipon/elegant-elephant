@@ -1,16 +1,15 @@
 <?php
 
-namespace Numerable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class SumOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class SumOfTest extends TestCase
 {
     /**
      * @test
@@ -19,7 +18,7 @@ final class SumOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function sumOfPrimitives(): void
     {
         $this->assertScalarThat(
-            SumOf(1, 2, 3, 4)->value(),
+            new SumOf(1, 2, 3, 4),
             new IsEqual(10)
         );
     }
@@ -31,7 +30,7 @@ final class SumOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function sumOfNumerablesAndPrimitives(): void
     {
         $this->assertScalarThat(
-            SumOf(1, new NumberOf(2), new LengthOf([1, 3, 4]), 4)->value(),
+            new SumOf(1, new NumberOf(2), new LengthOf([1, 3, 4]), 4),
             new IsEqual(10)
         );
     }

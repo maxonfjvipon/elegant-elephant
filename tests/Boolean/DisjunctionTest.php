@@ -1,18 +1,15 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Conjunction;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
 use Maxonfjvipon\Elegant_Elephant\Boolean\Disjunction;
-use Maxonfjvipon\Elegant_Elephant\Boolean\True;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-
-final class DisjunctionTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class DisjunctionTest extends TestCase
 {
     /**
      * @test
@@ -21,12 +18,12 @@ final class DisjunctionTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function disjunctionIsTrue(): void
     {
         $this->assertScalarThat(
-            Disjunction(
-                True(),
+            new Disjunction(
+                new BooleanOf(true),
                 true,
-                Untruth(),
+                new BooleanOf(false),
                 false
-            )->value(),
+            ),
             new IsTrue()
         );
     }
@@ -38,10 +35,10 @@ final class DisjunctionTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function disjunctionIsFalse(): void
     {
         $this->assertScalarThat(
-            Disjunction(
+            new Disjunction(
                 false,
-                Untruth(),
-            )->value(),
+                new BooleanOf(false),
+            ),
             new IsFalse()
         );
     }

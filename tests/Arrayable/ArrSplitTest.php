@@ -3,14 +3,12 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrExploded;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSplit;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-final class ArrSplitTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class ArrSplitTest extends TestCase
 {
     public const SEPARATOR = "-";
     public const STRING = "foo-bar";
@@ -25,7 +23,7 @@ final class ArrSplitTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function splitWithStrings(): void
     {
         $this->assertScalarThat(
-            ArrSplit(self::SEPARATOR, self::STRING)->value(),
+            new ArrSplit(self::SEPARATOR, self::STRING),
             new IsEqual(self::EXPLODED)
         );
     }
@@ -37,7 +35,7 @@ final class ArrSplitTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function splitWithTexts(): void
     {
         $this->assertScalarThat(
-            ArrSplit(new TextOf(self::SEPARATOR), new TextOf(self::STRING))->value(),
+            new ArrSplit(new TextOf(self::SEPARATOR), new TextOf(self::STRING)),
             new IsEqual(self::EXPLODED)
         );
     }
@@ -49,7 +47,7 @@ final class ArrSplitTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function splitByComma(): void
     {
         $this->assertScalarThat(
-            ArrSplit::byComma(self::STRING_WITH_COMMA)->value(),
+            ArrSplit::byComma(self::STRING_WITH_COMMA),
             new IsEqual(self::EXPLODED_BY_COMMA)
         );
     }

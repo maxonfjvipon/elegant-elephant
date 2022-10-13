@@ -3,17 +3,13 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
-use GuzzleHttp\Promise\Is;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtReplaced;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
-use function PHPUnit\Framework\assertEquals;
-
-final class TxtReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class TxtReplacedTest extends TestCase
 {
     /**
      * @test
@@ -22,7 +18,7 @@ final class TxtReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function replacedStringToString(): void
     {
         $this->assertScalarThat(
-            TxtReplaced("foo", "bar", "foobar")->value(),
+            new TxtReplaced("foo", "bar", "foobar"),
             new IsEqual("barbar")
         );
     }
@@ -34,7 +30,7 @@ final class TxtReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCas
     public function replacedWithTexts(): void
     {
         $this->assertScalarThat(
-            TxtReplaced(new TextOf("FOO"), new TextOf("bar"), new TxtUpper(new TextOf("foo-bar")))->value(),
+            new TxtReplaced(new TextOf("FOO"), new TextOf("bar"), new TxtUpper(new TextOf("foo-bar"))),
             new IsEqual("bar-BAR")
         );
     }
