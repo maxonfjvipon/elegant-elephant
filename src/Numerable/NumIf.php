@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
-use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Number;
 
 /**
  * Numerable if.
@@ -13,22 +13,10 @@ use Maxonfjvipon\Elegant_Elephant\Numerable;
 final class NumIf extends NumEnvelope
 {
     /**
-     * Ctor wrap.
-     *
-     * @param bool|Logical $condition
-     * @param float|int|callable|Numerable $num
-     * @return self
-     */
-    public static function new($condition, $num): self
-    {
-        return new self($condition, $num);
-    }
-
-    /**
      * Ctor.
      *
-     * @param bool|Logical $condition
-     * @param float|int|callable|Numerable $num
+     * @param bool|Boolean $condition
+     * @param float|int|callable|Number $num
      */
     public function __construct($condition, $num)
     {

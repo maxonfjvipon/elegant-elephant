@@ -6,36 +6,25 @@ namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\CastArrayable;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Sum of array elements.
  */
-final class ArraySum implements Numerable
+final class ArraySum implements Number
 {
-    use CastArrayable;
+    use CastScalar;
 
     /**
-     * @var array<float|int>|Arrayable $container
+     * @var array<float|int>|Arrayable<mixed> $container
      */
     private $container;
 
     /**
-     * Ctor wrap.
-     *
-     * @param array<float|int>|Arrayable $arr
-     * @return self
-     */
-    public static function new($arr): self
-    {
-        return new self($arr);
-    }
-
-    /**
      * Ctor.
      *
-     * @param array<int|float>|Arrayable $arr
+     * @param array<int|float>|Arrayable<mixed> $arr
      */
     public function __construct($arr)
     {
@@ -46,8 +35,8 @@ final class ArraySum implements Numerable
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    public function value()
     {
-        return array_sum($this->arrayableCast($this->container));
+        return array_sum($this->scalarsCast($this->container));
     }
 }

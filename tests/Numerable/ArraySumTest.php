@@ -7,11 +7,11 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\ArraySum;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
+
 
 use function PHPUnit\Framework\assertEquals;
 
-final class ArraySumTest extends TestCase
+final class ArraySumTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,8 +19,8 @@ final class ArraySumTest extends TestCase
      */
     public function arraySumOfArray(): void
     {
-        Assert::assertThat(
-            ArraySum::new([1, 2, 3, 4])->asNumber(),
+        $this->assertScalarThat(
+            ArraySum([1, 2, 3, 4])->value(),
             new IsEqual(10)
         );
     }
@@ -31,8 +31,8 @@ final class ArraySumTest extends TestCase
      */
     public function arraySumOfArrayable(): void
     {
-        Assert::assertThat(
-            ArraySum::new(ArrayableOf::items(2, 3, 4))->asNumber(),
+        $this->assertScalarThat(
+            ArraySum(ArrayableOf::items(2, 3, 4))->value(),
             new IsEqual(9)
         );
     }

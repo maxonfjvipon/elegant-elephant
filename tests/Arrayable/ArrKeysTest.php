@@ -6,9 +6,9 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrKeys;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrKeysTest extends TestCase
+
+final class ArrKeysTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     const EXPECTED = [1, 2, 3, 4];
     const GIVEN = [
@@ -24,8 +24,8 @@ final class ArrKeysTest extends TestCase
      */
     public function arrValuesWorks(): void
     {
-        Assert::assertThat(
-            ArrKeys::new(self::GIVEN)->asArray(),
+        $this->assertScalarThat(
+            ArrKeys(self::GIVEN)->value(),
             new IsEqual(self::EXPECTED)
         );
     }

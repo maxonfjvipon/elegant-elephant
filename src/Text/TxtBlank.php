@@ -4,28 +4,13 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Maxonfjvipon\Elegant_Elephant\Text;
-
 /**
  * Blank text.
  */
-final class TxtBlank implements Text
+final class TxtBlank extends TxtEnvelope
 {
-    /**
-     * Ctor wrap.
-     *
-     * @return self
-     */
-    public static function new(): self
+    public function __construct()
     {
-        return new self();
-    }
-
-    /**
-     * @return string
-     */
-    public function asString(): string
-    {
-        return "";
+        parent::__construct(new TextOf(""));
     }
 }

@@ -3,10 +3,9 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TextOfTest extends TestCase
 {
@@ -16,8 +15,8 @@ final class TextOfTest extends TestCase
      */
     public function textOfStringTest(): void
     {
-        Assert::assertThat(
-            TextOf::new("foo")->asString(),
+        $this->assertScalarThat(
+            new TextOf("foo"),
             new IsEqual("foo")
         );
     }

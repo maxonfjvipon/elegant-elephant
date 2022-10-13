@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maxonfjvipon\Elegant_Elephant\Logical;
+namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Numerable\LengthOf;
@@ -11,23 +11,12 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 /**
  * Is empty.
  */
-final class IsEmpty extends LogicalEnvelope
+final class IsEmpty extends BoolEnvelope
 {
-    /**
-     * Ctor wrap.
-     *
-     * @param string|array<mixed>|Arrayable|Text $value
-     * @return self
-     */
-    public static function new($value): self
-    {
-        return new self($value);
-    }
-
     /**
      * Ctor.
      *
-     * @param string|array<mixed>|Arrayable|Text $value
+     * @param string|array<mixed>|Arrayable<mixed>|Text $value
      */
     public function __construct($value)
     {

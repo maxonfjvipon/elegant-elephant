@@ -3,14 +3,14 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Any;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any\LastOf;
+use Maxonfjvipon\Elegant_Elephant\Scalar\LastOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class LastOfTest extends TestCase
+
+final class LastOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,7 +19,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfString(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             (new LastOf("Hello world"))->asAny(),
             new IsEqual("d"),
         );
@@ -32,7 +32,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfText(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             (new LastOf(new TextOf("Hello world!")))->asAny(),
             new IsEqual("!"),
         );
@@ -45,7 +45,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfArray(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             (new LastOf([42, 33.2, "Hello world!"]))->asAny(),
             new IsEqual("Hello world!"),
         );
@@ -58,7 +58,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfArrayable(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             (new LastOf(new ArrayableOf([33, 12, "Hello there!"])))->asAny(),
             new IsEqual("Hello there!"),
         );

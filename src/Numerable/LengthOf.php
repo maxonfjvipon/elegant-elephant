@@ -4,56 +4,30 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\CastText;
-use TypeError;
 
 /**
  * Length.
  */
-final class LengthOf implements Numerable
+final class LengthOf extends NumEnvelope
 {
-    use CastText;
-
-    /**
-     * @var string|array<mixed>|Text|Arrayable $origin
-     */
-    private $origin;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param string|array<mixed>|Text|Arrayable $arg
-     * @return self
-     */
-    public static function new($arg): self
-    {
-        return new self($arg);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param string|array<mixed>|Text|Arrayable $arg
+     * @param string|array<mixed>|Text|Arrayable<mixed> $arg
      */
     public function __construct($arg)
     {
-        $this->origin = $arg;
-    }
-
-    /**
-     * @return int
-     * @throws Exception
-     */
-    public function asNumber(): int
-    {
-        if (is_array($this->origin) || $this->origin instanceof Arrayable) {
-            return count($this->origin);
-        }
-
-        return strlen($this->textCast($this->origin));
+        parent::__construct(
+            new NumTernary(
+                is_array($arg) || $arg instanceof Arrayable,
+                fn () => count((array) $this->scalarCast($arg)),
+                fn () => strlen((string) $this->scalarCast($arg))
+            )
+        );
     }
 }

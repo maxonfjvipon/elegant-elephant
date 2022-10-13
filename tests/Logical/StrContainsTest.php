@@ -3,14 +3,14 @@
 namespace Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\StrContains;
+use Maxonfjvipon\Elegant_Elephant\Boolean\StrContains;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
-use PHPUnit\Framework\TestCase;
 
-final class StrContainsTest extends TestCase
+
+final class StrContainsTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,8 +18,8 @@ final class StrContainsTest extends TestCase
      */
     public function containsInString(): void
     {
-        Assert::assertThat(
-            StrContains::new("hello world", 'hello')->asBool(),
+        $this->assertScalarThat(
+            StrContains("hello world", 'hello')->value(),
             new IsTrue()
         );
     }
@@ -30,8 +30,8 @@ final class StrContainsTest extends TestCase
      */
     public function containsTextInText(): void
     {
-        Assert::assertThat(
-            StrContains::new(new TextOf("foo-bar"), new TextOf("!!!"))->asBool(),
+        $this->assertScalarThat(
+            StrContains(new TextOf("foo-bar"), new TextOf("!!!"))->value(),
             new IsFalse()
         );
     }

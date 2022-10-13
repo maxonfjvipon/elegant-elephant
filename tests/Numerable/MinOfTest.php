@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Numerable\MinOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class MinOfTest extends TestCase
+
+final class MinOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,8 +18,8 @@ final class MinOfTest extends TestCase
      */
     public function minOfPrimitives(): void
     {
-        Assert::assertThat(
-            MinOf::new(2, 4, 10, -1)->asNumber(),
+        $this->assertScalarThat(
+            MinOf(2, 4, 10, -1)->value(),
             new IsEqual(-1)
         );
     }
@@ -30,12 +30,12 @@ final class MinOfTest extends TestCase
      */
     public function minOfNumerablesAndPrimitives(): void
     {
-        Assert::assertThat(
-            MinOf::new(
+        $this->assertScalarThat(
+            MinOf(
                 new SumOf(10, 10),
                 15,
                 new LengthOf([1, 2, 3])
-            )->asNumber(),
+            )->value(),
             new IsEqual(3)
         );
     }

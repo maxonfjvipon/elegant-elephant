@@ -3,17 +3,17 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\Not;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
-use PHPUnit\Framework\TestCase;
+
 
 use function PHPUnit\Framework\assertEquals;
 
-final class TrueFalseTest extends TestCase
+final class TrueFalseTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -21,8 +21,8 @@ final class TrueFalseTest extends TestCase
      */
     public function truth(): void
     {
-        Assert::assertThat(
-            Truth::new()->asBool(),
+        $this->assertScalarThat(
+            True()->value(),
             new IsTrue()
         );
     }
@@ -33,8 +33,8 @@ final class TrueFalseTest extends TestCase
      */
     public function untruth(): void
     {
-        Assert::assertThat(
-            Untruth::new()->asBool(),
+        $this->assertScalarThat(
+            Untruth()->value(),
             new IsFalse()
         );
     }
@@ -45,10 +45,10 @@ final class TrueFalseTest extends TestCase
      */
     public function notTrue(): void
     {
-        Assert::assertThat(
-            Not::new(
+        $this->assertScalarThat(
+            Not(
                 true
-            )->asBool(),
+            )->value(),
             new IsFalse()
         );
     }
@@ -59,10 +59,10 @@ final class TrueFalseTest extends TestCase
      */
     public function notFalse(): void
     {
-        Assert::assertThat(
-            Not::new(
+        $this->assertScalarThat(
+            Not(
                 false
-            )->asBool(),
+            )->value(),
             new IsTrue()
         );
     }
@@ -73,10 +73,10 @@ final class TrueFalseTest extends TestCase
      */
     public function notTrueObj(): void
     {
-        Assert::assertThat(
-            Not::new(
-                new Truth()
-            )->asBool(),
+        $this->assertScalarThat(
+            Not(
+                new True()
+            )->value(),
             new IsFalse()
         );
     }
@@ -87,10 +87,10 @@ final class TrueFalseTest extends TestCase
      */
     public function notFalseObj(): void
     {
-        Assert::assertThat(
-            Not::new(
+        $this->assertScalarThat(
+            Not(
                 new Untruth()
-            )->asBool(),
+            )->value(),
             new IsTrue()
         );
     }

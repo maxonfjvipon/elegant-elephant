@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSortedByKeys;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrSortedByKeysTest extends TestCase
+
+final class ArrSortedByKeysTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -29,8 +29,8 @@ final class ArrSortedByKeysTest extends TestCase
             3 => "friend",
             2 => "dear"
         ];
-        Assert::assertThat(
-            ArrSortedByKeys::new($arr)->asArray(),
+        $this->assertScalarThat(
+            ArrSortedByKeys($arr)->value(),
             new IsEqual($expected)
         );
     }

@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtSubstr;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class TxtSubstrTest extends TestCase
+
+final class TxtSubstrTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -17,8 +17,8 @@ final class TxtSubstrTest extends TestCase
      */
     public function substringOfString(): void
     {
-        Assert::assertThat(
-            TxtSubstr::new("Hello world", 6)->asString(),
+        $this->assertScalarThat(
+            TxtSubstr("Hello world", 6)->value(),
             new IsEqual("world")
         );
     }
@@ -29,8 +29,8 @@ final class TxtSubstrTest extends TestCase
      */
     public function substringOfTextWithLength(): void
     {
-        Assert::assertThat(
-            TxtSubstr::new(new TextOf("Hello world"), 6, 2)->asString(),
+        $this->assertScalarThat(
+            TxtSubstr(new TextOf("Hello world"), 6, 2)->value(),
             new IsEqual("wo")
         );
     }

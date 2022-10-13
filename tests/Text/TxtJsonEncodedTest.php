@@ -3,17 +3,15 @@
 namespace Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
+use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtJsonEncoded;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtJsonEncodedTest extends TestCase
 {
@@ -23,8 +21,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfString(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new("hello world")->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded("hello world"),
             new IsEqual('"hello world"')
         );
     }
@@ -35,8 +33,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfText(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(new TextOf("hello world"))->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded(new TextOf("hello world")),
             new IsEqual('"hello world"')
         );
     }
@@ -47,8 +45,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfNumber(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(5)->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded(5),
             new IsEqual('5')
         );
     }
@@ -59,8 +57,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfNumerable(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(new NumerableOf(10.2))->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded(new NumberOf(10.2)),
             new IsEqual('10.2')
         );
     }
@@ -71,8 +69,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfArray(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new([['x' => 1, 'y' => 2], ['x' => 3, 'y' => 4]])->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded([['x' => 1, 'y' => 2], ['x' => 3, 'y' => 4]]),
             new IsEqual('[{"x":1,"y":2},{"x":3,"y":4}]')
         );
     }
@@ -83,8 +81,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfArrayable(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(
+        $this->assertScalarThat(
+            new TxtJsonEncoded(
                 new ArrMerged(
                     new ArrObject(
                         "first",
@@ -93,7 +91,7 @@ final class TxtJsonEncodedTest extends TestCase
                     ['second' => 22],
                     [10, 20, 30]
                 )
-            )->asString(),
+            ),
             new IsEqual('{"first":[1,2,3],"second":22,"0":10,"1":20,"2":30}')
         );
     }
@@ -104,8 +102,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfBool(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(true)->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded(true),
             new IsEqual('true')
         );
     }
@@ -116,8 +114,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfLogical(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(new Untruth())->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded(new BooleanOf(false)),
             new IsEqual('false')
         );
     }
@@ -128,8 +126,8 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfAny(): void
     {
-        Assert::assertThat(
-            TxtJsonEncoded::new(new FirstOf([1, 2, 3]))->asString(),
+        $this->assertScalarThat(
+            new TxtJsonEncoded(new FirstOf([1, 2, 3])),
             new IsEqual('1')
         );
     }

@@ -3,16 +3,16 @@
 namespace Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumTernary;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class NumTernaryTest extends TestCase
+
+final class NumTernaryTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -20,8 +20,8 @@ final class NumTernaryTest extends TestCase
      */
     public function numTernaryWithPrimitives(): void
     {
-        Assert::assertThat(
-            NumTernary::new(true, 10, 12)->asNumber(),
+        $this->assertScalarThat(
+            NumTernary(true, 10, 12)->value(),
             new IsEqual(10)
         );
     }
@@ -32,8 +32,8 @@ final class NumTernaryTest extends TestCase
      */
     public function numTernaryWithLogicalAndNumerables(): void
     {
-        Assert::assertThat(
-            NumTernary::new(new Untruth(), new NumerableOf(10), new SumOf(5, 2))->asNumber(),
+        $this->assertScalarThat(
+            NumTernary(new Untruth(), new NumberOf(10), new SumOf(5, 2))->value(),
             new IsEqual(7)
         );
     }
@@ -44,12 +44,12 @@ final class NumTernaryTest extends TestCase
      */
     public function numTernaryWithCallbacks(): void
     {
-        Assert::assertThat(
-            NumTernary::new(
-                new Truth(),
+        $this->assertScalarThat(
+            NumTernary(
+                new True(),
                 fn () => new SumOf(10, 5),
                 fn () => 4
-            )->asNumber(),
+            )->value(),
             new IsEqual(15)
         );
     }

@@ -7,10 +7,10 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
+
 use function Symfony\Component\String\s;
 
-final class ArrValuesTest extends TestCase
+final class ArrValuesTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -25,8 +25,8 @@ final class ArrValuesTest extends TestCase
             "key3" => 3,
             "key4" => 4
         ];
-        Assert::assertThat(
-            ArrValues::new($arr)->asArray(),
+        $this->assertScalarThat(
+            ArrValues($arr)->value(),
             new IsEqual($expected)
         );
     }

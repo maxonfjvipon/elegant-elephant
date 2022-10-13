@@ -4,48 +4,27 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Merged array.
  */
-final class ArrMerged extends AbstractArrayable
+final class ArrMerged extends ArrEnvelope
 {
-    use CastArrayable;
-
-    /**
-     * @var array<array<mixed>|Arrayable> $items
-     */
-    private array $items;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Arrayable ...$items
-     * @return self
-     */
-    public static function new(...$items): self
-    {
-        return new self(...$items);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable ...$items
+     * @param array<mixed>|Arrayable<mixed> ...$items
      */
     public function __construct(...$items)
     {
-        $this->items = $items;
-    }
-
-    /**
-     * @return array<mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        return array_merge(...$this->arrayablesCast(...$this->items));
+        parent::__construct(
+            new ArrFromCallback(
+                fn () => array_merge(...$this->scalarsCast(...$items))
+            )
+        );
     }
 }

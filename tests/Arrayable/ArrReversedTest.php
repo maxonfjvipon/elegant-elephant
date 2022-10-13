@@ -7,12 +7,12 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrReversed;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
+
 
 /**
  * Array reversed test
  */
-final class ArrReversedTest extends TestCase
+final class ArrReversedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -20,10 +20,10 @@ final class ArrReversedTest extends TestCase
      */
     public function reversedWorks(): void
     {
-        Assert::assertThat(
-            ArrValues::new(
-                ArrReversed::new([1, 2, 3, 4, 5])
-            )->asArray(),
+        $this->assertScalarThat(
+            ArrValues(
+                ArrReversed([1, 2, 3, 4, 5])
+            )->value(),
             new IsEqual([5, 4, 3, 2, 1])
         );
     }
@@ -34,12 +34,12 @@ final class ArrReversedTest extends TestCase
      */
     public function reversedAndBack(): void
     {
-        Assert::assertThat(
-            ArrValues::new(
-                ArrReversed::new(
-                    ArrReversed::new([1, 2, 3, 4, 5])
+        $this->assertScalarThat(
+            ArrValues(
+                ArrReversed(
+                    ArrReversed([1, 2, 3, 4, 5])
                 )
-            )->asArray(),
+            )->value(),
             new IsEqual([1, 2, 3, 4, 5])
         );
     }

@@ -3,12 +3,11 @@
 namespace Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtFromCallback;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtFromCallbackTest extends TestCase
 {
@@ -18,8 +17,8 @@ final class TxtFromCallbackTest extends TestCase
      */
     public function stringFromCallback(): void
     {
-        Assert::assertThat(
-            TxtFromCallback::new(fn () => "Hey there!")->asString(),
+        $this->assertScalarThat(
+            new TxtFromCallback(fn () => "Hey there!"),
             new IsEqual("Hey there!")
         );
     }
@@ -31,8 +30,8 @@ final class TxtFromCallbackTest extends TestCase
      */
     public function textFromCallback(): void
     {
-        Assert::assertThat(
-            TxtFromCallback::new(fn () => new TxtUpper(new TextOf("hello there")))->asString(),
+        $this->assertScalarThat(
+            new TxtFromCallback(fn () => new TxtUpper(new TextOf("hello there"))),
             new IsEqual("HELLO THERE")
         );
     }
@@ -45,6 +44,6 @@ final class TxtFromCallbackTest extends TestCase
     public function withError(): void
     {
         $this->expectError();
-        TxtFromCallback::new(fn () => ["Hello world"])->asString();
+        (new TxtFromCallback(fn () => ["Hello world"]))->value();
     }
 }

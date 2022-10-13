@@ -7,13 +7,13 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrTernary;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrTernaryTest extends TestCase
+
+final class ArrTernaryTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -21,8 +21,8 @@ final class ArrTernaryTest extends TestCase
      */
     public function arrTernaryWithPrimitives(): void
     {
-        Assert::assertThat(
-            ArrTernary::new(true, [1, 2], [3, 4])->asArray(),
+        $this->assertScalarThat(
+            ArrTernary(true, [1, 2], [3, 4])->value(),
             new IsEqual([1, 2])
         );
     }
@@ -33,8 +33,8 @@ final class ArrTernaryTest extends TestCase
      */
     public function arrTernaryWithLogicalAndArrayable(): void
     {
-        Assert::assertThat(
-            ArrTernary::new(new Untruth(), new ArrayableOf([1, 2]), new ArrObject('key', 'value'))->asArray(),
+        $this->assertScalarThat(
+            ArrTernary(new Untruth(), new ArrayableOf([1, 2]), new ArrObject('key', 'value'))->value(),
             new IsEqual(['key' => 'value'])
         );
     }
@@ -45,12 +45,12 @@ final class ArrTernaryTest extends TestCase
      */
     public function arrTernaryWithCallbacks(): void
     {
-        Assert::assertThat(
-            ArrTernary::new(
-                new Truth(),
+        $this->assertScalarThat(
+            ArrTernary(
+                new True(),
                 fn () => new ArrayableOf([1, 2]),
                 fn () => new ArrEmpty()
-            )->asArray(),
+            )->value(),
             new IsEqual([1, 2])
         );
     }

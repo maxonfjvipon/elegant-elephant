@@ -26,7 +26,7 @@ For example, if we call a method after creating an object in a regular way:
 
 Example from the library (no extra brackets, looks prettier in my opinion):
 ```php
-LengthOf::new("foo")->asNumber();
+LengthOf("foo")->asNumber();
 ```
 Constuctors are public, so if you want, you can use them instead of this static `new`
 
@@ -50,7 +50,7 @@ $arr = array_merge(
 echo $arr; // ["1 a", "1 b", "2 a", "2 b"]
 
 // the same result can be got with Arrayable
-$arr = ArrMerged::new(
+$arr = ArrMerged(
   ...new ArrMapped(
     [1, 2],
     fn($num) => new ArrMapped(
@@ -66,7 +66,7 @@ The library support [arguments overloading](https://github.com/maxonfjvipon/over
 
 ```php
 // ArrMerged merges given arrays
-ArrMerged::new(
+ArrMerged(
   [1, 2],
   new ArrFiltered(
     [3, 10],
@@ -91,15 +91,15 @@ ArrayableOf::items(1, 2)->asArray(); // [1, 2]
 #### *ArrExploded*
 Arrayable exploded by separator. Separator and string to explode can be `string` or [`Text`](#text)
 ```php
-ArrExploded::new("-", "foo-bar")->asArray(); // ["foo", "bar"]
-(new ArrExploded(TextOf::new("-"), "foo-bar"))->asArray(); // ["foo", "bar"]
+ArrExploded("-", "foo-bar")->asArray(); // ["foo", "bar"]
+(new ArrExploded(TextOf("-"), "foo-bar"))->asArray(); // ["foo", "bar"]
 ArrExploded::byComma(new TextOf("foo,bar"))->asArray(); // ["foo", "bar"]
 ```
 
 #### *ArrFiltered* 
 Arrayable filtered by given callback.
 ```php
-ArrFiltered::new([1, 2], fn($num) => $num > 1)->asArray(); // [2]
+ArrFiltered([1, 2], fn($num) => $num > 1)->asArray(); // [2]
 (new ArrFiltered(new ArrExploded("-", "foo-bar-baz"), fn($string) => $string !== "foo"))->asArray(); // ["bar", "baz"]
 ```
 
@@ -117,7 +117,7 @@ $arr = array_merge(
 ```
 Or you can use `ArrIf`:
 ```php
-$arr = ArrMerged::new(
+$arr = ArrMerged(
   [...],
   [...],
   new ArrIf(
@@ -131,7 +131,7 @@ $arr = ArrMerged::new(
 Since this is a declarative way to use conditional arrays your array will be created before the condition is checked. It's kind of performance and logical issue if you're dealing with arrays from database:
 
 ```php
-ArrIf::new(
+ArrIf(
   false,
   $database->query(...)->get() // this query will be executed before object checks that condition is false 
 )->asArray();
@@ -140,14 +140,14 @@ ArrIf::new(
 To avoid issues like this you can use `ArrFromCallback` (see below) or callback as second argument. In that case object checks the condition and then call your callback.
 
 ```php
-ArrIf::new(
+ArrIf(
   false,
   new ArrFromCallback(
     fn() => $database->query(...)->get() // will not be executed before the condition is checked
   )
 )->asArray();
 // or
-ArrIf::new(
+ArrIf(
   false,
   fn() => $database->query(...)->get() // will not be executed before the condition is checked too
 )->asArray();
@@ -157,7 +157,7 @@ ArrIf::new(
 Arrayable from callback. Callback must return an `array` or an instance of `Arrayable`
 
 ```php
-ArrFromCallback::new(
+ArrFromCallback(
   fn() => new ArrIf(
     true,
     new ArrFromCallback(
@@ -171,7 +171,7 @@ ArrFromCallback::new(
 One more conditionable Arrayble but returns other array if condition is `false`. All advices about using callbacks are relevant.
 
 ```php
-ArrTernary::new(
+ArrTernary(
   false,
   fn() => new ArrIf(
     true,
@@ -184,35 +184,35 @@ ArrTernary::new(
 #### *ArrSorted*
 Sorted by values arrayable. You can use `string` or `callable` as comparison callback.
 ```php
-ArrSorted::new([3, 2, 1])->asArray(); // [1, 2, 3]
-ArrSorted::new(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
+ArrSorted([3, 2, 1])->asArray(); // [1, 2, 3]
+ArrSorted(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
 (new ArrSorted([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1))->asArray(); // [3, 2, 1]
 ```
 
 #### *ArrSortedByKeys*
 Sorted by keys arrayable. You can use `string` or `callable` as comparison callback.
 ```php
-ArrSortedByKeys::new([1 => 32, 3 => 2, 0 => 10])->asArray(); // [0 => 10, 1 => 32, 3 => 2]
+ArrSortedByKeys([1 => 32, 3 => 2, 0 => 10])->asArray(); // [0 => 10, 1 => 32, 3 => 2]
 ```
 
 #### *ArrMapped*
 Arrayble mapped with callback
 ```php
-ArrMapped::new(["foo", "bar"], fn($str) => "Hello, " . $str)->asArray(); // ["Hello, foo", "Hello, bar"]
+ArrMapped(["foo", "bar"], fn($str) => "Hello, " . $str)->asArray(); // ["Hello, foo", "Hello, bar"]
 (new ArrMapped(ArrayableOf::items("foo", "bar"), fn($str) => $str . "!"))->asArray(); // ["foo!", "bar!"]
 ```
 
 #### *ArrMappedKeyValue*
 Arrayble mapped with callback that accepts key an value.
 ```php
-ArrMappedKeyValue::new([1 => "foo", 10 => "bar"], fn($key, $value) => "$key - $value")->asArray(); // ["1 - foo", "10 - bar"]
+ArrMappedKeyValue([1 => "foo", 10 => "bar"], fn($key, $value) => "$key - $value")->asArray(); // ["1 - foo", "10 - bar"]
 (new ArrMappedKeyValue(new ArrTernary(false, [10, 20], [20, 10]), fn($key, $value) => $key + $value))->asArray(); // [21, 11]
 ```
 
 #### *ArrMerged*
 Arrayable merged of arrays/Arrayables.
 ```php
-ArrMerged::new(
+ArrMerged(
   [1, 2],
   new ArrayableOf([3, 4]),
   new ArrIf(
@@ -229,14 +229,14 @@ ArrMerged::new(
 #### *ArrKeys* and *ArrValues*
 Arrays of keys and values of origin array/Arrayable.
 ```php
-ArrValues::new(["key1" => "value1", "key2" => "value"])->asArray(); // ["value1", "value2"] // [0 => "value1", 1 => "value2"]
+ArrValues(["key1" => "value1", "key2" => "value"])->asArray(); // ["value1", "value2"] // [0 => "value1", 1 => "value2"]
 (new ArrKeys(ArrayableOf::array(["key1" => 1, "key2" => 2])))->asArray(); // ["key1", "key2"] // [0 => "key1", 1 => "key2"]
 ```
 
 #### *ArrReversed*
 Reversed arrayable
 ```php
-ArrReversed::new(new ArrReversed([1, 2, 3]))->asArray(); // [1, 2, 3]
+ArrReversed(new ArrReversed([1, 2, 3]))->asArray(); // [1, 2, 3]
 ```
 
 #### *ArrSticky*
@@ -265,7 +265,7 @@ baz($arr); // baz calla $arr->asArray() too. No merging and executing database q
 #### *ArrUnique*
 Arrayable with unique elements.
 ```php
-ArrUnique::new([1, 1, 2, 3, 3, 4])->asArray(); // [1, 2, 3, 4]
+ArrUnique([1, 1, 2, 3, 3, 4])->asArray(); // [1, 2, 3, 4]
 (new ArrUnique(new ArrMerged([1, 2], [2, 3])))->asArray(); // [1, 2, 3]
 ```
 
@@ -276,7 +276,7 @@ Arrayable with one element. `asArray` give you \[key => value]. When to use: if 
 ```
 or you can:
 ```php
-ArrObject::new(
+ArrObject(
   'key',
   new SomeArrayble(...)
 )->asArray()
@@ -300,40 +300,40 @@ Elegant strings
 
 *TextOf* - just `string` decorator
 ```php
-TextOf::new("foo")->asString(); // "foo"
+TextOf("foo")->asString(); // "foo"
 (new TextOf(22))->asString(); // "22"
-TextOf::new(1.2)->asString(); // "1.2"
+TextOf(1.2)->asString(); // "1.2"
 ```
 
 *TxtUpper* - text in upper case:
 ```php
-TxtUpper::new("bar")->asString(); // "BAR"
-TxtUpper::new(TextOf::new("foo"))->asString(); // "FOO"
+TxtUpper("bar")->asString(); // "BAR"
+TxtUpper(TextOf("foo"))->asString(); // "FOO"
 ```
 
 *TxtLowered* - text in lower case.
 ```php
-TxtLowered::new("BAR")->asString(); // "bar"
-TxtLowered::new(
-  TxtUpper::new("foo")
+TxtLowered("BAR")->asString(); // "bar"
+TxtLowered(
+  TxtUpper("foo")
 )->asString(); // "foo"
 ```
 
 *TxtImploded* - text imploded with separator:
 ```php
-TxtImploded::new("-", "foo", "bar")->asString(); // "foo-bar"
-TxtImploded::new("-", new TextOf("foo"), "bar")->asString(); // "foo-bar"
+TxtImploded("-", "foo", "bar")->asString(); // "foo-bar"
+TxtImploded("-", new TextOf("foo"), "bar")->asString(); // "foo-bar"
 TxtImploded::withComma(TextOf::string("foo"), TxtUpper::ofString("bar"), "dash")->asString(); // "foo,BAR,dash"
 ```
 
 *TxtJoined* - alias to `TxtImploded` without separator
 ```php
-TxtJoined::new("foo", ",", TextOf::new("bar"))->asString(); // "foo,bar"
+TxtJoined("foo", ",", TextOf("bar"))->asString(); // "foo,bar"
 ```
 
 *TxtReplaced* - find string and replace it. 
 ```php
-TxtReplcaed::new("foo", TxtUpper("bar"), "foobar")->asString(); // "BARbar"
+TxtReplcaed("foo", TxtUpper("bar"), "foobar")->asString(); // "BARbar"
 ```
 
 And so on...
@@ -343,26 +343,26 @@ Elegant boolean
 
 *PregMatch* - match regex
 ```php
-PregMatch::new("/foo/", TextOf::string("foobar"))->asBool(); // true
-(new PregMatch(TxtLowered::new("FOO"), "foo-bar"))->asBool(); // true
+PregMatch("/foo/", TextOf::string("foobar"))->asBool(); // true
+(new PregMatch(TxtLowered("FOO"), "foo-bar"))->asBool(); // true
 ```
 
 *Conjunction* and *Disjunction* - logical AND and OR. (Php doesn't allow you to name classes with reserved words)
 ```php
-Conjunction::new(
-  Truth::new(),
+Conjunction(
+  Truth(),
   true,
   LogicalOf::bool(true),
   new KeyExists("foo", ["foo" => 1, "bar" => 2]),
-  PregMatch::new("/foo/", "foobar")
+  PregMatch("/foo/", "foobar")
 )->asBool(); // true
 ```
 
 *EqualityOf* - equality. You may check equality of texts, strings, ints, floats, booleans, arrays, arrayables, numerables.
 ```php
-EqualityOf::new("foo", new TextOf("bar"))->asBool(); // false
-EqualityOf::new(ArrayableOf::items(1, 2), [1, 2])->asBool(); // true
-EqualityOf::new(2, new NumerableOf(TextOf::new("2")))->asBool(); // true
+EqualityOf("foo", new TextOf("bar"))->asBool(); // false
+EqualityOf(ArrayableOf::items(1, 2), [1, 2])->asBool(); // true
+EqualityOf(2, new NumerableOf(TextOf("2")))->asBool(); // true
 ```
 
 And so on...
@@ -372,17 +372,17 @@ Elegant numbers.
 
 *LengthOf* - may decorates length of Text, string, array, arrayable:
 ```php
-Equality::new(
-  NumerableOf::new("5"),
+Equality(
+  NumerableOf("5"),
   new LengthOf(new TextOf("Hello"))
 )->asBool(); // true
 
-LengthOf::new([1, 2])->asNumber(); // 2
+LengthOf([1, 2])->asNumber(); // 2
 ```
 
 *Addition, Subtraction, Decremented, Incremented, Multiplication* - basic arithmetic operations (needs more):
 ```php
-Subtruction::new(5, Addition::new(1, Incremented::new(2)))->asNumber(); // 1
+Subtruction(5, Addition(1, Incremented(2)))->asNumber(); // 1
 ```
 
 ## Proc and Func (Experimental)

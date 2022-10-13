@@ -9,9 +9,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrMergedTest extends TestCase
+
+final class ArrMergedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,8 +19,8 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfArrays(): void
     {
-        Assert::assertThat(
-            ArrMerged::new([1, 2], ['foo', 'bar'])->asArray(),
+        $this->assertScalarThat(
+            ArrMerged([1, 2], ['foo', 'bar'])->value(),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
     }
@@ -31,8 +31,8 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfArrayables(): void
     {
-        Assert::assertThat(
-            ArrMerged::new(new ArrayableOf([1, 2]), ['foo', 'bar'])->asArray(),
+        $this->assertScalarThat(
+            ArrMerged(new ArrayableOf([1, 2]), ['foo', 'bar'])->value(),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
     }
@@ -44,8 +44,8 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfSelfAndEmpties(): void
     {
-        Assert::assertThat(
-            ArrMerged::new($self = [1, 2, 3], new ArrEmpty(), [])->asArray(),
+        $this->assertScalarThat(
+            ArrMerged($self = [1, 2, 3], new ArrEmpty(), [])->value(),
             new IsEqual($self)
         );
     }
@@ -56,16 +56,16 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfTwoMapped(): void
     {
-        Assert::assertThat(
-            ArrMerged::new(
-                ...ArrMapped::new(
+        $this->assertScalarThat(
+            ArrMerged(
+                ...ArrMapped(
                     [1, 2],
-                    fn ($num) => ArrMapped::new(
+                    fn ($num) => ArrMapped(
                         ["A", "B"],
                         fn ($sym) => "$num$sym"
                     )
                 )
-            )->asArray(),
+            )->value(),
             new IsEqual(["1A", "1B", "2A", "2B"])
         );
     }

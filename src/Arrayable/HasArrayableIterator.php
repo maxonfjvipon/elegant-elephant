@@ -10,7 +10,7 @@ use Traversable;
 /**
  * Array iterator for {@see Arrayable}
  */
-trait HasArrIterator
+trait HasArrayableIterator
 {
     /**
      * @return Traversable<mixed>
@@ -18,6 +18,6 @@ trait HasArrIterator
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->asArray());
+        return new ArrayIterator($this->value());
     }
 }

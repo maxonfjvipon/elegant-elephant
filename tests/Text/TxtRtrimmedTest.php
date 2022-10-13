@@ -9,9 +9,9 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtRtrimmed;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class TxtRtrimmedTest extends TestCase
+
+final class TxtRtrimmedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,8 +19,8 @@ final class TxtRtrimmedTest extends TestCase
      */
     public function rtrimmedOfString(): void
     {
-        Assert::assertThat(
-            TxtRtrimmed::new("  Hello   ")->asString(),
+        $this->assertScalarThat(
+            TxtRtrimmed("  Hello   ")->value(),
             new IsEqual("  Hello")
         );
     }
@@ -31,8 +31,8 @@ final class TxtRtrimmedTest extends TestCase
      */
     public function rtrimmedOfText(): void
     {
-        Assert::assertThat(
-            TxtRtrimmed::new(TextOf::new("\rFoo\r"))->asString(),
+        $this->assertScalarThat(
+            TxtRtrimmed(TextOf("\rFoo\r"))->value(),
             new IsEqual("\rFoo")
         );
     }

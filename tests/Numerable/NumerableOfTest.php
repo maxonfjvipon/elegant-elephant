@@ -3,12 +3,12 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class NumerableOfTest extends TestCase
+
+final class NumerableOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -16,8 +16,8 @@ final class NumerableOfTest extends TestCase
      */
     public function numerableOfInt(): void
     {
-        Assert::assertThat(
-            NumerableOf::new(4)->asNumber(),
+        $this->assertScalarThat(
+            NumberOf(4)->value(),
             new IsEqual(4)
         );
     }
@@ -28,8 +28,8 @@ final class NumerableOfTest extends TestCase
      */
     public function numerableOfFloat(): void
     {
-        Assert::assertThat(
-            NumerableOf::new(12.1)->asNumber(),
+        $this->assertScalarThat(
+            NumberOf(12.1)->value(),
             new IsEqual(12.1)
         );
     }

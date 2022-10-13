@@ -6,69 +6,43 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Flatten array.
  */
-final class ArrFlatten extends AbstractArrayable
+final class ArrFlatten extends ArrEnvelope
 {
-    use CastArrayable;
-
-    /**
-     * @var array<mixed>|Arrayable $origin
-     */
-    private $origin;
-
-    /**
-     * @var int $deep
-     */
-    private int $deep;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Arrayable $arr
-     * @param int $deep
-     * @return self
-     */
-    public static function new($arr, int $deep = 1): self
-    {
-        return new self($arr, $deep);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable $arr
+     * @param array<mixed>|Arrayable<mixed> $arr
      * @param int $deep
      */
     public function __construct($arr, int $deep = 1)
     {
-        $this->origin = $arr;
-        $this->deep = $deep;
-    }
-
-    /**
-     * @return array<mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        return $this->flat($this->arrayableCast($this->origin), []);
+        parent::__construct(
+            new ArrFromCallback(
+                fn () => $this->flat($this->scalarCast($arr), [], $deep)
+            )
+        );
     }
 
     /**
      * @param array<mixed> $arr
      * @param array<mixed> $new
-     * @param int $deep
+     * @param int $neededDeep
+     * @param int $currentDeep
      * @return array<mixed>
      * @throws Exception
      */
-    private function flat(array $arr, array $new, int $deep = 0): array
+    private function flat(array $arr, array $new, int $neededDeep, int $currentDeep = 0): array
     {
         foreach ($arr as $item) {
-            if ($this->deep !== $deep && (is_array($item) || $item instanceof Arrayable)) {
-                $new = $this->flat($this->arrayableCast($item), $new, $deep + 1);
+            if ($neededDeep !== $currentDeep && (is_array($item) || $item instanceof Arrayable)) {
+                $new = $this->flat($this->scalarCast($item), $new, $neededDeep, $currentDeep + 1);
             } else {
                 $new[] = $item;
             }

@@ -5,37 +5,26 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Sum of items.
  */
 final class SumOf extends NumEnvelope
 {
-    use CastNumerable;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param float|int|Numerable ...$items
-     * @return self
-     * @throws Exception
-     */
-    public static function new(...$items): self
-    {
-        return new self(...$items);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param float|int|Numerable ...$items
+     * @param float|int|Number ...$items
      * @throws Exception
      */
     public function __construct(...$items)
     {
         parent::__construct(
-            new ArraySum($this->numerablesCast(...$items))
+            new ArraySum($this->scalarsCast(...$items))
         );
     }
 }

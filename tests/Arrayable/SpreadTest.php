@@ -5,9 +5,9 @@ namespace Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class SpreadTest extends TestCase
+
+final class SpreadTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -15,7 +15,7 @@ final class SpreadTest extends TestCase
      */
     public function spreadingArrayable(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             [...new ArrayableOf([1, 2, 3])],
             new IsEqual([1, 2, 3])
         );

@@ -10,17 +10,20 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Arrayable envelope.
  */
-class ArrEnvelope extends AbstractArrayable
+class ArrEnvelope implements Arrayable
 {
+    use HasArrayableIterator;
+    use CountArrayable;
+
     /**
-     * @var Arrayable $origin
+     * @var Arrayable<mixed> $origin
      */
     private Arrayable $origin;
 
     /**
      * Ctor.
      *
-     * @param Arrayable $origin
+     * @param Arrayable<mixed> $origin
      */
     public function __construct(Arrayable $origin)
     {
@@ -31,8 +34,8 @@ class ArrEnvelope extends AbstractArrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function asArray(): array
+    public function value(): array
     {
-        return $this->origin->asArray();
+        return $this->origin->value();
     }
 }

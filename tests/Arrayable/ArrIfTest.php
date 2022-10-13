@@ -4,13 +4,13 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrIf;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Count;
-use PHPUnit\Framework\TestCase;
 
-final class ArrIfTest extends TestCase
+
+final class ArrIfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,8 +18,8 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfTrue(): void
     {
-        Assert::assertThat(
-            ArrIf::new(true, [1, 2, 3]),
+        $this->assertScalarThat(
+            ArrIf(true, [1, 2, 3]),
             new Count(3)
         );
     }
@@ -30,8 +30,8 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfFalse(): void
     {
-        Assert::assertThat(
-            ArrIf::new(false, [1, 2, 3]),
+        $this->assertScalarThat(
+            ArrIf(false, [1, 2, 3]),
             new Count(0)
         );
     }
@@ -42,7 +42,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfTrueWithCallback(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrIf(true, fn () => new ArrayableOf([1, 2, 3])),
             new Count(3)
         );
@@ -54,7 +54,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfWithLogical(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrIf(new Untruth(), fn () => new ArrayableOf([1, 2, 3])),
             new Count(0)
         );
@@ -66,11 +66,11 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfWithArrayIf(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrIf(
                 true,
                 new ArrIf(
-                    new Truth(),
+                    new True(),
                     fn () => [1, 2, 3]
                 )
             ),

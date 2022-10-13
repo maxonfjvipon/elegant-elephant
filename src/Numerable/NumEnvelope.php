@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
 
 /**
- * Numerable envelope.
+ * Number envelope.
  */
-class NumEnvelope implements Numerable
+class NumEnvelope implements Number
 {
     /**
-     * @var Numerable $origin
+     * @var Number $origin
      */
-    private Numerable $origin;
+    private Number $origin;
 
     /**
-     * @param Numerable $origin
+     * @param Number $origin
      */
-    public function __construct(Numerable $origin)
+    public function __construct(Number $origin)
     {
         $this->origin = $origin;
     }
@@ -29,8 +29,8 @@ class NumEnvelope implements Numerable
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    public function value()
     {
-        return $this->origin->asNumber();
+        return $this->origin->value();
     }
 }

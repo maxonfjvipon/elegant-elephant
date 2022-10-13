@@ -3,12 +3,11 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtJoined;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtJoinedTest extends TestCase
 {
@@ -18,8 +17,8 @@ final class TxtJoinedTest extends TestCase
      */
     public function joinedOfStrings(): void
     {
-        Assert::assertThat(
-            TxtJoined::new("foo", "-", "bar")->asString(),
+        $this->assertScalarThat(
+            new TxtJoined("foo", "-", "bar"),
             new IsEqual("foo-bar")
         );
     }
@@ -30,8 +29,8 @@ final class TxtJoinedTest extends TestCase
      */
     public function joinedOfTexts(): void
     {
-        Assert::assertThat(
-            TxtJoined::new(new TextOf("foo"), "-", new TxtUpper(new TextOf("bar")))->asString(),
+        $this->assertScalarThat(
+            new TxtJoined(new TextOf("foo"), "-", new TxtUpper(new TextOf("bar"))),
             new IsEqual("foo-BAR")
         );
     }

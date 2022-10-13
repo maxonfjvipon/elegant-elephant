@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFlatten;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrFlattenTest extends TestCase
+
+final class ArrFlattenTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -17,8 +17,8 @@ final class ArrFlattenTest extends TestCase
      */
     public function flattenWithArrays(): void
     {
-        Assert::assertThat(
-            ArrFlatten::new([1, [2, 3], 4, [5]])->asArray(),
+        $this->assertScalarThat(
+            ArrFlatten([1, [2, 3], 4, [5]])->value(),
             new IsEqual([1, 2, 3, 4, 5])
         );
     }
@@ -30,13 +30,13 @@ final class ArrFlattenTest extends TestCase
      */
     public function flattenWithDeep(): void
     {
-        Assert::assertThat(
-            ArrFlatten::new(
+        $this->assertScalarThat(
+            ArrFlatten(
                 new ArrayableOf(
                     [1, new ArrayableOf([2, 3]), [[4]], [new ArrayableOf([5, 6])]]
                 ),
                 2
-            )->asArray(),
+            )->value(),
             new IsEqual([1, 2, 3, 4, 5, 6])
         );
     }

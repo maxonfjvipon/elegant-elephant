@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Numerable\MaxOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class MaxOfTest extends TestCase
+
+final class MaxOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,8 +18,8 @@ final class MaxOfTest extends TestCase
      */
     public function maxOfPrimitives(): void
     {
-        Assert::assertThat(
-            MaxOf::new(2, 4, 10, -1)->asNumber(),
+        $this->assertScalarThat(
+            MaxOf(2, 4, 10, -1)->value(),
             new IsEqual(10)
         );
     }
@@ -30,12 +30,12 @@ final class MaxOfTest extends TestCase
      */
     public function maxOfNumerablesAndPrimitives(): void
     {
-        Assert::assertThat(
-            MaxOf::new(
+        $this->assertScalarThat(
+            MaxOf(
                 new SumOf(10, 10),
                 15,
                 new LengthOf([1, 2, 3])
-            )->asNumber(),
+            )->value(),
             new IsEqual(20)
         );
     }

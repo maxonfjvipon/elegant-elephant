@@ -4,17 +4,17 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Logical\KeyExists;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Boolean\KeyExists;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsTrue;
-use PHPUnit\Framework\TestCase;
+
 
 use function PHPUnit\Framework\assertEquals;
 
-final class KeyExistsTest extends TestCase
+final class KeyExistsTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -22,8 +22,8 @@ final class KeyExistsTest extends TestCase
      */
     public function keyExistsInArray(): void
     {
-        Assert::assertThat(
-            KeyExists::new("foo", ['foo' => 1, 'bar'])->asBool(),
+        $this->assertScalarThat(
+            KeyExists("foo", ['foo' => 1, 'bar'])->value(),
             new IsTrue()
         );
     }
@@ -34,8 +34,8 @@ final class KeyExistsTest extends TestCase
      */
     public function textKeyExistsInArrayable(): void
     {
-        Assert::assertThat(
-            KeyExists::new(new TextOf("foo"), new ArrayableOf(['foo' => 1, 'bar']))->asBool(),
+        $this->assertScalarThat(
+            KeyExists(new TextOf("foo"), new ArrayableOf(['foo' => 1, 'bar']))->value(),
             new IsTrue()
         );
     }

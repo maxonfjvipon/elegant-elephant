@@ -6,12 +6,12 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\AbstractArrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSticky;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\HasArrIterator;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\HasArrayableIterator;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrStickyTest extends TestCase
+
+final class ArrStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -29,16 +29,16 @@ final class ArrStickyTest extends TestCase
                     $this->num = $num;
                 }
 
-                public function asArray(): array
+                public function value(): array
                 {
                     $this->num = $this->num + 2; // BIG calculations :)
                     return [$this->num];
                 }
             }
         );
-        $arr->asArray();
-        Assert::assertThat(
-            $arr->asArray(),
+        $arr->value();
+        $this->assertScalarThat(
+            $arr->value(),
             new IsEqual([4]) // no recalculation
         );
     }

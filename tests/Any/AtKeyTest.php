@@ -3,13 +3,13 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Any;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any\AtKey;
+use Maxonfjvipon\Elegant_Elephant\Scalar\AtKey;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class AtKeyTest extends TestCase
+
+final class AtKeyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,7 +18,7 @@ final class AtKeyTest extends TestCase
      */
     public function atKeyOfArray(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             (new AtKey([
                 'key1' => 2,
                 'key2' => "Hello world!",
@@ -35,7 +35,7 @@ final class AtKeyTest extends TestCase
      */
     public function atKeyOfArrayable(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             (new AtKey(
                 new ArrayableOf([
                     'key1' => 2,

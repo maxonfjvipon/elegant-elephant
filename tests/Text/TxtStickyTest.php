@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtSticky;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class TxtStickyTest extends TestCase
+
+final class TxtStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -30,17 +30,17 @@ final class TxtStickyTest extends TestCase
                 /**
                  * @return string
                  */
-                public function asString(): string
+                public function value(): string
                 {
                     $this->text = $this->text . " world!";
                     return $this->text;
                 }
             }
         );
-        $cached->asString();
-        $result = $cached->asString();
+        $cached->value();
+        $result = $cached->value();
 
-        Assert::assertThat(
+        $this->assertScalarThat(
             $result,
             new IsEqual("hello world!")
         );

@@ -5,9 +5,9 @@ namespace Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEmpty;
-use PHPUnit\Framework\TestCase;
 
-final class ArrEmptyTest extends TestCase
+
+final class ArrEmptyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -15,7 +15,7 @@ final class ArrEmptyTest extends TestCase
      */
     public function emptyWorks(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrEmpty(),
             new IsEmpty()
         );

@@ -12,6 +12,8 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 class TxtEnvelope implements Text
 {
+    use StringableText;
+
     /**
      * @var Text $origin
      */
@@ -31,8 +33,8 @@ class TxtEnvelope implements Text
      * @return string
      * @throws Exception
      */
-    public function asString(): string
+    public function value(): string
     {
-        return $this->origin->asString();
+        return $this->origin->value();
     }
 }

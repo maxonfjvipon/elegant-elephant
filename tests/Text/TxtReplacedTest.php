@@ -9,11 +9,11 @@ use Maxonfjvipon\Elegant_Elephant\Text\TxtReplaced;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
+
 
 use function PHPUnit\Framework\assertEquals;
 
-final class TxtReplacedTest extends TestCase
+final class TxtReplacedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -21,8 +21,8 @@ final class TxtReplacedTest extends TestCase
      */
     public function replacedStringToString(): void
     {
-        Assert::assertThat(
-            TxtReplaced::new("foo", "bar", "foobar")->asString(),
+        $this->assertScalarThat(
+            TxtReplaced("foo", "bar", "foobar")->value(),
             new IsEqual("barbar")
         );
     }
@@ -33,8 +33,8 @@ final class TxtReplacedTest extends TestCase
      */
     public function replacedWithTexts(): void
     {
-        Assert::assertThat(
-            TxtReplaced::new(new TextOf("FOO"), new TextOf("bar"), new TxtUpper(new TextOf("foo-bar")))->asString(),
+        $this->assertScalarThat(
+            TxtReplaced(new TextOf("FOO"), new TextOf("bar"), new TxtUpper(new TextOf("foo-bar")))->value(),
             new IsEqual("bar-BAR")
         );
     }

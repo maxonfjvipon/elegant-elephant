@@ -7,13 +7,15 @@ namespace Maxonfjvipon\Elegant_Elephant;
 use Exception;
 
 /**
- * Boolean.
+ * Scalar.
+ *
+ * Something that has value.
  */
-interface Logical
+interface Scalar
 {
     /**
-     * @return bool
+     * @return mixed
      * @throws Exception
      */
-    public function asBool(): bool;
+    public function value();
 }

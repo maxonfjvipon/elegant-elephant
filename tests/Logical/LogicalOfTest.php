@@ -3,15 +3,15 @@
 namespace Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Any\LastOf;
-use Maxonfjvipon\Elegant_Elephant\Logical\LogicalOf;
+use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
+use Maxonfjvipon\Elegant_Elephant\Scalar\LastOf;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
-use PHPUnit\Framework\TestCase;
 
-final class LogicalOfTest extends TestCase
+
+final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,8 +19,8 @@ final class LogicalOfTest extends TestCase
      */
     public function logicalOfTrueIsTrue(): void
     {
-        Assert::assertThat(
-            LogicalOf::new(true)->asBool(),
+        $this->assertScalarThat(
+            BooleanOf(true)->value(),
             new IsTrue()
         );
     }
@@ -31,8 +31,8 @@ final class LogicalOfTest extends TestCase
      */
     public function logicalOfFalseIsFalse(): void
     {
-        Assert::assertThat(
-            LogicalOf::new(false)->asBool(),
+        $this->assertScalarThat(
+            BooleanOf(false)->value(),
             new IsFalse()
         );
     }
@@ -43,8 +43,8 @@ final class LogicalOfTest extends TestCase
      */
     public function logicalOfAnyIsTrue(): void
     {
-        Assert::assertThat(
-            LogicalOf::new(new FirstOf([true, false]))->asBool(),
+        $this->assertScalarThat(
+            BooleanOf(new FirstOf([true, false]))->value(),
             new IsTrue()
         );
     }
@@ -55,8 +55,8 @@ final class LogicalOfTest extends TestCase
      */
     public function logicalOfAnyIsFalse(): void
     {
-        Assert::assertThat(
-            LogicalOf::new(new LastOf([true, false]))->asBool(),
+        $this->assertScalarThat(
+            BooleanOf(new LastOf([true, false]))->value(),
             new IsFalse()
         );
     }

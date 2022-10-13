@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Boolean;
 
 /**
  * Represents {@see Arrayable} if {@code $condition} is TRUE
@@ -14,21 +14,9 @@ use Maxonfjvipon\Elegant_Elephant\Logical;
 final class ArrIf extends ArrEnvelope
 {
     /**
-     * Ctor wrap.
-     *
-     * @param bool|Logical $condition
-     * @param array<mixed>|callable|Arrayable $arr
-     * @return self
-     */
-    public static function new($condition, $arr): self
-    {
-        return new self($condition, $arr);
-    }
-
-    /**
      * Ctor.
-     * @param bool|Logical $condition
-     * @param array<mixed>|callable|Arrayable $arr
+     * @param bool|Boolean $condition
+     * @param array<mixed>|callable|Arrayable<mixed> $arr
      */
     public function __construct($condition, $arr)
     {

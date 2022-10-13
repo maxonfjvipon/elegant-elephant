@@ -3,19 +3,19 @@
 namespace Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any\FirstOf;
+use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
-use Maxonfjvipon\Elegant_Elephant\Logical\Not;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrCastTest extends TestCase
+
+final class ArrCastTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -23,8 +23,8 @@ final class ArrCastTest extends TestCase
      */
     public function arrCastWorks(): void
     {
-        Assert::assertThat(
-            ArrCast::new([
+        $this->assertScalarThat(
+            ArrCast([
                 42, // int
                 12.5, // float
                 'hello there', // string
@@ -35,7 +35,7 @@ final class ArrCastTest extends TestCase
                 new ArrObject('key', 'value'), // Arrayable
                 new Not(new Untruth()), // Logical
                 new FirstOf([1, 2, 3]), // Any
-            ])->asArray(),
+            ])->value(),
             new IsEqual([
                 42,
                 12.5,

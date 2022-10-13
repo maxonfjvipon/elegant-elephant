@@ -3,14 +3,14 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\Rounded;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class RoundedTest extends TestCase
+
+final class RoundedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,8 +18,8 @@ final class RoundedTest extends TestCase
      */
     public function roundedOfFloatWithPrecision(): void
     {
-        Assert::assertThat(
-            Rounded::new(10.4567, 2)->asNumber(),
+        $this->assertScalarThat(
+            Rounded(10.4567, 2)->value(),
             new IsEqual(10.46)
         );
     }
@@ -30,8 +30,8 @@ final class RoundedTest extends TestCase
      */
     public function roundedOfNumerableWithoutPrecision(): void
     {
-        Assert::assertThat(
-            Rounded::new(new SumOf(10, 0.55))->asNumber(),
+        $this->assertScalarThat(
+            Rounded(new SumOf(10, 0.55))->value(),
             new IsEqual(11)
         );
     }

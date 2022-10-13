@@ -2,51 +2,31 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\CastMixed;
-use Maxonfjvipon\Elegant_Elephant\Logical;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Scalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Text encoded to JSON.
  */
-final class TxtJsonEncoded implements Text
+final class TxtJsonEncoded extends TxtEnvelope
 {
-    use CastMixed;
-
-    /**
-     * @var string|int|float|array<mixed>|bool|Text|Numerable|Arrayable|Logical|Any $value;
-     */
-    private $value;
-
-    /**
-     * @param string|int|float|array<mixed>|bool|Text|Numerable|Arrayable|Logical|Any $value
-     * @return static
-     */
-    public static function new($value): self
-    {
-        return new self($value);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param string|int|float|array<mixed>|bool|Text|Numerable|Arrayable|Logical|Any $value
+     * @param string|int|float|array<mixed>|bool|Text|Number|Arrayable|Boolean|Scalar $value
      */
     public function __construct($value)
     {
-        $this->value = $value;
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function asString(): string
-    {
-        return (string) json_encode($this->castMixed($this->value));
+        parent::__construct(
+            new TxtFromCallback(
+                fn () => (string) json_encode($this->scalarCast($value))
+            )
+        );
     }
 }

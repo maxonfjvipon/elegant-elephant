@@ -1,26 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use IteratorAggregate;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 /**
- * Arrayable iterable
+ * Count {@see Arrayable}
  */
-abstract class AbstractArrayable implements Arrayable, IteratorAggregate
+trait CountArrayable
 {
-    use HasArrIterator;
-
     /**
      * @return int
      * @throws Exception
      */
     public function count(): int
     {
-        return count($this->asArray());
+        return count($this->value());
     }
 }

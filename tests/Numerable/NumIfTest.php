@@ -3,15 +3,15 @@
 namespace Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Numerable\NumerableOf;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Numerable\NumberOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\SumOf;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumIf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class NumIfTest extends TestCase
+
+final class NumIfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,8 +19,8 @@ final class NumIfTest extends TestCase
      */
     public function numIfTrue(): void
     {
-        Assert::assertThat(
-            NumIf::new(true, 10)->asNumber(),
+        $this->assertScalarThat(
+            NumIf(true, 10)->value(),
             new IsEqual(10)
         );
     }
@@ -31,8 +31,8 @@ final class NumIfTest extends TestCase
      */
     public function numIfFalseWithNumerable(): void
     {
-        Assert::assertThat(
-            NumIf::new(false, new NumerableOf(10))->asNumber(),
+        $this->assertScalarThat(
+            NumIf(false, new NumberOf(10))->value(),
             new IsEqual(0)
         );
     }
@@ -43,11 +43,11 @@ final class NumIfTest extends TestCase
      */
     public function numIfWithLogicalAndCallback(): void
     {
-        Assert::assertThat(
-            NumIf::new(
-                new Truth(),
+        $this->assertScalarThat(
+            NumIf(
+                new True(),
                 fn () => new SumOf(10, 20)
-            )->asNumber(),
+            )->value(),
             new IsEqual(30)
         );
     }

@@ -3,14 +3,14 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\PregMatch;
+use Maxonfjvipon\Elegant_Elephant\Boolean\PregMatch;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
-use PHPUnit\Framework\TestCase;
 
-final class MatchRegexTest extends TestCase
+
+final class MatchRegexTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -18,8 +18,8 @@ final class MatchRegexTest extends TestCase
      */
     public function simpleRegex(): void
     {
-        Assert::assertThat(
-            PregMatch::new("/Hello world/", "Hello world")->asBool(),
+        $this->assertScalarThat(
+            PregMatch("/Hello world/", "Hello world")->value(),
             new IsTrue()
         );
     }
@@ -30,8 +30,8 @@ final class MatchRegexTest extends TestCase
      */
     public function moreComplexRegexWithText(): void
     {
-        Assert::assertThat(
-            PregMatch::new("/^Hello$/", TextOf::new("Hello world"))->asBool(),
+        $this->assertScalarThat(
+            PregMatch("/^Hello$/", TextOf("Hello world"))->value(),
             new IsFalse()
         );
     }

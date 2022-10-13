@@ -3,17 +3,17 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtBlank;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtTernary;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class TxtTernatyTest extends TestCase
+
+final class TxtTernatyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -21,8 +21,8 @@ final class TxtTernatyTest extends TestCase
      */
     public function textTernaryWithPrimitives(): void
     {
-        Assert::assertThat(
-            TxtTernary::new(true, "foo", "bar")->asString(),
+        $this->assertScalarThat(
+            TxtTernary(true, "foo", "bar")->value(),
             new IsEqual("foo")
         );
     }
@@ -33,8 +33,8 @@ final class TxtTernatyTest extends TestCase
      */
     public function textTernaryWithLogicalAndTexts(): void
     {
-        Assert::assertThat(
-            TxtTernary::new(new Untruth(), new TextOf("foo"), new TxtUpper(new TextOf("bar")))->asString(),
+        $this->assertScalarThat(
+            TxtTernary(new Untruth(), new TextOf("foo"), new TxtUpper(new TextOf("bar")))->value(),
             new IsEqual("BAR")
         );
     }
@@ -45,12 +45,12 @@ final class TxtTernatyTest extends TestCase
      */
     public function textTernaryWithCallbacks(): void
     {
-        Assert::assertThat(
-            TxtTernary::new(
-                new Truth(),
+        $this->assertScalarThat(
+            TxtTernary(
+                new True(),
                 fn () => new TextOf("hey there!"),
                 fn () => new TxtBlank()
-            )->asString(),
+            )->value(),
             new IsEqual("hey there!")
         );
     }

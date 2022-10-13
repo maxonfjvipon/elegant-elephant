@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Maxonfjvipon\Elegant_Elephant\Logical;
+namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 
 /**
  * Matches regex.
  */
-final class PregMatch implements Logical
+final class PregMatch implements Boolean
 {
-    use CastText;
+    use CastScalar;
 
     /**
      * @var string|Text $pattern
@@ -25,18 +26,6 @@ final class PregMatch implements Logical
      * @var string|Text $subject
      */
     private $subject;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param string|Text $pattern
-     * @param string|Text $subject
-     * @return self
-     */
-    public static function new($pattern, $subject): self
-    {
-        return new self($pattern, $subject);
-    }
 
     /**
      * Ctor.
@@ -54,8 +43,8 @@ final class PregMatch implements Logical
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    public function value(): bool
     {
-        return (bool) preg_match(...$this->textsCast($this->pattern, $this->subject));
+        return (bool) preg_match(...$this->scalarsCast($this->pattern, $this->subject));
     }
 }

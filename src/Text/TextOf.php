@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any;
+use Maxonfjvipon\Elegant_Elephant\Scalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -13,28 +14,18 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TextOf implements Text
 {
-    use CastText;
+    use CastScalar;
+    use StringableText;
 
     /**
-     * @var string|Any $origin
+     * @var string|Scalar $origin
      */
     private $origin;
 
     /**
-     * Ctor wrap.
-     *
-     * @param string|Any $text
-     * @return self
-     */
-    public static function new($text): self
-    {
-        return new self($text);
-    }
-
-    /**
      * Ctor.
      *
-     * @param string|Any $text
+     * @param string|Scalar $text
      */
     public function __construct($text)
     {
@@ -45,11 +36,11 @@ final class TextOf implements Text
      * @return string
      * @throws Exception
      */
-    public function asString(): string
+    public function value(): string
     {
-        if ($this->origin instanceof Any) {
-            if (!is_string($res = $this->origin->asAny())) {
-                throw new Exception("Any object must be wrapper of string");
+        if ($this->origin instanceof Scalar) {
+            if (!is_string($res = $this->origin->value())) {
+                throw new Exception("Scalar object must be wrapper of string");
             }
 
             return $res;

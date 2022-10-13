@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMappedKeyValue;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\Constraint\LogicalAnd;
-use PHPUnit\Framework\TestCase;
 
-final class ArrMappedKeyValueTest extends TestCase
+
+final class ArrMappedKeyValueTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -27,11 +27,11 @@ final class ArrMappedKeyValueTest extends TestCase
             'bar' => 'bar2',
             'baz' => 'baz3',
         ];
-        Assert::assertThat(
-            ArrMappedKeyValue::new(
+        $this->assertScalarThat(
+            ArrMappedKeyValue(
                 $given,
                 fn ($key, $value) => $key . $value
-            )->asArray(),
+            )->value(),
             new IsEqual($result)
         );
     }

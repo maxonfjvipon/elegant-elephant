@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Array from callback
  */
-final class ArrFromCallback extends AbstractArrayable
+final class ArrFromCallback implements Arrayable
 {
-    use CastArrayable;
+    use CastScalar;
+    use CountArrayable;
+    use HasArrayableIterator;
 
     /**
      * @var callable $callback
@@ -43,8 +47,8 @@ final class ArrFromCallback extends AbstractArrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function asArray(): array
+    public function value(): array
     {
-        return $this->arrayableOrCallableCast($this->callback);
+        return (array) $this->scalarOrCallableCast($this->callback);
     }
 }

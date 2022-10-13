@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant;
 
 use Exception;
+use TypeError;
 
 /**
- * Any.
+ * Number.
  */
-interface Any
+interface Number extends Scalar
 {
     /**
-     * @return mixed
+     * @return float|int
      * @throws Exception
      */
-    public function asAny();
+    public function value();
 }

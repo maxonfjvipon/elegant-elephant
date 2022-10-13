@@ -9,9 +9,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrMappedTest extends TestCase
+
+final class ArrMappedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     const GIVEN = [1, 2, 3, 4, 5];
     const EXPECTED = [1, 4, 9, 16, 25];
@@ -22,11 +22,11 @@ final class ArrMappedTest extends TestCase
      */
     public function mappedNotCast(): void
     {
-        Assert::assertThat(
-            ArrMapped::new(
+        $this->assertScalarThat(
+            ArrMapped(
                 self::GIVEN,
                 fn ($value) => $value * $value
-            )->asArray(),
+            )->value(),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -38,12 +38,12 @@ final class ArrMappedTest extends TestCase
      */
     public function mappedCast(): void
     {
-        Assert::assertThat(
-            ArrMapped::new(
+        $this->assertScalarThat(
+            ArrMapped(
                 self::GIVEN,
                 fn ($num) => new TextOf($num . "L"),
                 true
-            )->asArray(),
+            )->value(),
             new IsEqual([
                 "1L",
                 "2L",

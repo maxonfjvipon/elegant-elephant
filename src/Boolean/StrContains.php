@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Maxonfjvipon\Elegant_Elephant\Logical;
+namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical;
+use Maxonfjvipon\Elegant_Elephant\Boolean;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 
 /**
  * String contains.
  */
-final class StrContains implements Logical
+final class StrContains implements Boolean
 {
-    use CastText;
+    use CastScalar;
 
     /**
      * @var string|Text $haystack
@@ -25,18 +25,6 @@ final class StrContains implements Logical
      * @var string|Text $needle
      */
     private $needle;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param string|Text $haystack
-     * @param string|Text $needle
-     * @return self
-     */
-    public static function new($haystack, $needle): self
-    {
-        return new self($haystack, $needle);
-    }
 
     /**
      * Ctor.
@@ -54,8 +42,8 @@ final class StrContains implements Logical
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    public function value(): bool
     {
-        return strpos(...$this->textsCast($this->haystack, $this->needle)) !== false;
+        return strpos(...$this->scalarsCast($this->haystack, $this->needle)) !== false;
     }
 }

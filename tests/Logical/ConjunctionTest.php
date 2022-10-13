@@ -3,15 +3,15 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Logical;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\Conjunction;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Conjunction;
+use Maxonfjvipon\Elegant_Elephant\Boolean\True;
+use Maxonfjvipon\Elegant_Elephant\Boolean\Untruth;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
-use PHPUnit\Framework\TestCase;
 
-final class ConjunctionTest extends TestCase
+
+final class ConjunctionTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,8 +19,8 @@ final class ConjunctionTest extends TestCase
      */
     public function conjunctionIsTrue(): void
     {
-        Assert::assertThat(
-            Conjunction::new(Truth::new(), true)->asBool(),
+        $this->assertScalarThat(
+            Conjunction(True(), true)->value(),
             new IsTrue()
         );
     }
@@ -31,8 +31,8 @@ final class ConjunctionTest extends TestCase
      */
     public function conjunctionIsFalse(): void
     {
-        Assert::assertThat(
-            Conjunction::new(new Untruth(), false)->asBool(),
+        $this->assertScalarThat(
+            Conjunction(new Untruth(), false)->value(),
             new IsFalse()
         );
     }

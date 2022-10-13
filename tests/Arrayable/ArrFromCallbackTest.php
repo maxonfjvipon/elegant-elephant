@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFromCallback;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Count;
-use PHPUnit\Framework\TestCase;
 
-final class ArrFromCallbackTest extends TestCase
+
+final class ArrFromCallbackTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -17,8 +17,8 @@ final class ArrFromCallbackTest extends TestCase
      */
     public function arrayFromCallback(): void
     {
-        Assert::assertThat(
-            ArrFromCallback::new(fn () => [1, 2, 3]),
+        $this->assertScalarThat(
+            ArrFromCallback(fn () => [1, 2, 3]),
             new Count(3)
         );
     }
@@ -29,8 +29,8 @@ final class ArrFromCallbackTest extends TestCase
      */
     public function arrayableFromCallback(): void
     {
-        Assert::assertThat(
-            ArrFromCallback::new(fn () => new ArrayableOf([1, 2, 3, 4])),
+        $this->assertScalarThat(
+            ArrFromCallback(fn () => new ArrayableOf([1, 2, 3, 4])),
             new Count(4)
         );
     }
@@ -43,6 +43,6 @@ final class ArrFromCallbackTest extends TestCase
     public function withError(): void
     {
         $this->expectError();
-        ArrFromCallback::new(fn () => "Hello world")->asArray();
+        ArrFromCallback(fn () => "Hello world")->value();
     }
 }

@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Any;
+use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar;
 
 /**
  * Arrayable of.
  */
-final class ArrayableOf extends AbstractArrayable
+final class ArrayableOf implements Arrayable
 {
-    use CastArrayable;
+    use HasArrayableIterator;
+    use CountArrayable;
 
     /**
-     * @var array<mixed>|Any $origin
+     * @var array<mixed>|Scalar $origin
      */
     private $origin;
 
@@ -29,20 +31,9 @@ final class ArrayableOf extends AbstractArrayable
     }
 
     /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Any $arr
-     * @return self
-     */
-    public static function new($arr): self
-    {
-        return new self($arr);
-    }
-
-    /**
      * Ctor.
      *
-     * @param array<mixed>|Any $arr
+     * @param array<mixed>|Scalar $arr
      */
     public function __construct($arr)
     {
@@ -53,11 +44,11 @@ final class ArrayableOf extends AbstractArrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function asArray(): array
+    public function value(): array
     {
-        if ($this->origin instanceof Any) {
-            if (!is_array($res = $this->origin->asAny())) {
-                throw new Exception("Any object must be wrapper of array");
+        if ($this->origin instanceof Scalar) {
+            if (!is_array($res = $this->origin->value())) {
+                throw new Exception("Scalar object must be wrapper of array");
             }
 
             return $res;

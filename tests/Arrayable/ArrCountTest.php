@@ -6,9 +6,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Count;
-use PHPUnit\Framework\TestCase;
 
-final class ArrCountTest extends TestCase
+
+final class ArrCountTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -16,7 +16,7 @@ final class ArrCountTest extends TestCase
      */
     public function countOfArrayable(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrayableOf([1, 2, 3, 4]),
             new Count(4)
         );
@@ -28,7 +28,7 @@ final class ArrCountTest extends TestCase
      */
     public function countOfArrMerged(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrMerged(
                 new ArrayableOf([1, 2, 3]),
                 [4, 5]

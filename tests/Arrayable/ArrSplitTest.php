@@ -8,9 +8,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSplit;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrSplitTest extends TestCase
+
+final class ArrSplitTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     public const SEPARATOR = "-";
     public const STRING = "foo-bar";
@@ -24,8 +24,8 @@ final class ArrSplitTest extends TestCase
      */
     public function splitWithStrings(): void
     {
-        Assert::assertThat(
-            ArrSplit::new(self::SEPARATOR, self::STRING)->asArray(),
+        $this->assertScalarThat(
+            ArrSplit(self::SEPARATOR, self::STRING)->value(),
             new IsEqual(self::EXPLODED)
         );
     }
@@ -36,8 +36,8 @@ final class ArrSplitTest extends TestCase
      */
     public function splitWithTexts(): void
     {
-        Assert::assertThat(
-            ArrSplit::new(new TextOf(self::SEPARATOR), new TextOf(self::STRING))->asArray(),
+        $this->assertScalarThat(
+            ArrSplit(new TextOf(self::SEPARATOR), new TextOf(self::STRING))->value(),
             new IsEqual(self::EXPLODED)
         );
     }
@@ -48,8 +48,8 @@ final class ArrSplitTest extends TestCase
      */
     public function splitByComma(): void
     {
-        Assert::assertThat(
-            ArrSplit::byComma(self::STRING_WITH_COMMA)->asArray(),
+        $this->assertScalarThat(
+            ArrSplit::byComma(self::STRING_WITH_COMMA)->value(),
             new IsEqual(self::EXPLODED_BY_COMMA)
         );
     }

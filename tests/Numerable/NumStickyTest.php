@@ -3,13 +3,13 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Numerable\NumSticky;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class NumStickyTest extends TestCase
+
+final class NumStickyTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,7 +19,7 @@ final class NumStickyTest extends TestCase
     {
         $num = 2;
         $cached = new NumSticky(
-            new class ($num) implements Numerable {
+            new class ($num) implements Number {
                 private int $num;
 
                 public function __construct(int $num)
@@ -30,17 +30,17 @@ final class NumStickyTest extends TestCase
                 /**
                  * @return int
                  */
-                public function asNumber(): int
+                public function value(): int
                 {
                     $this->num += 2;
                     return $this->num;
                 }
             }
         );
-        $cached->asNumber();
-        $result = $cached->asNumber();
+        $cached->value();
+        $result = $cached->value();
 
-        Assert::assertThat(
+        $this->assertScalarThat(
             $result,
             new IsEqual(4)
         );

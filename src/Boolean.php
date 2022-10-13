@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant;
 
 use Exception;
-use TypeError;
 
 /**
- * Numerable.
+ * Boolean.
  */
-interface Numerable
+interface Boolean extends Scalar
 {
     /**
-     * @return float|int
+     * @return bool
      * @throws Exception
      */
-    public function asNumber();
+    public function value(): bool;
 }

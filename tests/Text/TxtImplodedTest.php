@@ -3,11 +3,11 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
+
 use Maxonfjvipon\Elegant_Elephant\Text\TxtImploded;
 
 final class TxtImplodedTest extends TestCase
@@ -18,8 +18,8 @@ final class TxtImplodedTest extends TestCase
      */
     public function implodedOfStrings(): void
     {
-        Assert::assertThat(
-            TxtImploded::new("-", "foo", "bar")->asString(),
+        $this->assertScalarThat(
+            new TxtImploded("-", "foo", "bar"),
             new IsEqual("foo-bar")
         );
     }
@@ -30,8 +30,8 @@ final class TxtImplodedTest extends TestCase
      */
     public function implodedOfTexts(): void
     {
-        Assert::assertThat(
-            TxtImploded::new(new TextOf("/"), new TxtUpper("foo"), "bar")->asString(),
+        $this->assertScalarThat(
+            new TxtImploded(new TextOf("/"), new TxtUpper("foo"), "bar"),
             new IsEqual("FOO/bar")
         );
     }
@@ -42,8 +42,8 @@ final class TxtImplodedTest extends TestCase
      */
     public function implodedWithComma(): void
     {
-        Assert::assertThat(
-            TxtImploded::withComma(new TxtUpper("foo"), "bar")->asString(),
+        $this->assertScalarThat(
+            TxtImploded::withComma(new TxtUpper("foo"), "bar"),
             new IsEqual("FOO,bar")
         );
     }

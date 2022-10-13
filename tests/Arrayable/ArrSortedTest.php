@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSorted;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrSortedTest extends TestCase
+
+final class ArrSortedTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     const GIVEN = [2, 4, 1, 3];
     const EXPECTED = [1, 2, 3, 4];
@@ -20,8 +20,8 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new(self::GIVEN)->asArray(),
+        $this->assertScalarThat(
+            ArrSorted(self::GIVEN)->value(),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -32,8 +32,8 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedOfArrayableWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new(ArrayableOf::new(self::GIVEN))->asArray(),
+        $this->assertScalarThat(
+            ArrSorted(ArrayableOf(self::GIVEN))->value(),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -44,8 +44,8 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWithCompareAsCallbackWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new(self::GIVEN, fn ($a, $b) => $a >= $b ? -1 : 1)->asArray(),
+        $this->assertScalarThat(
+            ArrSorted(self::GIVEN, fn ($a, $b) => $a >= $b ? -1 : 1)->value(),
             new IsEqual(array_reverse(self::EXPECTED))
         );
     }
@@ -56,12 +56,12 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWithCompareAsStringWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new([
+        $this->assertScalarThat(
+            ArrSorted([
                 ['a' => 3],
                 ['a' => 1],
                 ['a' => 2]
-            ], 'a')->asArray(),
+            ], 'a')->value(),
             new IsEqual([
                 ['a' => 1],
                 ['a' => 2],

@@ -7,9 +7,9 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFiltered;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
-final class ArrFilteredTest extends TestCase
+
+final class ArrFilteredTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
 {
     public const GIVEN = [1, 2, 5, 6, 7, 8];
     public const EXPECTED = [3 => 6, 4 => 7, 5 => 8];
@@ -30,8 +30,8 @@ final class ArrFilteredTest extends TestCase
      */
     public function filteredWithGivenCallback(): void
     {
-        Assert::assertThat(
-            ArrFiltered::new(self::GIVEN, \Closure::fromCallable([$this, 'filter']))->asArray(),
+        $this->assertScalarThat(
+            ArrFiltered(self::GIVEN, \Closure::fromCallable([$this, 'filter']))->value(),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -42,8 +42,8 @@ final class ArrFilteredTest extends TestCase
      */
     public function countOfFiltered(): void
     {
-        Assert::assertThat(
-            ArrFiltered::new(self::GIVEN, fn ($num) => $num > 4),
+        $this->assertScalarThat(
+            ArrFiltered(self::GIVEN, fn ($num) => $num > 4),
             new Count(4)
         );
     }
