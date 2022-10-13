@@ -11,9 +11,9 @@ merge:
     echo "Run composer..."
     sudo apt-get install php-xml
     composer install --prefer-dist --no-progress
-    echo "PHPStan..."
+    echo "Run PHPStan..."
     composer run-script phpstan
-    echo "PHPUnit..."
+    echo "Run PHPUnit..."
     composer run-script tests
 release:
   script: |-
@@ -22,7 +22,7 @@ release:
     composer validate --strict
     echo "Run composer..."
     composer install --prefer-dist --no-progress
-    echo "PHPStan..."
+    echo "Run PHPStan..."
     composer run-script phpstan
-    echo "PHPUnit..."
+    echo "Run PHPUnit..."
     composer run-script tests
