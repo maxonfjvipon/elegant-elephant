@@ -12,10 +12,11 @@ merge:
     composer validate --strict
     echo "Run composer..."
     sudo apt-get install php-xml -y
+    sudo apt-get install php-mbstring -y
     composer install --prefer-dist --no-progress
-    echo "PHPStan..."
+    echo "Run PHPStan..."
     composer run-script phpstan
-    echo "PHPUnit..."
+    echo "Run PHPUnit..."
     composer run-script tests
 release:
   script: |-
@@ -23,8 +24,10 @@ release:
     echo "Validate composer..."
     composer validate --strict
     echo "Run composer..."
+    sudo apt-get install php-xml -y
+    sudo apt-get install php-mbstring -y
     composer install --prefer-dist --no-progress
-    echo "PHPStan..."
+    echo "Run PHPStan..."
     composer run-script phpstan
-    echo "PHPUnit..."
+    echo "Run PHPUnit..."
     composer run-script tests
