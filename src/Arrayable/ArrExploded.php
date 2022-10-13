@@ -42,7 +42,7 @@ final class ArrExploded extends ArrEnvelope
 
                     $exploded = explode($separator, (string) $this->scalarCast($text));
 
-                    if ($exploded === false) {
+                    if (!is_array($exploded)) {
                         throw new Exception("Separator can't be an empty string or instance of TxtBlank class");
                     }
 
