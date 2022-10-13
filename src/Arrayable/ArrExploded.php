@@ -37,7 +37,10 @@ final class ArrExploded extends ArrEnvelope
         parent::__construct(
             new ArrFromCallback(
                 function () use ($separator, $text) {
-                    $exploded = explode((string) $this->scalarCast($separator), (string) $this->scalarCast($text));
+                    /** @var non-empty-string $separator */
+                    $separator = (string) $this->scalarCast($separator);
+
+                    $exploded = explode($separator, (string) $this->scalarCast($text));
 
                     if ($exploded === false) {
                         throw new Exception("Separator can't be an empty string or instance of TxtBlank class");

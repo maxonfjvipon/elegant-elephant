@@ -12,9 +12,9 @@ merge:
     sudo apt-get install php-xml
     composer install --prefer-dist --no-progress
     echo "PHPStan..."
-    composer run-scripts phpstan
+    composer run-script phpstan
     echo "PHPUnit..."
-    composer run-scripts tests
+    composer run-script tests
 release:
   script: |-
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit -1
@@ -23,6 +23,6 @@ release:
     echo "Run composer..."
     composer install --prefer-dist --no-progress
     echo "PHPStan..."
-    composer run-scripts phpstan
+    composer run-script phpstan
     echo "PHPUnit..."
-    composer run-scripts tests
+    composer run-script tests
