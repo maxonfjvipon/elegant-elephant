@@ -2,6 +2,8 @@ architect:
   - maxonfjvipon
 docker:
   as_root: true
+install:
+  - "sudo apt-get update"
 merge:
   commanders:
     - maxonfjvipon
@@ -9,7 +11,7 @@ merge:
     echo "Validate composer..."
     composer validate --strict
     echo "Run composer..."
-    sudo apt-get install php-xml
+    sudo apt-get install php-xml -y
     composer install --prefer-dist --no-progress
     echo "Run PHPStan..."
     composer run-script phpstan
