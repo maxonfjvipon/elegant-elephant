@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
 
 /**
  * Cached number.
  */
-final class NumSticky implements Numerable
+final class NumSticky implements Number
 {
     /**
      * @var array<float|int> $cache
@@ -18,17 +18,17 @@ final class NumSticky implements Numerable
     private array $cache = [];
 
     /**
-     * @var Numerable $origin
+     * @var Number $origin
      */
-    private Numerable $origin;
+    private Number $origin;
 
     /**
      * Ctor wrap.
      *
-     * @param Numerable $num
+     * @param Number $num
      * @return self
      */
-    public static function new(Numerable $num): self
+    public static function new(Number $num): self
     {
         return new self($num);
     }
@@ -36,9 +36,9 @@ final class NumSticky implements Numerable
     /**
      * Ctor.
      *
-     * @param Numerable $num
+     * @param Number $num
      */
-    public function __construct(Numerable $num)
+    public function __construct(Number $num)
     {
         $this->origin = $num;
     }
@@ -47,8 +47,8 @@ final class NumSticky implements Numerable
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    public function value()
     {
-        return $this->cache[0] ??= $this->origin->asNumber();
+        return $this->cache[0] ??= $this->origin->value();
     }
 }

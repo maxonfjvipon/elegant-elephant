@@ -6,15 +6,16 @@ namespace Maxonfjvipon\Elegant_Elephant;
 
 use Countable;
 use Exception;
+use IteratorAggregate;
 
 /**
  * Arrayable.
  */
-interface Arrayable extends Countable
+interface Arrayable extends Scalar, Countable, IteratorAggregate
 {
     /**
      * @return array<mixed>
      * @throws Exception
      */
-    public function asArray(): array;
+    public function value(): array;
 }

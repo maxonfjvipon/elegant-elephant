@@ -1,21 +1,22 @@
 <?php
 
-namespace Arrayable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class SpreadTest extends TestCase
 {
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function spreadingArrayable(): void
     {
-        Assert::assertThat(
+        $this->assertThat(
             [...new ArrayableOf([1, 2, 3])],
             new IsEqual([1, 2, 3])
         );

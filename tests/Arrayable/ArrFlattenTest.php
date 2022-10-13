@@ -5,9 +5,8 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFlatten;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class ArrFlattenTest extends TestCase
 {
@@ -17,8 +16,8 @@ final class ArrFlattenTest extends TestCase
      */
     public function flattenWithArrays(): void
     {
-        Assert::assertThat(
-            ArrFlatten::new([1, [2, 3], 4, [5]])->asArray(),
+        $this->assertScalarThat(
+            new ArrFlatten([1, [2, 3], 4, [5]]),
             new IsEqual([1, 2, 3, 4, 5])
         );
     }
@@ -30,13 +29,13 @@ final class ArrFlattenTest extends TestCase
      */
     public function flattenWithDeep(): void
     {
-        Assert::assertThat(
-            ArrFlatten::new(
+        $this->assertScalarThat(
+            new ArrFlatten(
                 new ArrayableOf(
                     [1, new ArrayableOf([2, 3]), [[4]], [new ArrayableOf([5, 6])]]
                 ),
                 2
-            )->asArray(),
+            ),
             new IsEqual([1, 2, 3, 4, 5, 6])
         );
     }

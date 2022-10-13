@@ -4,76 +4,40 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
+use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\CastMixed;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use ReflectionFunction;
 
 /**
  * Mapped array.
  */
-final class ArrMapped extends AbstractArrayable
+final class ArrMapped extends ArrEnvelope
 {
-    use CastArrayable;
-    use CastMixed;
-
-    /**
-     * @var array<mixed>|Arrayable $origin
-     */
-    private $origin;
-
-    /**
-     * @var callable $callback
-     */
-    private $callback;
-
-    /**
-     * @var bool $cast
-     */
-    private bool $cast;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Arrayable $arr
-     * @param callable $callback
-     * @param bool $cast
-     * @return self
-     */
-    public static function new($arr, callable $callback, bool $cast = false): self
-    {
-        return new self($arr, $callback, $cast);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable $arr
+     * @param array<mixed>|Arrayable<mixed> $arr
      * @param callable $callback
-     * @param bool $cast
      */
-    public function __construct($arr, callable $callback, bool $cast = false)
+    public function __construct($arr, callable $callback)
     {
-        $this->origin = $arr;
-        $this->callback = $callback;
-        $this->cast = $cast;
-    }
+        parent::__construct(
+            new ArrFromCallback(
+                function () use ($arr, $callback) {
+                    $count = (new ReflectionFunction(Closure::fromCallable($callback)))->getNumberOfParameters();
 
-    /**
-     * @return array<mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        if (!$this->cast) {
-            return array_map($this->callback, $this->arrayableCast($this->origin));
-        }
+                    /** @var array<mixed> $array */
+                    $array = $this->scalarCast($arr);
 
-        $res = [];
+                    /** @var array<array<mixed>> $arguments */
+                    $arguments = $count > 1 ? [array_keys($array), $array] : [$array];
 
-        foreach ($this->arrayableCast($this->origin) as $key => $value) {
-            $res[$key] = $this->castMixed(call_user_func($this->callback, $value));
-        }
-
-        return $res;
+                    return array_map($callback, ...$arguments);
+                }
+            )
+        );
     }
 }

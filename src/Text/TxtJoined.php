@@ -12,14 +12,12 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 final class TxtJoined extends TxtEnvelope
 {
     /**
-     * Ctor wrap.
-     *
-     * @param string|Text ...$args
+     * @param array<string|Text> $array
      * @return self
      */
-    public static function new(...$args): self
+    public static function ofArray(array $array): self
     {
-        return new self(...$args);
+        return new self(...$array);
     }
 
     /**

@@ -6,68 +6,43 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Array sorted by keys.
  */
-final class ArrSortedByKeys extends AbstractArrayable
+final class ArrSortedByKeys extends ArrEnvelope
 {
-    use CastArrayable;
-
-    /**
-     * @var array<mixed>|Arrayable $origin ;
-     */
-    private $origin;
-
-    /**
-     * @var string|callable|null $compare
-     */
-    private $compare;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Arrayable $arr
-     * @param callable|string|null $compare
-     * @return self
-     */
-    public static function new($arr, $compare = null): self
-    {
-        return new self($arr, $compare);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable $arr
+     * @param array<mixed>|Arrayable<mixed> $arr
      * @param callable|string|null $compare
      */
     public function __construct($arr, $compare = null)
     {
-        $this->origin = $arr;
-        $this->compare = $compare;
-    }
+        parent::__construct(
+            new ArrFromCallback(
+                function () use ($arr, $compare) {
+                    $arr = (array) $this->scalarCast($arr);
 
-    /**
-     * @return array<mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        $arr = $this->arrayableCast($this->origin);
+                    if (!!$compare && !is_callable($compare)) {
+                        throw new Exception("Compare must be callable!");
+                    }
 
-        if (!!$this->compare && !is_callable($this->compare)) {
-            throw new Exception("Compare must be callable!");
-        }
+                    $compare = !!$compare
+                        ? (is_string($compare)
+                            ? fn ($a, $b) => $a[$compare] <=> $b[$compare]
+                            : $compare)
+                        : fn ($a, $b) => $a <=> $b;
 
-        $compare = !!$this->compare
-            ? (is_string($this->compare)
-                ? fn ($a, $b) => $a[$this->compare] <=> $b[$this->compare]
-                : $this->compare)
-            : fn ($a, $b) => $a <=> $b;
+                    uksort($arr, $compare);
 
-        uksort($arr, $compare);
-
-        return $arr;
+                    return $arr;
+                }
+            )
+        );
     }
 }

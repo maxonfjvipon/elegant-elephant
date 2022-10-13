@@ -5,25 +5,15 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 
 /**
  * Array exploded.
  */
-final class ArrExploded extends AbstractArrayable
+final class ArrExploded extends ArrEnvelope
 {
-    use CastText;
-
-    /**
-     * @var non-empty-string|Text $separator
-     */
-    private $separator;
-
-    /**
-     * @var string|Text $origin
-     */
-    private $origin;
+    use CastScalar;
 
     /**
      * Exploded by comma.
@@ -37,18 +27,6 @@ final class ArrExploded extends AbstractArrayable
     }
 
     /**
-     * Ctor wrap.
-     *
-     * @param non-empty-string|Text $separator
-     * @param string|Text $text
-     * @return self
-     */
-    public static function new($separator, $text): self
-    {
-        return new self($separator, $text);
-    }
-
-    /**
      * Ctor.
      *
      * @param non-empty-string|Text $separator
@@ -56,22 +34,21 @@ final class ArrExploded extends AbstractArrayable
      */
     public function __construct($separator, $text)
     {
-        $this->separator = $separator;
-        $this->origin = $text;
-    }
+        parent::__construct(
+            new ArrFromCallback(
+                function () use ($separator, $text) {
+                    /** @var non-empty-string $separator */
+                    $separator = (string) $this->scalarCast($separator);
 
-    /**
-     * @return array<int, string>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        $exploded = explode($this->textCast($this->separator), $this->textCast($this->origin));
+                    $exploded = explode($separator, (string) $this->scalarCast($text));
 
-        if ($exploded === false) {
-            throw new Exception("Separator can't be an empty string or instance of TxtBlank class");
-        }
+                    if (!is_array($exploded)) {
+                        throw new Exception("Separator can't be an empty string or instance of TxtBlank class");
+                    }
 
-        return $exploded;
+                    return $exploded;
+                }
+            )
+        );
     }
 }

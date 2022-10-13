@@ -5,24 +5,15 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Imploded text.
  */
-final class TxtImploded implements Text
+final class TxtImploded extends TxtEnvelope
 {
-    use CastText;
-
-    /**
-     * @var array<string|Text> $pieces
-     */
-    private array $pieces;
-
-    /**
-     * @var string|Text $separator
-     */
-    private $separator;
+    use CastScalar;
 
     /**
      * @param string|Text ...$pieces
@@ -34,15 +25,13 @@ final class TxtImploded implements Text
     }
 
     /**
-     * Ctor wrap.
-     *
      * @param string|Text $separator
-     * @param string|Text ...$pieces
+     * @param array<string|Text> $array
      * @return self
      */
-    public static function new($separator, ...$pieces): self
+    public static function ofArray($separator, array $array): self
     {
-        return new self($separator, ...$pieces);
+        return new self($separator, ...$array);
     }
 
     /**
@@ -53,19 +42,13 @@ final class TxtImploded implements Text
      */
     public function __construct($separator, ...$pieces)
     {
-        $this->separator = $separator;
-        $this->pieces = $pieces;
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function asString(): string
-    {
-        return implode(
-            $this->textCast($this->separator),
-            $this->textsCast(...$this->pieces)
+        parent::__construct(
+            new TxtFromCallback(
+                fn () => implode(
+                    (string) $this->scalarCast($separator),
+                    $this->scalarsCast(...$pieces)
+                )
+            )
         );
     }
 }

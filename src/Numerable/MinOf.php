@@ -5,35 +5,25 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Min.
  */
-final class MinOf implements Numerable
+final class MinOf implements Number
 {
-    use CastNumerable;
+    use CastScalar;
 
     /**
-     * @var array<float|int|Numerable> $items
+     * @var array<float|int|Number> $items
      */
     private array $items;
 
     /**
-     * Ctor wrap.
-     *
-     * @param float|int|Numerable ...$items
-     * @return self
-     */
-    public static function new(...$items): self
-    {
-        return new self(...$items);
-    }
-
-    /**
      * Ctor.
      *
-     * @param float|int|Numerable ...$items
+     * @param float|int|Number ...$items
      */
     public function __construct(...$items)
     {
@@ -44,14 +34,14 @@ final class MinOf implements Numerable
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    public function value()
     {
-        $min = min(...$this->numerablesCast(...$this->items));
+        $min = min(...$this->scalarsCast(...$this->items));
 
         if (!is_numeric($min)) {
             throw new Exception("Min can work with numbers only!");
         }
 
-        return $min;
+        return +$min;
     }
 }

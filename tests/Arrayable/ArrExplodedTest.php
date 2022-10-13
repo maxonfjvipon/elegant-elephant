@@ -4,10 +4,9 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrExploded;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class ArrExplodedTest extends TestCase
 {
@@ -23,8 +22,8 @@ final class ArrExplodedTest extends TestCase
      */
     public function explodedWithStrings(): void
     {
-        Assert::assertThat(
-            ArrExploded::new(self::SEPARATOR, self::STRING)->asArray(),
+        $this->assertScalarThat(
+            new ArrExploded(self::SEPARATOR, self::STRING),
             new IsEqual(self::EXPLODED)
         );
     }
@@ -35,8 +34,8 @@ final class ArrExplodedTest extends TestCase
      */
     public function explodedWithTexts(): void
     {
-        Assert::assertThat(
-            ArrExploded::new(new TextOf(self::SEPARATOR), new TextOf(self::STRING))->asArray(),
+        $this->assertScalarThat(
+            new ArrExploded(new TextOf(self::SEPARATOR), new TextOf(self::STRING)),
             new IsEqual(self::EXPLODED)
         );
     }
@@ -47,8 +46,8 @@ final class ArrExplodedTest extends TestCase
      */
     public function explodedByComma(): void
     {
-        Assert::assertThat(
-            ArrExploded::byComma(self::STRING_WITH_COMMA)->asArray(),
+        $this->assertScalarThat(
+            ArrExploded::byComma(self::STRING_WITH_COMMA),
             new IsEqual(self::EXPLODED_BY_COMMA)
         );
     }

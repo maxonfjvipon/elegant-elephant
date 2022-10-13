@@ -2,24 +2,24 @@
 
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrIf;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
-use Maxonfjvipon\Elegant_Elephant\Logical\Untruth;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
-use PHPUnit\Framework\TestCase;
 
 final class ArrIfTest extends TestCase
 {
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function arrayIfTrue(): void
     {
-        Assert::assertThat(
-            ArrIf::new(true, [1, 2, 3]),
+        $this->assertScalarThat(
+            new ArrIf(true, [1, 2, 3]),
             new Count(3)
         );
     }
@@ -27,11 +27,12 @@ final class ArrIfTest extends TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function arrayIfFalse(): void
     {
-        Assert::assertThat(
-            ArrIf::new(false, [1, 2, 3]),
+        $this->assertScalarThat(
+            new ArrIf(false, [1, 2, 3]),
             new Count(0)
         );
     }
@@ -39,10 +40,11 @@ final class ArrIfTest extends TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function arrayIfTrueWithCallback(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrIf(true, fn () => new ArrayableOf([1, 2, 3])),
             new Count(3)
         );
@@ -51,11 +53,12 @@ final class ArrIfTest extends TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function arrayIfWithLogical(): void
     {
-        Assert::assertThat(
-            new ArrIf(new Untruth(), fn () => new ArrayableOf([1, 2, 3])),
+        $this->assertScalarThat(
+            new ArrIf(new BooleanOf(false), fn () => new ArrayableOf([1, 2, 3])),
             new Count(0)
         );
     }
@@ -63,14 +66,15 @@ final class ArrIfTest extends TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function arrayIfWithArrayIf(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrIf(
                 true,
                 new ArrIf(
-                    new Truth(),
+                    new BooleanOf(true),
                     fn () => [1, 2, 3]
                 )
             ),

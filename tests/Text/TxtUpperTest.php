@@ -3,11 +3,10 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtUpperTest extends TestCase
 {
@@ -20,8 +19,8 @@ final class TxtUpperTest extends TestCase
      */
     public function upperOfString(): void
     {
-        Assert::assertThat(
-            TxtUpper::new(self::GIVEN)->asString(),
+        $this->assertScalarThat(
+            new TxtUpper(self::GIVEN),
             new IsEqual(self::UPPER)
         );
     }
@@ -32,8 +31,8 @@ final class TxtUpperTest extends TestCase
      */
     public function upperOfText(): void
     {
-        Assert::assertThat(
-            TxtUpper::new(new TextOf(self::GIVEN))->asString(),
+        $this->assertScalarThat(
+            new TxtUpper(new TextOf(self::GIVEN)),
             new IsEqual(self::UPPER)
         );
     }

@@ -6,54 +6,27 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Filtered array.
  */
-final class ArrFiltered extends AbstractArrayable
+final class ArrFiltered extends ArrEnvelope
 {
-    use CastArrayable;
-
-    /**
-     * @var array<mixed>|Arrayable $origin
-     */
-    private $origin;
-
-    /**
-     * @var callable $callback
-     */
-    private $callback;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Arrayable $arr
-     * @param callable $callback
-     * @return self
-     */
-    public static function new($arr, callable $callback): self
-    {
-        return new self($arr, $callback);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable $arr
+     * @param array<mixed>|Arrayable<mixed> $arr
      * @param callable $callback
      */
     public function __construct($arr, callable $callback)
     {
-        $this->origin = $arr;
-        $this->callback = $callback;
-    }
-
-    /**
-     * @return array<mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        return array_filter($this->arrayableCast($this->origin), $this->callback, ARRAY_FILTER_USE_BOTH);
+        parent::__construct(
+            new ArrFromCallback(
+                fn () => array_filter((array) $this->scalarCast($arr), $callback, ARRAY_FILTER_USE_BOTH)
+            )
+        );
     }
 }

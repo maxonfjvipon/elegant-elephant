@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Numerable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Numerable;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Rounded number.
  */
-final class Rounded implements Numerable
+final class Rounded implements Number
 {
-    use CastNumerable;
+    use CastScalar;
 
     /**
-     * @var float|int|Numerable $origin
+     * @var float|int|Number $origin
      */
     private $origin;
 
@@ -25,21 +26,9 @@ final class Rounded implements Numerable
     private int $precision;
 
     /**
-     * Ctor wrap.
-     *
-     * @param float|int|Numerable $num
-     * @param int $precision
-     * @return self
-     */
-    public static function new($num, int $precision = 0): self
-    {
-        return new self($num, $precision);
-    }
-
-    /**
      * Ctor.
      *
-     * @param float|int|Numerable $num
+     * @param float|int|Number $num
      * @param int $precision
      */
     public function __construct($num, int $precision = 0)
@@ -52,8 +41,8 @@ final class Rounded implements Numerable
      * @return float
      * @throws Exception
      */
-    public function asNumber(): float
+    public function value(): float
     {
-        return round($this->numerableCast($this->origin), $this->precision);
+        return round($this->scalarCast($this->origin), $this->precision);
     }
 }

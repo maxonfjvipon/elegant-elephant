@@ -4,9 +4,8 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrKeys;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class ArrKeysTest extends TestCase
 {
@@ -24,8 +23,8 @@ final class ArrKeysTest extends TestCase
      */
     public function arrValuesWorks(): void
     {
-        Assert::assertThat(
-            ArrKeys::new(self::GIVEN)->asArray(),
+        $this->assertScalarThat(
+            new ArrKeys(self::GIVEN),
             new IsEqual(self::EXPECTED)
         );
     }

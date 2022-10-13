@@ -1,22 +1,23 @@
 <?php
 
-namespace Arrayable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
-use PHPUnit\Framework\TestCase;
 
 final class ArrCountTest extends TestCase
 {
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function countOfArrayable(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrayableOf([1, 2, 3, 4]),
             new Count(4)
         );
@@ -25,10 +26,11 @@ final class ArrCountTest extends TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function countOfArrMerged(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrMerged(
                 new ArrayableOf([1, 2, 3]),
                 [4, 5]

@@ -1,21 +1,22 @@
 <?php
 
-namespace Arrayable;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
+use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEmpty;
-use PHPUnit\Framework\TestCase;
 
 final class ArrEmptyTest extends TestCase
 {
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function emptyWorks(): void
     {
-        Assert::assertThat(
+        $this->assertScalarThat(
             new ArrEmpty(),
             new IsEmpty()
         );

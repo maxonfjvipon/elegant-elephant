@@ -37,7 +37,7 @@
   },
   "scripts": {
     "tests": "./vendor/bin/phpunit --fail-on-risky",
-    "phpstan": "./vendor/bin/phpstan analyse src test --level=8"
+    "phpstan": "./vendor/bin/phpstan analyse src tests --level=8"
   },
   "config": {
     "preferred-install": {

@@ -6,46 +6,26 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 
 /**
  * Unique array.
  */
-final class ArrUnique extends AbstractArrayable
+final class ArrUnique extends ArrEnvelope
 {
-    use CastArrayable;
-
-    /**
-     * @var array<mixed>|Arrayable $origin;
-     */
-    private $origin;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param array<mixed>|Arrayable $arr
-     * @return self
-     */
-    public static function new($arr): self
-    {
-        return new self($arr);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable $arr
+     * @param array<mixed>|Arrayable<mixed> $arr
      */
     public function __construct($arr)
     {
-        $this->origin = $arr;
-    }
-
-    /**
-     * @return array<mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        return array_unique($this->arrayableCast($this->origin));
+        parent::__construct(
+            new ArrFromCallback(
+                fn () => array_unique((array)$this->scalarCast($arr))
+            )
+        );
     }
 }

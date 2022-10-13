@@ -10,30 +10,12 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 /**
  * Cached text.
  */
-final class TxtSticky implements Text
+final class TxtSticky extends TxtEnvelope
 {
-    use CastText;
-
     /**
      * @var array<string> $cache
      */
     private array $cache = [];
-
-    /**
-     * @var Text $origin
-     */
-    private Text $origin;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param Text $text
-     * @return self
-     */
-    public static function new(Text $text): self
-    {
-        return new self($text);
-    }
 
     /**
      * Ctor.
@@ -42,15 +24,10 @@ final class TxtSticky implements Text
      */
     public function __construct(Text $text)
     {
-        $this->origin = $text;
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function asString(): string
-    {
-        return $this->cache[0] ??= $this->origin->asString();
+        parent::__construct(
+            new TxtFromCallback(
+                fn () => $this->cache[0] ??= $text->value()
+            )
+        );
     }
 }

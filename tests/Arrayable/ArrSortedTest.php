@@ -5,9 +5,8 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSorted;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class ArrSortedTest extends TestCase
 {
@@ -20,8 +19,8 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new(self::GIVEN)->asArray(),
+        $this->assertScalarThat(
+            new ArrSorted(self::GIVEN),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -32,8 +31,8 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedOfArrayableWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new(ArrayableOf::new(self::GIVEN))->asArray(),
+        $this->assertScalarThat(
+            new ArrSorted(new ArrayableOf(self::GIVEN)),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -44,8 +43,8 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWithCompareAsCallbackWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new(self::GIVEN, fn ($a, $b) => $a >= $b ? -1 : 1)->asArray(),
+        $this->assertScalarThat(
+            new ArrSorted(self::GIVEN, fn ($a, $b) => $a >= $b ? -1 : 1),
             new IsEqual(array_reverse(self::EXPECTED))
         );
     }
@@ -56,12 +55,12 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWithCompareAsStringWorks(): void
     {
-        Assert::assertThat(
-            ArrSorted::new([
+        $this->assertScalarThat(
+            new ArrSorted([
                 ['a' => 3],
                 ['a' => 1],
                 ['a' => 2]
-            ], 'a')->asArray(),
+            ], 'a'),
             new IsEqual([
                 ['a' => 1],
                 ['a' => 2],

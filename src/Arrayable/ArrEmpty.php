@@ -7,23 +7,15 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Empty array.
  */
-final class ArrEmpty extends AbstractArrayable
+final class ArrEmpty extends ArrEnvelope
 {
     /**
-     * Ctor wrap.
-     *
-     * @return self
+     * Ctor.
      */
-    public static function new(): self
+    public function __construct()
     {
-        return new self();
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function asArray(): array
-    {
-        return [];
+        parent::__construct(
+            new ArrayableOf([])
+        );
     }
 }

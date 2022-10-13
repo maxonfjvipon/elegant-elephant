@@ -3,11 +3,10 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtSubstr;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtSubstrTest extends TestCase
 {
@@ -17,8 +16,8 @@ final class TxtSubstrTest extends TestCase
      */
     public function substringOfString(): void
     {
-        Assert::assertThat(
-            TxtSubstr::new("Hello world", 6)->asString(),
+        $this->assertScalarThat(
+            new TxtSubstr("Hello world", 6),
             new IsEqual("world")
         );
     }
@@ -29,8 +28,8 @@ final class TxtSubstrTest extends TestCase
      */
     public function substringOfTextWithLength(): void
     {
-        Assert::assertThat(
-            TxtSubstr::new(new TextOf("Hello world"), 6, 2)->asString(),
+        $this->assertScalarThat(
+            new TxtSubstr(new TextOf("Hello world"), 6, 2),
             new IsEqual("wo")
         );
     }

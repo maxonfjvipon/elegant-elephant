@@ -1,15 +1,14 @@
 <?php
 
-namespace Text;
+namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Logical\Truth;
+use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtIf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEmpty;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtIfTest extends TestCase
 {
@@ -19,8 +18,8 @@ final class TxtIfTest extends TestCase
      */
     public function textIfTrue(): void
     {
-        Assert::assertThat(
-            TxtIf::new(true, "hello")->asString(),
+        $this->assertScalarThat(
+            new TxtIf(true, "hello"),
             new IsEqual("hello")
         );
     }
@@ -31,8 +30,8 @@ final class TxtIfTest extends TestCase
      */
     public function textIfFalseWithNumerable(): void
     {
-        Assert::assertThat(
-            TxtIf::new(false, "hello")->asString(),
+        $this->assertScalarThat(
+            new TxtIf(false, "hello"),
             new IsEmpty()
         );
     }
@@ -43,11 +42,11 @@ final class TxtIfTest extends TestCase
      */
     public function textIfWithLogicalAndCallback(): void
     {
-        Assert::assertThat(
-            TxtIf::new(
-                new Truth(),
+        $this->assertScalarThat(
+            new TxtIf(
+                new BooleanOf(true),
                 fn () => new TextOf("hello")
-            )->asString(),
+            ),
             new IsEqual("hello")
         );
     }

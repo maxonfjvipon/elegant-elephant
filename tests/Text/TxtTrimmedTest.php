@@ -3,11 +3,10 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtTrimmed;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class TxtTrimmedTest extends TestCase
 {
@@ -17,8 +16,8 @@ final class TxtTrimmedTest extends TestCase
      */
     public function trimmedOfString(): void
     {
-        Assert::assertThat(
-            TxtTrimmed::new(" Hello world\r\t")->asString(),
+        $this->assertScalarThat(
+            new TxtTrimmed(" Hello world\r\t"),
             new IsEqual("Hello world")
         );
     }
@@ -29,8 +28,8 @@ final class TxtTrimmedTest extends TestCase
      */
     public function trimmedOfText(): void
     {
-        Assert::assertThat(
-            TxtTrimmed::new(new TextOf("\rHello there\t\n"))->asString(),
+        $this->assertScalarThat(
+            new TxtTrimmed(new TextOf("\rHello there\t\n")),
             new IsEqual("Hello there")
         );
     }

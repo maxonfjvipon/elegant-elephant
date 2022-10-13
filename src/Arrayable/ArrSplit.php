@@ -22,18 +22,6 @@ final class ArrSplit extends ArrEnvelope
     }
 
     /**
-     * Ctor wrap.
-     *
-     * @param non-empty-string|Text $separator
-     * @param string|Text $text
-     * @return self
-     */
-    public static function new($separator, $text): self
-    {
-        return new self($separator, $text);
-    }
-
-    /**
      * Ctor.
      *
      * @param non-empty-string|Text $separator

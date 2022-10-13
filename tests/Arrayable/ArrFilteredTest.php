@@ -4,10 +4,9 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFiltered;
-use PHPUnit\Framework\Assert;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class ArrFilteredTest extends TestCase
 {
@@ -30,8 +29,8 @@ final class ArrFilteredTest extends TestCase
      */
     public function filteredWithGivenCallback(): void
     {
-        Assert::assertThat(
-            ArrFiltered::new(self::GIVEN, \Closure::fromCallable([$this, 'filter']))->asArray(),
+        $this->assertScalarThat(
+            new ArrFiltered(self::GIVEN, \Closure::fromCallable([$this, 'filter'])),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -39,11 +38,12 @@ final class ArrFilteredTest extends TestCase
     /**
      * @test
      * @return void
+     * @throws Exception
      */
     public function countOfFiltered(): void
     {
-        Assert::assertThat(
-            ArrFiltered::new(self::GIVEN, fn ($num) => $num > 4),
+        $this->assertScalarThat(
+            new ArrFiltered(self::GIVEN, fn ($num) => $num > 4),
             new Count(4)
         );
     }

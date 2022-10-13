@@ -3,13 +3,11 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
 
 use Exception;
-use GuzzleHttp\Promise\Is;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
 use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
+use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
-use PHPUnit\Framework\TestCase;
 
 final class ArrMappedTest extends TestCase
 {
@@ -20,13 +18,13 @@ final class ArrMappedTest extends TestCase
      * @test
      * @throws Exception
      */
-    public function mappedNotCast(): void
+    public function mapped(): void
     {
-        Assert::assertThat(
-            ArrMapped::new(
+        $this->assertScalarThat(
+            new ArrMapped(
                 self::GIVEN,
-                fn ($value) => $value * $value
-            )->asArray(),
+                fn($value) => $value * $value
+            ),
             new IsEqual(self::EXPECTED)
         );
     }
@@ -38,18 +36,36 @@ final class ArrMappedTest extends TestCase
      */
     public function mappedCast(): void
     {
-        Assert::assertThat(
-            ArrMapped::new(
-                self::GIVEN,
-                fn ($num) => new TextOf($num . "L"),
-                true
-            )->asArray(),
+        $this->assertScalarThat(
+            new ArrCast(
+                new ArrMapped(
+                    self::GIVEN,
+                    fn($num) => new TextOf($num . "L"),
+                )
+            ),
             new IsEqual([
                 "1L",
                 "2L",
                 "3L",
                 "4L",
                 "5L"
+            ])
+        );
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function mappedKeyValue(): void
+    {
+        $this->assertScalarThat(
+            new ArrMapped(
+                self::GIVEN,
+                fn ($key, $value) => $key * $value
+            ),
+            new IsEqual([
+                0, 2, 6, 12, 20
             ])
         );
     }

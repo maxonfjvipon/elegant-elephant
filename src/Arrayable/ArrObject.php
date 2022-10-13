@@ -4,58 +4,29 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
-use Exception;
-use Maxonfjvipon\Elegant_Elephant\CastMixed;
-use Maxonfjvipon\Elegant_Elephant\Text\CastText;
+use Maxonfjvipon\Elegant_Elephant\Number;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Array as object.
  */
-final class ArrObject extends AbstractArrayable
+final class ArrObject extends ArrEnvelope
 {
-    use CastText;
-    use CastMixed;
-
-    /**
-     * @var mixed $key
-     */
-    private $key;
-
-    /**
-     * @var mixed $object
-     */
-    private $object;
-
-    /**
-     * Ctor wrap.
-     *
-     * @param mixed $key
-     * @param mixed $object
-     * @return self
-     */
-    public static function new($key, $object): self
-    {
-        return new self($key, $object);
-    }
+    use CastScalar;
 
     /**
      * Ctor.
      *
-     * @param mixed $key
+     * @param string|int|float|Text|Number $key
      * @param mixed $object
      */
     public function __construct($key, $object)
     {
-        $this->key = $key;
-        $this->object = $object;
-    }
-
-    /**
-     * @return array<mixed, mixed>
-     * @throws Exception
-     */
-    public function asArray(): array
-    {
-        return [$this->castMixed($this->key) => $this->castMixed($this->object)];
+        parent::__construct(
+            new ArrFromCallback(
+                fn () => [$this->scalarCast($key) => $this->scalarCast($object)]
+            )
+        );
     }
 }
