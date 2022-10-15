@@ -10,11 +10,11 @@ use Stringable;
 /**
  * Text.
  */
-interface Text extends Scalar, Stringable
+interface Text extends Stringable
 {
     /**
      * @return string
      * @throws Exception
      */
-    public function value(): string;
+    public function asString(): string;
 }

@@ -7,14 +7,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Array combined of keys and values.
  */
 final class ArrCombined extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var array<mixed>|Arrayable<mixed> $keys
@@ -38,10 +38,10 @@ final class ArrCombined extends ArrEnvelope
             new ArrFromCallback(
                 function () use ($keys, $values) {
                     /** @var array<mixed> $keys */
-                    $keys = (array) $this->scalarCast($keys);
+                    $keys = (array) $this->mixedCast($keys);
 
                     /** @var array<mixed> $values */
-                    $values = (array) $this->scalarCast($values);
+                    $values = (array) $this->mixedCast($values);
 
                     if (count($keys) !== count($values)) {
                         throw new Exception("Keys and values arrays must have the same length");
@@ -65,7 +65,7 @@ final class ArrCombined extends ArrEnvelope
     {
         return array_map(
             function ($item) {
-                if (is_array($cast = $this->scalarCast($item))) {
+                if (is_array($cast = $this->mixedCast($item))) {
                     throw new Exception("Array can't be the key of array");
                 }
 

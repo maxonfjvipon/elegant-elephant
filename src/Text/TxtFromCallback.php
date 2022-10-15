@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -13,7 +13,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtFromCallback implements Text
 {
-    use CastScalar;
+    use CastMixed;
     use StringableText;
 
     /**
@@ -35,8 +35,8 @@ final class TxtFromCallback implements Text
      * @return string
      * @throws Exception
      */
-    public function value(): string
+    public function asString(): string
     {
-        return (string) $this->scalarOrCallableCast($this->callback);
+        return (string) $this->mixedOrCallableCast($this->callback);
     }
 }

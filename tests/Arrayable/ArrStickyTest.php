@@ -20,7 +20,7 @@ final class ArrStickyTest extends TestCase
     {
         $num = 2;
         $arr = new ArrSticky(
-            new class($num) implements Arrayable {
+            new class ($num) implements Arrayable {
                 use CountArrayable;
                 use HasArrayableIterator;
 
@@ -40,14 +40,14 @@ final class ArrStickyTest extends TestCase
                 /**
                  * @return array<int>
                  */
-                public function value(): array
+                public function asArray(): array
                 {
                     $this->num = $this->num + 2; // BIG calculations :)
                     return [$this->num];
                 }
             }
         );
-        $arr->value();
+        $arr->asArray();
         $this->assertScalarThat(
             $arr,
             new IsEqual([4]) // no recalculation

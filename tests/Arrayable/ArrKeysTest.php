@@ -9,8 +9,8 @@ use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrKeysTest extends TestCase
 {
-    const EXPECTED = [1, 2, 3, 4];
-    const GIVEN = [
+    public const EXPECTED = [1, 2, 3, 4];
+    public const GIVEN = [
         1 => "value1",
         2 => "value2",
         3 => "value3",

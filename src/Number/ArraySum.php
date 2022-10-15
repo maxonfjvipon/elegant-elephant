@@ -7,14 +7,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Number;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Sum of array elements.
  */
 final class ArraySum implements Number
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var array<float|int>|Arrayable<float|int> $container
@@ -35,8 +35,8 @@ final class ArraySum implements Number
      * @return float|int
      * @throws Exception
      */
-    public function value()
+    public function asNumber()
     {
-        return array_sum($this->scalarCast($this->container));
+        return array_sum($this->mixedCast($this->container));
     }
 }

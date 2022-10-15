@@ -6,7 +6,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Closure;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use ReflectionFunction;
 
 /**
@@ -14,7 +14,7 @@ use ReflectionFunction;
  */
 final class ArrMapped extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -30,7 +30,7 @@ final class ArrMapped extends ArrEnvelope
                     $count = (new ReflectionFunction(Closure::fromCallable($callback)))->getNumberOfParameters();
 
                     /** @var array<mixed> $array */
-                    $array = $this->scalarCast($arr);
+                    $array = $this->mixedCast($arr);
 
                     /** @var array<array<mixed>> $arguments */
                     $arguments = $count > 1 ? [array_keys($array), $array] : [$array];

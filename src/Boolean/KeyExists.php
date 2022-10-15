@@ -8,7 +8,7 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -16,7 +16,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class KeyExists implements Boolean
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var int|string|Number|Text $key
@@ -44,8 +44,8 @@ final class KeyExists implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
-        return array_key_exists($this->scalarCast($this->key), (array) $this->scalarCast($this->arr));
+        return array_key_exists($this->mixedCast($this->key), (array) $this->mixedCast($this->arr));
     }
 }

@@ -11,8 +11,8 @@ use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrMappedTest extends TestCase
 {
-    const GIVEN = [1, 2, 3, 4, 5];
-    const EXPECTED = [1, 4, 9, 16, 25];
+    public const GIVEN = [1, 2, 3, 4, 5];
+    public const EXPECTED = [1, 4, 9, 16, 25];
 
     /**
      * @test
@@ -23,7 +23,7 @@ final class ArrMappedTest extends TestCase
         $this->assertScalarThat(
             new ArrMapped(
                 self::GIVEN,
-                fn($value) => $value * $value
+                fn ($value) => $value * $value
             ),
             new IsEqual(self::EXPECTED)
         );
@@ -40,7 +40,7 @@ final class ArrMappedTest extends TestCase
             new ArrCast(
                 new ArrMapped(
                     self::GIVEN,
-                    fn($num) => new TextOf($num . "L"),
+                    fn ($num) => new TextOf($num . "L"),
                 )
             ),
             new IsEqual([

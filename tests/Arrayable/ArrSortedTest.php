@@ -10,8 +10,8 @@ use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrSortedTest extends TestCase
 {
-    const GIVEN = [2, 4, 1, 3];
-    const EXPECTED = [1, 2, 3, 4];
+    public const GIVEN = [2, 4, 1, 3];
+    public const EXPECTED = [1, 2, 3, 4];
 
     /**
      * @test

@@ -7,14 +7,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * In array.
  */
 final class InArray implements Boolean
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var array<mixed>|Arrayable<mixed> $arr
@@ -49,8 +49,8 @@ final class InArray implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
-        return in_array($this->needle, (array) $this->scalarCast($this->arr), $this->strict);
+        return in_array($this->needle, (array) $this->mixedCast($this->arr), $this->strict);
     }
 }

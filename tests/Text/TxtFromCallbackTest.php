@@ -44,6 +44,6 @@ final class TxtFromCallbackTest extends TestCase
     public function withError(): void
     {
         $this->expectError();
-        (new TxtFromCallback(fn () => ["Hello world"]))->value();
+        (new TxtFromCallback(fn () => ["Hello world"]))->asString();
     }
 }

@@ -18,6 +18,6 @@ trait HasArrayableIterator
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->value());
+        return new ArrayIterator($this->asArray());
     }
 }

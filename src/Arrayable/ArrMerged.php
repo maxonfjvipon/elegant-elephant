@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Merged array.
  */
 final class ArrMerged extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -23,7 +23,7 @@ final class ArrMerged extends ArrEnvelope
     {
         parent::__construct(
             new ArrFromCallback(
-                fn () => array_merge(...$this->scalarsCast(...$items))
+                fn () => array_merge(...$this->mixedArrCast(...$items))
             )
         );
     }

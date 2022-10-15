@@ -9,11 +9,11 @@ use Exception;
 /**
  * Boolean.
  */
-interface Boolean extends Scalar
+interface Boolean
 {
     /**
      * @return bool
      * @throws Exception
      */
-    public function value(): bool;
+    public function asBool(): bool;
 }

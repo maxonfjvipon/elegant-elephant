@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Array cast.
  */
 final class ArrCast extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -24,7 +24,7 @@ final class ArrCast extends ArrEnvelope
         parent::__construct(
             new ArrMapped(
                 $arr,
-                fn ($value) => $this->scalarCast($value)
+                fn ($value) => $this->mixedCast($value)
             )
         );
     }

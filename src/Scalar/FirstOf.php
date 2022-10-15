@@ -7,7 +7,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Scalar;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -15,7 +14,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class FirstOf implements Scalar
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var string|array<mixed>|Text|Arrayable<mixed> $container
@@ -38,6 +37,6 @@ final class FirstOf implements Scalar
      */
     public function value()
     {
-        return $this->scalarCast($this->container)[0];
+        return $this->mixedCast($this->container)[0];
     }
 }

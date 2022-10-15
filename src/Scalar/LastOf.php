@@ -12,7 +12,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class LastOf extends SclEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -25,11 +25,11 @@ final class LastOf extends SclEnvelope
             new SclTernary(
                 is_array($container) || $container instanceof Arrayable,
                 function () use ($container) {
-                    $arr = (array) $this->scalarCast($container);
+                    $arr = (array) $this->mixedCast($container);
 
                     return $arr[count($arr) - 1];
                 },
-                fn () => substr($this->scalarCast($container), -1)
+                fn () => substr($this->mixedCast($container), -1)
             )
         );
     }

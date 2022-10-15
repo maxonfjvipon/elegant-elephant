@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Max.
  */
 final class MaxOf implements Number
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var array<float|int|Number> $items
@@ -34,9 +34,9 @@ final class MaxOf implements Number
      * @return float|int
      * @throws Exception
      */
-    public function value()
+    public function asNumber()
     {
-        $max = max(...$this->scalarsCast(...$this->items));
+        $max = max(...$this->mixedArrCast(...$this->items));
 
         if (!is_numeric($max)) {
             throw new Exception("Max can work with numbers only!");

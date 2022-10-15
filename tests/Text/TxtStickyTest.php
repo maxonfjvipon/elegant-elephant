@@ -9,7 +9,6 @@ use Maxonfjvipon\Elegant_Elephant\Text\StringableText;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtSticky;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
 final class TxtStickyTest extends TestCase
 {
     /**
@@ -20,7 +19,7 @@ final class TxtStickyTest extends TestCase
     {
         $str = "hello";
         $cached = new TxtSticky(
-            new class($str) implements Text {
+            new class ($str) implements Text {
                 use StringableText;
 
                 /**
@@ -41,14 +40,14 @@ final class TxtStickyTest extends TestCase
                 /**
                  * @return string
                  */
-                public function value(): string
+                public function asString(): string
                 {
                     $this->text = $this->text . " world!";
                     return $this->text;
                 }
             }
         );
-        $cached->value();
+        $cached->asString();
 
         $this->assertScalarThat(
             $cached,

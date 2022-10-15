@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Array from callback
  */
 final class ArrFromCallback implements Arrayable
 {
-    use CastScalar;
+    use CastMixed;
     use CountArrayable;
     use HasArrayableIterator;
 
@@ -47,9 +47,9 @@ final class ArrFromCallback implements Arrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function value(): array
+    public function asArray(): array
     {
-        if (!is_array($res = $this->scalarOrCallableCast($this->callback))) {
+        if (!is_array($res = $this->mixedOrCallableCast($this->callback))) {
             throw new Exception("Callback must return an array or Arrayable!");
         }
 

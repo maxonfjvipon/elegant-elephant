@@ -16,6 +16,6 @@ trait CountArrayable
      */
     public function count(): int
     {
-        return count($this->value());
+        return count($this->asArray());
     }
 }

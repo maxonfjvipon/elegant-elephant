@@ -43,6 +43,6 @@ final class ArrFromCallbackTest extends TestCase
     public function withError(): void
     {
         $this->expectExceptionMessage("Callback must return an array or Arrayable!");
-        (new ArrFromCallback(fn () => "Hello world"))->value();
+        (new ArrFromCallback(fn () => "Hello world"))->asArray();
     }
 }

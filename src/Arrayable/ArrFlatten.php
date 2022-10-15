@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Flatten array.
  */
 final class ArrFlatten extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -25,7 +25,7 @@ final class ArrFlatten extends ArrEnvelope
     {
         parent::__construct(
             new ArrFromCallback(
-                fn () => $this->flat($this->scalarCast($arr), [], $deep)
+                fn () => $this->flat($this->mixedCast($arr), [], $deep)
             )
         );
     }
@@ -42,7 +42,7 @@ final class ArrFlatten extends ArrEnvelope
     {
         foreach ($arr as $item) {
             if ($neededDeep !== $currentDeep && (is_array($item) || $item instanceof Arrayable)) {
-                $new = $this->flat($this->scalarCast($item), $new, $neededDeep, $currentDeep + 1);
+                $new = $this->flat($this->mixedCast($item), $new, $neededDeep, $currentDeep + 1);
             } else {
                 $new[] = $item;
             }

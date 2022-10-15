@@ -44,7 +44,7 @@ final class ArrayableOf implements Arrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function value(): array
+    public function asArray(): array
     {
         if ($this->origin instanceof Scalar) {
             if (!is_array($res = $this->origin->value())) {

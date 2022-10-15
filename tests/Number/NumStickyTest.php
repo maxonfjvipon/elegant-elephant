@@ -35,14 +35,14 @@ final class NumStickyTest extends TestCase
                 /**
                  * @return int
                  */
-                public function value(): int
+                public function asNumber(): int
                 {
                     $this->num += 2;
                     return $this->num;
                 }
             }
         );
-        $cached->value();
+        $cached->asNumber();
 
         $this->assertScalarThat(
             $cached,

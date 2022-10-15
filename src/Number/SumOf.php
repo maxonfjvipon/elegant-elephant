@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Sum of items.
  */
 final class SumOf extends NumEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -24,7 +24,7 @@ final class SumOf extends NumEnvelope
     public function __construct(...$items)
     {
         parent::__construct(
-            new ArraySum($this->scalarsCast(...$items))
+            new ArraySum($this->mixedArrCast(...$items))
         );
     }
 }

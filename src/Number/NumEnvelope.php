@@ -29,8 +29,8 @@ class NumEnvelope implements Number
      * @return float|int
      * @throws Exception
      */
-    public function value()
+    public function asNumber()
     {
-        return $this->origin->value();
+        return $this->origin->asNumber();
     }
 }

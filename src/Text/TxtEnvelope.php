@@ -33,8 +33,8 @@ class TxtEnvelope implements Text
      * @return string
      * @throws Exception
      */
-    public function value(): string
+    public function asString(): string
     {
-        return $this->origin->value();
+        return $this->origin->asString();
     }
 }

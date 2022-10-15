@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Not.
  */
 final class Not implements Boolean
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var bool|Boolean $origin
@@ -34,8 +34,8 @@ final class Not implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
-        return !(bool) $this->scalarCast($this->origin);
+        return !(bool) $this->mixedCast($this->origin);
     }
 }

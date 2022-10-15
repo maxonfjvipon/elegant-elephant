@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -13,7 +13,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtImploded extends TxtEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @param string|Text ...$pieces
@@ -45,8 +45,8 @@ final class TxtImploded extends TxtEnvelope
         parent::__construct(
             new TxtFromCallback(
                 fn () => implode(
-                    (string) $this->scalarCast($separator),
-                    $this->scalarsCast(...$pieces)
+                    (string) $this->mixedCast($separator),
+                    $this->mixedArrCast(...$pieces)
                 )
             )
         );

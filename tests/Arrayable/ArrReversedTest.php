@@ -9,7 +9,6 @@ use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-
 /**
  * Array reversed test
  */

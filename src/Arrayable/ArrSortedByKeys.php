@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Array sorted by keys.
  */
 final class ArrSortedByKeys extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -26,7 +26,7 @@ final class ArrSortedByKeys extends ArrEnvelope
         parent::__construct(
             new ArrFromCallback(
                 function () use ($arr, $compare) {
-                    $arr = (array) $this->scalarCast($arr);
+                    $arr = (array) $this->mixedCast($arr);
 
                     if (!!$compare && !is_callable($compare)) {
                         throw new Exception("Compare must be callable!");

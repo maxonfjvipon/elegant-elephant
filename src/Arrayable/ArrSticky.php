@@ -11,7 +11,6 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
  */
 final class ArrSticky extends ArrEnvelope
 {
-
     /**
      * @var array<array> $cache
      */
@@ -26,7 +25,7 @@ final class ArrSticky extends ArrEnvelope
     {
         parent::__construct(
             new ArrFromCallback(
-                fn () => $this->cache[0] ??= $arr->value()
+                fn () => $this->cache[0] ??= $arr->asArray()
             )
         );
     }

@@ -4,7 +4,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -12,7 +12,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtPregReplaced extends TxtEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -26,9 +26,9 @@ final class TxtPregReplaced extends TxtEnvelope
         parent::__construct(
             new TxtFromCallback(
                 fn () => preg_replace(
-                    $this->scalarCast($pattern),
-                    $this->scalarCast($replacement),
-                    $this->scalarCast($subject)
+                    $this->mixedCast($pattern),
+                    $this->mixedCast($replacement),
+                    $this->mixedCast($subject)
                 )
             )
         );

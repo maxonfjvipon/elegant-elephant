@@ -10,11 +10,11 @@ use TypeError;
 /**
  * Number.
  */
-interface Number extends Scalar
+interface Number
 {
     /**
      * @return float|int
      * @throws Exception
      */
-    public function value();
+    public function asNumber();
 }

@@ -10,7 +10,6 @@ use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-
 use function PHPUnit\Framework\assertEquals;
 
 final class KeyExistsTest extends TestCase

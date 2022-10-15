@@ -34,8 +34,8 @@ class ArrEnvelope implements Arrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function value(): array
+    public function asArray(): array
     {
-        return $this->origin->value();
+        return $this->origin->asArray();
     }
 }

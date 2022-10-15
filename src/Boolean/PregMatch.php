@@ -6,7 +6,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 
@@ -15,7 +15,7 @@ use Maxonfjvipon\Elegant_Elephant\Text\CastText;
  */
 final class PregMatch implements Boolean
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var string|Text $pattern
@@ -43,8 +43,8 @@ final class PregMatch implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
-        return (bool) preg_match(...$this->scalarsCast($this->pattern, $this->subject));
+        return (bool) preg_match(...$this->mixedArrCast($this->pattern, $this->subject));
     }
 }

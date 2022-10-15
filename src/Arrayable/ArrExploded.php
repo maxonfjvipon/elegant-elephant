@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -13,7 +13,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class ArrExploded extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Exploded by comma.
@@ -38,9 +38,9 @@ final class ArrExploded extends ArrEnvelope
             new ArrFromCallback(
                 function () use ($separator, $text) {
                     /** @var non-empty-string $separator */
-                    $separator = (string) $this->scalarCast($separator);
+                    $separator = (string) $this->mixedCast($separator);
 
-                    $exploded = explode($separator, (string) $this->scalarCast($text));
+                    $exploded = explode($separator, (string) $this->mixedCast($text));
 
                     if (!is_array($exploded)) {
                         throw new Exception("Separator can't be an empty string or instance of TxtBlank class");

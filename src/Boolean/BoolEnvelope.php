@@ -31,8 +31,8 @@ class BoolEnvelope implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
-        return $this->origin->value();
+        return $this->origin->asBool();
     }
 }

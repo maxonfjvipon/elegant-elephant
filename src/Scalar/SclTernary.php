@@ -11,7 +11,7 @@ use Maxonfjvipon\Elegant_Elephant\Scalar;
  */
 final class SclTernary implements Scalar
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var bool|Boolean $condition
@@ -48,8 +48,8 @@ final class SclTernary implements Scalar
      */
     public function value()
     {
-        return $this->scalarCast($this->condition)
-            ? $this->scalarOrCallableCast($this->first)
-            : $this->scalarOrCallableCast($this->second);
+        return $this->mixedCast($this->condition)
+            ? $this->mixedOrCallableCast($this->first)
+            : $this->mixedOrCallableCast($this->second);
     }
 }

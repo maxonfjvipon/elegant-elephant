@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Array sorted.
  */
 final class ArrSorted extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -26,7 +26,7 @@ final class ArrSorted extends ArrEnvelope
         parent::__construct(
             new ArrFromCallback(
                 function () use ($arr, $compare) {
-                    $arr = (array) $this->scalarCast($arr);
+                    $arr = (array) $this->mixedCast($arr);
 
                     if ($compare != null) {
                         usort($arr, is_string($compare)

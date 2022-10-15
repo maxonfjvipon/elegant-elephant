@@ -47,8 +47,8 @@ final class NumSticky implements Number
      * @return float|int
      * @throws Exception
      */
-    public function value()
+    public function asNumber()
     {
-        return $this->cache[0] ??= $this->origin->value();
+        return $this->cache[0] ??= $this->origin->asNumber();
     }
 }

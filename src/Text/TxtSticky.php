@@ -26,7 +26,7 @@ final class TxtSticky extends TxtEnvelope
     {
         parent::__construct(
             new TxtFromCallback(
-                fn () => $this->cache[0] ??= $text->value()
+                fn () => $this->cache[0] ??= $text->asString()
             )
         );
     }

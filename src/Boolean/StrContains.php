@@ -6,7 +6,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -14,7 +14,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class StrContains implements Boolean
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var string|Text $haystack
@@ -42,8 +42,8 @@ final class StrContains implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
-        return strpos(...$this->scalarsCast($this->haystack, $this->needle)) !== false;
+        return strpos(...$this->mixedArrCast($this->haystack, $this->needle)) !== false;
     }
 }

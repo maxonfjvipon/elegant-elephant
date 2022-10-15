@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -13,7 +13,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtSubstr extends TxtEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -27,8 +27,8 @@ final class TxtSubstr extends TxtEnvelope
         parent::__construct(
             new TxtFromCallback(
                 fn () => !!$length
-                    ? substr((string) $this->scalarCast($text), $offset, $length)
-                    : substr((string) $this->scalarCast($text), $offset)
+                    ? substr((string) $this->mixedCast($text), $offset, $length)
+                    : substr((string) $this->mixedCast($text), $offset)
             )
         );
     }

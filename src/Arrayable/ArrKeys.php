@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Array keys.
  */
 final class ArrKeys extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -24,7 +24,7 @@ final class ArrKeys extends ArrEnvelope
     {
         parent::__construct(
             new ArrFromCallback(
-                fn () => array_keys((array) $this->scalarCast($arr))
+                fn () => array_keys((array) $this->mixedCast($arr))
             )
         );
     }

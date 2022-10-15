@@ -15,7 +15,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class AtKey implements Scalar
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var array<mixed>|Arrayable<mixed> $arr
@@ -45,6 +45,6 @@ final class AtKey implements Scalar
      */
     public function value()
     {
-        return $this->scalarCast($this->arr)[$this->scalarCast($this->key)];
+        return $this->mixedCast($this->arr)[$this->mixedCast($this->key)];
     }
 }

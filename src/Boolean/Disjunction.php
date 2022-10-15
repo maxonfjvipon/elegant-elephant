@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Boolean;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Logical OR.
  */
 final class Disjunction implements Boolean
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var array<bool|Boolean> $args
@@ -34,10 +34,10 @@ final class Disjunction implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
         foreach ($this->args as $arg) {
-            if ($this->scalarCast($arg)) {
+            if ($this->mixedCast($arg)) {
                 return true;
             }
         }

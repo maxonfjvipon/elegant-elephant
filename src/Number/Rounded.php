@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Number;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Rounded number.
  */
 final class Rounded implements Number
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var float|int|Number $origin
@@ -41,8 +41,8 @@ final class Rounded implements Number
      * @return float
      * @throws Exception
      */
-    public function value(): float
+    public function asNumber(): float
     {
-        return round($this->scalarCast($this->origin), $this->precision);
+        return round($this->mixedCast($this->origin), $this->precision);
     }
 }

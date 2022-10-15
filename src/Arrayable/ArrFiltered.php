@@ -6,14 +6,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Filtered array.
  */
 final class ArrFiltered extends ArrEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -25,7 +25,7 @@ final class ArrFiltered extends ArrEnvelope
     {
         parent::__construct(
             new ArrFromCallback(
-                fn () => array_filter((array) $this->scalarCast($arr), $callback, ARRAY_FILTER_USE_BOTH)
+                fn () => array_filter((array) $this->mixedCast($arr), $callback, ARRAY_FILTER_USE_BOTH)
             )
         );
     }

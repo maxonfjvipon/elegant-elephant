@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
@@ -13,7 +13,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtTrimmed extends TxtEnvelope
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * Ctor.
@@ -24,7 +24,7 @@ final class TxtTrimmed extends TxtEnvelope
     {
         parent::__construct(
             new TxtFromCallback(
-                fn () => trim((string) $this->scalarCast($text))
+                fn () => trim((string) $this->mixedCast($text))
             )
         );
     }

@@ -11,11 +11,11 @@ use IteratorAggregate;
 /**
  * Arrayable.
  */
-interface Arrayable extends Scalar, Countable, IteratorAggregate
+interface Arrayable extends Countable, IteratorAggregate
 {
     /**
      * @return array<mixed>
      * @throws Exception
      */
-    public function value(): array;
+    public function asArray(): array;
 }

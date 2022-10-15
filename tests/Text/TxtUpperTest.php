@@ -10,8 +10,8 @@ use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtUpperTest extends TestCase
 {
-    const GIVEN = "foo";
-    const UPPER = "FOO";
+    public const GIVEN = "foo";
+    public const UPPER = "FOO";
 
     /**
      * @test

@@ -33,7 +33,7 @@ final class BooleanOf implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function value(): bool
+    public function asBool(): bool
     {
         if ($this->origin instanceof Scalar) {
             if (!is_bool($res = $this->origin->value())) {

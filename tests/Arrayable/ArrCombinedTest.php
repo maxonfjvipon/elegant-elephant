@@ -49,6 +49,6 @@ final class ArrCombinedTest extends TestCase
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Array can't be the key of array");
-        (new ArrCombined([['key']], [['value']]))->value();
+        (new ArrCombined([['key']], [['value']]))->asArray();
     }
 }

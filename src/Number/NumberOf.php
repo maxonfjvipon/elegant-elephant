@@ -7,14 +7,14 @@ namespace Maxonfjvipon\Elegant_Elephant\Number;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
 use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastScalar;
+use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 
 /**
  * Numerable of.
  */
 final class NumberOf implements Number
 {
-    use CastScalar;
+    use CastMixed;
 
     /**
      * @var float|int|Scalar $origin
@@ -35,7 +35,7 @@ final class NumberOf implements Number
      * @return float|int
      * @throws Exception
      */
-    public function value()
+    public function asNumber()
     {
         if ($this->origin instanceof Scalar) {
             $res = $this->origin->value();
