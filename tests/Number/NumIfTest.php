@@ -18,7 +18,7 @@ final class NumIfTest extends TestCase
      */
     public function numIfTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumIf(true, 10),
             new IsEqual(10)
         );
@@ -30,7 +30,7 @@ final class NumIfTest extends TestCase
      */
     public function numIfFalseWithNumerable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumIf(false, new NumberOf(10)),
             new IsEqual(0)
         );
@@ -42,7 +42,7 @@ final class NumIfTest extends TestCase
      */
     public function numIfWithLogicalAndCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumIf(
                 new BooleanOf(true),
                 fn () => new SumOf(10, 20)

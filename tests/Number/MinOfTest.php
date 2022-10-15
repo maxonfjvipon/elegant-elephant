@@ -17,7 +17,7 @@ final class MinOfTest extends TestCase
      */
     public function minOfPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new MinOf(2, 4, 10, -1),
             new IsEqual(-1)
         );
@@ -29,7 +29,7 @@ final class MinOfTest extends TestCase
      */
     public function minOfNumerablesAndPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new MinOf(
                 new SumOf(10, 10),
                 15,

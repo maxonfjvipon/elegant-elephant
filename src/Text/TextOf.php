@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
@@ -18,14 +19,14 @@ final class TextOf implements Text
     use StringableText;
 
     /**
-     * @var string|Scalar $origin
+     * @var string|float|int|Number|Scalar $origin
      */
     private $origin;
 
     /**
      * Ctor.
      *
-     * @param string|Scalar $text
+     * @param string|float|int|Number|Scalar $text
      */
     public function __construct($text)
     {
@@ -38,14 +39,12 @@ final class TextOf implements Text
      */
     public function asString(): string
     {
-        if ($this->origin instanceof Scalar) {
-            if (!is_string($res = $this->origin->value())) {
-                throw new Exception("Scalar object must be wrapper of string");
-            }
+        $res = $this->mixedCast($this->origin);
 
-            return $res;
+        if (!is_string($res) && !is_numeric($res)) {
+            throw new Exception("Encapsulated object must be wrapper of numeric or string");
         }
 
-        return (string) $this->origin;
+        return (string) $res;
     }
 }

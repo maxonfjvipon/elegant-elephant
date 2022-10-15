@@ -18,7 +18,7 @@ final class NumTernaryTest extends TestCase
      */
     public function numTernaryWithPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumTernary(true, 10, 12),
             new IsEqual(10)
         );
@@ -30,7 +30,7 @@ final class NumTernaryTest extends TestCase
      */
     public function numTernaryWithLogicalAndNumerables(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumTernary(new BooleanOf(false), new NumberOf(10), new SumOf(5, 2)),
             new IsEqual(7)
         );
@@ -42,7 +42,7 @@ final class NumTernaryTest extends TestCase
      */
     public function numTernaryWithCallbacks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumTernary(
                 new BooleanOf(true),
                 fn () => new SumOf(10, 5),

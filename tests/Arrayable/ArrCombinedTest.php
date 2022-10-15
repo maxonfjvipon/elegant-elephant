@@ -19,7 +19,7 @@ final class ArrCombinedTest extends TestCase
      */
     public function combinedWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrCombined([
                 new TextOf("key1"),
                 'key2',

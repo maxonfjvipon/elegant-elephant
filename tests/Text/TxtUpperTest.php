@@ -19,7 +19,7 @@ final class TxtUpperTest extends TestCase
      */
     public function upperOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtUpper(self::GIVEN),
             new IsEqual(self::UPPER)
         );
@@ -31,7 +31,7 @@ final class TxtUpperTest extends TestCase
      */
     public function upperOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtUpper(new TextOf(self::GIVEN)),
             new IsEqual(self::UPPER)
         );

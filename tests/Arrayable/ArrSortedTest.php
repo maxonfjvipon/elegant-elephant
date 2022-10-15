@@ -19,7 +19,7 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSorted(self::GIVEN),
             new IsEqual(self::EXPECTED)
         );
@@ -31,7 +31,7 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedOfArrayableWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSorted(new ArrayableOf(self::GIVEN)),
             new IsEqual(self::EXPECTED)
         );
@@ -43,7 +43,7 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWithCompareAsCallbackWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSorted(self::GIVEN, fn ($a, $b) => $a >= $b ? -1 : 1),
             new IsEqual(array_reverse(self::EXPECTED))
         );
@@ -55,7 +55,7 @@ final class ArrSortedTest extends TestCase
      */
     public function sortedWithCompareAsStringWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSorted([
                 ['a' => 3],
                 ['a' => 1],

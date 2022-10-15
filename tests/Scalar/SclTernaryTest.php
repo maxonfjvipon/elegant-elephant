@@ -21,7 +21,7 @@ final class SclTernaryTest extends TestCase
      */
     public function sclTernaryWithPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new SclTernary(true, "foo", "bar"),
             new IsEqual("foo")
         );
@@ -33,7 +33,7 @@ final class SclTernaryTest extends TestCase
      */
     public function sclTernaryWithLogicalAndScalars(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new SclTernary(new BooleanOf(false), new TextOf("foo"), new TxtUpper(new TextOf("bar"))),
             new IsEqual("BAR")
         );
@@ -45,7 +45,7 @@ final class SclTernaryTest extends TestCase
      */
     public function sclTernaryWithCallbacks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new SclTernary(
                 new BooleanOf(true),
                 fn () => new TextOf("hey there!"),

@@ -15,7 +15,7 @@ final class NumberOfTest extends TestCase
      */
     public function numerableOfInt(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumberOf(4),
             new IsEqual(4)
         );
@@ -27,7 +27,7 @@ final class NumberOfTest extends TestCase
      */
     public function numerableOfFloat(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new NumberOf(12.1),
             new IsEqual(12.1)
         );

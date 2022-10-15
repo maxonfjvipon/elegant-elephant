@@ -16,7 +16,7 @@ final class TxtLtrimmedTest extends TestCase
      */
     public function ltrimmedOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtLtrimmed("  Hello   "),
             new IsEqual("Hello   ")
         );
@@ -28,7 +28,7 @@ final class TxtLtrimmedTest extends TestCase
      */
     public function ltrimmedOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtLtrimmed(new TextOf("\rFoo\r")),
             new IsEqual("Foo\r")
         );

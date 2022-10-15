@@ -16,7 +16,7 @@ final class ArrFlattenTest extends TestCase
      */
     public function flattenWithArrays(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrFlatten([1, [2, 3], 4, [5]]),
             new IsEqual([1, 2, 3, 4, 5])
         );
@@ -29,7 +29,7 @@ final class ArrFlattenTest extends TestCase
      */
     public function flattenWithDeep(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrFlatten(
                 new ArrayableOf(
                     [1, new ArrayableOf([2, 3]), [[4]], [new ArrayableOf([5, 6])]]

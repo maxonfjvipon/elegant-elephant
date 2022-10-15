@@ -17,7 +17,7 @@ final class TxtFromCallbackTest extends TestCase
      */
     public function stringFromCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtFromCallback(fn () => "Hey there!"),
             new IsEqual("Hey there!")
         );
@@ -30,7 +30,7 @@ final class TxtFromCallbackTest extends TestCase
      */
     public function textFromCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtFromCallback(fn () => new TxtUpper(new TextOf("hello there"))),
             new IsEqual("HELLO THERE")
         );

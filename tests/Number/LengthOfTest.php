@@ -18,7 +18,7 @@ final class LengthOfTest extends TestCase
      */
     public function lengthOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LengthOf("foo"),
             new IsEqual(3)
         );
@@ -30,7 +30,7 @@ final class LengthOfTest extends TestCase
      */
     public function lengthOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LengthOf(new TxtUpper(new TextOf("foo-bar"))),
             new IsEqual(7)
         );
@@ -42,7 +42,7 @@ final class LengthOfTest extends TestCase
      */
     public function lengthOfArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LengthOf([1, 2, 3, 4]),
             new IsEqual(4)
         );
@@ -54,7 +54,7 @@ final class LengthOfTest extends TestCase
      */
     public function lengthOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LengthOf(ArrayableOf::items(1, 2, 3, 4, 5)),
             new IsEqual(5)
         );

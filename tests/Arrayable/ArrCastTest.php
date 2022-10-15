@@ -21,7 +21,7 @@ final class ArrCastTest extends TestCase
      */
     public function arrCastWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrCast([
                 42, // int
                 12.5, // float

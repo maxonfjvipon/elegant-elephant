@@ -18,7 +18,7 @@ final class FirstOfTest extends TestCase
      */
     public function firstOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new FirstOf("Hello world"),
             new IsEqual("H"),
         );
@@ -31,7 +31,7 @@ final class FirstOfTest extends TestCase
      */
     public function firstOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new FirstOf(new TextOf("Hello world")),
             new IsEqual("H"),
         );
@@ -44,7 +44,7 @@ final class FirstOfTest extends TestCase
      */
     public function firstOfArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new FirstOf([42, 33.2, "Hello world!"]),
             new IsEqual(42),
         );
@@ -57,7 +57,7 @@ final class FirstOfTest extends TestCase
      */
     public function firstOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new FirstOf(new ArrayableOf([33, 12, "Hello there!"])),
             new IsEqual(33),
         );

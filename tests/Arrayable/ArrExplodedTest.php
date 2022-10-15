@@ -22,7 +22,7 @@ final class ArrExplodedTest extends TestCase
      */
     public function explodedWithStrings(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrExploded(self::SEPARATOR, self::STRING),
             new IsEqual(self::EXPLODED)
         );
@@ -34,7 +34,7 @@ final class ArrExplodedTest extends TestCase
      */
     public function explodedWithTexts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrExploded(new TextOf(self::SEPARATOR), new TextOf(self::STRING)),
             new IsEqual(self::EXPLODED)
         );
@@ -46,7 +46,7 @@ final class ArrExplodedTest extends TestCase
      */
     public function explodedByComma(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             ArrExploded::byComma(self::STRING_WITH_COMMA),
             new IsEqual(self::EXPLODED_BY_COMMA)
         );

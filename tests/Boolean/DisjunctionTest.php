@@ -17,7 +17,7 @@ final class DisjunctionTest extends TestCase
      */
     public function disjunctionIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Disjunction(
                 new BooleanOf(true),
                 true,
@@ -34,7 +34,7 @@ final class DisjunctionTest extends TestCase
      */
     public function disjunctionIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Disjunction(
                 false,
                 new BooleanOf(false),

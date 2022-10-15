@@ -17,7 +17,7 @@ final class TxtJoinedTest extends TestCase
      */
     public function joinedOfStrings(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJoined("foo", "-", "bar"),
             new IsEqual("foo-bar")
         );
@@ -29,7 +29,7 @@ final class TxtJoinedTest extends TestCase
      */
     public function joinedOfTexts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJoined(new TextOf("foo"), "-", new TxtUpper(new TextOf("bar"))),
             new IsEqual("foo-BAR")
         );

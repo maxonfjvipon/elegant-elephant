@@ -29,7 +29,7 @@ final class ArrFilteredTest extends TestCase
      */
     public function filteredWithGivenCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrFiltered(self::GIVEN, \Closure::fromCallable([$this, 'filter'])),
             new IsEqual(self::EXPECTED)
         );
@@ -42,7 +42,7 @@ final class ArrFilteredTest extends TestCase
      */
     public function countOfFiltered(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrFiltered(self::GIVEN, fn ($num) => $num > 4),
             new Count(4)
         );

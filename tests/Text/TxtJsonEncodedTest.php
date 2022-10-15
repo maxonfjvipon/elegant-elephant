@@ -21,7 +21,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded("hello world"),
             new IsEqual('"hello world"')
         );
@@ -33,7 +33,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(new TextOf("hello world")),
             new IsEqual('"hello world"')
         );
@@ -45,7 +45,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfNumber(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(5),
             new IsEqual('5')
         );
@@ -57,7 +57,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfNumerable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(new NumberOf(10.2)),
             new IsEqual('10.2')
         );
@@ -69,7 +69,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded([['x' => 1, 'y' => 2], ['x' => 3, 'y' => 4]]),
             new IsEqual('[{"x":1,"y":2},{"x":3,"y":4}]')
         );
@@ -81,7 +81,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(
                 new ArrMerged(
                     new ArrObject(
@@ -102,7 +102,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfBool(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(true),
             new IsEqual('true')
         );
@@ -114,7 +114,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfLogical(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(new BooleanOf(false)),
             new IsEqual('false')
         );
@@ -126,7 +126,7 @@ final class TxtJsonEncodedTest extends TestCase
      */
     public function encodedOfAny(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtJsonEncoded(new FirstOf([1, 2, 3])),
             new IsEqual('1')
         );

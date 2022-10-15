@@ -19,7 +19,7 @@ final class ArrTernaryTest extends TestCase
      */
     public function arrTernaryWithPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrTernary(true, [1, 2], [3, 4]),
             new IsEqual([1, 2])
         );
@@ -31,7 +31,7 @@ final class ArrTernaryTest extends TestCase
      */
     public function arrTernaryWithLogicalAndArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrTernary(new BooleanOf(false), new ArrayableOf([1, 2]), new ArrObject('key', 'value')),
             new IsEqual(['key' => 'value'])
         );
@@ -43,7 +43,7 @@ final class ArrTernaryTest extends TestCase
      */
     public function arrTernaryWithCallbacks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrTernary(
                 new BooleanOf(true),
                 fn () => new ArrayableOf([1, 2]),

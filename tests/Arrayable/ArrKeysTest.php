@@ -23,7 +23,7 @@ final class ArrKeysTest extends TestCase
      */
     public function arrValuesWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrKeys(self::GIVEN),
             new IsEqual(self::EXPECTED)
         );

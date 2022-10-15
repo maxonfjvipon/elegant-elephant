@@ -15,9 +15,22 @@ final class TextOfTest extends TestCase
      */
     public function textOfStringTest(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TextOf("foo"),
             new IsEqual("foo")
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function textOfNumTest(): void
+    {
+        $this->assertMixedCastThat(
+            new TextOf(5),
+            new IsEqual("5")
         );
     }
 }

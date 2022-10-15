@@ -18,7 +18,7 @@ final class TxtLoweredTest extends TestCase
      */
     public function loweredOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtLowered("Hello world!"),
             new IsEqual("hello world!")
         );
@@ -31,7 +31,7 @@ final class TxtLoweredTest extends TestCase
      */
     public function loweredOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtLowered(new TxtUpper(new TextOf("Hello world!"))),
             new IsEqual("hello world!")
         );

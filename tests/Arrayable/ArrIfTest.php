@@ -18,7 +18,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrIf(true, [1, 2, 3]),
             new Count(3)
         );
@@ -31,7 +31,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrIf(false, [1, 2, 3]),
             new Count(0)
         );
@@ -44,7 +44,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfTrueWithCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrIf(true, fn () => new ArrayableOf([1, 2, 3])),
             new Count(3)
         );
@@ -57,7 +57,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfWithLogical(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrIf(new BooleanOf(false), fn () => new ArrayableOf([1, 2, 3])),
             new Count(0)
         );
@@ -70,7 +70,7 @@ final class ArrIfTest extends TestCase
      */
     public function arrayIfWithArrayIf(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrIf(
                 true,
                 new ArrIf(

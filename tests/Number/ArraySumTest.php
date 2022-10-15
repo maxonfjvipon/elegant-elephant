@@ -16,7 +16,7 @@ final class ArraySumTest extends TestCase
      */
     public function arraySumOfArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArraySum([1, 2, 3, 4]),
             new IsEqual(10)
         );
@@ -28,7 +28,7 @@ final class ArraySumTest extends TestCase
      */
     public function arraySumOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArraySum(ArrayableOf::items(2, 3, 4)),
             new IsEqual(9)
         );

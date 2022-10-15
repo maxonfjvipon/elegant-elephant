@@ -17,7 +17,7 @@ final class ConjunctionTest extends TestCase
      */
     public function conjunctionIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Conjunction(new BooleanOf(true), true),
             new IsTrue()
         );
@@ -29,7 +29,7 @@ final class ConjunctionTest extends TestCase
      */
     public function conjunctionIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Conjunction(new BooleanOf(false), false),
             new IsFalse()
         );

@@ -17,7 +17,7 @@ final class AtKeyTest extends TestCase
      */
     public function atKeyOfArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new AtKey(
                 'key1',
                 [
@@ -37,7 +37,7 @@ final class AtKeyTest extends TestCase
      */
     public function atKeyOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new AtKey(
                 'key3',
                 new ArrayableOf([

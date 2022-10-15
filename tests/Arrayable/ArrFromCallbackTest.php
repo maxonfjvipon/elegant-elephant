@@ -16,7 +16,7 @@ final class ArrFromCallbackTest extends TestCase
      */
     public function arrayFromCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrFromCallback(fn () => [1, 2, 3]),
             new Count(3)
         );
@@ -29,7 +29,7 @@ final class ArrFromCallbackTest extends TestCase
      */
     public function arrayableFromCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrFromCallback(fn () => new ArrayableOf([1, 2, 3, 4])),
             new Count(4)
         );

@@ -16,7 +16,7 @@ final class RoundedTest extends TestCase
      */
     public function roundedOfFloatWithPrecision(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Rounded(10.4567, 2),
             new IsEqual(10.46)
         );
@@ -28,7 +28,7 @@ final class RoundedTest extends TestCase
      */
     public function roundedOfNumerableWithoutPrecision(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Rounded(new SumOf(10, 0.55)),
             new IsEqual(11)
         );

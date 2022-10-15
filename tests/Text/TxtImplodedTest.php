@@ -18,7 +18,7 @@ final class TxtImplodedTest extends TestCase
      */
     public function implodedOfStrings(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtImploded("-", "foo", "bar"),
             new IsEqual("foo-bar")
         );
@@ -30,7 +30,7 @@ final class TxtImplodedTest extends TestCase
      */
     public function implodedOfTexts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtImploded(new TextOf("/"), new TxtUpper("foo"), "bar"),
             new IsEqual("FOO/bar")
         );
@@ -42,7 +42,7 @@ final class TxtImplodedTest extends TestCase
      */
     public function implodedWithComma(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             TxtImploded::withComma(new TxtUpper("foo"), "bar"),
             new IsEqual("FOO,bar")
         );

@@ -22,7 +22,7 @@ final class ArrSplitTest extends TestCase
      */
     public function splitWithStrings(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSplit(self::SEPARATOR, self::STRING),
             new IsEqual(self::EXPLODED)
         );
@@ -34,7 +34,7 @@ final class ArrSplitTest extends TestCase
      */
     public function splitWithTexts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSplit(new TextOf(self::SEPARATOR), new TextOf(self::STRING)),
             new IsEqual(self::EXPLODED)
         );
@@ -46,7 +46,7 @@ final class ArrSplitTest extends TestCase
      */
     public function splitByComma(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             ArrSplit::byComma(self::STRING_WITH_COMMA),
             new IsEqual(self::EXPLODED_BY_COMMA)
         );

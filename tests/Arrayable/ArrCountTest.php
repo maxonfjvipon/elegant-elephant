@@ -17,7 +17,7 @@ final class ArrCountTest extends TestCase
      */
     public function countOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrayableOf([1, 2, 3, 4]),
             new Count(4)
         );
@@ -30,7 +30,7 @@ final class ArrCountTest extends TestCase
      */
     public function countOfArrMerged(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMerged(
                 new ArrayableOf([1, 2, 3]),
                 [4, 5]

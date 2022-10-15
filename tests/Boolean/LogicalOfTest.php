@@ -18,7 +18,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      */
     public function logicalOfTrueIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new BooleanOf(true),
             new IsTrue()
         );
@@ -30,7 +30,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      */
     public function logicalOfFalseIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new BooleanOf(false),
             new IsFalse()
         );
@@ -42,7 +42,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      */
     public function logicalOfAnyIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new BooleanOf(new FirstOf([true, false])),
             new IsTrue()
         );
@@ -54,7 +54,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      */
     public function logicalOfAnyIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new BooleanOf(new LastOf([true, false])),
             new IsFalse()
         );

@@ -17,7 +17,7 @@ final class MaxOfTest extends TestCase
      */
     public function maxOfPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new MaxOf(2, 4, 10, -1),
             new IsEqual(10)
         );
@@ -29,7 +29,7 @@ final class MaxOfTest extends TestCase
      */
     public function maxOfNumerablesAndPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new MaxOf(
                 new SumOf(10, 10),
                 15,

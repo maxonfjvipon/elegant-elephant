@@ -21,7 +21,7 @@ final class ArrObjectTest extends TestCase
      */
     public function asSingleArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrObject('key', 'value'),
             new IsEqual(['key' => 'value'])
         );
@@ -34,7 +34,7 @@ final class ArrObjectTest extends TestCase
      */
     public function castWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMerged(
                 new ArrObject('key1', [1, 2]),
                 new ArrObject('key2', "str"),

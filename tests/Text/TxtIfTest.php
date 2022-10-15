@@ -18,7 +18,7 @@ final class TxtIfTest extends TestCase
      */
     public function textIfTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtIf(true, "hello"),
             new IsEqual("hello")
         );
@@ -30,7 +30,7 @@ final class TxtIfTest extends TestCase
      */
     public function textIfFalseWithNumerable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtIf(false, "hello"),
             new IsEmpty()
         );
@@ -42,7 +42,7 @@ final class TxtIfTest extends TestCase
      */
     public function textIfWithLogicalAndCallback(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtIf(
                 new BooleanOf(true),
                 fn () => new TextOf("hello")

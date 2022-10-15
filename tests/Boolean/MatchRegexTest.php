@@ -17,7 +17,7 @@ final class MatchRegexTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      */
     public function simpleRegex(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new PregMatch("/Hello world/", "Hello world"),
             new IsTrue()
         );
@@ -29,7 +29,7 @@ final class MatchRegexTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
      */
     public function moreComplexRegexWithText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new PregMatch("/^Hello$/", new TextOf("Hello world")),
             new IsFalse()
         );

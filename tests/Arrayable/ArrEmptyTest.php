@@ -16,7 +16,7 @@ final class ArrEmptyTest extends TestCase
      */
     public function emptyWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrEmpty(),
             new IsEmpty()
         );

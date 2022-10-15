@@ -20,7 +20,7 @@ final class ArrMappedTest extends TestCase
      */
     public function mapped(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMapped(
                 self::GIVEN,
                 fn ($value) => $value * $value
@@ -36,7 +36,7 @@ final class ArrMappedTest extends TestCase
      */
     public function mappedCast(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrCast(
                 new ArrMapped(
                     self::GIVEN,
@@ -59,7 +59,7 @@ final class ArrMappedTest extends TestCase
      */
     public function mappedKeyValue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMapped(
                 self::GIVEN,
                 fn ($key, $value) => $key * $value

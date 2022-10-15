@@ -18,7 +18,7 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfArrays(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMerged([1, 2], ['foo', 'bar']),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
@@ -30,7 +30,7 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfArrayables(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMerged(new ArrayableOf([1, 2]), ['foo', 'bar']),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
@@ -43,7 +43,7 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfSelfAndEmpties(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMerged($self = [1, 2, 3], new ArrEmpty(), []),
             new IsEqual($self)
         );
@@ -55,7 +55,7 @@ final class ArrMergedTest extends TestCase
      */
     public function mergedOfTwoMapped(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrMerged(
                 ...new ArrMapped(
                     [1, 2],

@@ -20,7 +20,7 @@ final class KeyExistsTest extends TestCase
      */
     public function keyExistsInArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new KeyExists("foo", ['foo' => 1, 'bar']),
             new IsTrue()
         );
@@ -32,7 +32,7 @@ final class KeyExistsTest extends TestCase
      */
     public function textKeyExistsInArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new KeyExists(new TextOf("foo"), new ArrayableOf(['foo' => 1, 'bar'])),
             new IsTrue()
         );

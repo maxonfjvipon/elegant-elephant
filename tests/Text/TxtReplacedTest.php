@@ -17,7 +17,7 @@ final class TxtReplacedTest extends TestCase
      */
     public function replacedStringToString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtReplaced("foo", "bar", "foobar"),
             new IsEqual("barbar")
         );
@@ -29,7 +29,7 @@ final class TxtReplacedTest extends TestCase
      */
     public function replacedWithTexts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtReplaced(new TextOf("FOO"), new TextOf("bar"), new TxtUpper(new TextOf("foo-bar"))),
             new IsEqual("bar-BAR")
         );

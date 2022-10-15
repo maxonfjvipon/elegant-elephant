@@ -44,7 +44,7 @@ final class NumStickyTest extends TestCase
         );
         $cached->asNumber();
 
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             $cached,
             new IsEqual(4)
         );

@@ -22,7 +22,7 @@ final class ArrValuesTest extends TestCase
             "key3" => 3,
             "key4" => 4
         ];
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrValues($arr),
             new IsEqual($expected)
         );

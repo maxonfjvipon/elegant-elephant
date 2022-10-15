@@ -21,7 +21,7 @@ final class EqualityOfTest extends TestCase
      */
     public function equalityOfInts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new EqualityOf(10, 10),
             new IsTrue()
         );
@@ -33,7 +33,7 @@ final class EqualityOfTest extends TestCase
      */
     public function equalityOfIntAndNumerable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new EqualityOf(42, new SumOf(40, 2)),
             new IsTrue()
         );
@@ -45,7 +45,7 @@ final class EqualityOfTest extends TestCase
      */
     public function equalityOfStringAndText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new EqualityOf("hey", new TxtLowered("Hey")),
             new IsTrue()
         );
@@ -57,7 +57,7 @@ final class EqualityOfTest extends TestCase
      */
     public function equalityOfArrayAndArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new EqualityOf(new ArrValues(new ArrReversed(new ArrayableOf([3, 2, 1]))), [1, 2, 3]),
             new IsTrue()
         );
@@ -69,7 +69,7 @@ final class EqualityOfTest extends TestCase
      */
     public function equalityOfAnyAndText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new EqualityOf(new FirstOf(['foo', 'bar']), new TxtLowered("FOO")),
             new IsTrue()
         );

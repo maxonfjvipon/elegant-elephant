@@ -48,7 +48,7 @@ final class ArrStickyTest extends TestCase
             }
         );
         $arr->asArray();
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             $arr,
             new IsEqual([4]) // no recalculation
         );

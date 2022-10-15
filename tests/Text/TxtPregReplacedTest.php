@@ -15,7 +15,7 @@ final class TxtPregReplacedTest extends TestCase
      */
     public function pregReplacedWithSingleValues(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtPregReplaced("/{[a-z_]+}/", "[0-9]+", '/projects/{project}/update'),
             new IsEqual('/projects/[0-9]+/update')
         );
@@ -27,7 +27,7 @@ final class TxtPregReplacedTest extends TestCase
      */
     public function pregReplacedWithArrays(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtPregReplaced(["/{[a-z_]+}/", "/\//"], ["[0-9]+", "\/"], '/projects/{project}/update'),
             new IsEqual('\/projects\/[0-9]+\/update')
         );

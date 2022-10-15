@@ -23,7 +23,7 @@ class TestCase extends BaseTestCase
      * @return void
      * @throws Exception
      */
-    protected function assertScalarThat($mixed, Constraint $constraint, string $message = ''): void
+    protected function assertMixedCastThat($mixed, Constraint $constraint, string $message = ''): void
     {
         $this->assertThat(
             $this->mixedCast($mixed),

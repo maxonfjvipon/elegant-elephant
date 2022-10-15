@@ -18,7 +18,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LastOf("Hello world"),
             new IsEqual("d"),
         );
@@ -31,7 +31,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LastOf(new TextOf("Hello world!")),
             new IsEqual("!"),
         );
@@ -44,7 +44,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfArray(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LastOf([42, 33.2, "Hello world!"]),
             new IsEqual("Hello world!"),
         );
@@ -57,7 +57,7 @@ final class LastOfTest extends TestCase
      */
     public function lastOfArrayable(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new LastOf(new ArrayableOf([33, 12, "Hello there!"])),
             new IsEqual("Hello there!"),
         );

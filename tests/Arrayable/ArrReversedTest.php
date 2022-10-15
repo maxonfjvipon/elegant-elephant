@@ -20,7 +20,7 @@ final class ArrReversedTest extends TestCase
      */
     public function reversedWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrValues(
                 new ArrReversed([1, 2, 3, 4, 5])
             ),
@@ -34,7 +34,7 @@ final class ArrReversedTest extends TestCase
      */
     public function reversedAndBack(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrValues(
                 new ArrReversed(
                     new ArrReversed([1, 2, 3, 4, 5])

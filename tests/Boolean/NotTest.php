@@ -18,7 +18,7 @@ final class NotTest extends TestCase
      */
     public function truth(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new BooleanOf(true),
             new IsTrue()
         );
@@ -31,7 +31,7 @@ final class NotTest extends TestCase
      */
     public function untruth(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new BooleanOf(false),
             new IsFalse()
         );
@@ -43,7 +43,7 @@ final class NotTest extends TestCase
      */
     public function notTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Not(true),
             new IsFalse()
         );
@@ -55,7 +55,7 @@ final class NotTest extends TestCase
      */
     public function notFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Not(false),
             new IsTrue()
         );
@@ -67,7 +67,7 @@ final class NotTest extends TestCase
      */
     public function notTrueObj(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new Not(new BooleanOf(true)),
             new IsFalse()
         );

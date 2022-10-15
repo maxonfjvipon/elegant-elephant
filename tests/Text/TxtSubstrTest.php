@@ -16,7 +16,7 @@ final class TxtSubstrTest extends TestCase
      */
     public function substringOfString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtSubstr("Hello world", 6),
             new IsEqual("world")
         );
@@ -28,7 +28,7 @@ final class TxtSubstrTest extends TestCase
      */
     public function substringOfTextWithLength(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtSubstr(new TextOf("Hello world"), 6, 2),
             new IsEqual("wo")
         );

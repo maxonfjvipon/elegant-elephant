@@ -16,7 +16,7 @@ final class ArrUniqueTest extends TestCase
      */
     public function uniqueWorks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrValues(new ArrUnique([1, 1, 2, 3, 4, 5, 5])),
             new IsEqual([1, 2, 3, 4, 5])
         );

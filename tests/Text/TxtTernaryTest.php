@@ -19,7 +19,7 @@ final class TxtTernaryTest extends TestCase
      */
     public function textTernaryWithPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtTernary(true, "foo", "bar"),
             new IsEqual("foo")
         );
@@ -31,7 +31,7 @@ final class TxtTernaryTest extends TestCase
      */
     public function textTernaryWithLogicalAndTexts(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtTernary(new BooleanOf(false), new TextOf("foo"), new TxtUpper(new TextOf("bar"))),
             new IsEqual("BAR")
         );
@@ -43,7 +43,7 @@ final class TxtTernaryTest extends TestCase
      */
     public function textTernaryWithCallbacks(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtTernary(
                 new BooleanOf(true),
                 fn () => new TextOf("hey there!"),

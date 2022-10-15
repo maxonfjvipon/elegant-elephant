@@ -49,7 +49,7 @@ final class TxtStickyTest extends TestCase
         );
         $cached->asString();
 
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             $cached,
             new IsEqual("hello world!")
         );

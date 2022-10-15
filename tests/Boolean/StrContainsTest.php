@@ -17,7 +17,7 @@ final class StrContainsTest extends TestCase
      */
     public function containsInString(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new StrContains("hello world", 'hello'),
             new IsTrue()
         );
@@ -29,7 +29,7 @@ final class StrContainsTest extends TestCase
      */
     public function containsTextInText(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new StrContains(new TextOf("foo-bar"), new TextOf("!!!")),
             new IsFalse()
         );

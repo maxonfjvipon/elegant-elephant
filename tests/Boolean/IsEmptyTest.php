@@ -20,7 +20,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfArrayIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty([]),
             new IsTrue()
         );
@@ -32,7 +32,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfArrayIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty([1, 2, 3]),
             new IsFalse()
         );
@@ -44,7 +44,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfArrayableIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty(new ArrEmpty()),
             new IsTrue()
         );
@@ -56,7 +56,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfArrayableIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty(new ArrayableOf([1, 2, 3])),
             new IsFalse()
         );
@@ -68,7 +68,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfStringIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty(""),
             new IsTrue()
         );
@@ -80,7 +80,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfStringIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty("Hello world!"),
             new IsFalse()
         );
@@ -92,7 +92,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfTextIsTrue(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty(new TxtBlank()),
             new IsTrue()
         );
@@ -104,7 +104,7 @@ final class IsEmptyTest extends TestCase
      */
     public function isEmptyOfTextIsFalse(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new IsEmpty(new TxtUpper("foo")),
             new IsFalse()
         );

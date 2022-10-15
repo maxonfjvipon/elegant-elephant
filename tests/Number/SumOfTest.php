@@ -17,7 +17,7 @@ final class SumOfTest extends TestCase
      */
     public function sumOfPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new SumOf(1, 2, 3, 4),
             new IsEqual(10)
         );
@@ -29,7 +29,7 @@ final class SumOfTest extends TestCase
      */
     public function sumOfNumerablesAndPrimitives(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new SumOf(1, new NumberOf(2), new LengthOf([1, 3, 4]), 4),
             new IsEqual(10)
         );

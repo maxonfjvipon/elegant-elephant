@@ -15,7 +15,7 @@ final class TxtBlankTest extends TestCase
      */
     public function textBlankIsEmpty(): void
     {
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new TxtBlank(),
             new IsEmpty()
         );

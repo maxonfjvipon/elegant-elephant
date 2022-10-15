@@ -27,7 +27,7 @@ final class ArrSortedByKeysTest extends TestCase
             3 => "friend",
             2 => "dear"
         ];
-        $this->assertScalarThat(
+        $this->assertMixedCastThat(
             new ArrSortedByKeys($arr),
             new IsEqual($expected)
         );
