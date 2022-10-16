@@ -23,24 +23,20 @@ final class ArrFromCallback implements Arrayable
     private $callback;
 
     /**
-     * Ctor wrap.
-     *
-     * @param callable $callback
-     * @return self
+     * @var array<mixed> $args
      */
-    public static function new(callable $callback): self
-    {
-        return new self($callback);
-    }
+    private array $args;
 
     /**
      * Ctor.
      *
      * @param callable $callback
+     * @param mixed ...$args
      */
-    public function __construct(callable $callback)
+    public function __construct(callable $callback, ...$args)
     {
         $this->callback = $callback;
+        $this->args = $args;
     }
 
     /**
@@ -49,7 +45,7 @@ final class ArrFromCallback implements Arrayable
      */
     public function asArray(): array
     {
-        if (!is_array($res = $this->mixedOrCallableCast($this->callback))) {
+        if (!is_array($res = $this->mixedOrCallableCast($this->callback, ...$this->args))) {
             throw new Exception("Callback must return an array or Arrayable!");
         }
 

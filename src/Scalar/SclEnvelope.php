@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Scalar;
 /**
  * Scalar envelope.
  */
-class SclEnvelope implements Scalar
+abstract class SclEnvelope implements Scalar
 {
     /**
      * @var Scalar $origin

@@ -48,13 +48,14 @@ trait CastMixed
 
     /**
      * @param mixed $mixed
+     * @param mixed ...$args
      * @return mixed
      * @throws Exception
      */
-    private function mixedOrCallableCast($mixed)
+    private function mixedOrCallableCast($mixed, ...$args)
     {
         if (is_callable($mixed)) {
-            return $this->mixedOrCallableCast(call_user_func($mixed));
+            return $this->mixedOrCallableCast(call_user_func($mixed, ...$args));
         }
 
         return $this->mixedCast($mixed);

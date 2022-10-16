@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Arrayable envelope.
  */
-class ArrEnvelope implements Arrayable
+abstract class ArrEnvelope implements Arrayable
 {
     use HasArrayableIterator;
     use CountArrayable;

@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Boolean;
 /**
  * Boolean envelope.
  */
-class BoolEnvelope implements Boolean
+abstract class BoolEnvelope implements Boolean
 {
     /**
      * @var \Maxonfjvipon\Elegant_Elephant\Boolean $origin

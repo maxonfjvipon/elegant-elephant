@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Number;
 /**
  * Number envelope.
  */
-class NumEnvelope implements Number
+abstract class NumEnvelope implements Number
 {
     /**
      * @var Number $origin

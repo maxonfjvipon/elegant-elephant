@@ -22,12 +22,12 @@ final class ArrayableOf implements Arrayable
     private $origin;
 
     /**
-     * @param mixed ...$array
+     * @param mixed ...$items
      * @return self
      */
-    public static function items(...$array): self
+    public static function items(...$items): self
     {
-        return new self($array);
+        return new self($items);
     }
 
     /**

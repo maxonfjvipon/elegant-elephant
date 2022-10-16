@@ -10,7 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 /**
  * Text envelope.
  */
-class TxtEnvelope implements Text
+abstract class TxtEnvelope implements Text
 {
     use StringableText;
 

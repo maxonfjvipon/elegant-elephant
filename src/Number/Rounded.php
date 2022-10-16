@@ -43,6 +43,9 @@ final class Rounded implements Number
      */
     public function asNumber(): float
     {
-        return round($this->mixedCast($this->origin), $this->precision);
+        /** @var float|int $num */
+        $num = $this->mixedCast($this->origin);
+
+        return round($num, $this->precision);
     }
 }
