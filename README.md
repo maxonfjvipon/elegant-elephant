@@ -12,9 +12,9 @@ ElegantElephant - trying to write php code in elegant way. Inspired by [Cactoos]
  | No getters and setters     | :heavy_check_mark: |
  | No mutable objects | :heavy_check_mark:         |
  | No static methods, not even private ones | :heavy_minus_sign:         |
- | No instanceof, type casting, or reflection | :heavy_check_mark:         |
+ | No instanceof, type casting, or reflection | :heavy_minus_sign:         |
  | No public methods without a contract | :heavy_check_mark:         |
- | No statements in test methods except assertThat | :heavy_minus_sign:  |
+ | No statements in test methods except assertThat | :heavy_check_mark:  |
 
 ## Static methods
 Every class has at least one `public static` method (mostly it's `new` method). Motivation: getting rid of extra brackets `(` and `)` around the `new Class` if we want to call method just after object creating. 
