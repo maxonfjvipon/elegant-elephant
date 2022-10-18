@@ -27,7 +27,7 @@ final class ArrSplit extends ArrEnvelope
      * @param non-empty-string|Text $separator
      * @param string|Text $text
      */
-    public function __construct($separator, $text)
+    final public function __construct($separator, $text)
     {
         parent::__construct(
             new ArrExploded($separator, $text)

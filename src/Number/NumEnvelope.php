@@ -29,7 +29,7 @@ abstract class NumEnvelope implements Number
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    final public function asNumber()
     {
         return $this->origin->asNumber();
     }

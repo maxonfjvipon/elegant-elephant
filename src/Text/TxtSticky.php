@@ -22,7 +22,7 @@ final class TxtSticky extends TxtEnvelope
      *
      * @param Text $text
      */
-    public function __construct(Text $text)
+    final public function __construct(Text $text)
     {
         parent::__construct(
             new TxtFromCallback(

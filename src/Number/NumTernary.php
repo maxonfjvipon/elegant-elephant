@@ -20,7 +20,7 @@ final class NumTernary extends NumEnvelope
      * @param float|int|callable|Number $first
      * @param float|int|callable|Number $second
      */
-    public function __construct($condition, $first, $second)
+    final public function __construct($condition, $first, $second)
     {
         parent::__construct(
             new NumberOf(

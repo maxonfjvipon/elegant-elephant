@@ -38,7 +38,7 @@ final class NumSticky implements Number
      *
      * @param Number $num
      */
-    public function __construct(Number $num)
+    final public function __construct(Number $num)
     {
         $this->origin = $num;
     }
@@ -47,7 +47,7 @@ final class NumSticky implements Number
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    final public function asNumber()
     {
         return $this->cache[0] ??= $this->origin->asNumber();
     }

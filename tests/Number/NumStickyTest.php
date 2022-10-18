@@ -27,7 +27,7 @@ final class NumStickyTest extends TestCase
                  *
                  * @param int $num
                  */
-                public function __construct(int $num)
+                final public function __construct(int $num)
                 {
                     $this->num = $num;
                 }

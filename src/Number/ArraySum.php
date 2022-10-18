@@ -26,7 +26,7 @@ final class ArraySum implements Number
      *
      * @param array<int|float>|Arrayable<float|int> $arr
      */
-    public function __construct($arr)
+    final public function __construct($arr)
     {
         $this->container = $arr;
     }
@@ -35,7 +35,7 @@ final class ArraySum implements Number
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    final public function asNumber()
     {
         return array_sum($this->mixedCast($this->container));
     }

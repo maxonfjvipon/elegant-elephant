@@ -20,7 +20,7 @@ final class TxtTernary extends TxtEnvelope
      * @param string|callable|Text $first
      * @param string|callable|Text $second
      */
-    public function __construct($condition, $first, $second)
+    final public function __construct($condition, $first, $second)
     {
         parent::__construct(
             new TextOf(

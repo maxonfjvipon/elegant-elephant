@@ -20,7 +20,7 @@ final class LengthOf extends NumEnvelope
      *
      * @param string|array<mixed>|Text|Arrayable<mixed> $arg
      */
-    public function __construct($arg)
+    final public function __construct($arg)
     {
         parent::__construct(
             new NumTernary(

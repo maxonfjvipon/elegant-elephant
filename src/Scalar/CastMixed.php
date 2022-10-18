@@ -21,7 +21,7 @@ trait CastMixed
      * @return mixed
      * @throws Exception
      */
-    private function mixedCast($mixed)
+    final private function mixedCast($mixed)
     {
         if ($mixed instanceof Scalar) {
             return $mixed->value();
@@ -52,7 +52,7 @@ trait CastMixed
      * @return mixed
      * @throws Exception
      */
-    private function mixedOrCallableCast($mixed, ...$args)
+    final private function mixedOrCallableCast($mixed, ...$args)
     {
         if (is_callable($mixed)) {
             return $this->mixedOrCallableCast(call_user_func($mixed, ...$args));
@@ -67,7 +67,7 @@ trait CastMixed
      * @return array<mixed>
      * @throws Exception
      */
-    private function mixedArrCast(...$mixedArr): array
+    final private function mixedArrCast(...$mixedArr): array
     {
         return array_map(
             fn ($mixed) => $this->mixedCast($mixed),

@@ -25,7 +25,7 @@ final class Not implements Boolean
      *
      * @param bool|Boolean $origin
      */
-    public function __construct($origin)
+    final public function __construct($origin)
     {
         $this->origin = $origin;
     }
@@ -34,7 +34,7 @@ final class Not implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return !(bool) $this->mixedCast($this->origin);
     }

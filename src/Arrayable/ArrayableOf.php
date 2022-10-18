@@ -25,7 +25,7 @@ final class ArrayableOf implements Arrayable
      * @param mixed ...$items
      * @return self
      */
-    public static function items(...$items): self
+    final public static function items(...$items): self
     {
         return new self($items);
     }
@@ -35,7 +35,7 @@ final class ArrayableOf implements Arrayable
      *
      * @param array<mixed>|Scalar $arr
      */
-    public function __construct($arr)
+    final public function __construct($arr)
     {
         $this->origin = $arr;
     }
@@ -44,7 +44,7 @@ final class ArrayableOf implements Arrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function asArray(): array
+    final public function asArray(): array
     {
         if ($this->origin instanceof Scalar) {
             if (!is_array($res = $this->origin->value())) {

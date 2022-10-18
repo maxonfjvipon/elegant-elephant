@@ -32,7 +32,7 @@ final class PregMatch implements Boolean
      * @param string|Text $pattern
      * @param string|Text $subject
      */
-    public function __construct($pattern, $subject)
+    final public function __construct($pattern, $subject)
     {
         $this->pattern = $pattern;
         $this->subject = $subject;
@@ -42,7 +42,7 @@ final class PregMatch implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return (bool) preg_match(...$this->mixedArrCast($this->pattern, $this->subject));
     }

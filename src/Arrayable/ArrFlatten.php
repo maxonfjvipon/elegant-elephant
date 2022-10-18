@@ -21,7 +21,7 @@ final class ArrFlatten extends ArrEnvelope
      * @param array<mixed>|Arrayable<mixed> $arr
      * @param int $deep
      */
-    public function __construct($arr, int $deep = 1)
+    final public function __construct($arr, int $deep = 1)
     {
         parent::__construct(
             new ArrFromCallback(

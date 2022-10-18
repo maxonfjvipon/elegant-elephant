@@ -31,7 +31,7 @@ final class Rounded implements Number
      * @param float|int|Number $num
      * @param int $precision
      */
-    public function __construct($num, int $precision = 0)
+    final public function __construct($num, int $precision = 0)
     {
         $this->origin = $num;
         $this->precision = $precision;

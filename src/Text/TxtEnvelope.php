@@ -33,7 +33,7 @@ abstract class TxtEnvelope implements Text
      * @return string
      * @throws Exception
      */
-    public function asString(): string
+    final public function asString(): string
     {
         return $this->origin->asString();
     }

@@ -9,7 +9,7 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
  */
 final class TxtBlank extends TxtEnvelope
 {
-    public function __construct()
+    final public function __construct()
     {
         parent::__construct(new TextOf(""));
     }

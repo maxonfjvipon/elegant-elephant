@@ -21,7 +21,7 @@ final class ArrSticky extends ArrEnvelope
      *
      * @param Arrayable<mixed> $arr
      */
-    public function __construct(Arrayable $arr)
+    final public function __construct(Arrayable $arr)
     {
         parent::__construct(
             new ArrFromCallback(

@@ -20,7 +20,7 @@ final class ArrTernary extends ArrEnvelope
      * @param array<mixed>|callable|Arrayable<mixed> $first
      * @param array<mixed>|callable|Arrayable<mixed> $second
      */
-    public function __construct($condition, $first, $second)
+    final public function __construct($condition, $first, $second)
     {
         parent::__construct(
             new ArrayableOf(

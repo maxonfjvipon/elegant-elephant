@@ -20,7 +20,7 @@ final class ArrValues extends ArrEnvelope
      *
      * @param array<mixed>|Arrayable<mixed> $arr
      */
-    public function __construct($arr)
+    final public function __construct($arr)
     {
         parent::__construct(
             new ArrFromCallback(

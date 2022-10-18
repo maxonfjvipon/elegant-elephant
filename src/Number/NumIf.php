@@ -18,7 +18,7 @@ final class NumIf extends NumEnvelope
      * @param bool|Boolean $condition
      * @param float|int|callable|Number $num
      */
-    public function __construct($condition, $num)
+    final public function __construct($condition, $num)
     {
         parent::__construct(
             new NumTernary(

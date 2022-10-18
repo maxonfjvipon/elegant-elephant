@@ -28,7 +28,7 @@ final class TextOf implements Text
      *
      * @param string|float|int|Number|Scalar $text
      */
-    public function __construct($text)
+    final public function __construct($text)
     {
         $this->origin = $text;
     }
@@ -37,7 +37,7 @@ final class TextOf implements Text
      * @return string
      * @throws Exception
      */
-    public function asString(): string
+    final public function asString(): string
     {
         $res = $this->mixedCast($this->origin);
 

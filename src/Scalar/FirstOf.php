@@ -26,7 +26,7 @@ final class FirstOf implements Scalar
      *
      * @param string|array<mixed>|Text|Arrayable<mixed> $container
      */
-    public function __construct($container)
+    final public function __construct($container)
     {
         $this->container = $container;
     }
@@ -35,7 +35,7 @@ final class FirstOf implements Scalar
      * @return mixed
      * @throws Exception
      */
-    public function value()
+    final public function value()
     {
         return $this->mixedCast($this->container)[0];
     }

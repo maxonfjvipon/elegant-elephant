@@ -25,7 +25,7 @@ final class MinOf implements Number
      *
      * @param float|int|Number ...$items
      */
-    public function __construct(...$items)
+    final public function __construct(...$items)
     {
         $this->items = $items;
     }
@@ -34,7 +34,7 @@ final class MinOf implements Number
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    final public function asNumber()
     {
         $min = min(...$this->mixedArrCast(...$this->items));
 

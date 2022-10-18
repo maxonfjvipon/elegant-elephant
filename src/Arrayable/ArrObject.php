@@ -21,7 +21,7 @@ final class ArrObject extends ArrEnvelope
      * @param string|int|float|Text|Number $key
      * @param mixed $object
      */
-    public function __construct($key, $object)
+    final public function __construct($key, $object)
     {
         parent::__construct(
             new ArrFromCallback(

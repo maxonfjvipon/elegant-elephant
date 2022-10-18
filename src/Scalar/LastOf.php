@@ -19,7 +19,7 @@ final class LastOf extends SclEnvelope
      *
      * @param string|array<mixed>|Text|Arrayable<mixed> $container
      */
-    public function __construct($container)
+    final public function __construct($container)
     {
         parent::__construct(
             new SclTernary(

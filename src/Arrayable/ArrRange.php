@@ -22,7 +22,7 @@ final class ArrRange extends ArrEnvelope
      * @param int|float|Number $to
      * @param int|float|Number $step
      */
-    public function __construct($from, $to, $step = 1)
+    final public function __construct($from, $to, $step = 1)
     {
         parent::__construct(
             new ArrFromCallback(

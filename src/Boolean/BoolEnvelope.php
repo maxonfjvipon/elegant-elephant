@@ -31,7 +31,7 @@ abstract class BoolEnvelope implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return $this->origin->asBool();
     }

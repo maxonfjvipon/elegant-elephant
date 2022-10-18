@@ -34,7 +34,7 @@ final class KeyExists implements Boolean
      * @param int|string|Number|Text $key
      * @param array<mixed>|Arrayable<mixed> $arr
      */
-    public function __construct($key, $arr)
+    final public function __construct($key, $arr)
     {
         $this->key = $key;
         $this->arr = $arr;
@@ -44,7 +44,7 @@ final class KeyExists implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return array_key_exists($this->mixedCast($this->key), (array) $this->mixedCast($this->arr));
     }

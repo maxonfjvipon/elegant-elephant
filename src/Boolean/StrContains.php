@@ -32,7 +32,7 @@ final class StrContains implements Boolean
      * @param string|Text $haystack
      * @param string|Text $needle
      */
-    public function __construct($haystack, $needle)
+    final public function __construct($haystack, $needle)
     {
         $this->haystack = $haystack;
         $this->needle = $needle;
@@ -42,7 +42,7 @@ final class StrContains implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return strpos(...$this->mixedArrCast($this->haystack, $this->needle)) !== false;
     }

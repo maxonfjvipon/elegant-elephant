@@ -31,7 +31,7 @@ final class EqualityOf implements Boolean
      * @param mixed $arg1
      * @param mixed $arg2
      */
-    public function __construct($arg1, $arg2)
+    final public function __construct($arg1, $arg2)
     {
         $this->first = $arg1;
         $this->second = $arg2;
@@ -42,7 +42,7 @@ final class EqualityOf implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return $this->mixedCast($this->first) === $this->mixedCast($this->second);
     }

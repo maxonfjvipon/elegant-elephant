@@ -24,7 +24,7 @@ final class BooleanOf implements Boolean
      *
      * @param bool|Scalar $bool
      */
-    public function __construct($bool)
+    final public function __construct($bool)
     {
         $this->origin = $bool;
     }
@@ -33,7 +33,7 @@ final class BooleanOf implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         if ($this->origin instanceof Scalar) {
             if (!is_bool($res = $this->origin->value())) {

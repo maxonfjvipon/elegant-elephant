@@ -22,7 +22,7 @@ final class TxtReplaced extends TxtEnvelope
      * @param string|Text $replace
      * @param string|Text $subject
      */
-    public function __construct($search, $replace, $subject)
+    final public function __construct($search, $replace, $subject)
     {
         parent::__construct(
             new TxtFromCallback(

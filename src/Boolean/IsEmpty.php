@@ -18,7 +18,7 @@ final class IsEmpty extends BoolEnvelope
      *
      * @param string|array<mixed>|Arrayable<mixed>|Text $value
      */
-    public function __construct($value)
+    final public function __construct($value)
     {
         parent::__construct(
             new EqualityOf(

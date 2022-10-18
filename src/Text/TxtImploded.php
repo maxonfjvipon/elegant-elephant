@@ -40,7 +40,7 @@ final class TxtImploded extends TxtEnvelope
      * @param string|Text $separator
      * @param string|Text ...$pieces
      */
-    public function __construct($separator, ...$pieces)
+    final public function __construct($separator, ...$pieces)
     {
         parent::__construct(
             new TxtFromCallback(

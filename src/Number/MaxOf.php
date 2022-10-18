@@ -25,7 +25,7 @@ final class MaxOf implements Number
      *
      * @param float|int|Number ...$items
      */
-    public function __construct(...$items)
+    final public function __construct(...$items)
     {
         $this->items = $items;
     }
@@ -34,7 +34,7 @@ final class MaxOf implements Number
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    final public function asNumber()
     {
         $max = max(...$this->mixedArrCast(...$this->items));
 

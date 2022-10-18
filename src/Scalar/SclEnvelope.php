@@ -31,7 +31,7 @@ abstract class SclEnvelope implements Scalar
      * @return mixed
      * @throws Exception
      */
-    public function value()
+    final public function value()
     {
         return $this->origin->value();
     }

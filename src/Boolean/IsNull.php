@@ -14,7 +14,7 @@ final class IsNull extends BoolEnvelope
      *
      * @param bool|Boolean $origin
      */
-    public function __construct($origin)
+    final public function __construct($origin)
     {
         parent::__construct(
             new BooleanOf($origin == null)

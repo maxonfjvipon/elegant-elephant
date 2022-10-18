@@ -32,7 +32,7 @@ final class ArrCombined extends ArrEnvelope
      * @param array<mixed>|Arrayable<mixed> $keys
      * @param array<mixed>|Arrayable<mixed> $values
      */
-    public function __construct($keys, $values)
+    final public function __construct($keys, $values)
     {
         parent::__construct(
             new ArrFromCallback(

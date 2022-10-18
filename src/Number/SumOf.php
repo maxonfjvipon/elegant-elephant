@@ -21,7 +21,7 @@ final class SumOf extends NumEnvelope
      * @param float|int|Number ...$items
      * @throws Exception
      */
-    public function __construct(...$items)
+    final public function __construct(...$items)
     {
         parent::__construct(
             new ArraySum($this->mixedArrCast(...$items))

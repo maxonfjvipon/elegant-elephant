@@ -18,7 +18,7 @@ final class ArrIf extends ArrEnvelope
      * @param bool|Boolean $condition
      * @param array<mixed>|callable|Arrayable<mixed> $arr
      */
-    public function __construct($condition, $arr)
+    final public function __construct($condition, $arr)
     {
         parent::__construct(
             new ArrTernary(

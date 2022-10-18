@@ -33,7 +33,7 @@ final class ArrFromCallback implements Arrayable
      * @param callable $callback
      * @param mixed ...$args
      */
-    public function __construct(callable $callback, ...$args)
+    final public function __construct(callable $callback, ...$args)
     {
         $this->callback = $callback;
         $this->args = $args;
@@ -43,7 +43,7 @@ final class ArrFromCallback implements Arrayable
      * @return array<mixed>
      * @throws Exception
      */
-    public function asArray(): array
+    final public function asArray(): array
     {
         if (!is_array($res = $this->mixedOrCallableCast($this->callback, ...$this->args))) {
             throw new Exception("Callback must return an array or Arrayable!");

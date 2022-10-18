@@ -14,7 +14,7 @@ trait CountArrayable
      * @return int
      * @throws Exception
      */
-    public function count(): int
+    final public function count(): int
     {
         return count($this->asArray());
     }

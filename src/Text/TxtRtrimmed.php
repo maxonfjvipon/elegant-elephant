@@ -20,7 +20,7 @@ final class TxtRtrimmed extends TxtEnvelope
      *
      * @param string|Text $text
      */
-    public function __construct($text)
+    final public function __construct($text)
     {
         parent::__construct(
             new TxtFromCallback(

@@ -33,7 +33,7 @@ final class AtKey implements Scalar
      * @param array<mixed>|Arrayable<mixed> $arr
      * @param string|int|float|Number|Text $key
      */
-    public function __construct($key, $arr)
+    final public function __construct($key, $arr)
     {
         $this->key = $key;
         $this->arr = $arr;
@@ -43,7 +43,7 @@ final class AtKey implements Scalar
      * @return mixed
      * @throws Exception
      */
-    public function value()
+    final public function value()
     {
         return $this->mixedCast($this->arr)[$this->mixedCast($this->key)];
     }

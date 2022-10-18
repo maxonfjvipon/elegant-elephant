@@ -22,7 +22,7 @@ final class ArrMapped extends ArrEnvelope
      * @param array<mixed>|Arrayable<mixed> $arr
      * @param callable $callback
      */
-    public function __construct($arr, callable $callback)
+    final public function __construct($arr, callable $callback)
     {
         parent::__construct(
             new ArrFromCallback(

@@ -16,7 +16,7 @@ trait HasArrayableIterator
      * @return Traversable<mixed>
      * @throws Exception
      */
-    public function getIterator(): Traversable
+    final public function getIterator(): Traversable
     {
         return new ArrayIterator($this->asArray());
     }

@@ -19,7 +19,7 @@ final class ArrMerged extends ArrEnvelope
      *
      * @param array<mixed>|Arrayable<mixed> ...$items
      */
-    public function __construct(...$items)
+    final public function __construct(...$items)
     {
         parent::__construct(
             new ArrFromCallback(

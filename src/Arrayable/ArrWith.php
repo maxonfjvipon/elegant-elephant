@@ -19,7 +19,7 @@ final class ArrWith extends ArrEnvelope
      * @param mixed $keyOrValue
      * @param mixed|null $value
      */
-    public function __construct($arr, $keyOrValue, $value = null)
+    final public function __construct($arr, $keyOrValue, $value = null)
     {
         parent::__construct(
             new ArrMerged(

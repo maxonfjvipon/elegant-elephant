@@ -21,7 +21,7 @@ final class TxtPregReplaced extends TxtEnvelope
      * @param string|array<string>|Text|Arrayable<mixed> $replacement
      * @param string|array<string>|Text|Arrayable<mixed> $subject
      */
-    public function __construct($pattern, $replacement, $subject)
+    final public function __construct($pattern, $replacement, $subject)
     {
         parent::__construct(
             new TxtFromCallback(

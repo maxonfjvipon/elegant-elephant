@@ -21,7 +21,7 @@ final class ArrSortedByKeys extends ArrEnvelope
      * @param array<mixed>|Arrayable<mixed> $arr
      * @param callable|string|null $compare
      */
-    public function __construct($arr, $compare = null)
+    final public function __construct($arr, $compare = null)
     {
         parent::__construct(
             new ArrFromCallback(

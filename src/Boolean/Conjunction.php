@@ -25,7 +25,7 @@ final class Conjunction implements Boolean
      *
      * @param bool|Boolean ...$args
      */
-    public function __construct(...$args)
+    final public function __construct(...$args)
     {
         $this->args = $args;
     }
@@ -34,7 +34,7 @@ final class Conjunction implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         $res = true;
 

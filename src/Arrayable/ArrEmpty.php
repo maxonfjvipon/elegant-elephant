@@ -12,7 +12,7 @@ final class ArrEmpty extends ArrEnvelope
     /**
      * Ctor.
      */
-    public function __construct()
+    final public function __construct()
     {
         parent::__construct(
             new ArrayableOf([])

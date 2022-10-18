@@ -22,7 +22,7 @@ final class TxtSubstr extends TxtEnvelope
      * @param int $offset
      * @param int|null $length
      */
-    public function __construct($text, int $offset, ?int $length = null)
+    final public function __construct($text, int $offset, ?int $length = null)
     {
         parent::__construct(
             new TxtFromCallback(

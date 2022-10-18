@@ -35,7 +35,7 @@ final class SclTernary implements Scalar
      * @param mixed $first
      * @param mixed $second
      */
-    public function __construct($condition, $first, $second)
+    final public function __construct($condition, $first, $second)
     {
         $this->condition = $condition;
         $this->first = $first;
@@ -46,7 +46,7 @@ final class SclTernary implements Scalar
      * @return mixed
      * @throws Exception
      */
-    public function value()
+    final public function value()
     {
         return $this->mixedCast($this->condition)
             ? $this->mixedOrCallableCast($this->first)

@@ -26,7 +26,7 @@ final class TxtFromCallback implements Text
      *
      * @param callable $callback
      */
-    public function __construct(callable $callback)
+    final public function __construct(callable $callback)
     {
         $this->callback = $callback;
     }
@@ -35,7 +35,7 @@ final class TxtFromCallback implements Text
      * @return string
      * @throws Exception
      */
-    public function asString(): string
+    final public function asString(): string
     {
         return (string) $this->mixedOrCallableCast($this->callback);
     }

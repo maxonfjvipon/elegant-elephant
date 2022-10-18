@@ -18,7 +18,7 @@ final class TxtIf extends TxtEnvelope
      * @param bool|Boolean $condition
      * @param string|callable|Text $text
      */
-    public function __construct($condition, $text)
+    final public function __construct($condition, $text)
     {
         parent::__construct(
             new TxtTernary(

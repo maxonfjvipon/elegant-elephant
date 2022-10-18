@@ -26,7 +26,7 @@ final class NumberOf implements Number
      *
      * @param float|int|Scalar $num
      */
-    public function __construct($num)
+    final public function __construct($num)
     {
         $this->origin = $num;
     }
@@ -35,7 +35,7 @@ final class NumberOf implements Number
      * @return float|int
      * @throws Exception
      */
-    public function asNumber()
+    final public function asNumber()
     {
         if ($this->origin instanceof Scalar) {
             $res = $this->origin->value();

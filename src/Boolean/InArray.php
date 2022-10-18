@@ -38,7 +38,7 @@ final class InArray implements Boolean
      * @param mixed $needle
      * @param bool $strict
      */
-    public function __construct($arr, $needle, bool $strict = false)
+    final public function __construct($arr, $needle, bool $strict = false)
     {
         $this->arr = $arr;
         $this->needle = $needle;
@@ -49,7 +49,7 @@ final class InArray implements Boolean
      * @return bool
      * @throws Exception
      */
-    public function asBool(): bool
+    final public function asBool(): bool
     {
         return in_array($this->needle, (array) $this->mixedCast($this->arr), $this->strict);
     }

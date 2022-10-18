@@ -25,7 +25,7 @@ final class TxtJoined extends TxtEnvelope
      *
      * @param string|Text ...$args
      */
-    public function __construct(...$args)
+    final public function __construct(...$args)
     {
         parent::__construct(
             new TxtImploded(

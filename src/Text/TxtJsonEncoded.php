@@ -21,7 +21,7 @@ final class TxtJsonEncoded extends TxtEnvelope
      *
      * @param string|int|float|array<mixed>|bool|Text|Number|Arrayable<mixed>|Boolean|Scalar $value
      */
-    public function __construct($value)
+    final public function __construct($value)
     {
         parent::__construct(
             new TxtFromCallback(
