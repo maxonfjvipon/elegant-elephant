@@ -8,7 +8,6 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Boolean;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\CastText;
 
 /**
  * Matches regex.

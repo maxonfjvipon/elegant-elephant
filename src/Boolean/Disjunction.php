@@ -36,12 +36,15 @@ final class Disjunction implements Boolean
      */
     public function asBool(): bool
     {
+        $res = false;
+
         foreach ($this->args as $arg) {
             if ($this->mixedCast($arg)) {
-                return true;
+                $res = true;
+                break;
             }
         }
 
-        return false;
+        return $res;
     }
 }

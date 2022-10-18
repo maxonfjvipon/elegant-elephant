@@ -36,13 +36,16 @@ final class Conjunction implements Boolean
      */
     public function asBool(): bool
     {
+        $res = true;
+
         /** @var bool|Boolean $arg */
         foreach ($this->args as $arg) {
             if (!(bool) $this->mixedCast($arg)) {
-                return false;
+                $res = false;
+                break;
             }
         }
 
-        return true;
+        return $res;
     }
 }
