@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
