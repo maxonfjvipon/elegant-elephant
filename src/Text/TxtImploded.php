@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\Elegant_Elephant\Text;
 
-use Exception;
+use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 use Maxonfjvipon\Elegant_Elephant\Text;
 
@@ -16,37 +16,29 @@ final class TxtImploded extends TxtEnvelope
     use CastMixed;
 
     /**
-     * @param string|Text ...$pieces
+     * Ctor wrap with comma.
+     *
+     * @param array<string|Text>|Arrayable $items
      * @return self
      */
-    public static function withComma(...$pieces): self
+    public static function withComma($items): self
     {
-        return new self(",", ...$pieces);
-    }
-
-    /**
-     * @param string|Text $separator
-     * @param array<string|Text> $array
-     * @return self
-     */
-    public static function ofArray($separator, array $array): self
-    {
-        return new self($separator, ...$array);
+        return new self(",", $items);
     }
 
     /**
      * Ctor.
      *
      * @param string|Text $separator
-     * @param string|Text ...$pieces
+     * @param array<string|Text>|Arrayable $items
      */
-    final public function __construct($separator, ...$pieces)
+    final public function __construct($separator, $items)
     {
         parent::__construct(
             new TxtFromCallback(
                 fn () => implode(
                     (string) $this->mixedCast($separator),
-                    $this->mixedArrCast(...$pieces)
+                    $this->mixedArrCast(...$this->mixedCast($items)),
                 )
             )
         );

@@ -10,9 +10,9 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 /**
  * Text envelope.
  */
-abstract class TxtEnvelope implements Text
+abstract class TxtEnvelope implements StringableText
 {
-    use StringableText;
+    use TextToString;
 
     /**
      * @var Text $origin

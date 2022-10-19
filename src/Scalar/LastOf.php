@@ -17,7 +17,7 @@ final class LastOf extends SclEnvelope
     /**
      * Ctor.
      *
-     * @param string|array<mixed>|Text|Arrayable<mixed> $container
+     * @param string|array<mixed>|Text|Arrayable $container
      */
     final public function __construct($container)
     {

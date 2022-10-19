@@ -17,7 +17,7 @@ final class InArray implements Boolean
     use CastMixed;
 
     /**
-     * @var array<mixed>|Arrayable<mixed> $arr
+     * @var array<mixed>|Arrayable $arr
      */
     private $arr;
 
@@ -34,7 +34,7 @@ final class InArray implements Boolean
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      * @param mixed $needle
      * @param bool $strict
      */

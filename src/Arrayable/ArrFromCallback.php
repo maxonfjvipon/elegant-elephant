@@ -11,10 +11,9 @@ use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
 /**
  * Array from callback
  */
-final class ArrFromCallback implements Arrayable
+final class ArrFromCallback implements IterableArrayable
 {
     use CastMixed;
-    use CountArrayable;
     use HasArrayableIterator;
 
     /**

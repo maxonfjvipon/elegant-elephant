@@ -15,7 +15,7 @@ final class ArrWith extends ArrEnvelope
     use CastMixed;
 
     /**
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      * @param mixed $keyOrValue
      * @param mixed|null $value
      */

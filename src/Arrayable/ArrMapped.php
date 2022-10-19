@@ -19,7 +19,7 @@ final class ArrMapped extends ArrEnvelope
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      * @param callable $callback
      */
     final public function __construct($arr, callable $callback)

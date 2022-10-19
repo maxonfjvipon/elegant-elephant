@@ -3,6 +3,7 @@
 namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 
 use Exception;
+use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
@@ -19,7 +20,7 @@ final class TxtImplodedTest extends TestCase
     public function implodedOfStrings(): void
     {
         $this->assertMixedCastThat(
-            new TxtImploded("-", "foo", "bar"),
+            new TxtImploded("-", ["foo", "bar"]),
             new IsEqual("foo-bar")
         );
     }
@@ -31,7 +32,7 @@ final class TxtImplodedTest extends TestCase
     public function implodedOfTexts(): void
     {
         $this->assertMixedCastThat(
-            new TxtImploded(new TextOf("/"), new TxtUpper("foo"), "bar"),
+            new TxtImploded(new TextOf("/"), [new TxtUpper("foo"), "bar"]),
             new IsEqual("FOO/bar")
         );
     }
@@ -43,8 +44,27 @@ final class TxtImplodedTest extends TestCase
     public function implodedWithComma(): void
     {
         $this->assertMixedCastThat(
-            TxtImploded::withComma(new TxtUpper("foo"), "bar"),
+            TxtImploded::withComma([new TxtUpper("foo"), "bar"]),
             new IsEqual("FOO,bar")
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function implodedOfArrayableOfTexts(): void
+    {
+        $this->assertMixedCastThat(
+            new TxtImploded(
+                "-",
+                new ArrayableOf([
+                    new TextOf("foo"),
+                    new TextOf("bar"),
+                ])
+            ),
+            new IsEqual("foo-bar")
         );
     }
 }

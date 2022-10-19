@@ -17,14 +17,14 @@ final class FirstOf implements Scalar
     use CastMixed;
 
     /**
-     * @var string|array<mixed>|Text|Arrayable<mixed> $container
+     * @var string|array<mixed>|Text|Arrayable $container
      */
     private $container;
 
     /**
      * Ctor.
      *
-     * @param string|array<mixed>|Text|Arrayable<mixed> $container
+     * @param string|array<mixed>|Text|Arrayable $container
      */
     final public function __construct($container)
     {

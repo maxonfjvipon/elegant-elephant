@@ -17,20 +17,20 @@ final class ArrCombined extends ArrEnvelope
     use CastMixed;
 
     /**
-     * @var array<mixed>|Arrayable<mixed> $keys
+     * @var array<mixed>|Arrayable $keys
      */
     private $keys;
 
     /**
-     * @var array<mixed>|Arrayable<mixed> $values
+     * @var array<mixed>|Arrayable $values
      */
     private $values;
 
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $keys
-     * @param array<mixed>|Arrayable<mixed> $values
+     * @param array<mixed>|Arrayable $keys
+     * @param array<mixed>|Arrayable $values
      */
     final public function __construct($keys, $values)
     {

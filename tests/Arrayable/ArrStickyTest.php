@@ -20,10 +20,7 @@ final class ArrStickyTest extends TestCase
     {
         $num = 2;
         $arr = new ArrSticky(
-            new class ($num) implements Arrayable {
-                use CountArrayable;
-                use HasArrayableIterator;
-
+            new class($num) implements Arrayable {
                 /** @var int $num */
                 private int $num;
 

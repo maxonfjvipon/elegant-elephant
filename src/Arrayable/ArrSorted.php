@@ -18,7 +18,7 @@ final class ArrSorted extends ArrEnvelope
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      * @param callable|string|null $compare
      */
     final public function __construct($arr, $compare = null)

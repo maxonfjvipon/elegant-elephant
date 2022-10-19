@@ -11,10 +11,10 @@ use Maxonfjvipon\Elegant_Elephant\Text;
 /**
  * Text from callback
  */
-final class TxtFromCallback implements Text
+final class TxtFromCallback implements StringableText
 {
     use CastMixed;
-    use StringableText;
+    use TextToString;
 
     /**
      * @var callable $callback

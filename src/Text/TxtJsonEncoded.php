@@ -19,7 +19,7 @@ final class TxtJsonEncoded extends TxtEnvelope
     /**
      * Ctor.
      *
-     * @param string|int|float|array<mixed>|bool|Text|Number|Arrayable<mixed>|Boolean|Scalar $value
+     * @param string|int|float|array<mixed>|bool|Text|Number|Arrayable|Boolean|Scalar $value
      */
     final public function __construct($value)
     {

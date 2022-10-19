@@ -4,18 +4,11 @@ namespace Maxonfjvipon\Elegant_Elephant\Text;
 
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Stringable;
 
 /**
  * Stringable {@see Text}
  */
-trait StringableText
+interface StringableText extends Text, Stringable
 {
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function __toString()
-    {
-        return $this->asString();
-    }
 }

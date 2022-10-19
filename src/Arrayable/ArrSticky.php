@@ -19,7 +19,7 @@ final class ArrSticky extends ArrEnvelope
     /**
      * Ctor.
      *
-     * @param Arrayable<mixed> $arr
+     * @param Arrayable $arr
      */
     final public function __construct(Arrayable $arr)
     {

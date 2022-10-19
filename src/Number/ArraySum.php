@@ -17,14 +17,14 @@ final class ArraySum implements Number
     use CastMixed;
 
     /**
-     * @var array<float|int>|Arrayable<float|int> $container
+     * @var array<float|int>|Arrayable $container
      */
     private $container;
 
     /**
      * Ctor.
      *
-     * @param array<int|float>|Arrayable<float|int> $arr
+     * @param array<int|float>|Arrayable $arr
      */
     final public function __construct($arr)
     {
@@ -37,6 +37,6 @@ final class ArraySum implements Number
      */
     final public function asNumber()
     {
-        return array_sum($this->mixedCast($this->container));
+        return array_sum($this->mixedArrCast(...$this->mixedCast($this->container)));
     }
 }

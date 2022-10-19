@@ -18,7 +18,7 @@ final class LengthOf extends NumEnvelope
     /**
      * Ctor.
      *
-     * @param string|array<mixed>|Text|Arrayable<mixed> $arg
+     * @param string|array<mixed>|Text|Arrayable $arg
      */
     final public function __construct($arg)
     {

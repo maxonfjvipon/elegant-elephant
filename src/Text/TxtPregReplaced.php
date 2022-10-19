@@ -17,9 +17,9 @@ final class TxtPregReplaced extends TxtEnvelope
     /**
      * Ctor.
      *
-     * @param string|array<string>|Text|Arrayable<mixed> $pattern
-     * @param string|array<string>|Text|Arrayable<mixed> $replacement
-     * @param string|array<string>|Text|Arrayable<mixed> $subject
+     * @param string|array<string>|Text|Arrayable $pattern
+     * @param string|array<string>|Text|Arrayable $replacement
+     * @param string|array<string>|Text|Arrayable $subject
      */
     final public function __construct($pattern, $replacement, $subject)
     {

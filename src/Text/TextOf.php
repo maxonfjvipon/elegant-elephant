@@ -8,15 +8,14 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
-use Maxonfjvipon\Elegant_Elephant\Text;
 
 /**
  * Text of.
  */
-final class TextOf implements Text
+final class TextOf implements StringableText
 {
     use CastMixed;
-    use StringableText;
+    use TextToString;
 
     /**
      * @var string|float|int|Number|Scalar $origin

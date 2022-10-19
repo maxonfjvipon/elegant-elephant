@@ -16,7 +16,7 @@ final class ArrIf extends ArrEnvelope
     /**
      * Ctor.
      * @param bool|Boolean $condition
-     * @param array<mixed>|callable|Arrayable<mixed> $arr
+     * @param array<mixed>|callable|Arrayable $arr
      */
     final public function __construct($condition, $arr)
     {

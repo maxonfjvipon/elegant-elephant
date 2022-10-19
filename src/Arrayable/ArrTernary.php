@@ -17,8 +17,8 @@ final class ArrTernary extends ArrEnvelope
      * Ctor.
      *
      * @param bool|Boolean $condition
-     * @param array<mixed>|callable|Arrayable<mixed> $first
-     * @param array<mixed>|callable|Arrayable<mixed> $second
+     * @param array<mixed>|callable|Arrayable $first
+     * @param array<mixed>|callable|Arrayable $second
      */
     final public function __construct($condition, $first, $second)
     {

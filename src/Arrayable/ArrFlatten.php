@@ -18,7 +18,7 @@ final class ArrFlatten extends ArrEnvelope
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      * @param int $deep
      */
     final public function __construct($arr, int $deep = 1)

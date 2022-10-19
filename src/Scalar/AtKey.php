@@ -18,7 +18,7 @@ final class AtKey implements Scalar
     use CastMixed;
 
     /**
-     * @var array<mixed>|Arrayable<mixed> $arr
+     * @var array<mixed>|Arrayable $arr
      */
     private $arr;
 
@@ -30,7 +30,7 @@ final class AtKey implements Scalar
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      * @param string|int|float|Number|Text $key
      */
     final public function __construct($key, $arr)

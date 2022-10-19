@@ -17,7 +17,7 @@ final class ArrMerged extends ArrEnvelope
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> ...$items
+     * @param array<mixed>|Arrayable ...$items
      */
     final public function __construct(...$items)
     {

@@ -11,7 +11,7 @@ use IteratorAggregate;
 /**
  * Arrayable.
  */
-interface Arrayable extends Countable, IteratorAggregate
+interface Arrayable
 {
     /**
      * @return array<mixed>

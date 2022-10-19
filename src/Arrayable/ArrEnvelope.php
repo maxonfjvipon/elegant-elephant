@@ -10,20 +10,19 @@ use Maxonfjvipon\Elegant_Elephant\Arrayable;
 /**
  * Arrayable envelope.
  */
-abstract class ArrEnvelope implements Arrayable
+abstract class ArrEnvelope implements IterableArrayable
 {
     use HasArrayableIterator;
-    use CountArrayable;
 
     /**
-     * @var Arrayable<mixed> $origin
+     * @var Arrayable $origin
      */
     private Arrayable $origin;
 
     /**
      * Ctor.
      *
-     * @param Arrayable<mixed> $origin
+     * @param Arrayable $origin
      */
     public function __construct(Arrayable $origin)
     {

@@ -16,7 +16,7 @@ final class IsEmpty extends BoolEnvelope
     /**
      * Ctor.
      *
-     * @param string|array<mixed>|Arrayable<mixed>|Text $value
+     * @param string|array<mixed>|Arrayable|Text $value
      */
     final public function __construct($value)
     {

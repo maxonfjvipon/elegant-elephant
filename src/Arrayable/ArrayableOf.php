@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Maxonfjvipon\Elegant_Elephant\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
 
 /**
  * Arrayable of.
  */
-final class ArrayableOf implements Arrayable
+final class ArrayableOf implements IterableArrayable
 {
     use HasArrayableIterator;
-    use CountArrayable;
 
     /**
      * @var array<mixed>|Scalar $origin

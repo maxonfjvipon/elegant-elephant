@@ -24,7 +24,7 @@ final class KeyExists implements Boolean
     private $key;
 
     /**
-     * @var array<mixed>|Arrayable<mixed> $arr
+     * @var array<mixed>|Arrayable $arr
      */
     private $arr;
 
@@ -32,7 +32,7 @@ final class KeyExists implements Boolean
      * Ctor.
      *
      * @param int|string|Number|Text $key
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      */
     final public function __construct($key, $arr)
     {

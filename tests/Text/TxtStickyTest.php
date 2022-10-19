@@ -5,7 +5,6 @@ namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
 use Exception;
 use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
 use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\StringableText;
 use Maxonfjvipon\Elegant_Elephant\Text\TxtSticky;
 use PHPUnit\Framework\Constraint\IsEqual;
 
@@ -19,9 +18,7 @@ final class TxtStickyTest extends TestCase
     {
         $str = "hello";
         $cached = new TxtSticky(
-            new class ($str) implements Text {
-                use StringableText;
-
+            new class($str) implements Text {
                 /**
                  * @var string $text
                  */

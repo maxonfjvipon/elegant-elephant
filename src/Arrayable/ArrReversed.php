@@ -17,7 +17,7 @@ final class ArrReversed extends ArrEnvelope
     /**
      * Ctor.
      *
-     * @param array<mixed>|Arrayable<mixed> $arr
+     * @param array<mixed>|Arrayable $arr
      */
     final public function __construct($arr)
     {
