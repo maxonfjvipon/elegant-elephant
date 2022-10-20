@@ -10,6 +10,7 @@ use Maxonfjvipon\Elegant_Elephant\Boolean;
 use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
 use Maxonfjvipon\Elegant_Elephant\Text;
+use Stringable;
 
 /**
  * Cast mixed.
@@ -33,6 +34,10 @@ trait CastMixed
 
         if ($mixed instanceof Text) {
             return $mixed->asString();
+        }
+
+        if ($mixed instanceof Stringable) {
+            return $mixed->__toString();
         }
 
         if ($mixed instanceof Number) {

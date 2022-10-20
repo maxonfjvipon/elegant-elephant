@@ -8,6 +8,7 @@ use Exception;
 use Maxonfjvipon\Elegant_Elephant\Number;
 use Maxonfjvipon\Elegant_Elephant\Scalar;
 use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
+use Stringable;
 
 /**
  * Text of.
@@ -18,14 +19,14 @@ final class TextOf implements StringableText
     use TextToString;
 
     /**
-     * @var string|float|int|Number|Scalar $origin
+     * @var string|float|int|Number|Scalar|Stringable $origin
      */
     private $origin;
 
     /**
      * Ctor.
      *
-     * @param string|float|int|Number|Scalar $text
+     * @param string|float|int|Number|Scalar|Stringable $text
      */
     final public function __construct($text)
     {
