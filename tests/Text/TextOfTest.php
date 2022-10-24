@@ -1,10 +1,10 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 use Stringable;
 
@@ -17,7 +17,7 @@ final class TextOfTest extends TestCase
     public function textOfStringTest(): void
     {
         $this->assertMixedCastThat(
-            new TextOf("foo"),
+            new TxtOf("foo"),
             new IsEqual("foo")
         );
     }
@@ -30,7 +30,7 @@ final class TextOfTest extends TestCase
     public function textOfNumTest(): void
     {
         $this->assertMixedCastThat(
-            new TextOf(5),
+            new TxtOf(5),
             new IsEqual("5")
         );
     }
@@ -42,7 +42,7 @@ final class TextOfTest extends TestCase
     public function textOfStringableTest(): void
     {
         $this->assertMixedCastThat(
-            new TextOf(new class implements Stringable {
+            new TxtOf(new class implements Stringable {
                 public function __toString()
                 {
                     return "foo";

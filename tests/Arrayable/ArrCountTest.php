@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrMerged;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 
 final class ArrCountTest extends TestCase
@@ -18,7 +18,7 @@ final class ArrCountTest extends TestCase
     public function countOfArrayable(): void
     {
         $this->assertMixedCastThat(
-            new ArrayableOf([1, 2, 3, 4]),
+            new ArrOf([1, 2, 3, 4]),
             new Count(4)
         );
     }
@@ -32,7 +32,7 @@ final class ArrCountTest extends TestCase
     {
         $this->assertMixedCastThat(
             new ArrMerged(
-                new ArrayableOf([1, 2, 3]),
+                new ArrOf([1, 2, 3]),
                 [4, 5]
             ),
             new Count(5)

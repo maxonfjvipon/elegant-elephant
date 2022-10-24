@@ -3,11 +3,11 @@
 namespace Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrWith;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrEmpty;
+use Maxonfjvipon\ElegantElephant\Arr\ArrWith;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrWithTest extends TestCase
@@ -30,9 +30,9 @@ final class ArrWithTest extends TestCase
                         "key",
                         "value"
                     ),
-                    new TextOf("hello world")
+                    new TxtOf("hello world")
                 ),
-                new NumberOf(42)
+                new NumOf(42)
             ),
             new IsEqual([
                 0 => 2,

@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtIf;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtIf;
 use PHPUnit\Framework\Constraint\IsEmpty;
 use PHPUnit\Framework\Constraint\IsEqual;
 
@@ -44,8 +44,8 @@ final class TxtIfTest extends TestCase
     {
         $this->assertMixedCastThat(
             new TxtIf(
-                new BooleanOf(true),
-                fn () => new TextOf("hello")
+                new LogicOf(true),
+                fn () => new TxtOf("hello")
             ),
             new IsEqual("hello")
         );

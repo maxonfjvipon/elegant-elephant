@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Scalar;
+namespace Maxonfjvipon\ElegantElephant\Tests\Scalar;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\AtKey;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Any\AtKey;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class AtKeyTest extends TestCase
@@ -40,7 +40,7 @@ final class AtKeyTest extends TestCase
         $this->assertMixedCastThat(
             new AtKey(
                 'key3',
-                new ArrayableOf([
+                new ArrOf([
                     'key1' => 2,
                     'key2' => "Hello world!",
                     'key3' => new \stdClass(),

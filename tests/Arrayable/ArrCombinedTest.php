@@ -1,14 +1,14 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Scalar\LastOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCombined;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Any\FirstOf;
+use Maxonfjvipon\ElegantElephant\Any\LastOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrCombined;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrCombinedTest extends TestCase
@@ -21,14 +21,14 @@ final class ArrCombinedTest extends TestCase
     {
         $this->assertMixedCastThat(
             new ArrCombined([
-                new TextOf("key1"),
+                new TxtOf("key1"),
                 'key2',
-                new NumberOf(10),
+                new NumOf(10),
                 new FirstOf(['foo', 'bar'])
             ], [
-                new TextOf('value1'),
+                new TxtOf('value1'),
                 'value2',
-                new NumberOf(20),
+                new NumOf(20),
                 new LastOf(['bar', 'baz'])
             ]),
             new IsEqual([

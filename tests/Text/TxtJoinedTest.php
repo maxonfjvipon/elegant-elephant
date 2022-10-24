@@ -1,13 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtJoined;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtJoined;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtJoinedTest extends TestCase
@@ -31,7 +31,7 @@ final class TxtJoinedTest extends TestCase
     public function joinedOfTexts(): void
     {
         $this->assertMixedCastThat(
-            new TxtJoined([new TextOf("foo"), "-", new TxtUpper(new TextOf("bar"))]),
+            new TxtJoined([new TxtOf("foo"), "-", new TxtUpper(new TxtOf("bar"))]),
             new IsEqual("foo-BAR")
         );
     }
@@ -45,10 +45,10 @@ final class TxtJoinedTest extends TestCase
     {
         $this->assertMixedCastThat(
             new TxtJoined(
-                new ArrayableOf([
-                    new TextOf("foo"),
-                    new TextOf(" "),
-                    new TextOf("bar"),
+                new ArrOf([
+                    new TxtOf("foo"),
+                    new TxtOf(" "),
+                    new TxtOf("bar"),
                 ])
             ),
             new IsEqual("foo bar")

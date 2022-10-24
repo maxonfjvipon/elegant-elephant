@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Number\LengthOf;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Num\LengthOf;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Num\SumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class SumOfTest extends TestCase
@@ -30,7 +30,7 @@ final class SumOfTest extends TestCase
     public function sumOfNumerablesAndPrimitives(): void
     {
         $this->assertMixedCastThat(
-            new SumOf(1, new NumberOf(2), new LengthOf([1, 3, 4]), 4),
+            new SumOf(1, new NumOf(2), new LengthOf([1, 3, 4]), 4),
             new IsEqual(10)
         );
     }

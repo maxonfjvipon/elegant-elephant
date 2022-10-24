@@ -1,16 +1,16 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
-use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Any\FirstOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrCast;
+use Maxonfjvipon\ElegantElephant\Arr\ArrObject;
+use Maxonfjvipon\ElegantElephant\Logic\Not;
+use Maxonfjvipon\ElegantElephant\Num\SumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrCastTest extends TestCase
@@ -31,7 +31,7 @@ final class ArrCastTest extends TestCase
                 new SumOf(2, 3), // Number
                 new TxtUpper("foo"), // Text
                 new ArrObject('key', 'value'), // Arrayable
-                new BooleanOf(true), // Boolean
+                new LogicOf(true), // Boolean
                 new FirstOf([1, 2, 3]), // Scalar
             ]),
             new IsEqual([

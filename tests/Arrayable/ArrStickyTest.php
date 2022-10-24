@@ -1,13 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSticky;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\CountArrayable;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\HasArrayableIterator;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr;
+use Maxonfjvipon\ElegantElephant\Arr\ArrSticky;
+use Maxonfjvipon\ElegantElephant\Arr\CountArr;
+use Maxonfjvipon\ElegantElephant\Arr\HasArrIterator;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrStickyTest extends TestCase
@@ -20,7 +20,7 @@ final class ArrStickyTest extends TestCase
     {
         $num = 2;
         $arr = new ArrSticky(
-            new class($num) implements Arrayable {
+            new class($num) implements Arr {
                 /** @var int $num */
                 private int $num;
 

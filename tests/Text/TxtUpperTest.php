@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtUpperTest extends TestCase
@@ -32,7 +32,7 @@ final class TxtUpperTest extends TestCase
     public function upperOfText(): void
     {
         $this->assertMixedCastThat(
-            new TxtUpper(new TextOf(self::GIVEN)),
+            new TxtUpper(new TxtOf(self::GIVEN)),
             new IsEqual(self::UPPER)
         );
     }

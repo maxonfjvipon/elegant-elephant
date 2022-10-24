@@ -1,15 +1,15 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-use Maxonfjvipon\Elegant_Elephant\Text\TxtImploded;
+use Maxonfjvipon\ElegantElephant\Txt\TxtImploded;
 
 final class TxtImplodedTest extends TestCase
 {
@@ -32,7 +32,7 @@ final class TxtImplodedTest extends TestCase
     public function implodedOfTexts(): void
     {
         $this->assertMixedCastThat(
-            new TxtImploded(new TextOf("/"), [new TxtUpper("foo"), "bar"]),
+            new TxtImploded(new TxtOf("/"), [new TxtUpper("foo"), "bar"]),
             new IsEqual("FOO/bar")
         );
     }
@@ -59,9 +59,9 @@ final class TxtImplodedTest extends TestCase
         $this->assertMixedCastThat(
             new TxtImploded(
                 "-",
-                new ArrayableOf([
-                    new TextOf("foo"),
-                    new TextOf("bar"),
+                new ArrOf([
+                    new TxtOf("foo"),
+                    new TxtOf("bar"),
                 ])
             ),
             new IsEqual("foo-bar")

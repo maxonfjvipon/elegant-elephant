@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSorted;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrSorted;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrSortedTest extends TestCase
@@ -32,7 +32,7 @@ final class ArrSortedTest extends TestCase
     public function sortedOfArrayableWorks(): void
     {
         $this->assertMixedCastThat(
-            new ArrSorted(new ArrayableOf(self::GIVEN)),
+            new ArrSorted(new ArrOf(self::GIVEN)),
             new IsEqual(self::EXPECTED)
         );
     }

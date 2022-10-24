@@ -1,10 +1,10 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class SpreadTest extends TestCase
@@ -17,7 +17,7 @@ final class SpreadTest extends TestCase
     public function spreadingArrayable(): void
     {
         $this->assertThat(
-            [...new ArrayableOf([1, 2, 3])],
+            [...new ArrOf([1, 2, 3])],
             new IsEqual([1, 2, 3])
         );
     }

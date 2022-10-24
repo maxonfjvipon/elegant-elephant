@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Number;
-use Maxonfjvipon\Elegant_Elephant\Number\NumSticky;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Num\NumSticky;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class NumStickyTest extends TestCase
@@ -18,7 +18,7 @@ final class NumStickyTest extends TestCase
     {
         $num = 2;
         $cached = new NumSticky(
-            new class ($num) implements Number {
+            new class ($num) implements Num {
                 /** @var int $num */
                 private int $num;
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
-use Maxonfjvipon\Elegant_Elephant\Boolean\IsEmpty;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtBlank;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrEmpty;
+use Maxonfjvipon\ElegantElephant\Logic\IsEmpty;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtBlank;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
@@ -57,7 +57,7 @@ final class IsEmptyTest extends TestCase
     public function isEmptyOfArrayableIsFalse(): void
     {
         $this->assertMixedCastThat(
-            new IsEmpty(new ArrayableOf([1, 2, 3])),
+            new IsEmpty(new ArrOf([1, 2, 3])),
             new IsFalse()
         );
     }

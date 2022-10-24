@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFromCallback;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrFromCallback;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\IsEqual;
 
@@ -31,7 +31,7 @@ final class ArrFromCallbackTest extends TestCase
     public function arrayableFromCallback(): void
     {
         $this->assertMixedCastThat(
-            new ArrFromCallback(fn () => new ArrayableOf([1, 2, 3, 4])),
+            new ArrFromCallback(fn () => new ArrOf([1, 2, 3, 4])),
             new Count(4)
         );
     }
@@ -44,7 +44,7 @@ final class ArrFromCallbackTest extends TestCase
     public function arrFromCallbackWithParams(): void
     {
         $this->assertMixedCastThat(
-            new ArrFromCallback(fn ($num) => new ArrayableOf([1, 2, $num, 10]), 3),
+            new ArrFromCallback(fn ($num) => new ArrOf([1, 2, $num, 10]), 3),
             new IsEqual([1, 2, 3, 10])
         );
     }

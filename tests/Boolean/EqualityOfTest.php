@@ -1,16 +1,16 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrReversed;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrValues;
-use Maxonfjvipon\Elegant_Elephant\Boolean\EqualityOf;
-use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtLowered;
+use Maxonfjvipon\ElegantElephant\Any\FirstOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrReversed;
+use Maxonfjvipon\ElegantElephant\Arr\ArrValues;
+use Maxonfjvipon\ElegantElephant\Logic\IsEqual;
+use Maxonfjvipon\ElegantElephant\Num\SumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtLowered;
 use PHPUnit\Framework\Constraint\IsTrue;
 
 final class EqualityOfTest extends TestCase
@@ -22,7 +22,7 @@ final class EqualityOfTest extends TestCase
     public function equalityOfInts(): void
     {
         $this->assertMixedCastThat(
-            new EqualityOf(10, 10),
+            new IsEqual(10, 10),
             new IsTrue()
         );
     }
@@ -34,7 +34,7 @@ final class EqualityOfTest extends TestCase
     public function equalityOfIntAndNumerable(): void
     {
         $this->assertMixedCastThat(
-            new EqualityOf(42, new SumOf(40, 2)),
+            new IsEqual(42, new SumOf(40, 2)),
             new IsTrue()
         );
     }
@@ -46,7 +46,7 @@ final class EqualityOfTest extends TestCase
     public function equalityOfStringAndText(): void
     {
         $this->assertMixedCastThat(
-            new EqualityOf("hey", new TxtLowered("Hey")),
+            new IsEqual("hey", new TxtLowered("Hey")),
             new IsTrue()
         );
     }
@@ -58,7 +58,7 @@ final class EqualityOfTest extends TestCase
     public function equalityOfArrayAndArrayable(): void
     {
         $this->assertMixedCastThat(
-            new EqualityOf(new ArrValues(new ArrReversed(new ArrayableOf([3, 2, 1]))), [1, 2, 3]),
+            new IsEqual(new ArrValues(new ArrReversed(new ArrOf([3, 2, 1]))), [1, 2, 3]),
             new IsTrue()
         );
     }
@@ -70,7 +70,7 @@ final class EqualityOfTest extends TestCase
     public function equalityOfAnyAndText(): void
     {
         $this->assertMixedCastThat(
-            new EqualityOf(new FirstOf(['foo', 'bar']), new TxtLowered("FOO")),
+            new IsEqual(new FirstOf(['foo', 'bar']), new TxtLowered("FOO")),
             new IsTrue()
         );
     }

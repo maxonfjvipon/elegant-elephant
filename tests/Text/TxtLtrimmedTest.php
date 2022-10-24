@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtLtrimmed;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtLtrimmed;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtLtrimmedTest extends TestCase
@@ -29,7 +29,7 @@ final class TxtLtrimmedTest extends TestCase
     public function ltrimmedOfText(): void
     {
         $this->assertMixedCastThat(
-            new TxtLtrimmed(new TextOf("\rFoo\r")),
+            new TxtLtrimmed(new TxtOf("\rFoo\r")),
             new IsEqual("Foo\r")
         );
     }

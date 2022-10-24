@@ -1,13 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Number\NumTernary;
-use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Num\NumCond;
+use Maxonfjvipon\ElegantElephant\Num\SumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class NumTernaryTest extends TestCase
@@ -19,7 +19,7 @@ final class NumTernaryTest extends TestCase
     public function numTernaryWithPrimitives(): void
     {
         $this->assertMixedCastThat(
-            new NumTernary(true, 10, 12),
+            new NumCond(true, 10, 12),
             new IsEqual(10)
         );
     }
@@ -31,7 +31,7 @@ final class NumTernaryTest extends TestCase
     public function numTernaryWithLogicalAndNumerables(): void
     {
         $this->assertMixedCastThat(
-            new NumTernary(new BooleanOf(false), new NumberOf(10), new SumOf(5, 2)),
+            new NumCond(new LogicOf(false), new NumOf(10), new SumOf(5, 2)),
             new IsEqual(7)
         );
     }
@@ -43,8 +43,8 @@ final class NumTernaryTest extends TestCase
     public function numTernaryWithCallbacks(): void
     {
         $this->assertMixedCastThat(
-            new NumTernary(
-                new BooleanOf(true),
+            new NumCond(
+                new LogicOf(true),
                 fn () => new SumOf(10, 5),
                 fn () => 4
             ),

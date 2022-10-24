@@ -1,13 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Number\NumIf;
-use Maxonfjvipon\Elegant_Elephant\Number\SumOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Num\NumIf;
+use Maxonfjvipon\ElegantElephant\Num\SumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class NumIfTest extends TestCase
@@ -31,7 +31,7 @@ final class NumIfTest extends TestCase
     public function numIfFalseWithNumerable(): void
     {
         $this->assertMixedCastThat(
-            new NumIf(false, new NumberOf(10)),
+            new NumIf(false, new NumOf(10)),
             new IsEqual(0)
         );
     }
@@ -44,7 +44,7 @@ final class NumIfTest extends TestCase
     {
         $this->assertMixedCastThat(
             new NumIf(
-                new BooleanOf(true),
+                new LogicOf(true),
                 fn () => new SumOf(10, 20)
             ),
             new IsEqual(30)

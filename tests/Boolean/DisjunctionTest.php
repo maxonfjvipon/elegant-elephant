@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Disjunction;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Logic\Disj;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
@@ -18,10 +18,10 @@ final class DisjunctionTest extends TestCase
     public function disjunctionIsTrue(): void
     {
         $this->assertMixedCastThat(
-            new Disjunction(
-                new BooleanOf(true),
+            new Disj(
+                new LogicOf(true),
                 true,
-                new BooleanOf(false),
+                new LogicOf(false),
                 false
             ),
             new IsTrue()
@@ -35,9 +35,9 @@ final class DisjunctionTest extends TestCase
     public function disjunctionIsFalse(): void
     {
         $this->assertMixedCastThat(
-            new Disjunction(
+            new Disj(
                 false,
-                new BooleanOf(false),
+                new LogicOf(false),
             ),
             new IsFalse()
         );

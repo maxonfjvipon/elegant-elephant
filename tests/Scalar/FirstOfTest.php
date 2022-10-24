@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Scalar;
+namespace Maxonfjvipon\ElegantElephant\Tests\Scalar;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Any\FirstOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class FirstOfTest extends TestCase
@@ -32,7 +32,7 @@ final class FirstOfTest extends TestCase
     public function firstOfText(): void
     {
         $this->assertMixedCastThat(
-            new FirstOf(new TextOf("Hello world")),
+            new FirstOf(new TxtOf("Hello world")),
             new IsEqual("H"),
         );
     }
@@ -58,7 +58,7 @@ final class FirstOfTest extends TestCase
     public function firstOfArrayable(): void
     {
         $this->assertMixedCastThat(
-            new FirstOf(new ArrayableOf([33, 12, "Hello there!"])),
+            new FirstOf(new ArrOf([33, 12, "Hello there!"])),
             new IsEqual(33),
         );
     }

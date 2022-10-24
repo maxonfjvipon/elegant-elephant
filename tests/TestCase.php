@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests;
+namespace Maxonfjvipon\ElegantElephant\Tests;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\CastMixed;
+use Maxonfjvipon\ElegantElephant\Any\CastMixed;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

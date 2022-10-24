@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Boolean\Not;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Logic\Not;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
@@ -19,7 +19,7 @@ final class NotTest extends TestCase
     public function truth(): void
     {
         $this->assertMixedCastThat(
-            new BooleanOf(true),
+            new LogicOf(true),
             new IsTrue()
         );
     }
@@ -32,7 +32,7 @@ final class NotTest extends TestCase
     public function untruth(): void
     {
         $this->assertMixedCastThat(
-            new BooleanOf(false),
+            new LogicOf(false),
             new IsFalse()
         );
     }
@@ -68,7 +68,7 @@ final class NotTest extends TestCase
     public function notTrueObj(): void
     {
         $this->assertMixedCastThat(
-            new Not(new BooleanOf(true)),
+            new Not(new LogicOf(true)),
             new IsFalse()
         );
     }

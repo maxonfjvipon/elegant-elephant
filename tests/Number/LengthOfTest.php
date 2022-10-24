@@ -1,13 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Number\LengthOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Num\LengthOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class LengthOfTest extends TestCase
@@ -31,7 +31,7 @@ final class LengthOfTest extends TestCase
     public function lengthOfText(): void
     {
         $this->assertMixedCastThat(
-            new LengthOf(new TxtUpper(new TextOf("foo-bar"))),
+            new LengthOf(new TxtUpper(new TxtOf("foo-bar"))),
             new IsEqual(7)
         );
     }
@@ -55,7 +55,7 @@ final class LengthOfTest extends TestCase
     public function lengthOfArrayable(): void
     {
         $this->assertMixedCastThat(
-            new LengthOf(ArrayableOf::items(1, 2, 3, 4, 5)),
+            new LengthOf(ArrOf::items(1, 2, 3, 4, 5)),
             new IsEqual(5)
         );
     }

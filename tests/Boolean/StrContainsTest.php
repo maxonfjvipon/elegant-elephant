@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\StrContains;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Logic\InText;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
@@ -18,7 +18,7 @@ final class StrContainsTest extends TestCase
     public function containsInString(): void
     {
         $this->assertMixedCastThat(
-            new StrContains("hello world", 'hello'),
+            new InText("hello world", 'hello'),
             new IsTrue()
         );
     }
@@ -30,7 +30,7 @@ final class StrContainsTest extends TestCase
     public function containsTextInText(): void
     {
         $this->assertMixedCastThat(
-            new StrContains(new TextOf("foo-bar"), new TextOf("!!!")),
+            new InText(new TxtOf("foo-bar"), new TxtOf("!!!")),
             new IsFalse()
         );
     }

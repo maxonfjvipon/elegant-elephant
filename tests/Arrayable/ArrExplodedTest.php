@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrExploded;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrExploded;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrExplodedTest extends TestCase
@@ -35,7 +35,7 @@ final class ArrExplodedTest extends TestCase
     public function explodedWithTexts(): void
     {
         $this->assertMixedCastThat(
-            new ArrExploded(new TextOf(self::SEPARATOR), new TextOf(self::STRING)),
+            new ArrExploded(new TxtOf(self::SEPARATOR), new TxtOf(self::STRING)),
             new IsEqual(self::EXPLODED)
         );
     }

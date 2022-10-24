@@ -1,15 +1,15 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\PregMatch;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Logic\PregMatch;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-final class MatchRegexTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class MatchRegexTest extends \Maxonfjvipon\ElegantElephant\Tests\TestCase
 {
     /**
      * @test
@@ -30,7 +30,7 @@ final class MatchRegexTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function moreComplexRegexWithText(): void
     {
         $this->assertMixedCastThat(
-            new PregMatch("/^Hello$/", new TextOf("Hello world")),
+            new PregMatch("/^Hello$/", new TxtOf("Hello world")),
             new IsFalse()
         );
     }

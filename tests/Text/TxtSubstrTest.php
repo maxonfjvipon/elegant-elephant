@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtSubstr;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtSubstr;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtSubstrTest extends TestCase
@@ -29,7 +29,7 @@ final class TxtSubstrTest extends TestCase
     public function substringOfTextWithLength(): void
     {
         $this->assertMixedCastThat(
-            new TxtSubstr(new TextOf("Hello world"), 6, 2),
+            new TxtSubstr(new TxtOf("Hello world"), 6, 2),
             new IsEqual("wo")
         );
     }

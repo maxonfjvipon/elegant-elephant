@@ -1,16 +1,16 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrObject;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtJsonEncoded;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Any\FirstOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrMerged;
+use Maxonfjvipon\ElegantElephant\Arr\ArrObject;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtJsonEncoded;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtJsonEncodedTest extends TestCase
@@ -34,7 +34,7 @@ final class TxtJsonEncodedTest extends TestCase
     public function encodedOfText(): void
     {
         $this->assertMixedCastThat(
-            new TxtJsonEncoded(new TextOf("hello world")),
+            new TxtJsonEncoded(new TxtOf("hello world")),
             new IsEqual('"hello world"')
         );
     }
@@ -58,7 +58,7 @@ final class TxtJsonEncodedTest extends TestCase
     public function encodedOfNumerable(): void
     {
         $this->assertMixedCastThat(
-            new TxtJsonEncoded(new NumberOf(10.2)),
+            new TxtJsonEncoded(new NumOf(10.2)),
             new IsEqual('10.2')
         );
     }
@@ -115,7 +115,7 @@ final class TxtJsonEncodedTest extends TestCase
     public function encodedOfLogical(): void
     {
         $this->assertMixedCastThat(
-            new TxtJsonEncoded(new BooleanOf(false)),
+            new TxtJsonEncoded(new LogicOf(false)),
             new IsEqual('false')
         );
     }

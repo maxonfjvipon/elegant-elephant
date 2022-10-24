@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrSplit;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrSplit;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrSplitTest extends TestCase
@@ -35,7 +35,7 @@ final class ArrSplitTest extends TestCase
     public function splitWithTexts(): void
     {
         $this->assertMixedCastThat(
-            new ArrSplit(new TextOf(self::SEPARATOR), new TextOf(self::STRING)),
+            new ArrSplit(new TxtOf(self::SEPARATOR), new TxtOf(self::STRING)),
             new IsEqual(self::EXPLODED)
         );
     }

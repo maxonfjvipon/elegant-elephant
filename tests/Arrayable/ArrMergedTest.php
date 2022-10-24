@@ -1,13 +1,13 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrEmpty;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMerged;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrEmpty;
+use Maxonfjvipon\ElegantElephant\Arr\ArrMapped;
+use Maxonfjvipon\ElegantElephant\Arr\ArrMerged;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrMergedTest extends TestCase
@@ -31,7 +31,7 @@ final class ArrMergedTest extends TestCase
     public function mergedOfArrayables(): void
     {
         $this->assertMixedCastThat(
-            new ArrMerged(new ArrayableOf([1, 2]), ['foo', 'bar']),
+            new ArrMerged(new ArrOf([1, 2]), ['foo', 'bar']),
             new IsEqual([1, 2, 'foo', 'bar'])
         );
     }

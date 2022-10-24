@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrFlatten;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrFlatten;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrFlattenTest extends TestCase
@@ -31,8 +31,8 @@ final class ArrFlattenTest extends TestCase
     {
         $this->assertMixedCastThat(
             new ArrFlatten(
-                new ArrayableOf(
-                    [1, new ArrayableOf([2, 3]), [[4]], [new ArrayableOf([5, 6])]]
+                new ArrOf(
+                    [1, new ArrOf([2, 3]), [[4]], [new ArrOf([5, 6])]]
                 ),
                 2
             ),

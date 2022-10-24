@@ -1,16 +1,16 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Boolean;
+namespace Maxonfjvipon\ElegantElephant\Tests\Boolean;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Scalar\FirstOf;
-use Maxonfjvipon\Elegant_Elephant\Scalar\LastOf;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
+use Maxonfjvipon\ElegantElephant\Any\FirstOf;
+use Maxonfjvipon\ElegantElephant\Any\LastOf;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
+final class LogicalOfTest extends \Maxonfjvipon\ElegantElephant\Tests\TestCase
 {
     /**
      * @test
@@ -19,7 +19,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function logicalOfTrueIsTrue(): void
     {
         $this->assertMixedCastThat(
-            new BooleanOf(true),
+            new LogicOf(true),
             new IsTrue()
         );
     }
@@ -31,7 +31,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function logicalOfFalseIsFalse(): void
     {
         $this->assertMixedCastThat(
-            new BooleanOf(false),
+            new LogicOf(false),
             new IsFalse()
         );
     }
@@ -43,7 +43,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function logicalOfAnyIsTrue(): void
     {
         $this->assertMixedCastThat(
-            new BooleanOf(new FirstOf([true, false])),
+            new LogicOf(new FirstOf([true, false])),
             new IsTrue()
         );
     }
@@ -55,7 +55,7 @@ final class LogicalOfTest extends \Maxonfjvipon\Elegant_Elephant\Tests\TestCase
     public function logicalOfAnyIsFalse(): void
     {
         $this->assertMixedCastThat(
-            new BooleanOf(new LastOf([true, false])),
+            new LogicOf(new LastOf([true, false])),
             new IsFalse()
         );
     }

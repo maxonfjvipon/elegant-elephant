@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtSticky;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt;
+use Maxonfjvipon\ElegantElephant\Txt\TxtSticky;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtStickyTest extends TestCase
@@ -18,7 +18,7 @@ final class TxtStickyTest extends TestCase
     {
         $str = "hello";
         $cached = new TxtSticky(
-            new class($str) implements Text {
+            new class($str) implements Txt {
                 /**
                  * @var string $text
                  */

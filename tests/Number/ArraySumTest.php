@@ -1,11 +1,11 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Number\ArraySum;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Num\ArraySum;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArraySumTest extends TestCase
@@ -29,7 +29,7 @@ final class ArraySumTest extends TestCase
     public function arraySumOfArrayable(): void
     {
         $this->assertMixedCastThat(
-            new ArraySum(ArrayableOf::items(2, 3, 4)),
+            new ArraySum(ArrOf::items(2, 3, 4)),
             new IsEqual(9)
         );
     }

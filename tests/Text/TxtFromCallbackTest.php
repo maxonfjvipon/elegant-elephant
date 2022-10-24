@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Text;
+namespace Maxonfjvipon\ElegantElephant\Tests\Text;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtFromCallback;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtFromCallback;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtFromCallbackTest extends TestCase
@@ -31,7 +31,7 @@ final class TxtFromCallbackTest extends TestCase
     public function textFromCallback(): void
     {
         $this->assertMixedCastThat(
-            new TxtFromCallback(fn () => new TxtUpper(new TextOf("hello there"))),
+            new TxtFromCallback(fn () => new TxtUpper(new TxtOf("hello there"))),
             new IsEqual("HELLO THERE")
         );
     }

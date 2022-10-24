@@ -1,10 +1,10 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Number;
+namespace Maxonfjvipon\ElegantElephant\Tests\Number;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Number\NumberOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class NumberOfTest extends TestCase
@@ -16,7 +16,7 @@ final class NumberOfTest extends TestCase
     public function numerableOfInt(): void
     {
         $this->assertMixedCastThat(
-            new NumberOf(4),
+            new NumOf(4),
             new IsEqual(4)
         );
     }
@@ -28,7 +28,7 @@ final class NumberOfTest extends TestCase
     public function numerableOfFloat(): void
     {
         $this->assertMixedCastThat(
-            new NumberOf(12.1),
+            new NumOf(12.1),
             new IsEqual(12.1)
         );
     }

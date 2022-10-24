@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrIf;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrIf;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 
 final class ArrIfTest extends TestCase
@@ -45,7 +45,7 @@ final class ArrIfTest extends TestCase
     public function arrayIfTrueWithCallback(): void
     {
         $this->assertMixedCastThat(
-            new ArrIf(true, fn () => new ArrayableOf([1, 2, 3])),
+            new ArrIf(true, fn () => new ArrOf([1, 2, 3])),
             new Count(3)
         );
     }
@@ -58,7 +58,7 @@ final class ArrIfTest extends TestCase
     public function arrayIfWithLogical(): void
     {
         $this->assertMixedCastThat(
-            new ArrIf(new BooleanOf(false), fn () => new ArrayableOf([1, 2, 3])),
+            new ArrIf(new LogicOf(false), fn () => new ArrOf([1, 2, 3])),
             new Count(0)
         );
     }
@@ -74,7 +74,7 @@ final class ArrIfTest extends TestCase
             new ArrIf(
                 true,
                 new ArrIf(
-                    new BooleanOf(true),
+                    new LogicOf(true),
                     fn () => [1, 2, 3]
                 )
             ),

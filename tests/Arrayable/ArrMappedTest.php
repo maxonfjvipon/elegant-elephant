@@ -1,12 +1,12 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Arrayable;
+namespace Maxonfjvipon\ElegantElephant\Tests\Arrayable;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrCast;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrMapped;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrCast;
+use Maxonfjvipon\ElegantElephant\Arr\ArrMapped;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class ArrMappedTest extends TestCase
@@ -40,7 +40,7 @@ final class ArrMappedTest extends TestCase
             new ArrCast(
                 new ArrMapped(
                     self::GIVEN,
-                    fn ($num) => new TextOf($num . "L"),
+                    fn ($num) => new TxtOf($num . "L"),
                 )
             ),
             new IsEqual([

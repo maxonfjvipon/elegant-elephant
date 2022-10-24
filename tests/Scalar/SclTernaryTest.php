@@ -1,16 +1,16 @@
 <?php
 
-namespace Maxonfjvipon\Elegant_Elephant\Tests\Scalar;
+namespace Maxonfjvipon\ElegantElephant\Tests\Scalar;
 
 use Exception;
-use Maxonfjvipon\Elegant_Elephant\Arrayable\ArrayableOf;
-use Maxonfjvipon\Elegant_Elephant\Boolean\BooleanOf;
-use Maxonfjvipon\Elegant_Elephant\Scalar\SclTernary;
-use Maxonfjvipon\Elegant_Elephant\Tests\TestCase;
-use Maxonfjvipon\Elegant_Elephant\Text\TextOf;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtBlank;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtTernary;
-use Maxonfjvipon\Elegant_Elephant\Text\TxtUpper;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Tests\TestCase;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Txt\TxtBlank;
+use Maxonfjvipon\ElegantElephant\Txt\TxtCond;
+use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class SclTernaryTest extends TestCase
@@ -22,7 +22,7 @@ final class SclTernaryTest extends TestCase
     public function sclTernaryWithPrimitives(): void
     {
         $this->assertMixedCastThat(
-            new SclTernary(true, "foo", "bar"),
+            new AnyCond(true, "foo", "bar"),
             new IsEqual("foo")
         );
     }
@@ -34,7 +34,7 @@ final class SclTernaryTest extends TestCase
     public function sclTernaryWithLogicalAndScalars(): void
     {
         $this->assertMixedCastThat(
-            new SclTernary(new BooleanOf(false), new TextOf("foo"), new TxtUpper(new TextOf("bar"))),
+            new AnyCond(new LogicOf(false), new TxtOf("foo"), new TxtUpper(new TxtOf("bar"))),
             new IsEqual("BAR")
         );
     }
@@ -46,10 +46,10 @@ final class SclTernaryTest extends TestCase
     public function sclTernaryWithCallbacks(): void
     {
         $this->assertMixedCastThat(
-            new SclTernary(
-                new BooleanOf(true),
-                fn () => new TextOf("hey there!"),
-                fn () => new ArrayableOf(['Hello world!'])
+            new AnyCond(
+                new LogicOf(true),
+                fn () => new TxtOf("hey there!"),
+                fn () => new ArrOf(['Hello world!'])
             ),
             new IsEqual("hey there!")
         );
