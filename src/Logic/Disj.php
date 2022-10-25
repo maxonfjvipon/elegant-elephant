@@ -18,7 +18,7 @@ final class Disj extends LogicWrap
      *
      * @param bool|Logic ...$args
      */
-    final public function __construct(...$args)
+    final public function __construct(bool|Logic ...$args)
     {
         parent::__construct(
             LogicOf::func(
@@ -26,10 +26,10 @@ final class Disj extends LogicWrap
                     $res = false;
 
                     /**
-                * @var bool|Logic $arg 
-                */
+                     * @var bool|Logic $arg
+                     */
                     foreach ($args as $arg) {
-                        if ($this->ensuredLogic($arg)->asBool()) {
+                        if ($this->ensuredBool($arg)) {
                             $res = true;
                             break;
                         }

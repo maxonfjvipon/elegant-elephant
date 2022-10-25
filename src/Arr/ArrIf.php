@@ -19,7 +19,7 @@ final class ArrIf extends ArrWrap
      * @param bool|Logic $condition
      * @param array|Arr  $arr
      */
-    final public function __construct($condition, $arr)
+    final public function __construct(bool|Logic $condition, array|Arr $arr)
     {
         parent::__construct(
             new ArrCond(

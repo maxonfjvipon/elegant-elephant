@@ -13,18 +13,11 @@ use Maxonfjvipon\ElegantElephant\Logic;
 abstract class LogicWrap implements Logic
 {
     /**
-     * @var Logic $origin
-     */
-    private Logic $origin;
-
-    /**
      * Ctor.
-     *
      * @param Logic $origin
      */
-    public function __construct(Logic $origin)
+    public function __construct(private Logic $origin)
     {
-        $this->origin = $origin;
     }
 
     /**

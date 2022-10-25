@@ -18,7 +18,7 @@ final class LogicCond extends LogicWrap
      * @param bool|Logic $first
      * @param bool|Logic $second
      */
-    final public function __construct($condition, $first, $second)
+    final public function __construct(bool|Logic $condition, bool|Logic $first, bool|Logic $second)
     {
         parent::__construct(
             LogicOf::any(

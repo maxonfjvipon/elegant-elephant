@@ -18,10 +18,10 @@ final class ArrCond extends ArrWrap
      * Ctor.
      *
      * @param bool|Logic       $condition
-     * @param array<mixed>|Arr $first
+     * @param Arr|array<mixed> $first
      * @param array<mixed>|Arr $second
      */
-    final public function __construct($condition, $first, $second)
+    final public function __construct(bool|Logic $condition, array|Arr $first, array|Arr $second)
     {
         parent::__construct(
             ArrOf::any(

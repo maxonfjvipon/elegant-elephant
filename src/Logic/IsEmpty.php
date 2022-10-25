@@ -18,7 +18,7 @@ final class IsEmpty extends LogicWrap
      *
      * @param string|array<mixed>|Arr|Txt $value
      */
-    final public function __construct($value)
+    final public function __construct(string|array|Arr|Txt $value)
     {
         parent::__construct(
             new IsEqual(

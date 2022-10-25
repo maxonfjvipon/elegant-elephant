@@ -16,10 +16,10 @@ final class IsNull extends LogicWrap
      *
      * @param mixed $value
      */
-    final public function __construct($value)
+    final public function __construct(mixed $value)
     {
         parent::__construct(
-            LogicOf::func(fn () => $this->ensuredAny($value)->value() != null)
+            LogicOf::func(fn () => $this->ensuredAnyValue($value) == null)
         );
     }
 }

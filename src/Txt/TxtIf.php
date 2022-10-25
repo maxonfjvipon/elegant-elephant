@@ -18,7 +18,7 @@ final class TxtIf extends TxtWrap
      * @param bool|Logic $condition
      * @param string|Txt $text
      */
-    final public function __construct($condition, $text)
+    final public function __construct(bool|Logic $condition, string|Txt $text)
     {
         parent::__construct(
             new TxtCond(

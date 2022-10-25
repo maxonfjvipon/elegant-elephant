@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Txt;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
@@ -12,17 +13,16 @@ use Maxonfjvipon\ElegantElephant\Txt;
 trait EnsureTxt
 {
     /**
-     * @param  string|Txt $stringOrTxt
-     * @return Txt
+     * @param string|Txt $stringOrTxt
+     * @return string
+     * @throws Exception
      */
-    final private function ensuredTxt($stringOrTxt)
+    private function ensuredString(Txt|string $stringOrTxt): string
     {
-        $txt = $stringOrTxt;
-
-        if (!$stringOrTxt instanceof Txt) {
-            $txt = TxtOf::str($txt);
+        if (! is_string($stringOrTxt)) {
+            $stringOrTxt = $stringOrTxt->asString();
         }
 
-        return $txt;
+        return $stringOrTxt;
     }
 }

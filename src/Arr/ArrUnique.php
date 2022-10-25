@@ -18,10 +18,10 @@ final class ArrUnique extends ArrWrap
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct($arr)
+    final public function __construct(array|Arr $arr)
     {
         parent::__construct(
-            ArrOf::func(fn () => array_unique($this->ensuredArr($arr)->asArray()))
+            ArrOf::func(fn () => array_unique($this->ensuredArray($arr)))
         );
     }
 }

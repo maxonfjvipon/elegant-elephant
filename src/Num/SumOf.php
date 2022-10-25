@@ -22,7 +22,7 @@ final class SumOf extends NumWrap
      * @param  float|int|Num ...$items
      * @return SumOf
      */
-    final public static function items(...$items): SumOf
+    final public static function items(float|int|Num ...$items): SumOf
     {
         return new SumOf($items);
     }
@@ -32,14 +32,14 @@ final class SumOf extends NumWrap
      *
      * @param array<float|int|Num>|Arr $arr
      */
-    final public function __construct($arr)
+    final public function __construct(array|Arr $arr)
     {
         parent::__construct(
             NumOf::func(
                 fn () => array_sum(
                     array_map(
-                        fn ($item) => $this->ensuredNum($item)->asNumber(),
-                        $this->ensuredArr($arr)->asArray()
+                        fn ($item) => $this->ensuredNumber($item),
+                        $this->ensuredArray($arr)
                     )
                 )
             )

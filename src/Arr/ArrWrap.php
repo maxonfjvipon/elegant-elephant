@@ -15,18 +15,11 @@ abstract class ArrWrap implements IterableArr
     use HasArrIterator;
 
     /**
-     * @var Arr $origin
-     */
-    private Arr $origin;
-
-    /**
      * Ctor.
-     *
      * @param Arr $origin
      */
-    public function __construct(Arr $origin)
+    public function __construct(private Arr $origin)
     {
-        $this->origin = $origin;
     }
 
     /**

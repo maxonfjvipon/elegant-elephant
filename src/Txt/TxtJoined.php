@@ -17,7 +17,7 @@ final class TxtJoined extends TxtWrap
      *
      * @param array<string|Txt>|Arr $items
      */
-    final public function __construct($items)
+    final public function __construct(array|Arr $items)
     {
         parent::__construct(
             new TxtImploded(

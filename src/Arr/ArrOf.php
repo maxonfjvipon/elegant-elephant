@@ -57,11 +57,11 @@ final class ArrOf implements IterableArr
      * @param  mixed    ...$args
      * @return ArrOf
      */
-    final public static function func(callable $func, ...$args): ArrOf
+    final public static function func(callable $func, mixed ...$args): ArrOf
     {
         return new ArrOf(
             function () use ($func, $args) {
-                if (!is_array($arr = call_user_func($func, ...$args))) {
+                if (! is_array($arr = call_user_func($func, ...$args))) {
                     throw new Exception("Function must return an array");
                 }
 

@@ -46,7 +46,7 @@ final class NumOf implements Num
      * @param  int|float $number
      * @return NumOf
      */
-    final public static function number($number): NumOf
+    final public static function number(int|float $number): NumOf
     {
         return NumOf::func(fn () => $number);
     }
@@ -69,7 +69,7 @@ final class NumOf implements Num
      * @param  mixed    ...$args
      * @return NumOf
      */
-    final public static function func(callable $func, ...$args): NumOf
+    final public static function func(callable $func, mixed ...$args): NumOf
     {
         return new NumOf(
             function () use ($func, $args) {
@@ -98,7 +98,7 @@ final class NumOf implements Num
      * @return float|int
      * @throws Exception
      */
-    final public function asNumber()
+    final public function asNumber(): float|int
     {
         return call_user_func($this->callback);
     }

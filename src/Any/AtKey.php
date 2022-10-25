@@ -21,12 +21,14 @@ final class AtKey extends AnyWrap
      * Ctor.
      *
      * @param string|int|float|Num|Txt $key
-     * @param array<mixed>|Arr         $arr
+     * @param Arr|array<mixed> $arr
      */
-    final public function __construct($key, $arr)
-    {
+    final public function __construct(
+        string|int|float|Num|Txt $key,
+        array|Arr $arr
+    ) {
         parent::__construct(
-            AnyOf::func(fn () => $this->ensuredArr($arr)[$this->ensuredAny($key)->value()])
+            AnyOf::func(fn() => $this->ensuredArray($arr)[$this->ensuredAnyValue($key)])
         );
     }
 }

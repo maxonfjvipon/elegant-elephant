@@ -47,11 +47,11 @@ final class LogicOf implements Logic
      * @param  mixed    ...$args
      * @return LogicOf
      */
-    final public static function func(callable $func, ...$args): LogicOf
+    final public static function func(callable $func, mixed ...$args): LogicOf
     {
         return new LogicOf(
             function () use ($func, $args) {
-                if (!is_bool($bool = call_user_func($func, ...$args))) {
+                if (! is_bool($bool = call_user_func($func, ...$args))) {
                     throw new Exception("Function must return a bool value");
                 }
 

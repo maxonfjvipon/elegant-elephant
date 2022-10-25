@@ -7,7 +7,7 @@ namespace Maxonfjvipon\ElegantElephant;
 use Exception;
 
 /**
- * Boolean.
+ * Logic/Boolean.
  */
 interface Logic
 {

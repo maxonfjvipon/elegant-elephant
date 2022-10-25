@@ -20,13 +20,13 @@ final class PregMatch extends LogicWrap
      * @param string|Txt $pattern
      * @param string|Txt $subject
      */
-    final public function __construct($pattern, $subject)
+    final public function __construct(string|Txt $pattern, string|Txt $subject)
     {
         parent::__construct(
             LogicOf::func(
                 fn () => (bool) preg_match(
-                    $this->ensuredTxt($pattern)->asString(),
-                    $this->ensuredTxt($subject)->asString(),
+                    $this->ensuredString($pattern),
+                    $this->ensuredString($subject),
                 )
             )
         );

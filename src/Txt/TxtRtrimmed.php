@@ -18,10 +18,10 @@ final class TxtRtrimmed extends TxtWrap
      *
      * @param string|Txt $text
      */
-    final public function __construct($text)
+    final public function __construct(string|Txt $text)
     {
         parent::__construct(
-            TxtOf::func(fn () => rtrim($this->ensuredTxt($text)->asString()))
+            TxtOf::func(fn () => rtrim($this->ensuredString($text)))
         );
     }
 }

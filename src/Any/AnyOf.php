@@ -34,9 +34,9 @@ final class AnyOf implements Any
      * @param  float|int|Num $num
      * @return AnyOf
      */
-    final public static function num($num): AnyOf
+    final public static function num(float|int|Num $num): AnyOf
     {
-        return new AnyOf(fn (AnyOf $self) => $self->ensuredNum($num)->asNumber());
+        return new AnyOf(fn (AnyOf $self) => $self->ensuredNumber($num));
     }
 
     /**
@@ -45,20 +45,20 @@ final class AnyOf implements Any
      * @param  array|Arr $arr
      * @return AnyOf
      */
-    final public static function arr($arr): AnyOf
+    final public static function arr(array|Arr $arr): AnyOf
     {
-        return new AnyOf(fn (AnyOf $self) => $self->ensuredArr($arr)->asArray());
+        return new AnyOf(fn (AnyOf $self) => $self->ensuredArray($arr));
     }
 
     /**
      * Any of text.
      *
-     * @param  string|Txt $str
+     * @param  string|Txt $text
      * @return AnyOf
      */
-    final public static function text($str): AnyOf
+    final public static function text(string|Txt $text): AnyOf
     {
-        return new AnyOf(fn (AnyOf $self) => $self->ensuredTxt($str)->asString());
+        return new AnyOf(fn (AnyOf $self) => $self->ensuredString($text));
     }
 
     /**
@@ -67,7 +67,7 @@ final class AnyOf implements Any
      * @param  bool|Logic $bool
      * @return AnyOf
      */
-    final public static function bool($bool): AnyOf
+    final public static function bool(bool|Logic $bool): AnyOf
     {
         return AnyOf::logic($bool);
     }
@@ -78,9 +78,9 @@ final class AnyOf implements Any
      * @param  bool|Logic $logic
      * @return AnyOf
      */
-    final public static function logic($logic): AnyOf
+    final public static function logic(bool|Logic $logic): AnyOf
     {
-        return new AnyOf(fn (AnyOf $self) => $self->ensuredLogic($logic)->asBool());
+        return new AnyOf(fn (AnyOf $self) => $self->ensuredBool($logic));
     }
 
     /**
@@ -90,7 +90,7 @@ final class AnyOf implements Any
      * @param  mixed    ...$args
      * @return AnyOf
      */
-    final public static function func(callable $func, ...$args): AnyOf
+    final public static function func(callable $func, mixed ...$args): AnyOf
     {
         return new AnyOf(fn () => call_user_func($func, ...$args));
     }
@@ -109,7 +109,7 @@ final class AnyOf implements Any
      * @return mixed
      * @throws Exception
      */
-    final public function value()
+    final public function value(): mixed
     {
         return call_user_func($this->callback, $this);
     }

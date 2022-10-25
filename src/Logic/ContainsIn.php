@@ -13,17 +13,15 @@ use Maxonfjvipon\ElegantElephant\Txt;
 final class ContainsIn extends LogicWrap
 {
     /**
-     * @param mixed                $needle
+     * @param mixed $needle
      * @param string|array|Txt|Arr $container
      */
-    final public function __construct($needle, $container)
+    final public function __construct(mixed $needle, string|array|Txt|Arr $container)
     {
         parent::__construct(
-            new LogicCond(
-                is_string($container) || $container instanceof Txt,
-                new InText($needle, $container),
-                new InArray($needle, $container)
-            )
+            is_string($container) || $container instanceof Txt
+                ? new InText($needle, $container)
+                : new InArray($needle, $container)
         );
     }
 }

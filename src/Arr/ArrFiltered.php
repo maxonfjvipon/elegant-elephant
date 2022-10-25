@@ -19,12 +19,12 @@ final class ArrFiltered extends ArrWrap
      * @param array<mixed>|Arr $arr
      * @param callable         $callback
      */
-    final public function __construct($arr, callable $callback)
+    final public function __construct(array|Arr $arr, callable $callback)
     {
         parent::__construct(
             ArrOf::func(
                 fn () => array_filter(
-                    $this->ensuredArr($arr)->asArray(),
+                    $this->ensuredArray($arr),
                     $callback,
                     ARRAY_FILTER_USE_BOTH
                 )

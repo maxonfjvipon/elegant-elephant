@@ -18,10 +18,10 @@ final class ArrReversed extends ArrWrap
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct($arr)
+    final public function __construct(array|Arr $arr)
     {
         parent::__construct(
-            ArrOf::func(fn () => array_reverse($this->ensuredArr($arr)->asArray()))
+            ArrOf::func(fn () => array_reverse($this->ensuredArray($arr)))
         );
     }
 }

@@ -24,10 +24,10 @@ final class ArrObject extends ArrWrap
      * @param string|int|float|Txt|Num|Any $key
      * @param mixed                        $object
      */
-    final public function __construct($key, $object)
+    final public function __construct(string|int|float|Txt|Num|Any $key, mixed $object)
     {
         parent::__construct(
-            ArrOf::func(fn () => [$this->ensuredAny($key)->value() => $this->ensuredAny($object)->value()])
+            ArrOf::func(fn () => [$this->ensuredAnyValue($key) => $this->ensuredAnyValue($object)])
         );
     }
 }

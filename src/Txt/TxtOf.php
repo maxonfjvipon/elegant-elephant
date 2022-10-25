@@ -21,6 +21,17 @@ final class TxtOf implements StringableTxt
     private $callback;
 
     /**
+     * Text of number
+     *
+     * @param float|int $number
+     * @return TxtOf
+     */
+    public static function number(float|int $number): TxtOf
+    {
+        return TxtOf::str((string) $number);
+    }
+
+    /**
      * Text of float.
      *
      * @param  float $float
@@ -83,7 +94,7 @@ final class TxtOf implements StringableTxt
      * @param  mixed    ...$args
      * @return TxtOf
      */
-    final public static function func(callable $func, ...$args): TxtOf
+    final public static function func(callable $func, mixed ...$args): TxtOf
     {
         return new TxtOf(
             function () use ($func, $args) {

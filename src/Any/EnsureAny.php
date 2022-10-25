@@ -15,32 +15,36 @@ use Maxonfjvipon\ElegantElephant\Txt;
 trait EnsureAny
 {
     /**
-     * @param  mixed $any
-     * @return Any
+     * @param mixed $any
+     * @return mixed
      * @throws Exception
      */
-    final private function ensuredAny($any): Any
+    private function ensuredAnyValue(mixed $any): mixed
     {
-        if ($any instanceof Any) :
-            return $any;
-        endif;
+        $getAny = function (mixed $any): Any {
+            if ($any instanceof Any) {
+                return $any;
+            }
 
-        if (is_array($any) || $any instanceof Arr) {
-            return AnyOf::arr($any);
-        }
+            if ($any instanceof Arr) {
+                return AnyOf::arr($any);
+            }
 
-        if (is_string($any) || $any instanceof Txt) {
-            return AnyOf::text($any);
-        }
+            if ($any instanceof Txt) {
+                return AnyOf::text($any);
+            }
 
-        if (is_float($any) || is_int($any) || $any instanceof Num) {
-            return AnyOf::num($any);
-        }
+            if ($any instanceof Num) {
+                return AnyOf::num($any);
+            }
 
-        if (is_bool($any) || $any instanceof Logic) {
-            return AnyOf::logic($any);
-        }
+            if ($any instanceof Logic) {
+                return AnyOf::logic($any);
+            }
 
-        return AnyOf::func(fn () => $any);
+            return AnyOf::func(fn () => $any);
+        };
+
+        return $getAny($any)->value();
     }
 }

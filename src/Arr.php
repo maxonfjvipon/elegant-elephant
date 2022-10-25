@@ -7,12 +7,11 @@ namespace Maxonfjvipon\ElegantElephant;
 use Exception;
 
 /**
- * @link
+ * Array.
  */
 interface Arr
 {
     /**
-     *
      * @return array<mixed>
      * @throws Exception
      */

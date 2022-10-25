@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Arr;
 
 /**
@@ -12,13 +13,14 @@ use Maxonfjvipon\ElegantElephant\Arr;
 trait EnsureArr
 {
     /**
-     * @param  array|Arr $arr
-     * @return Arr
+     * @param array<mixed>|Arr $arr
+     * @return array
+     * @throws Exception
      */
-    final private function ensuredArr($arr): Arr
+    private function ensuredArray(array|Arr $arr): array
     {
-        if (!$arr instanceof Arr) {
-            $arr = ArrOf::array($arr);
+        if (! is_array($arr)) {
+            $arr = $arr->asArray();
         }
 
         return $arr;

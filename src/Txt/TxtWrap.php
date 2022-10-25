@@ -15,18 +15,11 @@ abstract class TxtWrap implements StringableTxt
     use TxtToString;
 
     /**
-     * @var Txt $origin
-     */
-    private Txt $origin;
-
-    /**
      * Ctor.
-     *
-     * @param Txt $text
+     * @param Txt $origin
      */
-    public function __construct(Txt $text)
+    public function __construct(private Txt $origin)
     {
-        $this->origin = $text;
     }
 
     /**

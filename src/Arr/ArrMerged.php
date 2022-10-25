@@ -18,13 +18,13 @@ final class ArrMerged extends ArrWrap
      *
      * @param array<mixed>|Arr ...$items
      */
-    final public function __construct(...$items)
+    final public function __construct(array|Arr ...$items)
     {
         parent::__construct(
             ArrOf::func(
                 fn () => array_merge(
                     ...array_map(
-                        fn ($arr) => $this->ensuredArr($arr)->asArray(),
+                        fn ($arr) => $this->ensuredArray($arr),
                         $items
                     )
                 )

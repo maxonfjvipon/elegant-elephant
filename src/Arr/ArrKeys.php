@@ -18,10 +18,10 @@ final class ArrKeys extends ArrWrap
      *
      * @param array|Arr $arr
      */
-    final public function __construct($arr)
+    final public function __construct(array|Arr $arr)
     {
         parent::__construct(
-            ArrOf::func(fn () => array_keys($this->ensuredArr($arr)->asArray()))
+            ArrOf::func(fn () => array_keys($this->ensuredArray($arr)))
         );
     }
 }

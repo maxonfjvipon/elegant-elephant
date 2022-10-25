@@ -15,5 +15,5 @@ interface Num
      * @return float|int
      * @throws Exception
      */
-    public function asNumber();
+    public function asNumber(): float|int;
 }

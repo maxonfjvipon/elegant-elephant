@@ -17,5 +17,5 @@ interface Any
      * @return mixed
      * @throws Exception
      */
-    public function value();
+    public function value(): mixed;
 }

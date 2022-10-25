@@ -13,10 +13,10 @@ final class ArrSplit extends ArrWrap
     /**
      * Exploded by comma.
      *
-     * @param  string|Txt $text
+     * @param string|Txt $text
      * @return self
      */
-    final public static function byComma($text): self
+    final public static function byComma(string|Txt $text): self
     {
         return new self(",", $text);
     }
@@ -24,10 +24,10 @@ final class ArrSplit extends ArrWrap
     /**
      * Ctor.
      *
-     * @param non-empty-string|Txt $separator
-     * @param string|Txt           $text
+     * @param string|Txt $separator
+     * @param string|Txt $text
      */
-    final public function __construct($separator, $text)
+    final public function __construct(string|Txt $separator, string|Txt $text)
     {
         parent::__construct(
             new ArrExploded($separator, $text)

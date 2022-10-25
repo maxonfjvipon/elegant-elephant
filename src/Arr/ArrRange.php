@@ -21,14 +21,17 @@ final class ArrRange extends ArrWrap
      * @param int|float|Num $to
      * @param int|float|Num $step
      */
-    final public function __construct($from, $to, $step = 1)
-    {
+    final public function __construct(
+        int|float|Num $from,
+        int|float|Num $to,
+        int|float|Num $step = 1
+    ) {
         parent::__construct(
             ArrOf::func(
                 fn () => range(
-                    $this->ensuredNum($from)->asNumber(),
-                    $this->ensuredNum($to)->asNumber(),
-                    $this->ensuredNum($step)->asNumber()
+                    $this->ensuredNumber($from),
+                    $this->ensuredNumber($to),
+                    $this->ensuredNumber($step)
                 )
             )
         );

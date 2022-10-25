@@ -19,24 +19,14 @@ final class MinOf extends NumWrap
      *
      * @param float|int|Num ...$items
      */
-    final public function __construct(...$items)
+    final public function __construct(float|int|Num ...$items)
     {
         parent::__construct(
             NumOf::func(
-                function () use ($items) {
-                    $min = min(
-                        array_map(
-                            fn ($item) => $this->ensuredNum($item)->asNumber(),
-                            $items
-                        )
-                    );
-
-                    if (!is_numeric($min)) {
-                        throw new Exception("Min can work with numbers only!");
-                    }
-
-                    return +$min;
-                }
+                fn() => +min(array_map(
+                    fn($item) => $this->ensuredNumber($item),
+                    $items
+                ))
             )
         );
     }

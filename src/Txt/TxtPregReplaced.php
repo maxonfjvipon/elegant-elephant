@@ -19,14 +19,17 @@ final class TxtPregReplaced extends TxtWrap
      * @param string|array<string>|Txt $replacement
      * @param string|array<string>|Txt $subject
      */
-    final public function __construct($pattern, $replacement, $subject)
-    {
+    final public function __construct(
+        string|array|Txt $pattern,
+        string|array|Txt $replacement,
+        string|array|Txt $subject
+    ) {
         parent::__construct(
             TxtOf::func(
                 fn () => preg_replace(
-                    $this->ensuredAny($pattern)->value(),
-                    $this->ensuredAny($replacement)->value(),
-                    $this->ensuredAny($subject)->value()
+                    $this->ensuredAnyValue($pattern),
+                    $this->ensuredAnyValue($replacement),
+                    $this->ensuredAnyValue($subject)
                 )
             )
         );

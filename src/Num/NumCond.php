@@ -16,12 +16,11 @@ final class NumCond extends NumWrap
 {
     /**
      * Ctor.
-     *
      * @param bool|Logic    $condition
      * @param float|int|Num $first
      * @param float|int|Num $second
      */
-    final public function __construct($condition, $first, $second)
+    final public function __construct(bool|Logic $condition, float|int|Num $first, float|int|Num $second)
     {
         parent::__construct(
             NumOf::any(

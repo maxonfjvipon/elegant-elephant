@@ -18,7 +18,7 @@ final class NumIf extends NumWrap
      * @param bool|Logic    $condition
      * @param float|int|Num $num
      */
-    final public function __construct($condition, $num)
+    final public function __construct(bool|Logic $condition, float|int|Num $num)
     {
         parent::__construct(
             new NumCond(

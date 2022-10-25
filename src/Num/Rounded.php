@@ -19,10 +19,10 @@ final class Rounded extends NumWrap
      * @param float|int|Num $num
      * @param int           $precision
      */
-    final public function __construct($num, int $precision = 0)
+    final public function __construct(float|int|Num  $num, int $precision = 0)
     {
         parent::__construct(
-            NumOf::func(fn () => round($this->ensuredNum($num)->asNumber()), $precision)
+            NumOf::func(fn () => round($this->ensuredNumber($num), $precision))
         );
     }
 }

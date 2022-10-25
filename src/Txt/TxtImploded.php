@@ -19,10 +19,10 @@ final class TxtImploded extends TxtWrap
     /**
      * Ctor wrap with comma.
      *
-     * @param  array<string|Txt>|Arr $items
+     * @param Arr|array<string|Txt> $items
      * @return self
      */
-    final public static function withComma($items): self
+    final public static function withComma(array|Arr $items): self
     {
         return new self(",", $items);
     }
@@ -31,17 +31,17 @@ final class TxtImploded extends TxtWrap
      * Ctor.
      *
      * @param string|Txt            $separator
-     * @param array<string|Txt>|Arr $items
+     * @param Arr|array<string|Txt> $items
      */
-    final public function __construct($separator, $items)
+    final public function __construct(string|Txt $separator, array|Arr $items)
     {
         parent::__construct(
             TxtOf::func(
                 fn () => implode(
-                    $this->ensuredTxt($separator)->asString(),
+                    $this->ensuredString($separator),
                     array_map(
-                        fn ($item) => $this->ensuredTxt($item)->asString(),
-                        $this->ensuredArr($items)->asArray()
+                        fn ($item) => $this->ensuredString($item),
+                        $this->ensuredArray($items)
                     )
                 )
             )

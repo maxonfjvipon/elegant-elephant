@@ -20,10 +20,10 @@ final class ArrFlatten extends ArrWrap
      * @param array<mixed>|Arr $arr
      * @param int              $deep
      */
-    final public function __construct($arr, int $deep = 1)
+    final public function __construct(array|Arr $arr, int $deep = 1)
     {
         parent::__construct(
-            ArrOf::func(fn () => $this->flat($this->ensuredArr($arr)->asArray(), [], $deep))
+            ArrOf::func(fn () => $this->flat($this->ensuredArray($arr), [], $deep))
         );
     }
 
@@ -35,11 +35,11 @@ final class ArrFlatten extends ArrWrap
      * @return array<mixed>
      * @throws Exception
      */
-    final private function flat(array $arr, array $new, int $neededDeep, int $currentDeep = 0): array
+    private function flat(array $arr, array $new, int $neededDeep, int $currentDeep = 0): array
     {
         foreach ($arr as $item) {
             if ($neededDeep !== $currentDeep && (is_array($item) || $item instanceof Arr)) {
-                $new = $this->flat($this->ensuredArr($item)->asArray(), $new, $neededDeep, $currentDeep + 1);
+                $new = $this->flat($this->ensuredArray($item), $new, $neededDeep, $currentDeep + 1);
             } else {
                 $new[] = $item;
             }

@@ -16,10 +16,10 @@ final class TxtJsonEncoded extends TxtWrap
      *
      * @param mixed $value
      */
-    final public function __construct($value)
+    final public function __construct(mixed $value)
     {
         parent::__construct(
-            TxtOf::func(fn () => (string) json_encode($this->ensuredAny($value)->value()))
+            TxtOf::func(fn () => (string) json_encode($this->ensuredAnyValue($value)))
         );
     }
 }

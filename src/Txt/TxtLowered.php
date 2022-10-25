@@ -18,10 +18,10 @@ final class TxtLowered extends TxtWrap
      *
      * @param string|Txt $text
      */
-    final public function __construct($text)
+    final public function __construct(string|Txt $text)
     {
         parent::__construct(
-            TxtOf::func(fn () => strtolower($this->ensuredTxt($text)->asString()))
+            TxtOf::func(fn () => strtolower($this->ensuredString($text)))
         );
     }
 }

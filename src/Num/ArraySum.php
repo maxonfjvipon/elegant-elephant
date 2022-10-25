@@ -15,7 +15,7 @@ final class ArraySum extends NumWrap
     /**
      * @param array<float|int|Num>|Arr $arr
      */
-    final public function __construct($arr)
+    final public function __construct(array|Arr $arr)
     {
         parent::__construct(
             new SumOf($arr)

@@ -20,7 +20,7 @@ final class ArrExploded extends ArrWrap
      * @param  string|Txt $text
      * @return ArrExploded
      */
-    final public static function byComma($text): ArrExploded
+    final public static function byComma(string|Txt $text): ArrExploded
     {
         return new ArrExploded(",", $text);
     }
@@ -28,13 +28,13 @@ final class ArrExploded extends ArrWrap
     /**
      * Ctor.
      *
-     * @param non-empty-string|Txt $separator
-     * @param string|Txt           $text
+     * @param string|Txt $separator
+     * @param string|Txt $text
      */
-    final public function __construct($separator, $text)
+    final public function __construct(string|Txt $separator, string|Txt $text)
     {
         parent::__construct(
-            ArrOf::func(fn () => explode($this->ensuredTxt($separator), $this->ensuredTxt($text)))
+            ArrOf::func(fn () => explode($this->ensuredString($separator), $this->ensuredString($text)))
         );
     }
 }

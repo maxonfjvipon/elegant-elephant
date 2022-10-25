@@ -15,29 +15,16 @@ final class InText extends LogicWrap
     use EnsureTxt;
 
     /**
-     * @var string|Txt $haystack
-     */
-    private $haystack;
-
-    /**
-     * @var string|Txt $needle
-     */
-    private $needle;
-
-    /**
      * Ctor.
      *
      * @param string|Txt $needle
      * @param string|Txt $haystack
      */
-    final public function __construct($needle, $haystack)
+    final public function __construct(string|Txt $needle, string|Txt $haystack)
     {
         parent::__construct(
             LogicOf::func(
-                fn () => strpos(
-                    $this->ensuredTxt($haystack)->asString(),
-                    $this->ensuredTxt($needle)->asString()
-                ) !== false
+                fn () => str_contains($this->ensuredString($haystack), $this->ensuredString($needle))
             )
         );
     }

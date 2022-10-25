@@ -20,10 +20,10 @@ final class TxtSubstr extends TxtWrap
      * @param int        $offset
      * @param int|null   $length
      */
-    final public function __construct($text, int $offset, ?int $length = null)
+    final public function __construct(string|Txt $text, int $offset, ?int $length = null)
     {
         parent::__construct(
-            TxtOf::func(fn () => substr($this->ensuredTxt($text)->asString(), $offset, $length))
+            TxtOf::func(fn () => substr($this->ensuredString($text), $offset, $length))
         );
     }
 }

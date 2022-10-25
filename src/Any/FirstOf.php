@@ -19,13 +19,13 @@ final class FirstOf implements Any
     /**
      * @var array<mixed>|string|Arr|Txt|Any $container
      */
-    private $container;
+    private array|string|Arr|Txt|Any $container;
 
     /**
-     * @param  string|Txt $text
+     * @param string|Txt $text
      * @return FirstOf
      */
-    final public static function text($text): FirstOf
+    final public static function text(Txt|string $text): FirstOf
     {
         return new FirstOf(AnyOf::text($text));
     }
@@ -33,10 +33,10 @@ final class FirstOf implements Any
     /**
      * First of array.
      *
-     * @param  array<mixed>|Arr $arr
+     * @param Arr|array<mixed> $arr
      * @return FirstOf
      */
-    public static function arr($arr): FirstOf
+    public static function arr(array|Arr $arr): FirstOf
     {
         return new FirstOf(AnyOf::arr($arr));
     }
@@ -44,9 +44,9 @@ final class FirstOf implements Any
     /**
      * Ctor.
      *
-     * @param array<mixed>|string|Arr|Txt|Any $container
+     * @param string|Any|Arr|array<mixed>|Txt $container
      */
-    final public function __construct($container)
+    final public function __construct(string|Any|Arr|array|Txt $container)
     {
         $this->container = $container;
     }
@@ -55,12 +55,16 @@ final class FirstOf implements Any
      * @return mixed
      * @throws Exception
      */
-    final public function value()
+    final public function value(): mixed
     {
-        $value = $this->ensuredAny($this->container)->value();
+        $value = $this->ensuredAnyValue($this->container);
 
-        if (!is_string($value) && !is_array($value)) {
+        if (! is_string($value) && ! is_array($value)) {
             throw new Exception("The element to get the first element from must be an array or string");
+        }
+
+        if (empty($value)) {
+            throw new Exception("Can't get the first element of an empty value");
         }
 
         return $value[0];

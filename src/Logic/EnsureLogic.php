@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
@@ -12,17 +13,16 @@ use Maxonfjvipon\ElegantElephant\Logic;
 trait EnsureLogic
 {
     /**
-     * @param  bool|Logic $boolOrLogic
-     * @return Logic
+     * @param bool|Logic $boolOrLogic
+     * @return bool
+     * @throws Exception
      */
-    final private function ensuredLogic($boolOrLogic): Logic
+    private function ensuredBool(bool|Logic $boolOrLogic): bool
     {
-        $logic = $boolOrLogic;
-
-        if (!$boolOrLogic instanceof Logic) {
-            $logic = LogicOf::bool($boolOrLogic);
+        if (! is_bool($boolOrLogic)) {
+            $boolOrLogic = $boolOrLogic->asBool();
         }
 
-        return $logic;
+        return $boolOrLogic;
     }
 }

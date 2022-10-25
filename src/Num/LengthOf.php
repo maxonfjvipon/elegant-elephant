@@ -22,13 +22,13 @@ final class LengthOf extends NumWrap
      *
      * @param string|array<mixed>|Txt|Arr $arg
      */
-    final public function __construct($arg)
+    final public function __construct(string|array|Txt|Arr $arg)
     {
         parent::__construct(
             new NumCond(
                 is_array($arg) || $arg instanceof Arr,
-                NumOf::func(fn () => count($this->ensuredArr($arg)->asArray())),
-                NumOf::func(fn () => strlen($this->ensuredTxt($arg)->asString()))
+                NumOf::func(fn () => count($this->ensuredArray($arg))),
+                NumOf::func(fn () => strlen($this->ensuredString($arg)))
             )
         );
     }

@@ -24,13 +24,13 @@ final class KeyExists extends LogicWrap
      * @param int|string|Num|Txt $key
      * @param array<mixed>|Arr   $arr
      */
-    final public function __construct($key, $arr)
+    final public function __construct(int|string|Num|Txt $key, array|Arr $arr)
     {
         parent::__construct(
             LogicOf::func(
                 fn () => array_key_exists(
-                    $this->ensuredAny($key)->value(),
-                    $this->ensuredArr($arr)->asArray()
+                    $this->ensuredAnyValue($key),
+                    $this->ensuredArray($arr)
                 )
             )
         );

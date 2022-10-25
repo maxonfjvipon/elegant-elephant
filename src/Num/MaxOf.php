@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Num;
 
-use Exception;
 use Maxonfjvipon\ElegantElephant\Num;
 
 /**
@@ -19,24 +18,14 @@ final class MaxOf extends NumWrap
      *
      * @param float|int|Num ...$items
      */
-    final public function __construct(...$items)
+    final public function __construct(float|int|Num ...$items)
     {
         parent::__construct(
             NumOf::func(
-                function () use ($items) {
-                    $max = max(
-                        array_map(
-                            fn ($item) => $this->ensuredNum($item)->asNumber(),
-                            $items
-                        )
-                    );
-
-                    if (!is_numeric($max)) {
-                        throw new Exception("Max can work with numbers only!");
-                    }
-
-                    return +$max;
-                }
+                fn() => +max(array_map(
+                    fn($item) => $this->ensuredNumber($item),
+                    $items
+                ))
             )
         );
     }

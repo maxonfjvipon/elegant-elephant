@@ -13,25 +13,18 @@ use Maxonfjvipon\ElegantElephant\Any;
 abstract class AnyWrap implements Any
 {
     /**
-     * @var Any $origin
-     */
-    private Any $origin;
-
-    /**
      * Ctor.
-     *
-     * @param Any $any
+     * @param Any $origin
      */
-    public function __construct(Any $any)
+    public function __construct(private Any $origin)
     {
-        $this->origin = $any;
     }
 
     /**
      * @return mixed
      * @throws Exception
      */
-    final public function value()
+    final public function value(): mixed
     {
         return $this->origin->value();
     }

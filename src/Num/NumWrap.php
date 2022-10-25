@@ -13,23 +13,18 @@ use Maxonfjvipon\ElegantElephant\Num;
 abstract class NumWrap implements Num
 {
     /**
-     * @var Num $origin
-     */
-    private Num $origin;
-
-    /**
+     * Ctor.
      * @param Num $origin
      */
-    public function __construct(Num $origin)
+    public function __construct(private Num $origin)
     {
-        $this->origin = $origin;
     }
 
     /**
      * @return float|int
      * @throws Exception
      */
-    final public function asNumber()
+    final public function asNumber(): float|int
     {
         return $this->origin->asNumber();
     }

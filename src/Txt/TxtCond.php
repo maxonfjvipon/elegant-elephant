@@ -21,7 +21,7 @@ final class TxtCond extends TxtWrap
      * @param string|Txt $first
      * @param string|Txt $second
      */
-    final public function __construct($condition, $first, $second)
+    final public function __construct(bool|Logic $condition, string|Txt $first, string|Txt $second)
     {
         parent::__construct(
             TxtOf::any(

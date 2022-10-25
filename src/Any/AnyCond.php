@@ -19,16 +19,16 @@ final class AnyCond extends AnyWrap
      * Ctor.
      *
      * @param bool|Logic $condition
-     * @param mixed      $first
-     * @param mixed      $second
+     * @param mixed $first
+     * @param mixed $second
      */
-    final public function __construct($condition, $first, $second)
+    final public function __construct(bool|Logic $condition, mixed $first, mixed $second)
     {
         parent::__construct(
             AnyOf::func(
-                fn () => $this->ensuredLogic($condition)->asBool()
-                ? $this->ensuredAny($first)->value()
-                : $this->ensuredAny($second)->value()
+                fn () => $this->ensuredBool($condition)
+                ? $this->ensuredAnyValue($first)
+                : $this->ensuredAnyValue($second)
             )
         );
     }

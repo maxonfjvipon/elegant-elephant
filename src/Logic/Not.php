@@ -18,10 +18,10 @@ final class Not extends LogicWrap
      *
      * @param bool|Logic $boolOrLogic
      */
-    final public function __construct($boolOrLogic)
+    final public function __construct(bool|Logic $boolOrLogic)
     {
         parent::__construct(
-            LogicOf::func(fn () => !$this->ensuredLogic($boolOrLogic)->asBool())
+            LogicOf::func(fn () => !$this->ensuredBool($boolOrLogic))
         );
     }
 }

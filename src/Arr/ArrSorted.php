@@ -19,12 +19,12 @@ final class ArrSorted extends ArrWrap
      * @param array<mixed>|Arr     $arr
      * @param callable|string|null $compare
      */
-    final public function __construct($arr, $compare = null)
+    final public function __construct(array|Arr $arr, callable|string|null $compare = null)
     {
         parent::__construct(
             ArrOf::func(
                 function () use ($arr, $compare) {
-                    $arr = $this->ensuredArr($arr)->asArray();
+                    $arr = $this->ensuredArray($arr);
 
                     if ($compare != null) {
                         usort(

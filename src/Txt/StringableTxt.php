@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\ElegantElephant\Txt;
 
-use Exception;
 use Maxonfjvipon\ElegantElephant\Txt;
 use Stringable;
 

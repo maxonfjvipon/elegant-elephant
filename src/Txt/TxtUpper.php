@@ -18,10 +18,10 @@ final class TxtUpper extends TxtWrap
      *
      * @param string|Txt $text
      */
-    final public function __construct($text)
+    final public function __construct(string|Txt $text)
     {
         parent::__construct(
-            TxtOf::func(fn () => strtoupper($this->ensuredTxt($text)->asString()))
+            TxtOf::func(fn () => strtoupper($this->ensuredString($text)))
         );
     }
 }

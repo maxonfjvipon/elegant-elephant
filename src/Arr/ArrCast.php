@@ -24,7 +24,7 @@ final class ArrCast extends ArrWrap
         parent::__construct(
             new ArrMapped(
                 $arr,
-                fn ($value) => $this->ensuredAny($value)->value()
+                fn ($value) => $this->ensuredAnyValue($value)
             )
         );
     }

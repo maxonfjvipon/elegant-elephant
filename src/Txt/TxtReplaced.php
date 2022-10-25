@@ -20,14 +20,14 @@ final class TxtReplaced extends TxtWrap
      * @param string|Txt $replace
      * @param string|Txt $subject
      */
-    final public function __construct($search, $replace, $subject)
+    final public function __construct(string|Txt $search, string|Txt $replace, string|Txt $subject)
     {
         parent::__construct(
             TxtOf::func(
                 fn () => str_replace(
-                    $this->ensuredTxt($search)->asString(),
-                    $this->ensuredTxt($replace)->asString(),
-                    $this->ensuredTxt($subject)->asString()
+                    $this->ensuredString($search),
+                    $this->ensuredString($replace),
+                    $this->ensuredString($subject)
                 )
             )
         );
