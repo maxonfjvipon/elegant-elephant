@@ -14,6 +14,7 @@ use Maxonfjvipon\ElegantElephant\Any;
 final class TxtOf implements StringableTxt
 {
     use TxtToString;
+    use EnsureTxt;
 
     /**
      * @var callable $callback
@@ -96,15 +97,7 @@ final class TxtOf implements StringableTxt
      */
     final public static function func(callable $func, mixed ...$args): TxtOf
     {
-        return new TxtOf(
-            function () use ($func, $args) {
-                if (!is_string($res = call_user_func($func, ...$args))) {
-                    throw new Exception("Function must return a string");
-                }
-
-                return $res;
-            }
-        );
+        return new TxtOf(fn (TxtOf $self) => $self->ensuredString(call_user_func($func, ...$args)));
     }
 
     /**
@@ -123,6 +116,6 @@ final class TxtOf implements StringableTxt
      */
     final public function asString(): string
     {
-        return (string) call_user_func($this->callback);
+        return (string) call_user_func($this->callback, $this);
     }
 }

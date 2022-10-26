@@ -6,6 +6,8 @@ namespace Maxonfjvipon\ElegantElephant\Arr;
 
 use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Arr;
 
 /**
  * Array of.
@@ -13,6 +15,7 @@ use Maxonfjvipon\ElegantElephant\Any;
 final class ArrOf implements IterableArr
 {
     use HasArrIterator;
+    use EnsureArr;
 
     /**
      * @var callable $callback
@@ -59,15 +62,7 @@ final class ArrOf implements IterableArr
      */
     final public static function func(callable $func, mixed ...$args): ArrOf
     {
-        return new ArrOf(
-            function () use ($func, $args) {
-                if (! is_array($arr = call_user_func($func, ...$args))) {
-                    throw new Exception("Function must return an array");
-                }
-
-                return $arr;
-            }
-        );
+        return new ArrOf(fn (ArrOf $self) => $self->ensuredArray(call_user_func($func, ...$args)));
     }
 
     /**
@@ -86,6 +81,6 @@ final class ArrOf implements IterableArr
      */
     final public function asArray(): array
     {
-        return (array)call_user_func($this->callback);
+        return (array)call_user_func($this->callback, $this);
     }
 }

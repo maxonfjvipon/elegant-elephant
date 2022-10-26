@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
 use Maxonfjvipon\ElegantElephant\Txt;

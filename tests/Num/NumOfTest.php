@@ -80,9 +80,11 @@ final class NumOfTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function numOfNotNumber(): void
+    public function numOfFuncThatReturnsFunc(): void
     {
-        $this->expectExceptionMessage("Function must return an int or float");
-        NumOf::func(fn () => "Hello world!")->asNumber();
+        $this->assertNumThat(
+            NumOf::func(fn () => NumOf::int(5)),
+            new IsEqual(5)
+        );
     }
 }

@@ -106,9 +106,11 @@ final class TextOfTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function textOfFuncThrowsException(): void
+    public function textOfFuncThatReturnsText(): void
     {
-        $this->expectExceptionMessage("Function must return a string");
-        TxtOf::func(fn () => AnyOf::text("Hello there"))->asString();
+        $this->assertTxtThat(
+            TxtOf::func(fn () => TxtOf::str("Hello, Jeff")),
+            new IsEqual("Hello, Jeff")
+        );
     }
 }

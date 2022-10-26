@@ -68,9 +68,11 @@ final class ArrOfTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function tryArrOfWithNoArray(): void
+    public function arrOfFuncThatReturnArr(): void
     {
-        $this->expectExceptionMessage("Function must return an array");
-        ArrOf::func(fn () => "Hello world")->asArray();
+        $this->assertArrThat(
+            ArrOf::func(fn () => ArrOf::array([1, 2, 3])),
+            new Count(3)
+        );
     }
 }

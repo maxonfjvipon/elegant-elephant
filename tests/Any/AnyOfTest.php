@@ -14,10 +14,11 @@ use Maxonfjvipon\ElegantElephant\Tests\IsLogic;
 use Maxonfjvipon\ElegantElephant\Tests\IsNum;
 use Maxonfjvipon\ElegantElephant\Tests\IsTxt;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\Constraint\IsTrue;
 
-final class OfTest extends TestCase
+final class AnyOfTest extends TestCase
 {
     /**
      * @test
@@ -133,6 +134,19 @@ final class OfTest extends TestCase
         $this->assertAnyThat(
             AnyOf::func(fn () => "Hello there"),
             new IsEqual("Hello there")
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function anyOfFuncThatReturnsAny(): void
+    {
+        $this->assertAnyThat(
+            AnyOf::func(fn () => AnyOf::arr([1, 2, 3])),
+            new Count(3)
         );
     }
 }

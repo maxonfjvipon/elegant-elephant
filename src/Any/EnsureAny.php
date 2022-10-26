@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\ElegantElephant\Any;
 
 use Exception;
@@ -42,7 +44,7 @@ trait EnsureAny
                 return AnyOf::logic($any);
             }
 
-            return AnyOf::func(fn () => $any);
+            return new AnyOf(fn () => $any);
         };
 
         return $getAny($any)->value();

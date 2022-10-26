@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxonfjvipon\ElegantElephant\Any;
 
 use Exception;
@@ -22,6 +24,7 @@ final class AnyOf implements Any
     use EnsureArr;
     use EnsureNum;
     use EnsureTxt;
+    use EnsureAny;
 
     /**
      * @var callable $callback
@@ -92,7 +95,7 @@ final class AnyOf implements Any
      */
     final public static function func(callable $func, mixed ...$args): AnyOf
     {
-        return new AnyOf(fn () => call_user_func($func, ...$args));
+        return new AnyOf(fn (AnyOf $self) => $self->ensuredAnyValue(call_user_func($func, ...$args)));
     }
 
     /**
@@ -100,7 +103,7 @@ final class AnyOf implements Any
      *
      * @param callable $func
      */
-    final private function __construct(callable $func)
+    final public function __construct(callable $func)
     {
         $this->callback = $func;
     }

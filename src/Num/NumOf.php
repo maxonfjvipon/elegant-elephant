@@ -13,6 +13,8 @@ use Maxonfjvipon\ElegantElephant\Num;
  */
 final class NumOf implements Num
 {
+    use EnsureNum;
+
     /**
      * @var callable $callback
      */
@@ -71,17 +73,7 @@ final class NumOf implements Num
      */
     final public static function func(callable $func, mixed ...$args): NumOf
     {
-        return new NumOf(
-            function () use ($func, $args) {
-                $num = call_user_func($func, ...$args);
-
-                if (!is_int($num) && !is_float($num)) {
-                    throw new Exception("Function must return an int or float");
-                }
-
-                return $num;
-            }
-        );
+        return new NumOf(fn (NumOf $self) => $self->ensuredNumber(call_user_func($func, ...$args)));
     }
 
     /**
@@ -100,6 +92,6 @@ final class NumOf implements Num
      */
     final public function asNumber(): float|int
     {
-        return call_user_func($this->callback);
+        return call_user_func($this->callback, $this);
     }
 }

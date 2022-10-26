@@ -13,6 +13,8 @@ use Maxonfjvipon\ElegantElephant\Logic;
  */
 final class LogicOf implements Logic
 {
+    use EnsureLogic;
+
     /**
      * @var callable $callback
      */
@@ -49,15 +51,7 @@ final class LogicOf implements Logic
      */
     final public static function func(callable $func, mixed ...$args): LogicOf
     {
-        return new LogicOf(
-            function () use ($func, $args) {
-                if (! is_bool($bool = call_user_func($func, ...$args))) {
-                    throw new Exception("Function must return a bool value");
-                }
-
-                return $bool;
-            }
-        );
+        return new LogicOf(fn (LogicOf $self) => $self->ensuredBool(call_user_func($func, ...$args)));
     }
 
     /**
@@ -76,6 +70,6 @@ final class LogicOf implements Logic
      */
     final public function asBool(): bool
     {
-        return (bool) call_user_func($this->callback);
+        return (bool) call_user_func($this->callback, $this);
     }
 }

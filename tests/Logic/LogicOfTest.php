@@ -53,9 +53,11 @@ final class LogicOfTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function logicOfWithNoBool(): void
+    public function logicOfFuncThatReturnsLogic(): void
     {
-        $this->expectExceptionMessage("Function must return a bool value");
-        LogicOf::func(fn () => "Hello world")->asBool();
+        $this->assertLogicThat(
+            LogicOf::func(fn () => LogicOf::bool(true)),
+            new IsTrue()
+        );
     }
 }
