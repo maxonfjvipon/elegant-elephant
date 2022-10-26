@@ -13,8 +13,10 @@ use Maxonfjvipon\ElegantElephant\Txt;
 final class ContainsIn extends LogicWrap
 {
     /**
+     * @todo: Remake with using {@see LogicCond}
+     * Ctor.
      * @param mixed $needle
-     * @param string|array|Txt|Arr $container
+     * @param string|array<mixed>|Txt|Arr $container
      */
     final public function __construct(mixed $needle, string|array|Txt|Arr $container)
     {

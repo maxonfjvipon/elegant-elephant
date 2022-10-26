@@ -28,7 +28,7 @@ final class LastOf extends AnyWrap
     }
 
     /**
-     * @param array|Arr $arr
+     * @param array<mixed>|Arr $arr
      * @return LastOf
      */
     final public static function arr(array|Arr $arr): LastOf

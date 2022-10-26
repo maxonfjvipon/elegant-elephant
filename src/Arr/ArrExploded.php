@@ -28,13 +28,18 @@ final class ArrExploded extends ArrWrap
     /**
      * Ctor.
      *
-     * @param string|Txt $separator
+     * @param non-empty-string|Txt $separator
      * @param string|Txt $text
      */
     final public function __construct(string|Txt $separator, string|Txt $text)
     {
         parent::__construct(
-            ArrOf::func(fn () => explode($this->ensuredString($separator), $this->ensuredString($text)))
+            ArrOf::func(function () use ($separator, $text) {
+                /** @var non-empty-string $separator */
+                $separator = $this->ensuredString($separator);
+
+                return explode($separator, $this->ensuredString($text));
+            })
         );
     }
 }

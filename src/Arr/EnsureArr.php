@@ -14,7 +14,7 @@ trait EnsureArr
 {
     /**
      * @param array<mixed>|Arr $arr
-     * @return array
+     * @return array<mixed>
      * @throws Exception
      */
     private function ensuredArray(array|Arr $arr): array

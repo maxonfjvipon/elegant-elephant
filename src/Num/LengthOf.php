@@ -18,8 +18,8 @@ final class LengthOf extends NumWrap
     use EnsureArr;
 
     /**
+     * @todo: Get rid of ignore line annotations
      * Ctor.
-     *
      * @param string|array<mixed>|Txt|Arr $arg
      */
     final public function __construct(string|array|Txt|Arr $arg)
@@ -27,8 +27,8 @@ final class LengthOf extends NumWrap
         parent::__construct(
             new NumCond(
                 is_array($arg) || $arg instanceof Arr,
-                NumOf::func(fn () => count($this->ensuredArray($arg))),
-                NumOf::func(fn () => strlen($this->ensuredString($arg)))
+                NumOf::func(fn () => count($this->ensuredArray($arg))), /** @phpstan-ignore-line */
+                NumOf::func(fn () => strlen($this->ensuredString($arg))) /** @phpstan-ignore-line */
             )
         );
     }

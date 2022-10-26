@@ -24,7 +24,7 @@ final class ArrSplit extends ArrWrap
     /**
      * Ctor.
      *
-     * @param string|Txt $separator
+     * @param non-empty-string|Txt $separator
      * @param string|Txt $text
      */
     final public function __construct(string|Txt $separator, string|Txt $text)

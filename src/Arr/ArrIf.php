@@ -17,7 +17,7 @@ final class ArrIf extends ArrWrap
      * Ctor.
      *
      * @param bool|Logic $condition
-     * @param array|Arr  $arr
+     * @param array<mixed>|Arr  $arr
      */
     final public function __construct(bool|Logic $condition, array|Arr $arr)
     {

@@ -17,7 +17,7 @@ class ConstraintWrap extends Constraint
     }
 
     /**
-     * @param $other
+     * @param mixed $other
      * @param string $description
      * @param bool $returnResult
      * @return bool|null

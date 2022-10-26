@@ -1,4 +1,6 @@
 parameters:
+  excludePaths:
+    - src/Num/LengthOf.php
   level: 8
   paths:
     - src

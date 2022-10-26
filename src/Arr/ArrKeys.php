@@ -16,7 +16,7 @@ final class ArrKeys extends ArrWrap
     /**
      * Ctor.
      *
-     * @param array|Arr $arr
+     * @param array<mixed>|Arr $arr
      */
     final public function __construct(array|Arr $arr)
     {

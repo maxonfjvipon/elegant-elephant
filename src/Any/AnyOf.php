@@ -42,7 +42,7 @@ final class AnyOf implements Any
     /**
      * Any of array.
      *
-     * @param  array|Arr $arr
+     * @param  array<mixed>|Arr $arr
      * @return AnyOf
      */
     final public static function arr(array|Arr $arr): AnyOf

@@ -19,7 +19,7 @@ final class ArrWith extends ArrWrap
 
     /**
      * Ctor.
-     * @param array|Arr $arr
+     * @param array<mixed>|Arr $arr
      * @param mixed $keyOrValue
      * @param mixed|null $value
      */
