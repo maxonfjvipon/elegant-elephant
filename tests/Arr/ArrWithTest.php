@@ -4,6 +4,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Arr;
 
 use Exception;
 use Maxonfjvipon\ElegantElephant\Arr\ArrEmpty;
+use Maxonfjvipon\ElegantElephant\Arr\ArrObject;
 use Maxonfjvipon\ElegantElephant\Arr\ArrWith;
 use Maxonfjvipon\ElegantElephant\Num\NumOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
@@ -56,6 +57,25 @@ final class ArrWithTest extends TestCase
                 1 => "hello world",
                 2 => 42
             ])
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function arrWithArrObject(): void
+    {
+        $this->assertArrThat(
+            new ArrWith(
+                [1, 2],
+                new ArrObject(
+                    "key",
+                    "value"
+                )
+            ),
+            new IsEqual([1, 2, ["key" => "value"]])
         );
     }
 }

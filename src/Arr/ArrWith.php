@@ -31,7 +31,7 @@ final class ArrWith extends ArrWrap
                 new ArrCond(
                     new IsNull($value),
                     ArrOf::func(fn () => [$this->ensuredAnyValue($keyOrValue)]),
-                    new ArrObject($keyOrValue, $value)
+                    ArrOf::func(fn () => new ArrObject($keyOrValue, $value))
                 )
             )
         );
