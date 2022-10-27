@@ -3,8 +3,12 @@
 namespace Maxonfjvipon\ElegantElephant\Tests\Arr;
 
 use Exception;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Arr\ArrCast;
 use Maxonfjvipon\ElegantElephant\Arr\ArrMapped;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
@@ -55,6 +59,41 @@ final class ArrMappedTest extends TestCase
 
     /**
      * @test
+     * @return void
+     * @throws Exception
+     */
+    public function mappedWithEnsuring(): void
+    {
+        $this->assertArrThat(
+            new ArrMapped(
+                [
+                    'any' => 5,
+                    'arr' => [1, 2],
+                    'txt' => "Hello, Jeff",
+                    'logic' => true,
+                    'num' => 10
+                ],
+                fn ($key, $value) => match ($key) {
+                    'any' => AnyOf::just($value),
+                    'arr' => ArrOf::array($value),
+                    'txt' => TxtOf::str($value),
+                    'logic' => LogicOf::bool($value),
+                    'num' => NumOf::int(10)
+                },
+                ensure: true
+            ),
+            new IsEqual([
+                5,
+                [1, 2],
+                "Hello, Jeff",
+                true,
+                10
+            ])
+        );
+    }
+
+    /**
+     * @test
      * @throws Exception
      */
     public function mappedKeyValue(): void
@@ -68,5 +107,16 @@ final class ArrMappedTest extends TestCase
                 0, 2, 6, 12, 20
             ])
         );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function mappedWithWrongAmountOfArguments(): void
+    {
+        $this->expectExceptionMessage("Invalid amount of arguments");
+        (new ArrMapped([1, 2], fn () => "Hey"))->asArray();
     }
 }
