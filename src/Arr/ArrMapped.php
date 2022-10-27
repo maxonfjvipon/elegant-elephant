@@ -42,7 +42,7 @@ final class ArrMapped extends ArrWrap
                     return array_map($ensure
                         ? ($isTwo
                             ? fn($key, $value) => $this->ensuredAnyValue(call_user_func($callback, $key, $value))
-                            : fn($value) => $this->ensuredAnyValue(call_user_func_array($callback, $value)))
+                            : fn($value) => $this->ensuredAnyValue(call_user_func($callback, $value)))
                         : $callback,
                         ...$arrays
                     );

@@ -95,6 +95,23 @@ final class ArrMappedTest extends TestCase
 
     /**
      * @test
+     * @return void
+     * @throws Exception
+     */
+    public function mappedWithEnsuringWithoutKey(): void
+    {
+        $this->assertArrThat(
+            new ArrMapped(
+                [AnyOf::just(5), TxtOf::str("Hello, Jeff")],
+                fn ($value) => $value,
+                ensure: true
+            ),
+            new IsEqual([5, "Hello, Jeff"])
+        );
+    }
+
+    /**
+     * @test
      * @throws Exception
      */
     public function mappedKeyValue(): void
