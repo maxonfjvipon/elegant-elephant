@@ -78,7 +78,8 @@ final class ArrMappedTest extends TestCase
                     'arr' => ArrOf::array($value),
                     'txt' => TxtOf::str($value),
                     'logic' => LogicOf::bool($value),
-                    'num' => NumOf::int(10)
+                    'num' => NumOf::int(10),
+                    default => null
                 },
                 ensure: true
             ),
