@@ -142,6 +142,19 @@ final class AnyOfTest extends TestCase
      * @return void
      * @throws Exception
      */
+    public function anyOfJust(): void
+    {
+        $this->assertAnyThat(
+            AnyOf::just("Hello, Jeff"),
+            new IsEqual("Hello, Jeff")
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
     public function anyOfFuncThatReturnsAny(): void
     {
         $this->assertAnyThat(
