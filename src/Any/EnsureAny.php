@@ -44,7 +44,7 @@ trait EnsureAny
                 return AnyOf::logic($any);
             }
 
-            return new AnyOf(fn () => $any);
+            return AnyOf::just($any);
         };
 
         return $getAny($any)->value();

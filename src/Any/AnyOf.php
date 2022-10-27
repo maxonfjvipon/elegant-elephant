@@ -99,11 +99,22 @@ final class AnyOf implements Any
     }
 
     /**
+     * Any of just value.
+     *
+     * @param mixed $value
+     * @return AnyOf
+     */
+    public static function just(mixed $value): AnyOf
+    {
+        return new AnyOf(fn () => $value);
+    }
+
+    /**
      * Ctor.
      *
      * @param callable $func
      */
-    final public function __construct(callable $func)
+    final private function __construct(callable $func)
     {
         $this->callback = $func;
     }
