@@ -6,13 +6,8 @@ use Exception;
 use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Logic\LogicCond;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
-use Maxonfjvipon\ElegantElephant\Num\NumCond;
-use Maxonfjvipon\ElegantElephant\Num\NumOf;
-use Maxonfjvipon\ElegantElephant\Num\SumOf;
-use Maxonfjvipon\ElegantElephant\Tests\IsLogic;
-use Maxonfjvipon\ElegantElephant\Tests\IsNum;
+use Maxonfjvipon\ElegantElephant\Tests\Support\IsLogic;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
-use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\Constraint\IsTrue;
 
 final class LogicCondTest extends TestCase

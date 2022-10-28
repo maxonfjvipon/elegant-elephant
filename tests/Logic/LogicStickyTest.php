@@ -5,7 +5,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Logic;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Logic\LogicSticky;
-use Maxonfjvipon\ElegantElephant\Tests\IsLogic;
+use Maxonfjvipon\ElegantElephant\Tests\Support\IsLogic;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 
 final class LogicStickyTest extends TestCase
