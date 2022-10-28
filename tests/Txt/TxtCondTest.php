@@ -4,11 +4,10 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Txt;
 
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
-use Maxonfjvipon\ElegantElephant\Tests\IsTxt;
+use Maxonfjvipon\ElegantElephant\Tests\Support\IsTxt;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
-use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
-use Maxonfjvipon\ElegantElephant\Txt\TxtBlank;
 use Maxonfjvipon\ElegantElephant\Txt\TxtCond;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 

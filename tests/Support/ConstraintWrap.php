@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxonfjvipon\ElegantElephant\Tests;
+namespace Maxonfjvipon\ElegantElephant\Tests\Support;
 
 use PHPUnit\Framework\Constraint\Constraint;
 

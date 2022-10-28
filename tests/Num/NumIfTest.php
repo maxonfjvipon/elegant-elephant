@@ -4,10 +4,8 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Num;
 
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
-use Maxonfjvipon\ElegantElephant\Num\NumOf;
 use Maxonfjvipon\ElegantElephant\Num\NumIf;
-use Maxonfjvipon\ElegantElephant\Num\SumOf;
-use Maxonfjvipon\ElegantElephant\Tests\IsNum;
+use Maxonfjvipon\ElegantElephant\Num\NumOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

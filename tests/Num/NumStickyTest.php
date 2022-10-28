@@ -5,9 +5,8 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Num;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Num\NumSticky;
-use Maxonfjvipon\ElegantElephant\Tests\IsNum;
+use Maxonfjvipon\ElegantElephant\Tests\Support\IsNum;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
-use PHPUnit\Framework\Constraint\IsEqual;
 
 final class NumStickyTest extends TestCase
 {

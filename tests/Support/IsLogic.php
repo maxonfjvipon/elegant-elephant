@@ -1,10 +1,9 @@
 <?php
 
-namespace Maxonfjvipon\ElegantElephant\Tests;
+namespace Maxonfjvipon\ElegantElephant\Tests\Support;
 
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic;
-use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\IsEqual;
 
 final class IsLogic extends ConstraintWrap

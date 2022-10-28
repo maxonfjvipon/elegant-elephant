@@ -3,11 +3,10 @@
 namespace Maxonfjvipon\ElegantElephant\Tests\Txt;
 
 use Exception;
-use Maxonfjvipon\ElegantElephant\Tests\IsTxt;
+use Maxonfjvipon\ElegantElephant\Tests\Support\IsTxt;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt;
 use Maxonfjvipon\ElegantElephant\Txt\TxtSticky;
-use PHPUnit\Framework\Constraint\IsEqual;
 
 final class TxtStickyTest extends TestCase
 {
