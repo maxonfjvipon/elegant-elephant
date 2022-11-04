@@ -16,7 +16,7 @@ final class TxtToStringTraitTest extends TestCase
     public function txtToString(): void
     {
         $this->assertThat(
-            (new class implements StringableTxt {
+            (new class () implements StringableTxt {
                 use TxtToString;
 
                 /**

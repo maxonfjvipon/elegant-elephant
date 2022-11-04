@@ -1,10 +1,31 @@
 <?php
-
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2022 Max Trunnikov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE
+ */
 declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Num;
 
-use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Num;
 
@@ -16,15 +37,13 @@ final class NumOf implements Num
     use EnsureNum;
 
     /**
-     * @var callable $callback
+     * @var callable Callback
      */
     private $callback;
 
     /**
      * Num of int.
-     *
-     * @param  int $int
-     * @return NumOf
+     * @param int $int Integer
      */
     final public static function int(int $int): NumOf
     {
@@ -33,9 +52,7 @@ final class NumOf implements Num
 
     /**
      * Num of float.
-     *
-     * @param  float $float
-     * @return NumOf
+     * @param float $float Float
      */
     final public static function float(float $float): NumOf
     {
@@ -44,9 +61,7 @@ final class NumOf implements Num
 
     /**
      * Num of number.
-     *
-     * @param  int|float $number
-     * @return NumOf
+     * @param int|float $number Float or integer
      */
     final public static function number(int|float $number): NumOf
     {
@@ -55,9 +70,7 @@ final class NumOf implements Num
 
     /**
      * Num of Any.
-     *
-     * @param  Any $any
-     * @return NumOf
+     * @param Any $any Any
      */
     final public static function any(Any $any): NumOf
     {
@@ -66,32 +79,33 @@ final class NumOf implements Num
 
     /**
      * Num of function.
-     *
-     * @param  callable $func
-     * @param  mixed    ...$args
-     * @return NumOf
+     * @param callable $func Function
+     * @param mixed ...$args Function arguments
      */
     final public static function func(callable $func, mixed ...$args): NumOf
     {
-        return new NumOf(fn (NumOf $self) => $self->ensuredNumber(call_user_func($func, ...$args)));
+        return new NumOf(function (NumOf $self) use ($func, $args) {
+            /** @var float|int|Num $num */
+            $num = call_user_func($func, ...$args);
+
+            return $self->ensuredNumber($num);
+        });
     }
 
     /**
      * Ctor.
-     *
-     * @param callable $func
+     * @param callable $func Function
      */
     final private function __construct(callable $func)
     {
         $this->callback = $func;
     }
 
-    /**
-     * @return float|int
-     * @throws Exception
-     */
     final public function asNumber(): float|int
     {
-        return call_user_func($this->callback, $this);
+        /** @var float|int $num */
+        $num = call_user_func($this->callback, $this);
+
+        return $num;
     }
 }

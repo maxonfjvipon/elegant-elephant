@@ -57,7 +57,7 @@ final class ArrMergedTest extends TestCase
     {
         $this->assertArrThat(
             new ArrMerged(
-                ...new ArrMapped(
+                ...new ArrMapped( /** @phpstan-ignore-line */
                     [1, 2],
                     fn ($num) => new ArrMapped(
                         ["A", "B"],

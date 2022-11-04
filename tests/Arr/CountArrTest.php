@@ -18,7 +18,8 @@ final class CountArrTest extends TestCase
     public function countOfArrWorks(): void
     {
         $this->assertThat(
-            new class implements Arr, \Countable {
+            new class () implements Arr,
+            \Countable {
                 use CountArr;
 
                 /**

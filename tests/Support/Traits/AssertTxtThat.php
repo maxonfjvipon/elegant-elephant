@@ -8,7 +8,6 @@ use PHPUnit\Framework\Constraint\Constraint;
 
 trait AssertTxtThat
 {
-
     /**
      * @param Txt $txt
      * @param Constraint $constraint

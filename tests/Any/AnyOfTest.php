@@ -2,7 +2,6 @@
 
 namespace Maxonfjvipon\ElegantElephant\Tests\Any;
 
-
 use Exception;
 use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Arr\ArrOf;

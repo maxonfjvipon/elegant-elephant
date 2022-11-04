@@ -2,14 +2,36 @@
 
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.1/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/latest/phpunit.xsd"
+        backupGlobals="true"
+        backupStaticAttributes="false"
         bootstrap="./vendor/autoload.php"
-        colors="true">
+        cacheResult="false"
+        cacheTokens="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        forceCoversAnnotation="false"
+        processIsolation="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        stopOnRisky="false"
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
+        verbose="false"
+>
     <testsuites>
         <testsuite name="all">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
