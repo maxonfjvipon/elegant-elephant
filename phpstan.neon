@@ -1,7 +1,5 @@
 parameters:
-  excludePaths:
-    - src/Num/LengthOf.php
-  level: 8
+  level: 9
   paths:
     - src
     - tests

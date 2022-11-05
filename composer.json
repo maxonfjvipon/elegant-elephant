@@ -1,9 +1,9 @@
 {
   "name": "maxonfjvipon/elegant-elephant",
+  "description": "Small library of PHP primitives in EO style",
   "license": [
     "MIT"
   ],
-  "description": "Small library of PHP primitives in EO style",
   "authors": [
     {
       "name": "Max Trunnikov",
@@ -11,21 +11,14 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
-    "ext-json": "*",
-    "opis/closure": "^3.6"
+    "php": ">=8.0"
   },
   "require-dev": {
-    "ext-simplexml": "*",
-    "friendsofphp/php-cs-fixer": "^3.11",
-    "php-coveralls/php-coveralls": "^2.4",
-    "phpstan/phpstan": "^0.12.64",
-    "phpstan/phpstan-phpunit": "^0.12.17",
-    "phpunit/phpunit": "^9.5",
-    "roave/security-advisories": "dev-latest",
-    "rregeer/phpunit-coverage-check": "^0.3.1",
-    "squizlabs/php_codesniffer": "^3.5",
-    "symplify/easy-coding-standard": "^11.1"
+    "friendsofphp/php-cs-fixer": "^3.13",
+    "php-coveralls/php-coveralls": "^2.5",
+    "phpstan/phpstan": "^1.8",
+    "phpunit/phpunit": "^9.0",
+    "rregeer/phpunit-coverage-check": "^0.3.1"
   },
   "autoload": {
     "psr-4": {
@@ -38,8 +31,12 @@
     }
   },
   "scripts": {
-    "tests": "./vendor/bin/phpunit --fail-on-risky",
-    "phpstan": "./vendor/bin/phpstan analyse src tests --level=8"
+    "test": "vendor/bin/phpunit --exclude skip",
+    "coverage": "vendor/bin/coverage-check build/logs/clover.xml 100",
+    "phpstan": "vendor/bin/phpstan analyze src tests",
+    "cs-fixer dry": "vendor/bin/php-cs-fixer fix src --dry-run -v && vendor/bin/php-cs-fixer fix tests --dry-run -v",
+    "cs-fixer fix": "vendor/bin/php-cs-fixer fix src -v && vendor/bin/php-cs-fixer fix tests -v",
+    "pre-push": "composer run-script \"cs-fixer dry\" && composer run-script phpstan && composer run-script test && composer run-script coverage"
   },
   "config": {
     "preferred-install": {

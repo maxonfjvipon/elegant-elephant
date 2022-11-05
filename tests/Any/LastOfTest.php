@@ -109,7 +109,18 @@ final class LastOfTest extends TestCase
      */
     public function tryGetLastOfEmptyArray(): void
     {
-        $this->expectExceptionMessage("Can't get the last element of an empty value");
+        $this->expectExceptionMessage("Can't get the last element of an empty array");
         (new LastOf([]))->value();
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function tryGetLastOfEmptyString(): void
+    {
+        $this->expectExceptionMessage("Can't get the last element of an empty string");
+        (new LastOf(""))->value();
     }
 }

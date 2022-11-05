@@ -2,6 +2,7 @@
 
 namespace Maxonfjvipon\ElegantElephant\Tests\Arr;
 
+use Countable;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\CountArr;
@@ -17,18 +18,19 @@ final class CountArrTest extends TestCase
      */
     public function countOfArrWorks(): void
     {
-        $this->assertThat(
-            new class implements Arr, \Countable {
-                use CountArr;
+        $class = new class () implements Countable, Arr {
+            use CountArr;
 
-                /**
-                 * @return int[]
-                 */
-                public function asArray(): array
-                {
-                    return [1, 2, 3];
-                }
-            },
+            /**
+             * @return int[]
+             */
+            public function asArray(): array
+            {
+                return [1, 2, 3];
+            }
+        };
+        $this->assertThat(
+            $class,
             new Count(3)
         );
     }

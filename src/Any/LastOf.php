@@ -1,5 +1,27 @@
 <?php
-
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2022 Max Trunnikov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE
+ */
 declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
@@ -18,9 +40,7 @@ final class LastOf extends AnyWrap
 
     /**
      * Last of text.
-     *
-     * @param  string|Txt $text
-     * @return LastOf
+     * @param string|Txt $text Text
      */
     final public static function text(string|Txt $text): LastOf
     {
@@ -28,8 +48,8 @@ final class LastOf extends AnyWrap
     }
 
     /**
-     * @param array<mixed>|Arr $arr
-     * @return LastOf
+     * Last of array.
+     * @param array<mixed>|Arr $arr Array
      */
     final public static function arr(array|Arr $arr): LastOf
     {
@@ -38,8 +58,7 @@ final class LastOf extends AnyWrap
 
     /**
      * Ctor.
-     *
-     * @param string|array<mixed>|Txt|Arr|Any $container
+     * @param string|array<mixed>|Txt|Arr|Any $container Container to get last element from
      */
     final public function __construct(string|array|Txt|Arr|Any $container)
     {
@@ -48,15 +67,23 @@ final class LastOf extends AnyWrap
                 function () use ($container) {
                     $value = $this->ensuredAnyValue($container);
 
-                    if ((! $isString = is_string($value)) && ! is_array($value)) {
+                    if (is_string($value)) {
+                        if (empty($value)) {
+                            throw new Exception("Can't get the last element of an empty string");
+                        }
+
+                        $res = substr($value, -1);
+                    } elseif (is_array($value)) {
+                        if (empty($value)) {
+                            throw new Exception("Can't get the last element of an empty array");
+                        }
+
+                        $res = $value[count($value) - 1];
+                    } else {
                         throw new Exception("The element to get the last element from must be an array or string");
                     }
 
-                    if (empty($value)) {
-                        throw new Exception("Can't get the last element of an empty value");
-                    }
-
-                    return $isString ? substr($value, -1) : $value[count($value) - 1];
+                    return $res;
                 }
             )
         );

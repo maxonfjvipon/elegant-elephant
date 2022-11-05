@@ -18,7 +18,7 @@ final class ArrStickyTest extends TestCase
     {
         $this->assertArrThat(
             $arr = new ArrSticky(
-                new class(2) implements Arr {
+                new class (2) implements Arr {
                     /**
                      * Ctor.
                      * @param int $num

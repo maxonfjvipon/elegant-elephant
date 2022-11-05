@@ -1,12 +1,34 @@
 <?php
-
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2022 Max Trunnikov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE
+ */
 declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Txt;
 
-use Exception;
-use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Any;
+use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
  * Text of.
@@ -17,15 +39,13 @@ final class TxtOf implements StringableTxt
     use EnsureTxt;
 
     /**
-     * @var callable $callback
+     * @var callable Callback
      */
     private $callback;
 
     /**
      * Text of number
-     *
-     * @param float|int $number
-     * @return TxtOf
+     * @param float|int $number Number
      */
     public static function number(float|int $number): TxtOf
     {
@@ -34,9 +54,7 @@ final class TxtOf implements StringableTxt
 
     /**
      * Text of float.
-     *
-     * @param  float $float
-     * @return TxtOf
+     * @param float $float Float
      */
     public static function float(float $float): TxtOf
     {
@@ -45,9 +63,7 @@ final class TxtOf implements StringableTxt
 
     /**
      * Text of int.
-     *
-     * @param  int $int
-     * @return TxtOf
+     * @param int $int Integer
      */
     final public static function int(int $int): TxtOf
     {
@@ -56,9 +72,7 @@ final class TxtOf implements StringableTxt
 
     /**
      * Text of num.
-     *
-     * @param  Num $num
-     * @return TxtOf
+     * @param Num $num Number
      */
     final public static function num(Num $num): TxtOf
     {
@@ -67,9 +81,7 @@ final class TxtOf implements StringableTxt
 
     /**
      * Text of string.
-     *
-     * @param  string $str
-     * @return TxtOf
+     * @param string $str String
      */
     final public static function str(string $str): TxtOf
     {
@@ -79,9 +91,7 @@ final class TxtOf implements StringableTxt
 
     /**
      * Text of Any.
-     *
-     * @param  Any $any
-     * @return TxtOf
+     * @param Any $any Any
      */
     final public static function any(Any $any): TxtOf
     {
@@ -90,32 +100,33 @@ final class TxtOf implements StringableTxt
 
     /**
      * Text of function.
-     *
-     * @param  callable $func
-     * @param  mixed    ...$args
-     * @return TxtOf
+     * @param callable $func Function
+     * @param mixed ...$args Function arguments
      */
     final public static function func(callable $func, mixed ...$args): TxtOf
     {
-        return new TxtOf(fn (TxtOf $self) => $self->ensuredString(call_user_func($func, ...$args)));
+        return new TxtOf(function (TxtOf $self) use ($func, $args) {
+            /** @var string|Txt $txt */
+            $txt = call_user_func($func, ...$args);
+
+            return $self->ensuredString($txt);
+        });
     }
 
     /**
      * Ctor.
-     *
-     * @param callable $func
+     * @param callable $func Function
      */
     final private function __construct(callable $func)
     {
         $this->callback = $func;
     }
 
-    /**
-     * @return string
-     * @throws Exception
-     */
     final public function asString(): string
     {
-        return (string) call_user_func($this->callback, $this);
+        /** @var string $str */
+        $str = call_user_func($this->callback, $this);
+
+        return $str;
     }
 }

@@ -18,7 +18,7 @@ final class TxtStickyTest extends TestCase
     {
         $this->assertTxtThat(
             $cached = new TxtSticky(
-                new class("hello") implements Txt {
+                new class ("hello") implements Txt {
                     /**
                      * Ctor.
                      * @param string $text
