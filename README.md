@@ -9,7 +9,7 @@ ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cact
 [![codecov](https://codecov.io/github/maxonfjvipon/elegant-elephant/branch/master/graph/badge.svg?token=V0UL1FYGXW)](https://codecov.io/github/maxonfjvipon/elegant-elephant)
 [![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant/view?branch=master)
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/ElegantElephant/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/elegant-elephant/blob/master/LICENSE)
 [![Tag](https://img.shields.io/github/tag/maxonfjvipon/elegant-elephant.svg)](https://github.com/maxonfjvipon/elegant-elephant/releases)
 
 ## Principles
@@ -27,7 +27,7 @@ ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cact
 ## Static methods
 Since PHP does not allow you to have more than one constructor in the class, some classes in the library have public static methods that return an instance of the class and replace secondary constructors. Some classes have private primary constructor to prevent user to use them in a wrong way.
 
-For example take a look at the class [`ArrOf`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/ArrOf.php) that has private constructor but let you create an instance of [`Arr`](#arr) object in a several ways via static methods:
+For example take a look at the class [`ArrOf`](https://github.com/maxonfjvipon/elegant-elephant/blob/master/src/Arr/ArrOf.php) that has private constructor but let you create an instance of [`Arr`](#arr) object in a several ways via static methods:
 
 ```php
 use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
@@ -52,7 +52,7 @@ If you write code and see that you can't create an object via `new` keyword - de
 
 Almost every classes allows you to pass union-typed arguments to the constructor.
 
-For example, class [`TxtJoined`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Txt/TxtJoined.php) behaves like a joined string and accepts an `array` or an instance of `Arr` that both may contains strings, instances of `Txt` or both of them. 
+For example, class [`TxtJoined`](https://github.com/maxonfjvipon/elegant-elephant/blob/master/src/Txt/TxtJoined.php) behaves like a joined string and accepts an `array` or an instance of `Arr` that both may contains strings, instances of `Txt` or both of them. 
 
 ```php
 use Maxonfjvipon\ElegantElephant\Txt\TxtJoined;
@@ -78,14 +78,33 @@ $joined1->asString() === $joined2->asString(); // "Hello Jeff" === "Hello Jeff" 
 
 So when you write code you may not care about conversion an argument to the desired type, for example conversion `string` to `Maxonfjvipon\ElegantElephant\Txt`. Just pass what you have to the object, it knows how to deal with it.
 
+## Any
+Something that has value of any (mixed) type. `Any` interface has only one public method `value` that must return something of `mixed` type.
+
+### Any objects
+
+ | Class          | Description                                                                   |
+ |----------------|-------------------------------------------------------------------------------|
+ | AnyCond        | Behaves like first value if condition is TRUE, like second otherwise          |
+ | AnyOf          | Allow you to create Any from array, Arr, string, Txt, number, Num or function |
+ | AnyWrap        | Envelope for Any classes                                                      |
+ | AtKey          | Get element from array or Arr by key                                          |
+ | EnsureAny      | Helper trait to cast mixed                                                    |
+ | FirstOf        | Get the first element from array, Arr, string or Txt                          |
+ | LastOf         | Get the last element from array, Arr, string or Txt                           |
+
+### Tests
+
+See [Any unit tests](https://github.com/maxonfjvipon/elegant-elephant/tree/master/tests/Any) for better undestanding.
+ 
 ## Arr
 Elegant arrays. `Arr` interface has only one public method `asArray()` that must return an `array`.
 
 ### Spreading
 
-There is one more interface that you can use in your own classes - [`IterableArr`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/IterableArr.php) that extends `Arr` and [`\IteratorAggregate`](https://www.php.net/manual/en/class.iteratoraggregate.php). 
+There is one more interface that you can use in your own classes - [`IterableArr`](https://github.com/maxonfjvipon/elegant-elephant/blob/master/src/Arr/IterableArr.php) that extends `Arr` and [`\IteratorAggregate`](https://www.php.net/manual/en/class.iteratoraggregate.php). 
 
-`\IteratorAggregate` allows you to apply spread operator `...` to your class. If you want to use spread operator with your class without actual calling `asArray()` method you should make your class implement `IterableArr` and use [`HasArrIterator`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/HasArrIterator.php) trait. The trait is the default implementation of spreading `Arr` classes. And now when you use `...` with your class trait calls `asArray()` behind the scene. 
+`\IteratorAggregate` allows you to apply spread operator `...` to your class. If you want to use spread operator with your class without actual calling `asArray()` method you should make your class implement `IterableArr` and use [`HasArrIterator`](https://github.com/maxonfjvipon/elegant-elephant/blob/master/src/Arr/HasArrIterator.php) trait. The trait is the default implementation of spreading `Arr` classes. And now when you use `...` with your class trait calls `asArray()` behind the scene. 
 
 And here is the example for better understanding:
 
