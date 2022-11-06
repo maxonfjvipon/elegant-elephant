@@ -3,14 +3,14 @@
 ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
-[![DevOps By Rultor.com](http://www.rultor.com/b/maxonfjvipon/ElegantElephant)](http://www.rultor.com/p/maxonfjvipon/ElegantElephant)
+[![DevOps By Rultor.com](http://www.rultor.com/b/maxonfjvipon/elegant-elephant)](http://www.rultor.com/p/maxonfjvipon/elegant-elephant)
 
-[![Composer](https://github.com/maxonfjvipon/ElegantElephant/actions/workflows/php.yml/badge.svg)](https://github.com/maxonfjvipon/ElegantElephant/actions/workflows/php.yml)
-[![codecov](https://codecov.io/github/maxonfjvipon/ElegantElephant/branch/master/graph/badge.svg?token=V0UL1FYGXW)](https://codecov.io/github/maxonfjvipon/ElegantElephant)
-[![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/ElegantElephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/ElegantElephant/view?branch=master)
+[![Composer](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/php.yml/badge.svg)](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/php.yml)
+[![codecov](https://codecov.io/github/maxonfjvipon/elegant-elephant/branch/master/graph/badge.svg?token=V0UL1FYGXW)](https://codecov.io/github/maxonfjvipon/elegant-elephant)
+[![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant/view?branch=master)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/ElegantElephant/blob/master/LICENSE)
-[![Tag](https://img.shields.io/github/tag/maxonfjvipon/ElegantElephant.svg)](https://github.com/maxonfjvipon/ElegantElephant/releases)
+[![Tag](https://img.shields.io/github/tag/maxonfjvipon/elegant-elephant.svg)](https://github.com/maxonfjvipon/elegant-elephant/releases)
 
 ## Principles
  | Priciple                                        | Yes/No             |
