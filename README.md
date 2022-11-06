@@ -1,301 +1,149 @@
 # ElegantElephant (In development)
 
-ElegantElephant - trying to write php code in elegant way. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
+ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![DevOps By Rultor.com](http://www.rultor.com/b/maxonfjvipon/ElegantElephant)](http://www.rultor.com/p/maxonfjvipon/ElegantElephant)
+
+[![Composer](https://github.com/maxonfjvipon/ElegantElephant/actions/workflows/php.yml/badge.svg)](https://github.com/maxonfjvipon/ElegantElephant/actions/workflows/php.yml)
+[![codecov](https://codecov.io/github/maxonfjvipon/ElegantElephant/branch/master/graph/badge.svg?token=V0UL1FYGXW)](https://codecov.io/github/maxonfjvipon/ElegantElephant)
+[![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/ElegantElephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/ElegantElephant/view?branch=master)
+
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/ElegantElephant/blob/master/LICENSE)
+[![Tag](https://img.shields.io/github/tag/maxonfjvipon/ElegantElephant.svg)](https://github.com/maxonfjvipon/ElegantElephant/releases)
 
 ## Principles
- | Priciple| Yes/No|
- | ------------- |:------------------:|
- | No null       | :heavy_check_mark:    |
- | No code in constructors     | :heavy_check_mark: |
- | No getters and setters     | :heavy_check_mark: |
- | No mutable objects | :heavy_check_mark:         |
- | No static methods, not even private ones | :heavy_minus_sign:         |
- | No instanceof, type casting, or reflection | :heavy_minus_sign:         |
- | No public methods without a contract | :heavy_check_mark:         |
- | No statements in test methods except assertThat | :heavy_check_mark:  |
+ | Priciple                                        | Yes/No             |
+ | ----------------------------------------------- |--------------------|
+ | No null                                         | :heavy_minus_sign: |
+ | No code in constructors                         | :heavy_check_mark: |
+ | No getters and setters                          | :heavy_check_mark: |
+ | No mutable objects                              | :heavy_check_mark: |
+ | No static methods, not even private ones        | :heavy_minus_sign: |
+ | No instanceof, type casting, or reflection      | :heavy_minus_sign: |
+ | No public methods without a contract            | :heavy_check_mark: |
+ | No statements in test methods except assertThat | :heavy_check_mark: |
 
 ## Static methods
-Every class has at least one `public static` method (mostly it's `new` method). Motivation: getting rid of extra brackets `(` and `)` around the `new Class` if we want to call method just after object creating. 
+Since PHP does not allow you to have more than one constructor in the class, some classes in the library have public static methods that return an instance of the class and replace secondary constructors. Some classes have private primary constructor to prevent user to use them in a wrong way.
 
-For example, if we call a method after creating an object in a regular way:
+For example take a look at the class [`ArrOf`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/ArrOf.php) that has private constructor but let you create an instance of [`Arr`](#arr) object in a several ways via static methods:
+
 ```php
-(new LengthOf("foo"))->asNumber(); // extra brackets
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+
+// From items
+ArrOf::items($item1, $item2, $item3)->asArray(); // [$item1, $item2, $item3]
+
+// From array
+ArrOf::array([1, 2, 3])->asArray(); // [1, 2, 3]
+
+// From Maxonfjvipon\ElegantElephant\Any
+ArrOf::any(AnyOf::arr(["Hello", "Jeff"]))->asArray(); // ["Hello", "Jeff"]
+
+// From callback
+ArrOf::func(fn () => ["Hello", "World"])->asArray(); // ["Hello", "World"]
 ```
 
-Example from the library (no extra brackets, looks prettier in my opinion):
-```php
-LengthOf("foo")->asNumber();
-```
-Constuctors are public, so if you want, you can use them instead of this static `new`
+If you write code and see that you can't create an object via `new` keyword - definitely it's the class with private constructor but public static methods that replace constructors, so try them.
 
-## Arrayable
-Elegant arrays. Every Arrayable classes implements `Arrayable` interface that has one public method `asArray()` that should return `array`.  
+## Union arguments
+
+Almost every classes allows you to pass union-typed arguments to the constructor.
+
+For example, class [`TxtJoined`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Txt/TxtJoined.php) behaves like a joined string and accepts an `array` or an instance of `Arr` that both may contains strings, instances of `Txt` or both of them. 
+
+```php
+use Maxonfjvipon\ElegantElephant\Txt\TxtJoined;
+use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+
+$joined1 = new TxtJoined([
+  TxtOf::str("Hello"), 
+  " ", 
+  TxtOf::any(AnyOf::str("Jeff"))
+]);
+
+$joined2 = new TxtJoined(
+  ArrOf::func(fn () => [
+    new TxtJoined(["Hello", " "]),
+    "Jeff"
+  ])
+);
+
+$joined1->asString() === $joined2->asString(); // "Hello Jeff" === "Hello Jeff" => TRUE
+```
+
+So when you write code you may not care about conversion an argument to the desired type, for example conversion `string` to `Maxonfjvipon\ElegantElephant\Txt`. Just pass what you have to the object, it knows how to deal with it.
+
+## Arr
+Elegant arrays. `Arr` interface has only one public method `asArray()` that must return an `array`.
 
 ### Spreading
-Every `Arrayable` class can be spread. If you want your custom `Arrayable` class to be able to spread it should extend `ArrayableIterable` or use `HarArrIterator` trait. And here is the example for better understanding:
+
+There is one more interface that you can use in your own classes - [`IterableArr`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/IterableArr.php) that extends `Arr` and [`\IteratorAggregate`](https://www.php.net/manual/en/class.iteratoraggregate.php). 
+
+`\IteratorAggregate` allows you to apply spread operator `...` to your class. If you want to use spread operator with your class without actual calling `asArray()` method you should make your class implement `IterableArr` and use [`HasArrIterator`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/HasArrIterator.php) trait. And now when you use `...` with your class trait calls `asArray()` behind the scene. 
+
+And here is the example for better understanding:
 
 ```php
-// regular php
-$arr = array_merge(
-  ...array_map(
-    fn($num) => array_map(
-      fn($letter) => "$num $letter",
-      ["a", "b"]
-    ),
-    [1, 2]
-  )
-);
-echo $arr; // ["1 a", "1 b", "2 a", "2 b"]
+use Maxonfjvipon\ElegantElephant\Arr;
+use Maxonfjvipon\ElegantElephant\Arr\IterableArr;
+use Maxonfjvipon\ElegantElephant\Arr\HasArrIterator;
 
-// the same result can be got with Arrayable
-$arr = ArrMerged(
-  ...new ArrMapped(
-    [1, 2],
-    fn($num) => new ArrMapped(
-      ["a", "b"],
-      fn($letter) => "$num $letter"
-    )
-  )
-)->asArray();
+class MyArr implements Arr { /** code */ }
+
+class MyIterableArr implements IterableArr {
+  use HasArrIterator;
+  /** code */
+}
+
+$arr = [...(new MyArr())->asArray()]; // good
+$arr = [...new MyIterableArr()]; // good
+$arr = [...new MyArr()]; // wrong
 ```
 
-### Arguments overloading
-The library support [arguments overloading](https://github.com/maxonfjvipon/overloaded-elephant). This means that almost every classes in the library can accept arguments of multiple types. For example, almost every `Arrayable` class can accept `Arrayable|array` as argument. It allows you to no call `asArray()` on argument you pass to object. Here what you can do:
+All `Arr` classes in the library can be spead.
 
-```php
-// ArrMerged merges given arrays
-ArrMerged(
-  [1, 2],
-  new ArrFiltered(
-    [3, 10],
-    fn($num) => $num > 5
-  ),
-  ["Hello", "World"],
-  new ArrIf(
-    false,
-    [20, 21]
-  )
-)->asArray();  // [1, 2, 10, "Hello", "World"]
-```
+### Arr Objects
 
-#### *ArrayableOf*
-Just decorator for `array`. No need to use because of overloading, but no need to get rid of it for now
-```php
-ArrayableOf::array([1, 2])->asArray(); // [1, 2]
-ArrayableOf::items(1, 2)->asArray(); // [1, 2]
-(new ArrayableOf([1, 2]))->asArray(); // [1, 2]
-```
+ | Class          | Description                                                             | PHP             |
+ |----------------|-------------------------------------------------------------------------|-----------------|
+ | ArrCast        | Cast all elements in given array                                        | -               |
+ | ArrCombined    | Combine two arrays into signe one                                       | array_combine   |
+ | ArrCond        | Behavies like first array if condition is TRUE, like second otherwise   | -               |
+ | ArrEmpty       | Empty array                                                             | []              |
+ | ArrExploded    | Elements of exploded by separator string                                | explode         |
+ | ArrFiltered    | Filter elements of given array by given callback                        | array_filter    |
+ | ArrFlatten     | Array flatten with given deep                                           | -               |
+ | ArrIf          | Behaives like given array if condition is TRUE, like empty otherwise    | -               |
+ | ArrKeys        | Get keys of given array                                                 | array_keys      |
+ | ArrMapped      | Map elements of given array by given callback                           | array_map       |
+ | ArrMerged      | Merge given arrays                                                      | array_merge     |
+ | ArrObject      | Array with single key => value element                                  | [key => value]  |
+ | ArrOf          | Allows to create Arr from array, Any or function                        | -               |
+ | ArrRange       | Array of elements in given range                                        | range           |
+ | ArrReversed    | Reverse given array                                                     | array_reverse   |
+ | ArrSorted      | Sort array by given key or callback                                     | sort, usort     |
+ | ArrSplit       | Alias or ArrExploded                                                    | explode, split  |
+ | ArrSticky      | Array with cache mechanism                                              | -               |
+ | ArrUnique      | Array with unique elements                                              | array_unique    |
+ | ArrValues      | Array of just values of given array (ignore keys)                       | array_values    |
+ | ArrWith        | Given array + new given element                                         | [...] + [$item] |
+ | ArrWrap        | Envelope for Arr classes                                                | -               |
+ | CountArr       | Default implementation of counting Arr if your Arr impelement Countable | count($array)   |
+ | EnsureArr      | Help trait for casting array or Arr to array                            | -               |
+ | HasArrIterator | Default implementation of spreading IterableArr                         | ...$array       |
 
-#### *ArrExploded*
-Arrayable exploded by separator. Separator and string to explode can be `string` or [`Text`](#text)
-```php
-ArrExploded("-", "foo-bar")->asArray(); // ["foo", "bar"]
-(new ArrExploded(TextOf("-"), "foo-bar"))->asArray(); // ["foo", "bar"]
-ArrExploded::byComma(new TextOf("foo,bar"))->asArray(); // ["foo", "bar"]
-```
+### Tests
 
-#### *ArrFiltered* 
-Arrayable filtered by given callback.
-```php
-ArrFiltered([1, 2], fn($num) => $num > 1)->asArray(); // [2]
-(new ArrFiltered(new ArrExploded("-", "foo-bar-baz"), fn($string) => $string !== "foo"))->asArray(); // ["bar", "baz"]
-```
-
-#### *ArrIf*
-Conditionable arrayable. Returns given array if condition is `true` or `[]` otherwise. Condition can be `bool` or [`Logical`](#logical)  When to use: for example you want to merge some arrays and one of them is not empty only if some condition is `true`. In regular php you can do it like this:
-```php
-$arr = array_merge(
-  [...],
-  [...],
-  $condition 
-    ? [...] // not empty
-    : [] // empty
-  ...
-)
-```
-Or you can use `ArrIf`:
-```php
-$arr = ArrMerged(
-  [...],
-  [...],
-  new ArrIf(
-    $condition,
-    [...] // not empty
-  ),
-  ...
-)->asArray();
-```
-
-Since this is a declarative way to use conditional arrays your array will be created before the condition is checked. It's kind of performance and logical issue if you're dealing with arrays from database:
-
-```php
-ArrIf(
-  false,
-  $database->query(...)->get() // this query will be executed before object checks that condition is false 
-)->asArray();
-```
-
-To avoid issues like this you can use `ArrFromCallback` (see below) or callback as second argument. In that case object checks the condition and then call your callback.
-
-```php
-ArrIf(
-  false,
-  new ArrFromCallback(
-    fn() => $database->query(...)->get() // will not be executed before the condition is checked
-  )
-)->asArray();
-// or
-ArrIf(
-  false,
-  fn() => $database->query(...)->get() // will not be executed before the condition is checked too
-)->asArray();
-```
-
-#### *ArrFromCallback* 
-Arrayable from callback. Callback must return an `array` or an instance of `Arrayable`
-
-```php
-ArrFromCallback(
-  fn() => new ArrIf(
-    true,
-    new ArrFromCallback(
-      fn() => [1, 2]
-    )
-  )
-)->asArray(); // [1, 2]
-```
-
-#### *ArrTernary*
-One more conditionable Arrayble but returns other array if condition is `false`. All advices about using callbacks are relevant.
-
-```php
-ArrTernary(
-  false,
-  fn() => new ArrIf(
-    true,
-    new ArrFromCallback(fn() => [3, 2, 1])
-  )
-  [1, 2, 3]
-)->asArray(); // [1, 2, 3]
-```
-
-#### *ArrSorted*
-Sorted by values arrayable. You can use `string` or `callable` as comparison callback.
-```php
-ArrSorted([3, 2, 1])->asArray(); // [1, 2, 3]
-ArrSorted(ArrayableOf::array([3, 2]))->asArray(); // [2, 3]
-(new ArrSorted([1, 2, 3], fn($a, $b) => $a >= $b ? -1 : 1))->asArray(); // [3, 2, 1]
-```
-
-#### *ArrSortedByKeys*
-Sorted by keys arrayable. You can use `string` or `callable` as comparison callback.
-```php
-ArrSortedByKeys([1 => 32, 3 => 2, 0 => 10])->asArray(); // [0 => 10, 1 => 32, 3 => 2]
-```
-
-#### *ArrMapped*
-Arrayble mapped with callback
-```php
-ArrMapped(["foo", "bar"], fn($str) => "Hello, " . $str)->asArray(); // ["Hello, foo", "Hello, bar"]
-(new ArrMapped(ArrayableOf::items("foo", "bar"), fn($str) => $str . "!"))->asArray(); // ["foo!", "bar!"]
-```
-
-#### *ArrMappedKeyValue*
-Arrayble mapped with callback that accepts key an value.
-```php
-ArrMappedKeyValue([1 => "foo", 10 => "bar"], fn($key, $value) => "$key - $value")->asArray(); // ["1 - foo", "10 - bar"]
-(new ArrMappedKeyValue(new ArrTernary(false, [10, 20], [20, 10]), fn($key, $value) => $key + $value))->asArray(); // [21, 11]
-```
-
-#### *ArrMerged*
-Arrayable merged of arrays/Arrayables.
-```php
-ArrMerged(
-  [1, 2],
-  new ArrayableOf([3, 4]),
-  new ArrIf(
-    true,
-    [10, 12]
-  ),
-  new ArrIf(
-    false,
-    fn() => [15, 17]
-  )
-)->asArray(); // [1, 2, 3, 4, 10, 12]
-```
-
-#### *ArrKeys* and *ArrValues*
-Arrays of keys and values of origin array/Arrayable.
-```php
-ArrValues(["key1" => "value1", "key2" => "value"])->asArray(); // ["value1", "value2"] // [0 => "value1", 1 => "value2"]
-(new ArrKeys(ArrayableOf::array(["key1" => 1, "key2" => 2])))->asArray(); // ["key1", "key2"] // [0 => "key1", 1 => "key2"]
-```
-
-#### *ArrReversed*
-Reversed arrayable
-```php
-ArrReversed(new ArrReversed([1, 2, 3]))->asArray(); // [1, 2, 3]
-```
-
-#### *ArrSticky*
-Arrayable with cache mechanism. Use when you need to call `asArray()` multiple times but you don't want to use regular arrays or call `asArray()` in advance.
-```php
-$arr = new ArrSticky(
-   new ArrMerged(
-      [...],
-      [...],
-      new ArrMerged(
-         [...],
-         [...],
-         new ArrIf(
-            true,
-            fn() => $database->query()->get()
-         )
-      )
-   )
-)
-foo($arr); // foo calls $arr->asArray(). Merging and database query will be executed only here
-bar($arr); // bar calls $arr->asArray() too. No merging and executing database query
-baz($arr); // baz calla $arr->asArray() too. No merging and executing database query
-```
+See [Arr unit test](https://github.com/maxonfjvipon/ElegantElephant/tree/master/tests/Arr) for better undestanding.
 
 
-#### *ArrUnique*
-Arrayable with unique elements.
-```php
-ArrUnique([1, 1, 2, 3, 3, 4])->asArray(); // [1, 2, 3, 4]
-(new ArrUnique(new ArrMerged([1, 2], [2, 3])))->asArray(); // [1, 2, 3]
-```
-
-#### *ArrObject*
-Arrayable with one element. `asArray` give you \[key => value]. When to use: if you pass somewhere an array with single element and this element is instance of `Arrayable`. You could do it like:
-```php
-['key' => (new SomeArrayable(...))->asArray()]
-```
-or you can:
-```php
-ArrObject(
-  'key',
-  new SomeArrayble(...)
-)->asArray()
-```
-For example:
-```php
-ArrMerged(
-  [...],
-  [...],
-  new SomeOtherArrayable(...),
-  new ArrObject( // insted of ['key' => (new SomeArrayable(...))->asArray()]
-    'key',
-    new SomeArrayable(...)
-  )
-)->asArray()
-```
-`ArrObject` will be unnecessary soon, when overloading will allow to do \['key' => new SomeArrayable(...)]
-
-## Text
+## Txt
 Elegant strings
 
 *TextOf* - just `string` decorator
