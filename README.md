@@ -85,7 +85,7 @@ Elegant arrays. `Arr` interface has only one public method `asArray()` that must
 
 There is one more interface that you can use in your own classes - [`IterableArr`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/IterableArr.php) that extends `Arr` and [`\IteratorAggregate`](https://www.php.net/manual/en/class.iteratoraggregate.php). 
 
-`\IteratorAggregate` allows you to apply spread operator `...` to your class. If you want to use spread operator with your class without actual calling `asArray()` method you should make your class implement `IterableArr` and use [`HasArrIterator`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/HasArrIterator.php) trait. And now when you use `...` with your class trait calls `asArray()` behind the scene. 
+`\IteratorAggregate` allows you to apply spread operator `...` to your class. If you want to use spread operator with your class without actual calling `asArray()` method you should make your class implement `IterableArr` and use [`HasArrIterator`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Arr/HasArrIterator.php) trait. The trait is the default implementation of spreading `Arr` classes. And now when you use `...` with your class trait calls `asArray()` behind the scene. 
 
 And here is the example for better understanding:
 
@@ -101,9 +101,10 @@ class MyIterableArr implements IterableArr {
   /** code */
 }
 
-$arr = [...(new MyArr())->asArray()]; // good
-$arr = [...new MyIterableArr()]; // good
-$arr = [...new MyArr()]; // wrong
+$arr = [...(new MyArr())->asArray()];         // good
+$arr = [...new MyIterableArr()];              // good, no actual calling asArray()
+$arr = [...(new MyIterableArr())->asArray()]; // good, but verbose
+$arr = [...new MyArr()];                      // wrong
 ```
 
 All `Arr` classes in the library can be spead.
@@ -114,12 +115,12 @@ All `Arr` classes in the library can be spead.
  |----------------|-------------------------------------------------------------------------|-----------------|
  | ArrCast        | Cast all elements in given array                                        | -               |
  | ArrCombined    | Combine two arrays into signe one                                       | array_combine   |
- | ArrCond        | Behavies like first array if condition is TRUE, like second otherwise   | -               |
+ | ArrCond        | Behaves like first array if condition is TRUE, like second otherwise    | -               |
  | ArrEmpty       | Empty array                                                             | []              |
  | ArrExploded    | Elements of exploded by separator string                                | explode         |
  | ArrFiltered    | Filter elements of given array by given callback                        | array_filter    |
  | ArrFlatten     | Array flatten with given deep                                           | -               |
- | ArrIf          | Behaives like given array if condition is TRUE, like empty otherwise    | -               |
+ | ArrIf          | Behaves like given array if condition is TRUE, like empty otherwise     | -               |
  | ArrKeys        | Get keys of given array                                                 | array_keys      |
  | ArrMapped      | Map elements of given array by given callback                           | array_map       |
  | ArrMerged      | Merge given arrays                                                      | array_merge     |
@@ -135,7 +136,7 @@ All `Arr` classes in the library can be spead.
  | ArrWith        | Given array + new given element                                         | [...] + [$item] |
  | ArrWrap        | Envelope for Arr classes                                                | -               |
  | CountArr       | Default implementation of counting Arr if your Arr impelement Countable | count($array)   |
- | EnsureArr      | Help trait for casting array or Arr to array                            | -               |
+ | EnsureArr      | Helper trait for casting array or Arr to array                          | -               |
  | HasArrIterator | Default implementation of spreading IterableArr                         | ...$array       |
 
 ### Tests
@@ -144,47 +145,66 @@ See [Arr unit test](https://github.com/maxonfjvipon/ElegantElephant/tree/master/
 
 
 ## Txt
-Elegant strings
+Elegant strings. `Txt` interface has only one method `asString()` that must return `string`.
 
-*TextOf* - just `string` decorator
+### Txt->__toString()
+There is one more interface that you can use in your own classes - [`StringableTxt`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Txt/StringableTxt.php) that extends `Txt` and [`\Stringable`](https://www.php.net/manual/en/class.stringable.php). 
+
+`\Stringable` allows you to cast your class to string via calling `__toString()` method. So instead of `Txt` you can use `StringableTxt` interface and [`TxtToString`](https://github.com/maxonfjvipon/ElegantElephant/blob/master/src/Txt/TxtToString.php) helper trait that calls `asString()` behind the scene. 
+
+Here's an example for better undestanding:
+
 ```php
-TextOf("foo")->asString(); // "foo"
-(new TextOf(22))->asString(); // "22"
-TextOf(1.2)->asString(); // "1.2"
-```
+use Maxonfjvipon\ElegantElephant\Txt\StringableTxt;
+use Maxonfjvipon\ElegantElephant\Txt\TxtToString;
+use Maxonfjvipon\ElegantElephant\Txt;
 
-*TxtUpper* - text in upper case:
-```php
-TxtUpper("bar")->asString(); // "BAR"
-TxtUpper(TextOf("foo"))->asString(); // "FOO"
-```
+class MyTxt implements Txt { /** code */ }
 
-*TxtLowered* - text in lower case.
-```php
-TxtLowered("BAR")->asString(); // "bar"
-TxtLowered(
-  TxtUpper("foo")
-)->asString(); // "foo"
-```
+class MyStringableTxt implements StringableTxt {
+  use TxtToString;
+  /** code */
+}
 
-*TxtImploded* - text imploded with separator:
-```php
-TxtImploded("-", "foo", "bar")->asString(); // "foo-bar"
-TxtImploded("-", new TextOf("foo"), "bar")->asString(); // "foo-bar"
-TxtImploded::withComma(TextOf::string("foo"), TxtUpper::ofString("bar"), "dash")->asString(); // "foo,BAR,dash"
-```
+$txt = new MyTxt();
+$stringableTxt = new MyStringableTxt();
 
-*TxtJoined* - alias to `TxtImploded` without separator
-```php
-TxtJoined("foo", ",", TextOf("bar"))->asString(); // "foo,bar"
-```
+echo $txt->asString();           // good
+echo $stringableTxt;             // good, no actual calling asString()
+echo $stringableTxt->asString(); // good, but verbose
+echo $txt;                       // wrong
+``` 
 
-*TxtReplaced* - find string and replace it. 
-```php
-TxtReplcaed("foo", TxtUpper("bar"), "foobar")->asString(); // "BARbar"
-```
+All `Txt` classes in the library implements `StringableTxt`.
 
-And so on...
+### Txt objects
+
+ | Class           | Description                                                             | PHP             |
+ |-----------------|-------------------------------------------------------------------------|-----------------|
+ | EnsureTxt       | Helper trait for casting string or Txt to string                        | -               |
+ | TxtBlank        | Empty text.                                                             | ""              |
+ | TxtCond         | Behaves like first text if condition is TRUE, like second otherwise     | -               |
+ | TxtIf           | Behaves like given text if condition is TRUE, likey empty otherwise     | -               |
+ | TxtImploded     | Imploded text by separator                                              | implode         |
+ | TxtJoined       | Joined text                                                             | join("", [...]) |
+ | TxtJsonEncoded  | Object encoded to JSON as                                               | json_encoded    |
+ | TxtLowered      | Text in a lower case                                                    | strtolower      |
+ | TxtLtrimmed     | Text trimmed from left                                                  | ltrim           |
+ | TxtOf           | Allows to create Txt from string, number, float, int, Any of function.  | -               |
+ | TxtPregReplaced | Text with replacements by regex                                         | preg_replace    |
+ | TxtReplaced     | Text with replacements                                                  | str_replace     |
+ | TxtRtimmed      | Text trimmed from right                                                 | rtrim           |
+ | TxtSticky       | Text with caching mechanism                                             | -               |
+ | TxtSubstr       | Sub-text                                                                | substr          |
+ | TxtToString     | Default implementation converting Txt to string via __toString()        | -               |
+ | TxtTrimmed      | Text trimmed                                                            | trim            |
+ | TxtUpper        | Text in a upper case                                                    | strtoupper      |
+ | TxtWrap         | Envelope for Txt classes                                                | -               |
+
+### Tests
+
+See [Txt unit test](https://github.com/maxonfjvipon/ElegantElephant/tree/master/tests/Txt) for better undestanding.
+
 
 ## Logical
 Elegant boolean
