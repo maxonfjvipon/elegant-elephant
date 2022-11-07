@@ -27,6 +27,18 @@ PHP was designed and created like a procedural language. Then PHP started suppor
  | No public methods without a contract            | :heavy_check_mark: |
  | No statements in test methods except assertThat | :heavy_check_mark: |
 
+## Getting started:
+
+### Requirements
+
+- PHP >= 8.0
+
+### Installation
+
+```
+composer require maxonfjvipon/elegant-elephant
+```
+
 ## Snippets
 
 To get flatten array:
