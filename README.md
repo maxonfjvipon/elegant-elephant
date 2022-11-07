@@ -5,7 +5,7 @@ ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cact
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](http://www.rultor.com/b/maxonfjvipon/elegant-elephant)](http://www.rultor.com/p/maxonfjvipon/elegant-elephant)
 
-[![Composer](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/php.yml/badge.svg)](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/php.yml)
+[![Composer](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/composer.yml/badge.svg)](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/composer.yml)
 [![codecov](https://codecov.io/github/maxonfjvipon/elegant-elephant/branch/master/graph/badge.svg?token=V0UL1FYGXW)](https://codecov.io/github/maxonfjvipon/elegant-elephant)
 [![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant/view?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/elegant-elephant/blob/master/LICENSE)
