@@ -8,9 +8,12 @@ ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cact
 [![Composer](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/php.yml/badge.svg)](https://github.com/maxonfjvipon/elegant-elephant/actions/workflows/php.yml)
 [![codecov](https://codecov.io/github/maxonfjvipon/elegant-elephant/branch/master/graph/badge.svg?token=V0UL1FYGXW)](https://codecov.io/github/maxonfjvipon/elegant-elephant)
 [![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant/view?branch=master)
-
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/elegant-elephant/blob/master/LICENSE)
 [![Tag](https://img.shields.io/github/tag/maxonfjvipon/elegant-elephant.svg)](https://github.com/maxonfjvipon/elegant-elephant/releases)
+
+## **Motivation**
+
+PHP was designed and created like a procedural language. Then PHP started support OOP paradigm, but it's not really pure OOP. We got classes but we still use them in a procedural way. This library enforces you to write real objects in a real OOP.
 
 ## Principles
  | Priciple                                        | Yes/No             |
@@ -23,6 +26,165 @@ ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cact
  | No instanceof, type casting, or reflection      | :heavy_minus_sign: |
  | No public methods without a contract            | :heavy_check_mark: |
  | No statements in test methods except assertThat | :heavy_check_mark: |
+
+## Snippets
+
+To get flatten array:
+
+```php
+// The result will be [0, 1, 2, 2, 3, 3, 4, 5]
+(new ArrFlatten(
+  [0, [1], [[2, 2], [3, 3]], [4, 5]],
+  deep: 2
+))->asArray();
+```
+
+To merge arrays:
+
+```php
+// If user is admin, result array will contain permissions field
+/*  [
+ *    'name' => ...,
+ *    'age' => ...,
+ *    'permissions' => [...],
+ *    'projects' => [
+ *       ['name' => ..., 'created_at' => ...],
+ *       [...],
+ *       ...
+ *    ]
+ */ ]
+(new ArrMerged(
+  [
+    'name' => $user->name,
+    'age' => $user->age,
+  ],
+  new ArrIf(
+    $user->isAdmin(),
+    ArrOf::func(fn () => [
+      'permissions' => [...]
+    ])
+  ),
+  new ArrObject(
+    'projects',
+    new ArrMapped(
+      $projects,
+      fn (Project $project) => [
+        'name' => $project->name,
+        'created_at' => $project->created_at
+      ]
+    ) 
+  )
+))-asArray();
+```
+
+To manipulate with a text:
+
+```php
+// To lower case
+(new TxtLowered(
+  TxtOf::str("Hello")
+))->asString();
+
+// To upper case
+(new TxtUpper("Hello"))->asString();
+
+// Join texts, if $isAdmin === TRUE the result will be "Hello Admin" else "Hello username, what'up"
+(new TxtJoined([
+  "Hello ",
+  // Conditional text, behaves like first text if condition is TRUE, like second otherwise
+  new TxtCond(
+    $isAdmin,
+    "Admin"
+    TxtOf::func(fn () => $user->name())
+  ),
+  // Conditional text, behaves like first text if condition is TRUE, like empty string otherwise
+  new TxtIf(
+    !$isAdmin,
+    ", what's up"
+  )
+]))->asString();
+```
+
+To get first `x` from array of `x y` points:
+
+```php
+$points = [['x' => 1, 'y' => 1], ['x' => 2, 'y' => 2], [...], ...];
+
+NumOf::any(
+  new AtKey(
+    'x',
+    ArrOf::any(
+      new FirstOf(
+        $points
+      )
+    ) 
+  )
+)->asNumber(); // 1
+```
+
+To get length of filtered array:
+
+```php
+(new LengthOf(
+  new ArrFiltered(
+    [1, 2, 3, 4, 5, 6],
+    fn (int $num) => $num > 3
+  )
+))->asNum(); // 3
+```
+
+Complicated example from commercial project with no visible algorithm:
+
+```php
+(new AtKey(                                                   // 12. Get element by key "pump" from given array
+  'pump',
+  ArrOf::any(                                                 // 11. Try to cast given element to array
+    new FirstOf(                                              // 10. Get first element of given array
+      new ArrCond(                                            // 9.1. If given sorted jockey pumps are not empty - take them
+        new Not(
+          new IsEmpty(
+            $jockeyPumps = new ArrSticky(                     // 8. Cache given sorted jockey pumps
+              new ArrSorted(                                  // 7. Sort given mapped jockey pumps by "cost" key
+                new ArrMapped(                                // 6. Map given jockey pumps
+                  new ArrCond(                                // 5.1. If optimized jockey pumps are not empty - take them
+                    new Not(
+                      new IsEmpty(
+                        $optimized = new ArrSticky(           // 4. Cached optimized jockey pumps
+                          new ArrFiltered(                    // 3. Filter cached jockey pumps with optimization
+                            $dbPumps = new ArrSticky(         // 2. Cache jockey pumps
+                              new ArrPumpsForJockeySelecting( // 1. Take jockey pumps from somewhere
+                                $request->jockey_series_ids,
+                                $request->accounting_rests
+                              )
+                            ),
+                            $filterPump(threeFifths: true)
+                          )
+                        )
+                      )
+                    ),
+                    $optimized,
+                    new ArrFiltered(                           // 5.2. If opmtimized jockey pumps are empty - filter jockey pumps without optimization
+                      $dbPumps,
+                      $filterPump(threeFifths: false)
+                    )
+                  ),
+                  fn (Pump $pump) => [
+                    'pump' => $pump,
+                    'cost' => $pump->priceByRates($rates),
+                  ]
+                ),
+                'cost'
+              )
+            )
+          )
+        ),
+        $jockeyPumps,
+        [['pump' => null]]                                      // 9.2. or take [['pump' => null]] otherwise
+      ),
+    )
+  ),
+))->value();
+```
 
 ## Static methods
 Since PHP does not allow you to have more than one constructor in the class, some classes in the library have public static methods that return an instance of the class and replace secondary constructors. Some classes have private primary constructor to prevent user to use them in a wrong way.
@@ -128,7 +290,7 @@ $arr = [...new MyArr()];                      // wrong
 
 All `Arr` classes in the library can be spead.
 
-### Arr Objects
+### Arr classes
 
  | Class          | Description                                                             | PHP             |
  |----------------|-------------------------------------------------------------------------|-----------------|
@@ -162,6 +324,59 @@ All `Arr` classes in the library can be spead.
 
 See [Arr unit test](https://github.com/maxonfjvipon/ElegantElephant/tree/master/tests/Arr) for better undestanding.
 
+## Logic
+Elegant boolean. `Logic` interface has only one mthod `asBool()` that must return `bool`.
+
+### Logic classes
+
+ | Class       | Description                                                                      | PHP              |
+ |-------------|----------------------------------------------------------------------------------|------------------|
+ | Conj        | Conjunction, logical AND                                                         | and, &&          |
+ | ContainsIn  | Check if something contains in string, Txt, array or Arr                         | -                | 
+ | Disj        | Disjunction, logical OR                                                          | or, \|\|         |
+ | EnsureLogic | Helper trait to cast bool or Logic to bool                                       | -                |
+ | InArray     | Check if something contains in array or Arr                                      | in_array         |
+ | InText      | Check if string or Txt contains in other string or Arr                           | strcontains      |
+ | IsEmpty     | Check if string, Txt, array or Arr is empty                                      | empty()          |
+ | IsEqual     | Check if one mixed element is equal to another                                   | ===              |
+ | IsNotEmpty  | Chekc if string, Txt, array or Arr is not empty                                  | !empty()         |
+ | IsNotEqual  | Check if one mixed element is not equal to another                               | !==              |
+ | IsNull      | Check if given element is null                                                   | === null         |
+ | KeyExists   | Check if key exists in array or Arr                                              | array_key_exists |
+ | LogicCond   | Behaves like first given logic if given condition is TRUE, like second otherwise | -                |
+ | LogicOf     | Allows you to create Logic from bool or function                                 | -                |
+ | LogicSticky | Logic with caching mechanism                                                     | -                |
+ | LogicWrap   | Envelope for Logic classes                                                       | -                |
+ | Not         | Logical Not                                                                      | !                |
+ | PregMatch   | Check if string or Txt is match to regular expression                            | preg_match       |
+
+### Tests
+
+See [Logic unit tests](https://github.com/maxonfjvipon/elegant-elephant/tree/master/tests/Logic) for better undestanding.
+
+## Num
+Elegant numbers. `Num` interface has only one method `asNumber()` that must return `float` or `int`.
+
+### Num classes
+
+ | Class          | Description                                                             | PHP             |
+ |----------------|-------------------------------------------------------------------------|-----------------|
+ | ArraySum       | Alias of SumOf                                                          | array_sum       |
+ | EnsureNum      | Helper trait for casting number or Num to float or int                  | -               |
+ | LengthOf       | Length of string, Txt, array or Arr                                     | strlen, count   |
+ | MaxOf          | Max number                                                              | max             |
+ | MinOf          | Min number                                                              | min             |
+ | NumCond        | Behaves like first number if condition is TRUE, like second otherwise   | -               |
+ | NumIf          | Behaves like given number if condition is TRUE, like 0 otherwise        | -               |
+ | NumOf          | Allows to create Num from float, int, Any or function                   | -               |
+ | NumSticky      | Num with caching mechanism                                              | -               |
+ | NumWrap        | Envelope for Num classes                                                | -               |
+ | Rounded        | Rounded number                                                          | round           |
+ | SumOf          | Sum of given numbers or Nums                                            | array_sum       |
+
+### Tests
+
+See [Num unit tests](https://github.com/maxonfjvipon/elegant-elephant/tree/master/tests/Num) for better undestanding.
 
 ## Txt
 Elegant strings. `Txt` interface has only one method `asString()` that must return `string`.
@@ -196,7 +411,7 @@ echo $txt;                       // wrong
 
 All `Txt` classes in the library implements `StringableTxt`.
 
-### Txt objects
+### Txt classes
 
  | Class           | Description                                                             | PHP             |
  |-----------------|-------------------------------------------------------------------------|-----------------|
@@ -224,66 +439,12 @@ All `Txt` classes in the library implements `StringableTxt`.
 
 See [Txt unit test](https://github.com/maxonfjvipon/ElegantElephant/tree/master/tests/Txt) for better undestanding.
 
-
-## Logical
-Elegant boolean
-
-*PregMatch* - match regex
-```php
-PregMatch("/foo/", TextOf::string("foobar"))->asBool(); // true
-(new PregMatch(TxtLowered("FOO"), "foo-bar"))->asBool(); // true
-```
-
-*Conjunction* and *Disjunction* - logical AND and OR. (Php doesn't allow you to name classes with reserved words)
-```php
-Conjunction(
-  Truth(),
-  true,
-  LogicalOf::bool(true),
-  new KeyExists("foo", ["foo" => 1, "bar" => 2]),
-  PregMatch("/foo/", "foobar")
-)->asBool(); // true
-```
-
-*EqualityOf* - equality. You may check equality of texts, strings, ints, floats, booleans, arrays, arrayables, numerables.
-```php
-EqualityOf("foo", new TextOf("bar"))->asBool(); // false
-EqualityOf(ArrayableOf::items(1, 2), [1, 2])->asBool(); // true
-EqualityOf(2, new NumerableOf(TextOf("2")))->asBool(); // true
-```
-
-And so on...
-
-## Numerable
-Elegant numbers.
-
-*LengthOf* - may decorates length of Text, string, array, arrayable:
-```php
-Equality(
-  NumerableOf("5"),
-  new LengthOf(new TextOf("Hello"))
-)->asBool(); // true
-
-LengthOf([1, 2])->asNumber(); // 2
-```
-
-*Addition, Subtraction, Decremented, Incremented, Multiplication* - basic arithmetic operations (needs more):
-```php
-Subtruction(5, Addition(1, Incremented(2)))->asNumber(); // 1
-```
-
-## Proc and Func (Experimental)
-*Proc* incapsulates function that returns nothing, *Func* incapsulates function that returns something.
-
-*Cycle* - Object Oriented ForEach (Does not work correctly for now)
-```php
-$num = 0;
-Cycle::withCallable(
-  static function($elem) use (&$num) {
-    $num += $elem;
-  }
-)->exec([1, 2, 3, 4]); // $num is 10
-```
-
 ## Contribution
-There are so many classes you and me may create. So if you are interested, send a pull request. Don't forget to write tests and make sure they passed.
+
+Fork repository, make changes, send a pull request. To avoid frustration, before sending your pull request please run:
+
+```bash
+$ ./pre-push.sh
+```
+
+And make sure you have no errors.
