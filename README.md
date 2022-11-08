@@ -1,4 +1,4 @@
-# ElegantElephant (In development)
+# ElegantElephant
 
 ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
 
@@ -54,8 +54,11 @@ To get flatten array:
 To merge arrays:
 
 ```php
-// If user is admin, result array will contain permissions field
-/*  [
+
+/* 
+ * If user is admin, result array will contain permissions field
+ *
+ * [
  *    'name' => ...,
  *    'age' => ...,
  *    'permissions' => [...],
@@ -64,7 +67,8 @@ To merge arrays:
  *       [...],
  *       ...
  *    ]
- */ ]
+ * ]
+ */
 (new ArrMerged(
   [
     'name' => $user->name,
@@ -337,7 +341,7 @@ All `Arr` classes in the library can be spead.
 See [Arr unit test](https://github.com/maxonfjvipon/ElegantElephant/tree/master/tests/Arr) for better undestanding.
 
 ## Logic
-Elegant boolean. `Logic` interface has only one mthod `asBool()` that must return `bool`.
+Elegant boolean. `Logic` interface has only one method `asBool()` that must return `bool`.
 
 ### Logic classes
 
