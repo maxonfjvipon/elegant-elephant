@@ -31,9 +31,10 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Substring.
  */
-final class TxtSubstr extends TxtWrap
+final class TxtSubstr implements StringableTxt
 {
     use EnsureTxt;
+    use TxtToString;
 
     /**
      * Ctor.
@@ -41,10 +42,15 @@ final class TxtSubstr extends TxtWrap
      * @param int $offset Start offset
      * @param int|null $length Substring text length
      */
-    final public function __construct(string|Txt $text, int $offset, ?int $length = null)
+    final public function __construct(
+        private string|Txt $text,
+        private int $offset,
+        private ?int $length = null
+    ) {
+    }
+
+    final public function asString(): string
     {
-        parent::__construct(
-            TxtOf::func(fn () => substr($this->ensuredString($text), $offset, $length))
-        );
+        return substr($this->ensuredString($this->text), $this->offset, $this->length);
     }
 }

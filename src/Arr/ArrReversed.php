@@ -31,19 +31,22 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Reversed array.
  */
-final class ArrReversed extends ArrWrap
+final class ArrReversed implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
 
     /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(array|Arr $arr)
+    final public function __construct(private array|Arr $arr)
     {
-        parent::__construct(
-            ArrOf::func(fn () => array_reverse($this->ensuredArray($arr)))
-        );
+    }
+
+    final public function asArray(): array
+    {
+        return array_reverse($this->ensuredArray($this->arr));
     }
 }

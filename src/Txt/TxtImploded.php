@@ -33,10 +33,11 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Imploded text.
  */
-final class TxtImploded extends TxtWrap
+final class TxtImploded implements StringableTxt
 {
     use EnsureTxt;
     use EnsureArr;
+    use TxtToString;
 
     /**
      * Ctor wrap with comma.
@@ -51,17 +52,17 @@ final class TxtImploded extends TxtWrap
      * Ctor.
      * @param Arr|array<string|Txt> $texts Texts to implode
      */
-    final public function __construct(string|Txt $separator, array|Arr $texts)
+    final public function __construct(private string|Txt $separator, private array|Arr $texts)
     {
-        parent::__construct(
-            TxtOf::func(
-                fn () => implode(
-                    $this->ensuredString($separator),
-                    array_map(
-                        fn ($item) => $this->ensuredString($item), /** @phpstan-ignore-line */
-                        $this->ensuredArray($texts)
-                    )
-                )
+    }
+
+    final public function asString(): string
+    {
+        return implode(
+            $this->ensuredString($this->separator),
+            array_map(
+                fn (string|Txt $item) => $this->ensuredString($item), /** @phpstan-ignore-line */
+                $this->ensuredArray($this->texts)
             )
         );
     }

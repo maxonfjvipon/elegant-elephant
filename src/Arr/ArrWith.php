@@ -50,7 +50,7 @@ final class ArrWith extends ArrWrap
                 new ArrCond(
                     new IsNull($value),
                     ArrOf::func(fn () => [$this->ensuredAnyValue($keyOrValue)]),
-                    ArrOf::func(fn () => new ArrObject($keyOrValue, $value)) /** @phpstan-ignore-line */
+                    ArrOf::func(fn () => new ArrSingle($keyOrValue, $value)) /** @phpstan-ignore-line */
                 )
             )
         );

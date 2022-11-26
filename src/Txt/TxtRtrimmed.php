@@ -31,18 +31,23 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Text trimmed from right.
  */
-final class TxtRtrimmed extends TxtWrap
+final class TxtRtrimmed implements StringableTxt
 {
     use EnsureTxt;
+    use TxtToString;
 
     /**
      * Ctor.
      * @param string|Txt $text Text to trim from right
      */
-    final public function __construct(string|Txt $text)
+    final public function __construct(
+        private string|Txt $text,
+        private string $characters = " \t\n\r\0\x0B"
+    ) {
+    }
+
+    final public function asString(): string
     {
-        parent::__construct(
-            TxtOf::func(fn () => rtrim($this->ensuredString($text)))
-        );
+        return rtrim($this->ensuredString($this->text), $this->characters);
     }
 }

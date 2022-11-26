@@ -36,6 +36,7 @@ abstract class LogicWrap implements Logic
 {
     /**
      * Ctor.
+     * @param Logic $origin
      */
     public function __construct(private Logic $origin)
     {

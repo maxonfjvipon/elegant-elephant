@@ -27,21 +27,26 @@ declare(strict_types=1);
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
 use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
+use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
  * Is equal.
  */
-final class IsEqual extends LogicWrap
+final class IsEqual implements Logic
 {
     use EnsureAny;
 
     /**
      * Ctor.
+     * @param mixed $arg1
+     * @param mixed $arg2
      */
-    final public function __construct(mixed $arg1, mixed $arg2)
+    final public function __construct(private mixed $arg1, private mixed $arg2)
     {
-        parent::__construct(
-            LogicOf::func(fn () => $this->ensuredAnyValue($arg1) === $this->ensuredAnyValue($arg2))
-        );
+    }
+
+    final public function asBool(): bool
+    {
+        return  $this->ensuredAnyValue($this->arg1) === $this->ensuredAnyValue($this->arg2);
     }
 }

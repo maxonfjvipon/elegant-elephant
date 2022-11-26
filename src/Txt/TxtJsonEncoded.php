@@ -31,18 +31,21 @@ use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 /**
  * Text encoded to JSON.
  */
-final class TxtJsonEncoded extends TxtWrap
+final class TxtJsonEncoded implements StringableTxt
 {
     use EnsureAny;
+    use TxtToString;
 
     /**
      * Ctor.
      * @param mixed $value Value to encode to JSON
      */
-    final public function __construct(mixed $value)
+    final public function __construct(private mixed $value)
     {
-        parent::__construct(
-            TxtOf::func(fn () => (string) json_encode($this->ensuredAnyValue($value)))
-        );
+    }
+
+    final public function asString(): string
+    {
+        return (string) json_encode($this->ensuredAnyValue($this->value));
     }
 }

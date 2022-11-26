@@ -31,9 +31,15 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Array sorted.
  */
-final class ArrSorted extends ArrWrap
+final class ArrSorted implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
+
+    /**
+     * @var callable|string|null $compare
+     */
+    private $compare;
 
     /**
      * Ctor.
@@ -41,27 +47,26 @@ final class ArrSorted extends ArrWrap
      * @param array<mixed>|Arr     $arr
      * @param callable|string|null $compare
      */
-    final public function __construct(array|Arr $arr, callable|string|null $compare = null)
+    final public function __construct(private array|Arr $arr, callable|string|null $compare = null)
     {
-        parent::__construct(
-            ArrOf::func(
-                function () use ($arr, $compare) {
-                    $arr = $this->ensuredArray($arr);
+        $this->compare = $compare;
+    }
 
-                    if ($compare !== null) {
-                        usort(
-                            $arr,
-                            is_string($compare)
-                            ? fn ($a, $b) => $a[$compare] <=> $b[$compare]
-                            : $compare
-                        );
-                    } else {
-                        sort($arr);
-                    }
+    final public function asArray(): array
+    {
+        $arr = $this->ensuredArray($this->arr);
 
-                    return $arr;
-                }
-            )
-        );
+        if ($this->compare !== null) {
+            usort(
+                $arr,
+                is_string($this->compare)
+                    ? fn ($a, $b) => $a[$this->compare] <=> $b[$this->compare]
+                    : $this->compare
+            );
+        } else {
+            sort($arr);
+        }
+
+        return $arr;
     }
 }

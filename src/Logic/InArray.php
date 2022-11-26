@@ -26,33 +26,37 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
+use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
  * In array.
  */
-final class InArray extends LogicWrap
+final class InArray implements Logic
 {
     use EnsureAny;
     use EnsureArr;
 
     /**
      * Ctor.
-     *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(mixed $needle, array|Arr $arr, bool $strict = false)
+    final public function __construct(
+        private mixed $needle,
+        private array|Arr $arr,
+        private bool $strict = false
+    ) {
+    }
+
+    final public function asBool(): bool
     {
-        parent::__construct(
-            LogicOf::func(
-                fn () => in_array(
-                    $this->ensuredAnyValue($needle),
-                    $this->ensuredArray($arr),
-                    $strict
-                )
-            )
+        return in_array(
+            $this->ensuredAnyValue($this->needle),
+            $this->ensuredArray($this->arr),
+            $this->strict
         );
     }
 }

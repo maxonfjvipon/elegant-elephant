@@ -31,7 +31,7 @@ use Maxonfjvipon\ElegantElephant\Num;
 /**
  * Cached number.
  */
-final class NumSticky extends NumWrap
+final class NumSticky implements Num
 {
     /**
      * @var array<int|float> Cache
@@ -42,10 +42,12 @@ final class NumSticky extends NumWrap
      * Ctor.
      * @param Num $num Number to cache
      */
-    final public function __construct(Num $num)
+    final public function __construct(private Num $num)
     {
-        parent::__construct(
-            NumOf::func(fn () => $this->cache[0] ??= $num->asNumber())
-        );
+    }
+
+    final public function asNumber(): float|int
+    {
+        return $this->cache[0] ??= $this->num->asNumber();
     }
 }

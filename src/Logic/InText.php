@@ -26,25 +26,32 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
+use Exception;
+use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Txt;
 use Maxonfjvipon\ElegantElephant\Txt\EnsureTxt;
 
 /**
  * In text.
  */
-final class InText extends LogicWrap
+final class InText implements Logic
 {
     use EnsureTxt;
 
     /**
      * Ctor.
+     * @param string|Txt $needle
+     * @param string|Txt $haystack
      */
-    final public function __construct(string|Txt $needle, string|Txt $haystack)
+    final public function __construct(private string|Txt $needle, private string|Txt $haystack)
     {
-        parent::__construct(
-            LogicOf::func(
-                fn () => str_contains($this->ensuredString($haystack), $this->ensuredString($needle))
-            )
+    }
+
+    final public function asBool(): bool
+    {
+        return str_contains(
+            $this->ensuredString($this->haystack),
+            $this->ensuredString($this->needle)
         );
     }
 }

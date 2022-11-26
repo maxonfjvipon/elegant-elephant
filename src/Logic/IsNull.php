@@ -37,11 +37,12 @@ final class IsNull extends LogicWrap
 
     /**
      * Ctor.
+     * @param mixed $value
      */
     final public function __construct(mixed $value)
     {
         parent::__construct(
-            LogicOf::func(fn () => $this->ensuredAnyValue($value) === null)
+            new IsEqual($value, null)
         );
     }
 }

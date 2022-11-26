@@ -39,10 +39,6 @@ trait EnsureLogic
      */
     private function ensuredBool(bool|Logic $boolOrLogic): bool
     {
-        if (!is_bool($boolOrLogic)) {
-            $boolOrLogic = $boolOrLogic->asBool();
-        }
-
-        return $boolOrLogic;
+        return is_bool($boolOrLogic) ? $boolOrLogic : $boolOrLogic->asBool();
     }
 }

@@ -35,7 +35,6 @@ use Maxonfjvipon\ElegantElephant\Txt;
 final class ContainsIn extends LogicWrap
 {
     /**
-     * @todo: Remake with using {@see LogicCond}
      * Ctor.
      * @param string|array<mixed>|Txt|Arr $container
      */

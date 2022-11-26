@@ -33,7 +33,7 @@ use Maxonfjvipon\ElegantElephant\Num;
 /**
  * Sum of items.
  */
-final class SumOf extends NumWrap
+final class SumOf implements Num
 {
     use EnsureNum;
     use EnsureArr;
@@ -51,16 +51,16 @@ final class SumOf extends NumWrap
      * Ctor.
      * @param array<float|int|Num>|Arr $arr Array of numbers to sum
      */
-    final public function __construct(array|Arr $arr)
+    final public function __construct(private array|Arr $arr)
     {
-        parent::__construct(
-            NumOf::func(
-                fn () => array_sum(
-                    array_map(
-                        fn ($item) => $this->ensuredNumber($item), /** @phpstan-ignore-line */
-                        $this->ensuredArray($arr)
-                    )
-                )
+    }
+
+    final public function asNumber(): float|int
+    {
+        return array_sum(
+            array_map(
+                fn ($item) => $this->ensuredNumber($item), /** @phpstan-ignore-line */
+                $this->ensuredArray($this->arr)
             )
         );
     }

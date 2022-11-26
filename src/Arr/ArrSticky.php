@@ -31,8 +31,10 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Cached array.
  */
-final class ArrSticky extends ArrWrap
+final class ArrSticky implements IterableArr
 {
+    use HasArrIterator;
+
     /**
      * @var array<array<mixed>>
      */
@@ -41,10 +43,12 @@ final class ArrSticky extends ArrWrap
     /**
      * Ctor.
      */
-    final public function __construct(Arr $arr)
+    final public function __construct(private Arr $arr)
     {
-        parent::__construct(
-            ArrOf::func(fn () => $this->cache[0] ??= $arr->asArray())
-        );
+    }
+
+    final public function asArray(): array
+    {
+        return $this->cache[0] ??= $this->arr->asArray();
     }
 }

@@ -31,18 +31,21 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Text in upper case.
  */
-final class TxtUpper extends TxtWrap
+final class TxtUpper implements StringableTxt
 {
     use EnsureTxt;
+    use TxtToString;
 
     /**
      * Ctor.
-     * @param string|Txt $text Text to be case up
+     * @param string|Txt $text Text to case up
      */
-    final public function __construct(string|Txt $text)
+    final public function __construct(private string|Txt $text)
     {
-        parent::__construct(
-            TxtOf::func(fn () => strtoupper($this->ensuredString($text)))
-        );
+    }
+
+    final public function asString(): string
+    {
+        return strtoupper($this->ensuredString($this->text));
     }
 }

@@ -24,17 +24,45 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Arr;
+namespace Maxonfjvipon\ElegantElephant\Logic;
+
+use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
- * Empty array.
+ * Disjunction - Logical OR.
  */
-final class ArrEmpty implements IterableArr
+final class Disjunction implements Logic
 {
-    use HasArrIterator;
+    use EnsureLogic;
 
-    final public function asArray(): array
+    /**
+     * @var array<bool|Logic> $args
+     */
+    private array $args;
+
+    /**
+     * Ctor.
+     * @param bool|Logic ...$args
+     */
+    final public function __construct(bool|Logic ...$args)
     {
-        return [];
+        $this->args = $args;
+    }
+
+    public function asBool(): bool
+    {
+        $res = false;
+
+        /**
+         * @var bool|Logic $arg
+         */
+        foreach ($this->args as $arg) {
+            if ($this->ensuredBool($arg)) {
+                $res = true;
+                break;
+            }
+        }
+
+        return $res;
     }
 }

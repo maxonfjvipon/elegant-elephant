@@ -34,7 +34,7 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * First item.
  */
-final class FirstOf extends AnyWrap
+final class FirstOf implements Any
 {
     use EnsureAny;
 
@@ -45,7 +45,7 @@ final class FirstOf extends AnyWrap
      */
     final public static function text(Txt|string $text): FirstOf
     {
-        return new FirstOf(AnyOf::text($text));
+        return new FirstOf($text);
     }
 
     /**
@@ -55,31 +55,29 @@ final class FirstOf extends AnyWrap
      */
     public static function arr(array|Arr $arr): FirstOf
     {
-        return new FirstOf(AnyOf::arr($arr));
+        return new FirstOf($arr);
     }
 
     /**
      * Ctor.
      * @param string|Any|Arr|array<mixed>|Txt $container Container to get first element from
      */
-    final public function __construct(string|Any|Arr|array|Txt $container)
+    final public function __construct(private string|Any|Arr|array|Txt $container)
     {
-        parent::__construct(
-            AnyOf::func(
-                function () use ($container) {
-                    $value = $this->ensuredAnyValue($container);
+    }
 
-                    if (!is_string($value) && !is_array($value)) {
-                        throw new Exception("The element to get the first element from must be an array or string");
-                    }
+    public function value(): mixed
+    {
+        $value = $this->ensuredAnyValue($this->container);
 
-                    if (empty($value)) {
-                        throw new Exception("Can't get the first element of an empty value");
-                    }
+        if (!is_string($value) && !is_array($value)) {
+            throw new Exception("The element to get the first element from must be an array or string");
+        }
 
-                    return $value[0];
-                }
-            )
-        );
+        if (empty($value)) {
+            throw new Exception("Can't get the first element of an empty value");
+        }
+
+        return $value[0];
     }
 }

@@ -43,10 +43,6 @@ trait EnsureTxt
      */
     private function ensuredString(string|Txt $stringOrTxt): string
     {
-        if (!is_string($stringOrTxt)) {
-            $stringOrTxt = $stringOrTxt->asString();
-        }
-
-        return $stringOrTxt;
+        return is_string($stringOrTxt) ? $stringOrTxt : $stringOrTxt->asString();
     }
 }

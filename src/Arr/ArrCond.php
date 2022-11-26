@@ -33,6 +33,7 @@ use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
  * Conditional array.
+ * Alias of {@see ArrFork}
  */
 final class ArrCond extends ArrWrap
 {
@@ -45,13 +46,7 @@ final class ArrCond extends ArrWrap
     final public function __construct(bool|Logic $condition, array|Arr $first, array|Arr $second)
     {
         parent::__construct(
-            ArrOf::any(
-                new AnyCond(
-                    $condition,
-                    AnyOf::arr($first),
-                    AnyOf::arr($second)
-                )
-            )
+            new ArrFork($condition, $first, $second)
         );
     }
 }

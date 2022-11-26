@@ -34,7 +34,7 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Last of.
  */
-final class LastOf extends AnyWrap
+final class LastOf implements Any
 {
     use EnsureAny;
 
@@ -44,7 +44,7 @@ final class LastOf extends AnyWrap
      */
     final public static function text(string|Txt $text): LastOf
     {
-        return new LastOf(AnyOf::text($text));
+        return new LastOf($text);
     }
 
     /**
@@ -53,39 +53,37 @@ final class LastOf extends AnyWrap
      */
     final public static function arr(array|Arr $arr): LastOf
     {
-        return new LastOf(AnyOf::arr($arr));
+        return new LastOf($arr);
     }
 
     /**
      * Ctor.
      * @param string|array<mixed>|Txt|Arr|Any $container Container to get last element from
      */
-    final public function __construct(string|array|Txt|Arr|Any $container)
+    final public function __construct(private string|array|Txt|Arr|Any $container)
     {
-        parent::__construct(
-            AnyOf::func(
-                function () use ($container) {
-                    $value = $this->ensuredAnyValue($container);
+    }
 
-                    if (is_string($value)) {
-                        if (empty($value)) {
-                            throw new Exception("Can't get the last element of an empty string");
-                        }
+    public function value(): mixed
+    {
+        $value = $this->ensuredAnyValue($this->container);
 
-                        $res = substr($value, -1);
-                    } elseif (is_array($value)) {
-                        if (empty($value)) {
-                            throw new Exception("Can't get the last element of an empty array");
-                        }
+        if (is_string($value)) {
+            if (empty($value)) {
+                throw new Exception("Can't get the last element of an empty string");
+            }
 
-                        $res = $value[count($value) - 1];
-                    } else {
-                        throw new Exception("The element to get the last element from must be an array or string");
-                    }
+            $res = substr($value, -1);
+        } elseif (is_array($value)) {
+            if (empty($value)) {
+                throw new Exception("Can't get the last element of an empty array");
+            }
 
-                    return $res;
-                }
-            )
-        );
+            $res = $value[count($value) - 1];
+        } else {
+            throw new Exception("The element to get the last element from must be an array or string");
+        }
+
+        return $res;
     }
 }

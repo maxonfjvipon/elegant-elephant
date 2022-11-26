@@ -26,28 +26,32 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
+use Exception;
+use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Txt;
 use Maxonfjvipon\ElegantElephant\Txt\EnsureTxt;
 
 /**
  * Matches regex.
  */
-final class PregMatch extends LogicWrap
+final class PregMatch implements Logic
 {
     use EnsureTxt;
 
     /**
      * Ctor.
+     * @param string|Txt $pattern
+     * @param string|Txt $subject
      */
-    final public function __construct(string|Txt $pattern, string|Txt $subject)
+    final public function __construct(private string|Txt $pattern, private string|Txt $subject)
     {
-        parent::__construct(
-            LogicOf::func(
-                fn () => (bool) preg_match(
-                    $this->ensuredString($pattern),
-                    $this->ensuredString($subject),
-                )
-            )
+    }
+
+    final public function asBool(): bool
+    {
+        return (bool) preg_match(
+            $this->ensuredString($this->pattern),
+            $this->ensuredString($this->subject),
         );
     }
 }

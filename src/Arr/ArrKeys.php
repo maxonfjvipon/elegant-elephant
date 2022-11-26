@@ -31,19 +31,22 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Array keys.
  */
-final class ArrKeys extends ArrWrap
+final class ArrKeys implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
 
     /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(array|Arr $arr)
+    final public function __construct(private array|Arr $arr)
     {
-        parent::__construct(
-            ArrOf::func(fn () => array_keys($this->ensuredArray($arr)))
-        );
+    }
+
+    final public function asArray(): array
+    {
+        return array_keys($this->ensuredArray($this->arr));
     }
 }

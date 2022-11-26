@@ -56,7 +56,7 @@ final class NumOf implements Num
      */
     final public static function float(float $float): NumOf
     {
-        return NumOf::func(fn () => $float);
+        return NumOf::number($float);
     }
 
     /**
@@ -65,7 +65,7 @@ final class NumOf implements Num
      */
     final public static function number(int|float $number): NumOf
     {
-        return NumOf::func(fn () => $number);
+        return new NumOf(fn () => $number);
     }
 
     /**

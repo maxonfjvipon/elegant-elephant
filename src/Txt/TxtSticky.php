@@ -31,8 +31,10 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Cached text.
  */
-final class TxtSticky extends TxtWrap
+final class TxtSticky implements StringableTxt
 {
+    use TxtToString;
+
     /**
      * @var array<string> Cache
      */
@@ -40,12 +42,14 @@ final class TxtSticky extends TxtWrap
 
     /**
      * Ctor.
-     * @param Txt $txt Text to cache
+     * @param Txt $text Text to cache
      */
-    final public function __construct(Txt $txt)
+    final public function __construct(private Txt $text)
     {
-        parent::__construct(
-            TxtOf::func(fn () => $this->cache[0] ??= $txt->asString())
-        );
+    }
+
+    final public function asString(): string
+    {
+        return $this->cache[0] ??= $this->text->asString();
     }
 }

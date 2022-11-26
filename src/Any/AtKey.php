@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
 
+use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
 use Maxonfjvipon\ElegantElephant\Num;
@@ -34,7 +35,7 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * At key.
  */
-final class AtKey extends AnyWrap
+final class AtKey implements Any
 {
     use EnsureAny;
     use EnsureArr;
@@ -45,10 +46,14 @@ final class AtKey extends AnyWrap
      * @param string|int|float|Num|Txt $key Key to get value by
      * @param Arr|array<mixed> $arr Array to get value from
      */
-    final public function __construct(string|int|float|Num|Txt $key, array|Arr $arr)
+    final public function __construct(
+        private string|int|float|Num|Txt $key,
+        private array|Arr $arr
+    ) {
+    }
+
+    public function value(): mixed
     {
-        parent::__construct(
-            AnyOf::func(fn () => $this->ensuredArray($arr)[$this->ensuredAnyValue($key)])
-        );
+        return $this->ensuredArray($this->arr)[$this->ensuredAnyValue($this->key)];
     }
 }

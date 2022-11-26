@@ -26,14 +26,21 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Arr;
 
 /**
  * Merged array.
  */
-final class ArrMerged extends ArrWrap
+final class ArrMerged implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
+
+    /**
+     * @var array<array<mixed>|Arr> $items
+     */
+    private array $items;
 
     /**
      * Ctor.
@@ -41,14 +48,15 @@ final class ArrMerged extends ArrWrap
      */
     final public function __construct(array|Arr ...$items)
     {
-        parent::__construct(
-            ArrOf::func(
-                fn () => array_merge(
-                    ...array_map(
-                        fn ($arr) => $this->ensuredArray($arr),
-                        $items
-                    )
-                )
+        $this->items = $items;
+    }
+
+    final public function asArray(): array
+    {
+        return array_merge(
+            ...array_map(
+                fn ($arr) => $this->ensuredArray($arr),
+                $this->items
             )
         );
     }

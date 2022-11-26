@@ -7,6 +7,7 @@ use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
 use Maxonfjvipon\ElegantElephant\Arr\ArrEmpty;
 use Maxonfjvipon\ElegantElephant\Arr\ArrMapped;
 use Maxonfjvipon\ElegantElephant\Arr\ArrMerged;
+use Maxonfjvipon\ElegantElephant\Num\SumOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 

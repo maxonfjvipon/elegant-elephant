@@ -31,18 +31,21 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Text lowered.
  */
-final class TxtLowered extends TxtWrap
+final class TxtLowered implements StringableTxt
 {
     use EnsureTxt;
+    use TxtToString;
 
     /**
      * Ctor.
      * @param string|Txt $text Text to case low
      */
-    final public function __construct(string|Txt $text)
+    final public function __construct(private string|Txt $text)
     {
-        parent::__construct(
-            TxtOf::func(fn () => strtolower($this->ensuredString($text)))
-        );
+    }
+
+    final public function asString(): string
+    {
+        return strtolower($this->ensuredString($this->text));
     }
 }

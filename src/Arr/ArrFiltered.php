@@ -31,25 +31,32 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Filtered array.
  */
-final class ArrFiltered extends ArrWrap
+final class ArrFiltered implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
+
+    /**
+     * @var callable $callback
+     */
+    private $callback;
 
     /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(array|Arr $arr, callable $callback)
+    final public function __construct(private array|Arr $arr, callable $callback)
     {
-        parent::__construct(
-            ArrOf::func(
-                fn () => array_filter(
-                    $this->ensuredArray($arr),
-                    $callback,
-                    ARRAY_FILTER_USE_BOTH
-                )
-            )
+        $this->callback = $callback;
+    }
+
+    final public function asArray(): array
+    {
+        return array_filter(
+            $this->ensuredArray($this->arr),
+            $this->callback,
+            ARRAY_FILTER_USE_BOTH
         );
     }
 }

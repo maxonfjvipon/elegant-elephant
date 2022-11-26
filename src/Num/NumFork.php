@@ -24,17 +24,36 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Arr;
+namespace Maxonfjvipon\ElegantElephant\Num;
+
+use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Logic;
+use Maxonfjvipon\ElegantElephant\Num;
 
 /**
- * Empty array.
+ * Conditional number.
  */
-final class ArrEmpty implements IterableArr
+final class NumFork extends NumWrap
 {
-    use HasArrIterator;
-
-    final public function asArray(): array
-    {
-        return [];
+    /**
+     * @param bool|Logic $condition Condition
+     * @param float|int|Num $first First number
+     * @param float|int|Num $second Alternative number
+     */
+    final public function __construct(
+        bool|Logic $condition,
+        float|int|Num $first,
+        float|int|Num $second
+    ) {
+        parent::__construct(
+            NumOf::any(
+                new AnyCond(
+                    $condition,
+                    AnyOf::num($first),
+                    AnyOf::num($second),
+                )
+            )
+        );
     }
 }

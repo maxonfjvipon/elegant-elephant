@@ -3,6 +3,7 @@
 namespace Maxonfjvipon\ElegantElephant\Tests\Arr;
 
 use Exception;
+use Maxonfjvipon\ElegantElephant\Any\LastOf;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
 use Maxonfjvipon\ElegantElephant\Any\FirstOf;
 use Maxonfjvipon\ElegantElephant\Arr\ArrCast;
@@ -45,6 +46,41 @@ final class ArrCastTest extends TestCase
                 ['key' => 'value'],
                 true,
                 1
+            ])
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function castWithKeys(): void
+    {
+        $this->assertArrThat(
+            new ArrCast([
+                'int' => 42,
+                'float' => 12.5,
+                'string' => 'hello',
+                'array' => ['foo', 'bar'],
+                'bool' => true,
+                'num' => new SumOf([5, 5]),
+                'txt' => new TxtUpper("foo"),
+                'arr' => new ArrObject("key", 'value'),
+                'logic' => LogicOf::bool(false),
+                'any' => new LastOf([1, 2, 3]),
+            ]),
+            new IsEqual([
+                'int' => 42,
+                'float' => 12.5,
+                'string' => 'hello',
+                'array' => ['foo', 'bar'],
+                'bool' => true,
+                'num' => 10,
+                'txt' => "FOO",
+                'arr' => ['key' => 'value'],
+                'logic' => false,
+                'any' => 3
             ])
         );
     }

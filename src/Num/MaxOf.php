@@ -26,14 +26,20 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Num;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Num;
 
 /**
  * Max.
  */
-final class MaxOf extends NumWrap
+final class MaxOf implements Num
 {
     use EnsureNum;
+
+    /**
+     * @var array<float|int|Num> $items
+     */
+    private array $items;
 
     /**
      * Ctor.
@@ -41,12 +47,15 @@ final class MaxOf extends NumWrap
      */
     final public function __construct(float|int|Num ...$items)
     {
-        parent::__construct(
-            NumOf::func(
-                fn () => +max(array_map(
-                    fn ($item) => $this->ensuredNumber($item),
-                    $items
-                ))
+        $this->items = $items;
+    }
+
+    final public function asNumber(): float|int
+    {
+        return +max(
+            array_map(
+                fn ($item) => $this->ensuredNumber($item),
+                $this->items
             )
         );
     }

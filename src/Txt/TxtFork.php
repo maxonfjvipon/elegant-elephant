@@ -24,17 +24,34 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Arr;
+namespace Maxonfjvipon\ElegantElephant\Txt;
+
+use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Logic;
+use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
- * Empty array.
+ * Conditional text.
  */
-final class ArrEmpty implements IterableArr
+final class TxtFork extends TxtWrap
 {
-    use HasArrIterator;
-
-    final public function asArray(): array
+    /**
+     * Ctor.
+     * @param bool|Logic $condition Condition
+     * @param string|Txt $first First text
+     * @param string|Txt $second Alternative text
+     */
+    final public function __construct(bool|Logic $condition, string|Txt $first, string|Txt $second)
     {
-        return [];
+        parent::__construct(
+            TxtOf::any(
+                new AnyCond(
+                    $condition,
+                    AnyOf::text($first),
+                    AnyOf::text($second),
+                )
+            )
+        );
     }
 }

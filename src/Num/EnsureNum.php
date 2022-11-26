@@ -41,10 +41,6 @@ trait EnsureNum
      */
     private function ensuredNumber(float|int|Num $num): float|int
     {
-        if ($num instanceof Num) {
-            $num = $num->asNumber();
-        }
-
-        return $num;
+        return $num instanceof Num ? $num->asNumber() : $num;
     }
 }

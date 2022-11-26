@@ -31,17 +31,20 @@ use Maxonfjvipon\ElegantElephant\Logic;
 /**
  * Not.
  */
-final class Not extends LogicWrap
+final class Not implements Logic
 {
     use EnsureLogic;
 
     /**
      * Ctor.
+     * @param bool|Logic $boolOrLogic
      */
-    final public function __construct(bool|Logic $boolOrLogic)
+    final public function __construct(private bool|Logic $boolOrLogic)
     {
-        parent::__construct(
-            LogicOf::func(fn () => !$this->ensuredBool($boolOrLogic))
-        );
+    }
+
+    final public function asBool(): bool
+    {
+        return !$this->ensuredBool($this->boolOrLogic);
     }
 }

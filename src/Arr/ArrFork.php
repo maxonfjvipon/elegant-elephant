@@ -26,15 +26,33 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
-/**
- * Empty array.
- */
-final class ArrEmpty implements IterableArr
-{
-    use HasArrIterator;
+use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Arr;
+use Maxonfjvipon\ElegantElephant\Logic;
 
-    final public function asArray(): array
+/**
+ * Conditional array.
+ */
+final class ArrFork extends ArrWrap
+{
+    /**
+     * Ctor.
+     *
+     * @param bool|Logic $condition
+     * @param array<mixed>|Arr $first
+     * @param array<mixed>|Arr $second
+     */
+    final public function __construct(bool|Logic $condition, array|Arr $first, array|Arr $second)
     {
-        return [];
+        parent::__construct(
+            ArrOf::any(
+                new AnyCond(
+                    $condition,
+                    AnyOf::arr($first),
+                    AnyOf::arr($second)
+                )
+            )
+        );
     }
 }

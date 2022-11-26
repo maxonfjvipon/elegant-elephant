@@ -32,9 +32,10 @@ use Maxonfjvipon\ElegantElephant\Txt\EnsureTxt;
 /**
  * Array exploded.
  */
-final class ArrExploded extends ArrWrap
+final class ArrExploded implements IterableArr
 {
     use EnsureTxt;
+    use HasArrIterator;
 
     /**
      * Exploded by comma.
@@ -49,15 +50,15 @@ final class ArrExploded extends ArrWrap
      *
      * @param non-empty-string|Txt $separator
      */
-    final public function __construct(string|Txt $separator, string|Txt $text)
+    final public function __construct(private string|Txt $separator, private string|Txt $text)
     {
-        parent::__construct(
-            ArrOf::func(function () use ($separator, $text) {
-                /** @var non-empty-string $separator */
-                $separator = $this->ensuredString($separator);
+    }
 
-                return explode($separator, $this->ensuredString($text));
-            })
-        );
+    final public function asArray(): array
+    {
+        /** @var non-empty-string $separator */
+        $separator = $this->ensuredString($this->separator);
+
+        return explode($separator, $this->ensuredString($this->text));
     }
 }

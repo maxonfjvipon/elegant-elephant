@@ -24,17 +24,27 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Arr;
+namespace Maxonfjvipon\ElegantElephant\Logic;
+
+use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 
 /**
- * Empty array.
+ * Check is not null.
  */
-final class ArrEmpty implements IterableArr
+final class IsNotNull extends LogicWrap
 {
-    use HasArrIterator;
+    use EnsureAny;
 
-    final public function asArray(): array
+    /**
+     * Ctor.
+     * @param mixed $value
+     */
+    final public function __construct(mixed $value)
     {
-        return [];
+        parent::__construct(
+            new Not(
+                new IsNull($value)
+            )
+        );
     }
 }

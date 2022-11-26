@@ -26,15 +26,40 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
+use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
+use Maxonfjvipon\ElegantElephant\Arr;
+use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Txt;
+
 /**
- * Empty array.
+ * Array without element by key.
  */
-final class ArrEmpty implements IterableArr
+final class ArrWithout implements IterableArr
 {
+    use EnsureArr;
+    use EnsureAny;
     use HasArrIterator;
+
+    /**
+     * Ctor.
+     *
+     * @param array<mixed>|Arr $arr
+     * @param string|int|Txt|Num $key
+     */
+    final public function __construct(private array|Arr $arr, private string|int|Txt|Num $key)
+    {
+    }
 
     final public function asArray(): array
     {
-        return [];
+        $arr = $this->ensuredArray($this->arr);
+        /** @var int|string $key */
+        $key = $this->ensuredAnyValue($this->key);
+
+        if (array_key_exists($key, $arr)) {
+            unset($arr[$key]);
+        }
+
+        return $arr;
     }
 }

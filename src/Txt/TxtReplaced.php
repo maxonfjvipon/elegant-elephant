@@ -31,9 +31,10 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Text replaced.
  */
-final class TxtReplaced extends TxtWrap
+final class TxtReplaced implements StringableTxt
 {
     use EnsureTxt;
+    use TxtToString;
 
     /**
      * Ctor.
@@ -41,16 +42,19 @@ final class TxtReplaced extends TxtWrap
      * @param string|Txt $replace Text to replace
      * @param string|Txt $subject Text to search and replace
      */
-    final public function __construct(string|Txt $search, string|Txt $replace, string|Txt $subject)
+    final public function __construct(
+        private string|Txt $search,
+        private string|Txt $replace,
+        private string|Txt $subject
+    ) {
+    }
+
+    final public function asString(): string
     {
-        parent::__construct(
-            TxtOf::func(
-                fn () => str_replace(
-                    $this->ensuredString($search),
-                    $this->ensuredString($replace),
-                    $this->ensuredString($subject)
-                )
-            )
+        return str_replace(
+            $this->ensuredString($this->search),
+            $this->ensuredString($this->replace),
+            $this->ensuredString($this->subject)
         );
     }
 }

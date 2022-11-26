@@ -32,26 +32,27 @@ use Maxonfjvipon\ElegantElephant\Num\EnsureNum;
 /**
  * Array range.
  */
-final class ArrRange extends ArrWrap
+final class ArrRange implements IterableArr
 {
     use EnsureNum;
+    use HasArrIterator;
 
     /**
      * Ctor.
      */
     final public function __construct(
-        int|float|Num $from,
-        int|float|Num $to,
-        int|float|Num $step = 1
+        private int|float|Num $from,
+        private int|float|Num $to,
+        private int|float|Num $step = 1
     ) {
-        parent::__construct(
-            ArrOf::func(
-                fn () => range(
-                    $this->ensuredNumber($from),
-                    $this->ensuredNumber($to),
-                    $this->ensuredNumber($step)
-                )
-            )
+    }
+
+    final public function asArray(): array
+    {
+        return range(
+            $this->ensuredNumber($this->from),
+            $this->ensuredNumber($this->to),
+            $this->ensuredNumber($this->step)
         );
     }
 }

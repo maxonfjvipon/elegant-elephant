@@ -29,33 +29,31 @@ namespace Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
+use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
  * Key exists.
  */
-final class KeyExists extends LogicWrap
+final class KeyExists implements Logic
 {
     use EnsureArr;
     use EnsureAny;
 
     /**
      * Ctor.
-     *
      * @param array<mixed>|Arr   $arr
      */
-    final public function __construct(int|string|Num|Txt $key, array|Arr $arr)
+    final public function __construct(private int|string|Num|Txt $key, private array|Arr $arr)
     {
-        parent::__construct(
-            LogicOf::func(
-                function () use ($key, $arr) {
-                    /** @var int|string $key */
-                    $key = $this->ensuredAnyValue($key);
+    }
 
-                    return array_key_exists($key, $this->ensuredArray($arr));
-                }
-            )
-        );
+    public function asBool(): bool
+    {
+        /** @var int|string $key */
+        $key = $this->ensuredAnyValue($this->key);
+
+        return array_key_exists($key, $this->ensuredArray($this->arr));
     }
 }

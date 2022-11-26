@@ -33,6 +33,8 @@ final class IsNotEqual extends LogicWrap
 {
     /**
      * Ctor.
+     * @param mixed $arg1
+     * @param mixed $arg2
      */
     final public function __construct(mixed $arg1, mixed $arg2)
     {

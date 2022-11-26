@@ -30,6 +30,7 @@ use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
  * Disjunction - Logical OR.
+ * Alias of {@see Disjunction}
  */
 final class Disj extends LogicWrap
 {
@@ -37,27 +38,12 @@ final class Disj extends LogicWrap
 
     /**
      * Ctor.
+     * @param bool|Logic ...$args
      */
     final public function __construct(bool|Logic ...$args)
     {
         parent::__construct(
-            LogicOf::func(
-                function () use ($args) {
-                    $res = false;
-
-                    /**
-                     * @var bool|Logic $arg
-                     */
-                    foreach ($args as $arg) {
-                        if ($this->ensuredBool($arg)) {
-                            $res = true;
-                            break;
-                        }
-                    }
-
-                    return $res;
-                }
-            )
+            new Disjunction(...$args)
         );
     }
 }

@@ -26,13 +26,12 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Num;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyCond;
-use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Num;
 
 /**
  * Conditional number.
+ * Alias of {@see NumFork}
  */
 final class NumCond extends NumWrap
 {
@@ -47,13 +46,7 @@ final class NumCond extends NumWrap
         float|int|Num $second
     ) {
         parent::__construct(
-            NumOf::any(
-                new AnyCond(
-                    $condition,
-                    AnyOf::num($first),
-                    AnyOf::num($second),
-                )
-            )
+            new NumFork($condition, $first, $second)
         );
     }
 }

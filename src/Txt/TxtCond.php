@@ -26,13 +26,12 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Txt;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyCond;
-use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
  * Conditional text.
+ * Alias of {@see TxtFork}
  */
 final class TxtCond extends TxtWrap
 {
@@ -45,13 +44,7 @@ final class TxtCond extends TxtWrap
     final public function __construct(bool|Logic $condition, string|Txt $first, string|Txt $second)
     {
         parent::__construct(
-            TxtOf::any(
-                new AnyCond(
-                    $condition,
-                    AnyOf::text($first),
-                    AnyOf::text($second),
-                )
-            )
+            new TxtFork($condition, $first, $second)
         );
     }
 }

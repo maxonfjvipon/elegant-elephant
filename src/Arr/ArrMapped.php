@@ -35,41 +35,51 @@ use ReflectionFunction;
 /**
  * Mapped array.
  */
-final class ArrMapped extends ArrWrap
+final class ArrMapped implements IterableArr
 {
     use EnsureArr;
     use EnsureAny;
+    use HasArrIterator;
+
+    /**
+     * @var callable $callback
+     */
+    private $callback;
 
     /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(array|Arr $arr, callable $callback, bool $ensure = false)
+    final public function __construct(
+        private array|Arr $arr,
+        callable $callback,
+        private bool $ensure = false
+    ) {
+        $this->callback = $callback;
+    }
+
+    final public function asArray(): array
     {
-        parent::__construct(
-            ArrOf::func(
-                function () use ($arr, $callback, $ensure) {
-                    $count = (new ReflectionFunction(Closure::fromCallable($callback)))->getNumberOfParameters();
+        $count = (new ReflectionFunction(Closure::fromCallable($this->callback)))->getNumberOfParameters();
 
-                    if ($count < 1 || $count > 2) {
-                        throw new Exception("Invalid amount of arguments");
-                    }
+        if ($count < 1 || $count > 2) {
+            throw new Exception("Invalid amount of arguments");
+        }
 
-                    $array = $this->ensuredArray($arr);
+        $array = $this->ensuredArray($this->arr);
 
-                    $arrays = ($isTwo = $count === 2) ? [array_keys($array), $array] : [$array];
+        $arrays = ($isTwo = $count === 2) ? [array_keys($array), $array] : [$array];
 
-                    return array_map(
-                        $ensure
-                        ? ($isTwo
-                            ? fn ($key, $value) => $this->ensuredAnyValue(call_user_func($callback, $key, $value))
-                            : fn ($value) => $this->ensuredAnyValue(call_user_func($callback, $value)))
-                        : $callback,
-                        ...$arrays
-                    );
-                }
-            )
+        $callback = $isTwo
+            ? fn ($key, $value) => $this->ensuredAnyValue(call_user_func($this->callback, $key, $value))
+            : fn ($value) => $this->ensuredAnyValue(call_user_func($this->callback, $value));
+
+        return array_map(
+            $this->ensure
+                ? $callback
+                : $this->callback,
+            ...$arrays
         );
     }
 }

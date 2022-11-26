@@ -29,13 +29,12 @@ namespace Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Blank text.
  */
-final class TxtBlank extends TxtWrap
+final class TxtBlank implements StringableTxt
 {
-    /**
-     * Ctor.
-     */
-    final public function __construct()
+    use TxtToString;
+
+    final public function asString(): string
     {
-        parent::__construct(TxtOf::str(""));
+        return "";
     }
 }

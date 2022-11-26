@@ -31,7 +31,7 @@ use Maxonfjvipon\ElegantElephant\Num;
 /**
  * Rounded number.
  */
-final class Rounded extends NumWrap
+final class Rounded implements Num
 {
     use EnsureNum;
 
@@ -40,10 +40,12 @@ final class Rounded extends NumWrap
      * @param float|int|Num $num Number to round
      * @param int $precision Round precision
      */
-    final public function __construct(float|int|Num  $num, int $precision = 0)
+    final public function __construct(private float|int|Num  $num, private int $precision = 0)
     {
-        parent::__construct(
-            NumOf::func(fn () => round($this->ensuredNumber($num), $precision))
-        );
+    }
+
+    public function asNumber(): float|int
+    {
+        return round($this->ensuredNumber($this->num), $this->precision);
     }
 }

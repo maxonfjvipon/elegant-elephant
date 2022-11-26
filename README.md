@@ -1,8 +1,10 @@
 # ElegantElephant (In development)
 
-ElegantElephant - trying to write php code in elegant way. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
+ElegantElephant - small library of PHP primitives in EO style. 
+Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![DevOps By Rultor.com](http://www.rultor.com/b/maxonfjvipon/elegant-elephant)](http://www.rultor.com/p/maxonfjvipon/elegant-elephant)
 
 ## Principles
  | Priciple| Yes/No|

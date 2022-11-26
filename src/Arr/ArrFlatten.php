@@ -32,20 +32,23 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Flatten array.
  */
-final class ArrFlatten extends ArrWrap
+final class ArrFlatten implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
 
     /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(array|Arr $arr, int $deep = 1)
+    final public function __construct(private array|Arr $arr, private int $deep = 1)
     {
-        parent::__construct(
-            ArrOf::func(fn () => $this->flat($this->ensuredArray($arr), [], $deep))
-        );
+    }
+
+    final public function asArray(): array
+    {
+        return $this->flat($this->ensuredArray($this->arr), []);
     }
 
     /**
@@ -54,11 +57,11 @@ final class ArrFlatten extends ArrWrap
      * @return array<mixed>
      * @throws Exception
      */
-    private function flat(array $arr, array $new, int $neededDeep, int $currentDeep = 0): array
+    private function flat(array $arr, array $new, int $currentDeep = 0): array
     {
         foreach ($arr as $item) {
-            if ($neededDeep !== $currentDeep && (is_array($item) || $item instanceof Arr)) {
-                $new = $this->flat($this->ensuredArray($item), $new, $neededDeep, $currentDeep + 1);
+            if ($this->deep !== $currentDeep && (is_array($item) || $item instanceof Arr)) {
+                $new = $this->flat($this->ensuredArray($item), $new, $currentDeep + 1);
             } else {
                 $new[] = $item;
             }

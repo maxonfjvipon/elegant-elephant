@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 
 /**

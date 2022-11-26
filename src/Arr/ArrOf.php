@@ -96,6 +96,6 @@ final class ArrOf implements IterableArr
      */
     final public function asArray(): array
     {
-        return (array)call_user_func($this->callback, $this);
+        return (array) call_user_func($this->callback, $this);
     }
 }

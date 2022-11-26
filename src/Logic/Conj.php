@@ -30,6 +30,7 @@ use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
  * Conjunction - Logical AND
+ * Alias of {@see Conjunction}
  */
 final class Conj extends LogicWrap
 {
@@ -37,27 +38,12 @@ final class Conj extends LogicWrap
 
     /**
      * Ctor.
+     * @param bool|Logic ...$args
      */
     final public function __construct(bool|Logic ...$args)
     {
         parent::__construct(
-            LogicOf::func(
-                function () use ($args) {
-                    $res = true;
-
-                    /**
-                     * @var bool|Logic $arg
-                     */
-                    foreach ($args as $arg) {
-                        if (!$this->ensuredBool($arg)) {
-                            $res = false;
-                            break;
-                        }
-                    }
-
-                    return $res;
-                }
-            )
+            new Conjunction(...$args)
         );
     }
 }

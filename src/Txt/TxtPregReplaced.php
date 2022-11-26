@@ -32,34 +32,34 @@ use Maxonfjvipon\ElegantElephant\Txt;
 /**
  * Preg replaced text.
  */
-final class TxtPregReplaced extends TxtWrap
+final class TxtPregReplaced implements StringableTxt
 {
     use EnsureAny;
+    use EnsureTxt;
+    use TxtToString;
 
     /**
      * Ctor.
      * @param string|array<string>|Txt $pattern Regex pattern(s)
      * @param string|array<string>|Txt $replacement Text(s) to replace
-     * @param string|array<string>|Txt $subject Text(s) to search and replace.
+     * @param string|Txt $subject Text to search and replace.
      */
     final public function __construct(
-        string|array|Txt $pattern,
-        string|array|Txt $replacement,
-        string|array|Txt $subject
+        private string|array|Txt $pattern,
+        private string|array|Txt $replacement,
+        private string|Txt $subject
     ) {
-        parent::__construct(
-            TxtOf::func(
-                function () use ($pattern, $replacement, $subject) {
-                    /** @var string|array<string> $pattern */
-                    $pattern = $this->ensuredAnyValue($pattern);
-                    /** @var string|array<string> $replacement */
-                    $replacement = $this->ensuredAnyValue($replacement);
-                    /** @var string|array<string> $subject */
-                    $subject = $this->ensuredAnyValue($subject);
+    }
 
-                    return preg_replace($pattern, $replacement, $subject);
-                }
-            )
-        );
+    final public function asString(): string
+    {
+        /** @var string|array<string> $pattern */
+        $pattern = $this->ensuredAnyValue($this->pattern);
+        /** @var string|array<string> $replacement */
+        $replacement = $this->ensuredAnyValue($this->replacement);
+
+        $subject = $this->ensuredString($this->subject);
+
+        return (string) preg_replace($pattern, $replacement, $subject);
     }
 }

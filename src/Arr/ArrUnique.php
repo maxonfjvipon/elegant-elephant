@@ -31,19 +31,22 @@ use Maxonfjvipon\ElegantElephant\Arr;
 /**
  * Unique array.
  */
-final class ArrUnique extends ArrWrap
+final class ArrUnique implements IterableArr
 {
     use EnsureArr;
+    use HasArrIterator;
 
     /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
      */
-    final public function __construct(array|Arr $arr)
+    final public function __construct(private array|Arr $arr)
     {
-        parent::__construct(
-            ArrOf::func(fn () => array_unique($this->ensuredArray($arr)))
-        );
+    }
+
+    final public function asArray(): array
+    {
+        return array_unique($this->ensuredArray($this->arr));
     }
 }

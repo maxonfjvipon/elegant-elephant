@@ -31,9 +31,14 @@ use Maxonfjvipon\ElegantElephant\Num;
 /**
  * Min.
  */
-final class MinOf extends NumWrap
+final class MinOf implements Num
 {
     use EnsureNum;
+
+    /**
+     * @var array<float|int|Num> $items
+     */
+    private array $items;
 
     /**
      * Ctor.
@@ -41,12 +46,15 @@ final class MinOf extends NumWrap
      */
     final public function __construct(float|int|Num ...$items)
     {
-        parent::__construct(
-            NumOf::func(
-                fn () => +min(array_map(
-                    fn ($item) => $this->ensuredNumber($item),
-                    $items
-                ))
+        $this->items = $items;
+    }
+
+    final public function asNumber(): float|int
+    {
+        return +min(
+            array_map(
+                fn ($item) => $this->ensuredNumber($item),
+                $this->items
             )
         );
     }

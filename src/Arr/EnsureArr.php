@@ -41,10 +41,6 @@ trait EnsureArr
      */
     private function ensuredArray(array|Arr $arr): array
     {
-        if (!is_array($arr)) {
-            $arr = $arr->asArray();
-        }
-
-        return $arr;
+        return is_array($arr) ? $arr : $arr->asArray();
     }
 }

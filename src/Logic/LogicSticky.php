@@ -26,12 +26,13 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
  * Cached logic.
  */
-final class LogicSticky extends LogicWrap
+final class LogicSticky implements Logic
 {
     /**
      * @var array<bool>
@@ -40,11 +41,14 @@ final class LogicSticky extends LogicWrap
 
     /**
      * Ctor.
+     * @param Logic $origin
      */
-    final public function __construct(Logic $origin)
+    final public function __construct(private Logic $origin)
     {
-        parent::__construct(
-            LogicOf::func(fn () => $this->cache[0] ??= $origin->asBool())
-        );
+    }
+
+    public function asBool(): bool
+    {
+        return $this->cache[0] ??= $this->origin->asBool();
     }
 }

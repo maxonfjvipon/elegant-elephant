@@ -24,17 +24,33 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Arr;
+namespace Maxonfjvipon\ElegantElephant\Logic;
+
+use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Logic;
 
 /**
- * Empty array.
+ * Conditional logic.
  */
-final class ArrEmpty implements IterableArr
+final class LogicFork extends LogicWrap
 {
-    use HasArrIterator;
-
-    final public function asArray(): array
+    /**
+     * Ctor.
+     * @param bool|Logic $condition
+     * @param bool|Logic $first
+     * @param bool|Logic $second
+     */
+    final public function __construct(bool|Logic $condition, bool|Logic $first, bool|Logic $second)
     {
-        return [];
+        parent::__construct(
+            LogicOf::any(
+                new AnyCond(
+                    $condition,
+                    AnyOf::logic($first),
+                    AnyOf::logic($second)
+                )
+            )
+        );
     }
 }
