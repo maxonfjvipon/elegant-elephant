@@ -308,33 +308,35 @@ All `Arr` classes in the library can be spead.
 
 ### Arr classes
 
- | Class          | Description                                                             | PHP             |
- |----------------|-------------------------------------------------------------------------|-----------------|
- | ArrCast        | Cast all elements in given array                                        | -               |
- | ArrCombined    | Combine two arrays into signe one                                       | array_combine   |
- | ArrCond        | Behaves like first array if condition is TRUE, like second otherwise    | -               |
- | ArrEmpty       | Empty array                                                             | []              |
- | ArrExploded    | Elements of exploded by separator string                                | explode         |
- | ArrFiltered    | Filter elements of given array by given callback                        | array_filter    |
- | ArrFlatten     | Array flatten with given deep                                           | -               |
- | ArrIf          | Behaves like given array if condition is TRUE, like empty otherwise     | -               |
- | ArrKeys        | Get keys of given array                                                 | array_keys      |
- | ArrMapped      | Map elements of given array by given callback                           | array_map       |
- | ArrMerged      | Merge given arrays                                                      | array_merge     |
- | ArrObject      | Array with single key => value element                                  | [key => value]  |
- | ArrOf          | Allows to create Arr from array, Any or function                        | -               |
- | ArrRange       | Array of elements in given range                                        | range           |
- | ArrReversed    | Reverse given array                                                     | array_reverse   |
- | ArrSorted      | Sort array by given key or callback                                     | sort, usort     |
- | ArrSplit       | Alias or ArrExploded                                                    | explode, split  |
- | ArrSticky      | Array with cache mechanism                                              | -               |
- | ArrUnique      | Array with unique elements                                              | array_unique    |
- | ArrValues      | Array of just values of given array (ignore keys)                       | array_values    |
- | ArrWith        | Given array + new given element                                         | [...] + [$item] |
- | ArrWrap        | Envelope for Arr classes                                                | -               |
- | CountArr       | Default implementation of counting Arr if your Arr impelement Countable | count($array)   |
- | EnsureArr      | Helper trait for casting array or Arr to array                          | -               |
- | HasArrIterator | Default implementation of spreading IterableArr                         | ...$array       |
+ | Class          | Description                                                             | PHP               |
+ |----------------|-------------------------------------------------------------------------|-------------------|
+ | ArrCast        | Cast all elements in given array                                        | -                 |
+ | ArrCombined    | Combine two arrays into signe one                                       | array_combine     |
+ | ArrFork        | Behaves like first array if condition is TRUE, like second otherwise    | -                 |
+ | ArrCond        | Alias Of ArrFork                                                        | -                 |
+ | ArrEmpty       | Empty array                                                             | []                |
+ | ArrExploded    | Elements of exploded by separator string                                | explode           |
+ | ArrFiltered    | Filter elements of given array by given callback                        | array_filter      |
+ | ArrFlatten     | Array flatten with given deep                                           | -                 |
+ | ArrIf          | Behaves like given array if condition is TRUE, like empty otherwise     | -                 |
+ | ArrKeys        | Get keys of given array                                                 | array_keys        |
+ | ArrMapped      | Map elements of given array by given callback                           | array_map         |
+ | ArrMerged      | Merge given arrays                                                      | array_merge       |
+ | ArrObject      | Array with single key => value element                                  | [key => value]    |
+ | ArrOf          | Allows to create Arr from array, Any or function                        | -                 |
+ | ArrRange       | Array of elements in given range                                        | range             |
+ | ArrReversed    | Reverse given array                                                     | array_reverse     |
+ | ArrSorted      | Sort array by given key or callback                                     | sort, usort       |
+ | ArrSplit       | Alias or ArrExploded                                                    | explode, split    |
+ | ArrSticky      | Array with cache mechanism                                              | -                 |
+ | ArrUnique      | Array with unique elements                                              | array_unique      |
+ | ArrValues      | Array of just values of given array (ignore keys)                       | array_values      |
+ | ArrWith        | Given array + new given element                                         | [...] + [$item]   |
+ | ArrWithout     | Given array - element by key                                            | unset($arr[$key]) |
+ | ArrWrap        | Envelope for Arr classes                                                | -                 |
+ | CountArr       | Default implementation of counting Arr if your Arr impelement Countable | count($array)     |
+ | EnsureArr      | Helper trait for casting array or Arr to array                          | -                 |
+ | HasArrIterator | Default implementation of spreading IterableArr                         | ...$array         |
 
 ### Tests
 
@@ -346,10 +348,12 @@ Elegant boolean. `Logic` interface has only one method `asBool()` that must retu
 ### Logic classes
 
  | Class       | Description                                                                      | PHP              |
- |-------------|----------------------------------------------------------------------------------|------------------|
- | Conj        | Conjunction, logical AND                                                         | and, &&          |
+|-------------|----------------------------------------------------------------------------------|------------------|
+ | Conjunction | Conjunction, logical AND                                                         | and, &&          |
+ | Conj        | Alias of Conjunction                                                             | and, &&          |
  | ContainsIn  | Check if something contains in string, Txt, array or Arr                         | -                | 
- | Disj        | Disjunction, logical OR                                                          | or, \|\|         |
+ | Disjunction | Disjunction, logical OR                                                          | or, \|\|         |
+ | Disj        | Alias of Disjunction                                                             | or, \|\|         |
  | EnsureLogic | Helper trait to cast bool or Logic to bool                                       | -                |
  | InArray     | Check if something contains in array or Arr                                      | in_array         |
  | InText      | Check if string or Txt contains in other string or Arr                           | strcontains      |
@@ -358,6 +362,7 @@ Elegant boolean. `Logic` interface has only one method `asBool()` that must retu
  | IsNotEmpty  | Chekc if string, Txt, array or Arr is not empty                                  | !empty()         |
  | IsNotEqual  | Check if one mixed element is not equal to another                               | !==              |
  | IsNull      | Check if given element is null                                                   | === null         |
+ | IsNotNull   | Check if given element is not null                                               | !== null         |
  | KeyExists   | Check if key exists in array or Arr                                              | array_key_exists |
  | LogicCond   | Behaves like first given logic if given condition is TRUE, like second otherwise | -                |
  | LogicOf     | Allows you to create Logic from bool or function                                 | -                |
@@ -375,20 +380,21 @@ Elegant numbers. `Num` interface has only one method `asNumber()` that must retu
 
 ### Num classes
 
- | Class          | Description                                                             | PHP             |
+ | Class     | Description                                                             | PHP             |
  |----------------|-------------------------------------------------------------------------|-----------------|
- | ArraySum       | Alias of SumOf                                                          | array_sum       |
- | EnsureNum      | Helper trait for casting number or Num to float or int                  | -               |
- | LengthOf       | Length of string, Txt, array or Arr                                     | strlen, count   |
- | MaxOf          | Max number                                                              | max             |
- | MinOf          | Min number                                                              | min             |
- | NumCond        | Behaves like first number if condition is TRUE, like second otherwise   | -               |
- | NumIf          | Behaves like given number if condition is TRUE, like 0 otherwise        | -               |
- | NumOf          | Allows to create Num from float, int, Any or function                   | -               |
- | NumSticky      | Num with caching mechanism                                              | -               |
- | NumWrap        | Envelope for Num classes                                                | -               |
- | Rounded        | Rounded number                                                          | round           |
- | SumOf          | Sum of given numbers or Nums                                            | array_sum       |
+ | ArraySum  | Alias of SumOf                                                          | array_sum       |
+ | EnsureNum | Helper trait for casting number or Num to float or int                  | -               |
+ | LengthOf  | Length of string, Txt, array or Arr                                     | strlen, count   |
+ | MaxOf     | Max number                                                              | max             |
+ | MinOf     | Min number                                                              | min             |
+ | NumFork   | Behaves like first number if condition is TRUE, like second otherwise   | -               |
+ | NumCond   | Alias of NumFork                                                        | -               |
+ | NumIf     | Behaves like given number if condition is TRUE, like 0 otherwise        | -               |
+ | NumOf     | Allows to create Num from float, int, Any or function                   | -               |
+ | NumSticky | Num with caching mechanism                                              | -               |
+ | NumWrap   | Envelope for Num classes                                                | -               |
+ | Rounded   | Rounded number                                                          | round           |
+ | SumOf     | Sum of given numbers or Nums                                            | array_sum       |
 
 ### Tests
 
@@ -430,10 +436,11 @@ All `Txt` classes in the library implements `StringableTxt`.
 ### Txt classes
 
  | Class           | Description                                                             | PHP             |
- |-----------------|-------------------------------------------------------------------------|-----------------|
+|-----------------|-------------------------------------------------------------------------|-----------------|
  | EnsureTxt       | Helper trait for casting string or Txt to string                        | -               |
  | TxtBlank        | Empty text.                                                             | ""              |
- | TxtCond         | Behaves like first text if condition is TRUE, like second otherwise     | -               |
+ | TxtFork         | Behaves like first text if condition is TRUE, like second otherwise     | -               |
+ | TxtCond         | Alias of TxtFork     | -               |
  | TxtIf           | Behaves like given text if condition is TRUE, likey empty otherwise     | -               |
  | TxtImploded     | Imploded text by separator                                              | implode         |
  | TxtJoined       | Joined text                                                             | join("", [...]) |
