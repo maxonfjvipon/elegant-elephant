@@ -26,28 +26,27 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Num;
 
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Any\AnySticky;
 use Maxonfjvipon\ElegantElephant\Num;
 
 /**
  * Cached number.
  */
-final class NumSticky implements Num
+final class NumSticky extends NumWrap
 {
-    /**
-     * @var array<int|float> Cache
-     */
-    private array $cache = [];
-
     /**
      * Ctor.
      * @param Num $num Number to cache
      */
-    final public function __construct(private Num $num)
+    final public function __construct(Num $num)
     {
-    }
-
-    final public function asNumber(): float|int
-    {
-        return $this->cache[0] ??= $this->num->asNumber();
+        parent::__construct(
+            NumOf::any(
+                new AnySticky(
+                    AnyOf::num($num)
+                )
+            )
+        );
     }
 }

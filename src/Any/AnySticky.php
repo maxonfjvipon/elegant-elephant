@@ -24,29 +24,30 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Txt;
+namespace Maxonfjvipon\ElegantElephant\Any;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyOf;
-use Maxonfjvipon\ElegantElephant\Any\AnySticky;
-use Maxonfjvipon\ElegantElephant\Txt;
+use Maxonfjvipon\ElegantElephant\Any;
 
 /**
- * Cached text.
+ * Cached any.
  */
-final class TxtSticky extends TxtWrap
+final class AnySticky implements Any
 {
     /**
-     * Ctor.
-     * @param Txt $text Text to cache
+     * @var array<mixed>
      */
-    final public function __construct(Txt $text)
+    private array $cache = [];
+
+    /**
+     * Ctor.
+     * @param Any $any
+     */
+    final public function __construct(private Any $any)
     {
-        parent::__construct(
-            TxtOf::any(
-                new AnySticky(
-                    AnyOf::text($text)
-                )
-            )
-        );
+    }
+
+    final public function value(): mixed
+    {
+        return $this->cache[0] ??= $this->any->value();
     }
 }

@@ -51,4 +51,29 @@ final class ArrWithoutTest extends TestCase
             new IsEqual(['key' => 'value'])
         );
     }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function arrWithoutManyElements(): void
+    {
+        $this->assertArrThat(
+            new ArrWithout(
+                [
+                    'key1' => 'value1',
+                    'key2' => 'value2',
+                    'key3' => 'value3',
+                    'key4' => 'value4',
+                ],
+                'key1',
+                'key3'
+            ),
+            new IsEqual([
+                'key2' => 'value2',
+                'key4' => 'value4'
+            ])
+        );
+    }
 }

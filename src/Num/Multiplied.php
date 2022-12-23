@@ -24,29 +24,25 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Txt;
+namespace Maxonfjvipon\ElegantElephant\Num;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyOf;
-use Maxonfjvipon\ElegantElephant\Any\AnySticky;
-use Maxonfjvipon\ElegantElephant\Txt;
+use Maxonfjvipon\ElegantElephant\Num;
 
 /**
- * Cached text.
+ * Multiplied.
  */
-final class TxtSticky extends TxtWrap
+final class Multiplied implements Num
 {
-    /**
-     * Ctor.
-     * @param Txt $text Text to cache
-     */
-    final public function __construct(Txt $text)
+    use EnsureNum;
+
+    final public function __construct(
+        private int|float|Num $multiplier,
+        private int|float|Num $factor
+    ) {
+    }
+
+    public function asNumber(): float|int
     {
-        parent::__construct(
-            TxtOf::any(
-                new AnySticky(
-                    AnyOf::text($text)
-                )
-            )
-        );
+        return $this->ensuredNumber($this->multiplier) * $this->ensuredNumber($this->factor);
     }
 }

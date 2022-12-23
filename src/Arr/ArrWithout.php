@@ -32,7 +32,7 @@ use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
- * Array without element by key.
+ * Array without elements by keys.
  */
 final class ArrWithout implements IterableArr
 {
@@ -41,24 +41,34 @@ final class ArrWithout implements IterableArr
     use HasArrIterator;
 
     /**
+     * @var array<string|int|Txt|Num> $keys
+     */
+    private array $keys;
+
+    /**
      * Ctor.
      *
      * @param array<mixed>|Arr $arr
-     * @param string|int|Txt|Num $key
+     * @param string|int|Txt|Num ...$keys
      */
-    final public function __construct(private array|Arr $arr, private string|int|Txt|Num $key)
+    final public function __construct(private array|Arr $arr, string|int|Txt|Num ...$keys)
     {
+        $this->keys = $keys;
     }
 
     final public function asArray(): array
     {
         $arr = $this->ensuredArray($this->arr);
-        /** @var int|string $key */
-        $key = $this->ensuredAnyValue($this->key);
 
-        if (array_key_exists($key, $arr)) {
-            unset($arr[$key]);
+        foreach ($this->keys as $key) {
+            /** @var int|string $key */
+            $key = $this->ensuredAnyValue($key);
+
+            if (array_key_exists($key, $arr)) {
+                unset($arr[$key]);
+            }
         }
+
 
         return $arr;
     }

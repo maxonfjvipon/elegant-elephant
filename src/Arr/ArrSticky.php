@@ -26,29 +26,27 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Any\AnySticky;
 use Maxonfjvipon\ElegantElephant\Arr;
 
 /**
  * Cached array.
  */
-final class ArrSticky implements IterableArr
+final class ArrSticky extends ArrWrap
 {
-    use HasArrIterator;
-
-    /**
-     * @var array<array<mixed>>
-     */
-    private array $cache = [];
-
     /**
      * Ctor.
+     * @param Arr $arr
      */
-    final public function __construct(private Arr $arr)
+    final public function __construct(Arr $arr)
     {
-    }
-
-    final public function asArray(): array
-    {
-        return $this->cache[0] ??= $this->arr->asArray();
+        parent::__construct(
+            ArrOf::any(
+                new AnySticky(
+                    AnyOf::arr($arr)
+                )
+            )
+        );
     }
 }
