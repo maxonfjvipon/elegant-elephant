@@ -2,17 +2,23 @@ architect:
   - maxonfjvipon
 docker:
   as_root: true
-install:
-  - "sudo apt-get update"
 merge:
   commanders:
     - maxonfjvipon
   script: |-
     composer validate --strict
     
-    apt-get install php-xml php-mbstring php-xdebug -y
+    add-apt-repository ppa:ondrej/php -y
     
-    echo 'xdebug.mode=coverage' >> /etc/php/8.2/cli/php.ini
+    sudo apt-get update
+    
+    apt install php8.1 -y
+    
+    apt-get install php8.1-{xml,mbstring,xdebug} -y
+    
+    sudo update-alternatives --set php /usr/bin/php8.1
+    
+    echo 'xdebug.mode=coverage' >> /etc/php/8.1/cli/php.ini
     
     composer install --prefer-dist --no-progress
     
