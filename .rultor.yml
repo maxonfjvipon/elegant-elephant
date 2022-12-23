@@ -12,7 +12,7 @@ merge:
     
     apt-get install php-xml php-mbstring php-xdebug -y
     
-    echo 'xdebug.mode=coverage' >> /etc/php/8.1/cli/php.ini
+    echo 'xdebug.mode=coverage' >> /etc/php/8.2/cli/php.ini
     
     composer install --prefer-dist --no-progress
     
@@ -25,7 +25,7 @@ release:
     
     apt-get install php-xml php-mbstring php-xdebug -y
     
-    echo 'xdebug.mode=coverage' >> /etc/php/8.1/cli/php.ini
+    echo 'xdebug.mode=coverage' >> /etc/php/8.2/cli/php.ini
     
     composer install --prefer-dist --no-progress
     
