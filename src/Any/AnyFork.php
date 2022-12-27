@@ -24,37 +24,37 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Num;
+namespace Maxonfjvipon\ElegantElephant\Any;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyCond;
-use Maxonfjvipon\ElegantElephant\Any\AnyFork;
-use Maxonfjvipon\ElegantElephant\Any\AnyOf;
+use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Logic;
-use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Logic\EnsureLogic;
 
 /**
- * Conditional number.
+ * Conditional Any.
  */
-final class NumFork extends NumWrap
+final class AnyFork implements Any
 {
+    use EnsureLogic;
+    use EnsureAny;
+
     /**
+     * Ctor.
      * @param bool|Logic $condition Condition
-     * @param float|int|Num $first First number
-     * @param float|int|Num $second Alternative number
+     * @param mixed $first First value
+     * @param mixed $second Alternative value
      */
     final public function __construct(
-        bool|Logic $condition,
-        float|int|Num $first,
-        float|int|Num $second
+        private bool|Logic $condition,
+        private mixed $first,
+        private mixed $second
     ) {
-        parent::__construct(
-            NumOf::any(
-                new AnyFork(
-                    $condition,
-                    AnyOf::num($first),
-                    AnyOf::num($second),
-                )
-            )
-        );
+    }
+
+    public function value(): mixed
+    {
+        return $this->ensuredBool($this->condition)
+            ? $this->ensuredAnyValue($this->first)
+            : $this->ensuredAnyValue($this->second);
     }
 }

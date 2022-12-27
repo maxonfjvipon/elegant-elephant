@@ -26,7 +26,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyFork;
 use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Logic;
@@ -47,7 +47,7 @@ final class ArrFork extends ArrWrap
     {
         parent::__construct(
             ArrOf::any(
-                new AnyCond(
+                new AnyFork(
                     $condition,
                     AnyOf::arr($first),
                     AnyOf::arr($second)

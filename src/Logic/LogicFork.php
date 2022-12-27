@@ -26,7 +26,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Logic;
 
-use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyFork;
 use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Logic;
 
@@ -45,7 +45,7 @@ final class LogicFork extends LogicWrap
     {
         parent::__construct(
             LogicOf::any(
-                new AnyCond(
+                new AnyFork(
                     $condition,
                     AnyOf::logic($first),
                     AnyOf::logic($second)

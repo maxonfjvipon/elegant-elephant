@@ -3,7 +3,7 @@
 namespace Maxonfjvipon\ElegantElephant\Tests\Any;
 
 use Exception;
-use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyFork;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
 use Maxonfjvipon\ElegantElephant\Tests\Support\IsTxt;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
@@ -11,7 +11,7 @@ use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-final class CondTest extends TestCase
+final class AnyForkTest extends TestCase
 {
     /**
      * @test
@@ -20,7 +20,7 @@ final class CondTest extends TestCase
     public function anyCondWithPrimitives(): void
     {
         $this->assertAnyThat(
-            new AnyCond(true, "foo", "bar"),
+            new AnyFork(true, "foo", "bar"),
             new IsEqual("foo")
         );
     }
@@ -32,7 +32,7 @@ final class CondTest extends TestCase
     public function anyCondWithLogicAndTxt(): void
     {
         $this->assertAnyThat(
-            new AnyCond(LogicOf::bool(false), TxtOf::str("foo"), $text = new TxtUpper(TxtOf::str("bar"))),
+            new AnyFork(LogicOf::bool(false), TxtOf::str("foo"), $text = new TxtUpper(TxtOf::str("bar"))),
             new IsTxt($text)
         );
     }

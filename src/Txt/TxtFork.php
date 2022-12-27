@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\ElegantElephant\Txt;
 
 use Maxonfjvipon\ElegantElephant\Any\AnyCond;
+use Maxonfjvipon\ElegantElephant\Any\AnyFork;
 use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Txt;
@@ -46,7 +47,7 @@ final class TxtFork extends TxtWrap
     {
         parent::__construct(
             TxtOf::any(
-                new AnyCond(
+                new AnyFork(
                     $condition,
                     AnyOf::text($first),
                     AnyOf::text($second),

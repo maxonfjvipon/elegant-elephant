@@ -26,35 +26,23 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
 
-use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Logic;
-use Maxonfjvipon\ElegantElephant\Logic\EnsureLogic;
 
 /**
  * Conditional Any.
  */
-final class AnyCond implements Any
+final class AnyCond extends AnyWrap
 {
-    use EnsureLogic;
-    use EnsureAny;
-
     /**
      * Ctor.
      * @param bool|Logic $condition Condition
      * @param mixed $first First value
      * @param mixed $second Alternative value
      */
-    final public function __construct(
-        private bool|Logic $condition,
-        private mixed $first,
-        private mixed $second
-    ) {
-    }
-
-    public function value(): mixed
+    final public function __construct(bool|Logic $condition, mixed $first, mixed $second)
     {
-        return $this->ensuredBool($this->condition)
-            ? $this->ensuredAnyValue($this->first)
-            : $this->ensuredAnyValue($this->second);
+        parent::__construct(
+            new AnyFork($condition, $first, $second)
+        );
     }
 }
