@@ -24,38 +24,46 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Logic;
+namespace Maxonfjvipon\ElegantElephant\Any;
 
-use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
+use Exception;
+use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
-use Maxonfjvipon\ElegantElephant\Logic;
+use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
- * In array.
+ * Key from array by element.
  */
-final class InArray implements Logic
+final class AtValue implements Any
 {
     use EnsureAny;
     use EnsureArr;
 
     /**
      * Ctor.
+     * @param string|int|Txt|Num|Any $value
      * @param array<mixed>|Arr $arr
      */
     final public function __construct(
-        private mixed $needle,
-        private array|Arr $arr,
-        private bool $strict = false
+        private mixed     $value,
+        private array|Arr $arr
     ) {
     }
 
-    final public function asBool(): bool
+    final public function value(): string|int
     {
-        return in_array(
-            $this->ensuredAnyValue($this->needle),
-            $this->ensuredArray($this->arr),
-            $this->strict
+        $key = array_search(
+            needle: $this->ensuredAnyValue($this->value),
+            haystack: $this->ensuredArray($this->arr),
+            strict: true
         );
+
+        if ($key === false) {
+            throw new Exception("Key by given value not found!");
+        }
+
+        return $key;
     }
 }
