@@ -48,8 +48,11 @@ final class ArrCombined implements IterableArr
      * @param array<string|int|float|Txt|Num|Any>|Arr $keys
      * @param array<mixed>|Arr                    $values
      */
-    final public function __construct(private array|Arr $keys, private array|Arr $values)
-    {
+    final public function __construct(
+        private array|Arr $keys,
+        private array|Arr $values,
+        private bool $ensure = false
+    ) {
     }
 
     final public function asArray(): array
@@ -69,10 +72,15 @@ final class ArrCombined implements IterableArr
         );
 
         /** @var array<mixed> $values */
-        $values = array_map(
-            fn (mixed $item) => $this->ensuredAnyValue($item),
-            $this->ensuredArray($this->values)
-        );
+        $values = $this->ensuredArray($this->values);
+
+        if ($this->ensure) {
+            /** @var array<mixed> $values */
+            $values = array_map(
+                fn (mixed $item) => $this->ensuredAnyValue($item),
+                $this->ensuredArray($this->values)
+            );
+        }
 
         if (count($keys) !== count($values)) {
             throw new Exception("Keys and values arrays must have the same length");

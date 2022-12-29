@@ -33,10 +33,10 @@ final class ArrCombinedTest extends TestCase
                 new LastOf(['bar', 'baz'])
             ]),
             new IsEqual([
-                'key1' => 'value1',
+                'key1' => TxtOf::str('value1'),
                 'key2' => 'value2',
-                10 => 20,
-                'foo' => 'baz'
+                10 => NumOf::number(20),
+                'foo' => new LastOf(['bar', 'baz'])
             ])
         );
     }
@@ -58,9 +58,34 @@ final class ArrCombinedTest extends TestCase
                 ]
             ),
             new IsEqual([
-                'A' => [1, 2, 3],
-                'B' => [3, 2, 1],
+                'A' => ArrOf::array([1, 2, 3]),
+                'B' => ArrOf::array([3, 2, 1]),
                 'C' => [4, 5, 6],
+            ])
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function combinedWithInsurance(): void
+    {
+        $this->assertArrThat(
+            new ArrCombined(
+                [1, 2, 3],
+                [
+                    TxtOf::str("Hello"),
+                    NumOf::int(2),
+                    ArrOf::array([1, 2])
+                ],
+                ensure: true
+            ),
+            new IsEqual([
+                1 => 'Hello',
+                2 => 2,
+                3 => [1, 2]
             ])
         );
     }
