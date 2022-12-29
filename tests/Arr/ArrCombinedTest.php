@@ -6,6 +6,7 @@ use Exception;
 use Maxonfjvipon\ElegantElephant\Any\FirstOf;
 use Maxonfjvipon\ElegantElephant\Any\LastOf;
 use Maxonfjvipon\ElegantElephant\Arr\ArrCombined;
+use Maxonfjvipon\ElegantElephant\Arr\ArrOf;
 use Maxonfjvipon\ElegantElephant\Num\NumOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
@@ -36,6 +37,30 @@ final class ArrCombinedTest extends TestCase
                 'key2' => 'value2',
                 10 => 20,
                 'foo' => 'baz'
+            ])
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function combinedWithArraysAsValues(): void
+    {
+        $this->assertArrThat(
+            new ArrCombined(
+                ['A', 'B', 'C'],
+                [
+                    ArrOf::array([1, 2, 3]),
+                    ArrOf::array([3, 2, 1]),
+                    [4, 5, 6]
+                ]
+            ),
+            new IsEqual([
+                'A' => [1, 2, 3],
+                'B' => [3, 2, 1],
+                'C' => [4, 5, 6],
             ])
         );
     }

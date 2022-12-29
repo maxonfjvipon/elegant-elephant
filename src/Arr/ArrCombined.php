@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
+use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Arr;
@@ -53,19 +54,28 @@ final class ArrCombined implements IterableArr
 
     final public function asArray(): array
     {
-        $mapped = fn (array $toMap) => array_map(
-            fn (string|int|float|Txt|Num|Any $item) => $this->ensuredAnyValue($item),
-            $toMap
-        );
+        /**
+         * @var callable $callback
+         * @param string|int|float|Txt|Num|Any $item
+         * @return mixed
+         * @throws Exception
+         */
+        $callback = fn (string|int|float|Txt|Num|Any $item) => $this->ensuredAnyValue($item);
 
         /** @var array<string|int> $keys */
-        $keys = call_user_func($mapped, $this->ensuredArray($this->keys));
+        $keys = array_map(
+            $callback,
+            $this->ensuredArray($this->keys)
+        );
 
         /** @var array<mixed> $values */
-        $values = call_user_func($mapped, $this->ensuredArray($this->values));
+        $values = array_map(
+            fn (mixed $item) => $this->ensuredAnyValue($item),
+            $this->ensuredArray($this->values)
+        );
 
         if (count($keys) !== count($values)) {
-            throw new \Exception("Keys and values arrays must have the same length");
+            throw new Exception("Keys and values arrays must have the same length");
         }
 
         return array_combine($keys, $values);
