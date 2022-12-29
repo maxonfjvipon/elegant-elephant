@@ -261,15 +261,18 @@ Something that has value of any (mixed) type. `Any` interface has only one publi
 
 ### Any objects
 
- | Class          | Description                                                                   |
- |----------------|-------------------------------------------------------------------------------|
- | AnyCond        | Behaves like first value if condition is TRUE, like second otherwise          |
- | AnyOf          | Allow you to create Any from array, Arr, string, Txt, number, Num or function |
- | AnyWrap        | Envelope for Any classes                                                      |
- | AtKey          | Get element from array or Arr by key                                          |
- | EnsureAny      | Helper trait to cast mixed                                                    |
- | FirstOf        | Get the first element from array, Arr, string or Txt                          |
- | LastOf         | Get the last element from array, Arr, string or Txt                           |
+ | Class     | Description                                                                   |
+|-----------|-------------------------------------------------------------------------------|
+ | AnyFork   | Behaves like first value if condition is TRUE, like second otherwise          |
+ | AnyCond   | Alias of AnyFork                                                              |
+ | AnyOf     | Allow you to create Any from array, Arr, string, Txt, number, Num or function |
+ | AnySticky | Any with caching mechanism                                                    |
+ | AnyWrap   | Envelope for Any classes                                                      |
+ | AtKey     | Get element from array or Arr by key                                          |
+ | AtValue   | Get key from array or Arr by value                                            |
+ | EnsureAny | Helper trait to cast mixed                                                    |
+ | FirstOf   | Get the first element from array, Arr, string or Txt                          |
+ | LastOf    | Get the last element from array, Arr, string or Txt                           |
 
 ### Tests
 
@@ -309,7 +312,7 @@ All `Arr` classes in the library can be spead.
 ### Arr classes
 
  | Class          | Description                                                             | PHP               |
- |----------------|-------------------------------------------------------------------------|-------------------|
+|----------------|-------------------------------------------------------------------------|-------------------|
  | ArrCast        | Cast all elements in given array                                        | -                 |
  | ArrCombined    | Combine two arrays into signe one                                       | array_combine     |
  | ArrFork        | Behaves like first array if condition is TRUE, like second otherwise    | -                 |
@@ -322,10 +325,12 @@ All `Arr` classes in the library can be spead.
  | ArrKeys        | Get keys of given array                                                 | array_keys        |
  | ArrMapped      | Map elements of given array by given callback                           | array_map         |
  | ArrMerged      | Merge given arrays                                                      | array_merge       |
- | ArrObject      | Array with single key => value element                                  | [key => value]    |
+ | ArrObject      | Alias of ArrSingle                                                      | [key => value]    |
  | ArrOf          | Allows to create Arr from array, Any or function                        | -                 |
+ | ArrPlucked     | Pluck an array of values from an array                                  | -                 |
  | ArrRange       | Array of elements in given range                                        | range             |
  | ArrReversed    | Reverse given array                                                     | array_reverse     |
+ | ArrSingle      | Array with single key => value element                                  | [key => value]    |
  | ArrSorted      | Sort array by given key or callback                                     | sort, usort       |
  | ArrSplit       | Alias or ArrExploded                                                    | explode, split    |
  | ArrSticky      | Array with cache mechanism                                              | -                 |
@@ -364,7 +369,8 @@ Elegant boolean. `Logic` interface has only one method `asBool()` that must retu
  | IsNull      | Check if given element is null                                                   | === null         |
  | IsNotNull   | Check if given element is not null                                               | !== null         |
  | KeyExists   | Check if key exists in array or Arr                                              | array_key_exists |
- | LogicCond   | Behaves like first given logic if given condition is TRUE, like second otherwise | -                |
+ | LogicCond   | Alias of LogicFork                                                               | -                |
+ | LogicFork   | Behaves like first given logic if given condition is TRUE, like second otherwise | -                |
  | LogicOf     | Allows you to create Logic from bool or function                                 | -                |
  | LogicSticky | Logic with caching mechanism                                                     | -                |
  | LogicWrap   | Envelope for Logic classes                                                       | -                |
@@ -380,21 +386,23 @@ Elegant numbers. `Num` interface has only one method `asNumber()` that must retu
 
 ### Num classes
 
- | Class     | Description                                                             | PHP             |
- |----------------|-------------------------------------------------------------------------|-----------------|
- | ArraySum  | Alias of SumOf                                                          | array_sum       |
- | EnsureNum | Helper trait for casting number or Num to float or int                  | -               |
- | LengthOf  | Length of string, Txt, array or Arr                                     | strlen, count   |
- | MaxOf     | Max number                                                              | max             |
- | MinOf     | Min number                                                              | min             |
- | NumFork   | Behaves like first number if condition is TRUE, like second otherwise   | -               |
- | NumCond   | Alias of NumFork                                                        | -               |
- | NumIf     | Behaves like given number if condition is TRUE, like 0 otherwise        | -               |
- | NumOf     | Allows to create Num from float, int, Any or function                   | -               |
- | NumSticky | Num with caching mechanism                                              | -               |
- | NumWrap   | Envelope for Num classes                                                | -               |
- | Rounded   | Rounded number                                                          | round           |
- | SumOf     | Sum of given numbers or Nums                                            | array_sum       |
+ | Class      | Description                                                           | PHP           |
+|------------|-----------------------------------------------------------------------|---------------|
+ | ArraySum   | Alias of SumOf                                                        | array_sum     |
+ | Divided    | Division                                                              | a / b         |
+ | EnsureNum  | Helper trait for casting number or Num to float or int                | -             |
+ | LengthOf   | Length of string, Txt, array or Arr                                   | strlen, count |
+ | MaxOf      | Max number                                                            | max           |
+ | MinOf      | Min number                                                            | min           |
+ | Multiplied | Multiplication                                                        | a * b         |
+ | NumFork    | Behaves like first number if condition is TRUE, like second otherwise | -             |
+ | NumCond    | Alias of NumFork                                                      | -             |
+ | NumIf      | Behaves like given number if condition is TRUE, like 0 otherwise      | -             |
+ | NumOf      | Allows to create Num from float, int, Any or function                 | -             |
+ | NumSticky  | Num with caching mechanism                                            | -             |
+ | NumWrap    | Envelope for Num classes                                              | -             |
+ | Rounded    | Rounded number                                                        | round         |
+ | SumOf      | Sum of given numbers or Nums                                          | array_sum     |
 
 ### Tests
 
@@ -435,28 +443,28 @@ All `Txt` classes in the library implements `StringableTxt`.
 
 ### Txt classes
 
- | Class           | Description                                                             | PHP             |
-|-----------------|-------------------------------------------------------------------------|-----------------|
- | EnsureTxt       | Helper trait for casting string or Txt to string                        | -               |
- | TxtBlank        | Empty text.                                                             | ""              |
- | TxtFork         | Behaves like first text if condition is TRUE, like second otherwise     | -               |
- | TxtCond         | Alias of TxtFork     | -               |
- | TxtIf           | Behaves like given text if condition is TRUE, likey empty otherwise     | -               |
- | TxtImploded     | Imploded text by separator                                              | implode         |
- | TxtJoined       | Joined text                                                             | join("", [...]) |
- | TxtJsonEncoded  | Object encoded to JSON as                                               | json_encoded    |
- | TxtLowered      | Text in a lower case                                                    | strtolower      |
- | TxtLtrimmed     | Text trimmed from left                                                  | ltrim           |
- | TxtOf           | Allows to create Txt from string, number, float, int, Any of function.  | -               |
- | TxtPregReplaced | Text with replacements by regex                                         | preg_replace    |
- | TxtReplaced     | Text with replacements                                                  | str_replace     |
- | TxtRtimmed      | Text trimmed from right                                                 | rtrim           |
- | TxtSticky       | Text with caching mechanism                                             | -               |
- | TxtSubstr       | Sub-text                                                                | substr          |
- | TxtToString     | Default implementation converting Txt to string via __toString()        | -               |
- | TxtTrimmed      | Text trimmed                                                            | trim            |
- | TxtUpper        | Text in a upper case                                                    | strtoupper      |
- | TxtWrap         | Envelope for Txt classes                                                | -               |
+ | Class           | Description                                                            | PHP             |
+|-----------------|------------------------------------------------------------------------|-----------------|
+ | EnsureTxt       | Helper trait for casting string or Txt to string                       | -               |
+ | TxtBlank        | Empty text.                                                            | ""              |
+ | TxtFork         | Behaves like first text if condition is TRUE, like second otherwise    | -               |
+ | TxtCond         | Alias of TxtFork                                                       | -               |
+ | TxtIf           | Behaves like given text if condition is TRUE, likey empty otherwise    | -               |
+ | TxtImploded     | Imploded text by separator                                             | implode         |
+ | TxtJoined       | Joined text                                                            | join("", [...]) |
+ | TxtJsonEncoded  | Object encoded to JSON as                                              | json_encoded    |
+ | TxtLowered      | Text in a lower case                                                   | strtolower      |
+ | TxtLtrimmed     | Text trimmed from left                                                 | ltrim           |
+ | TxtOf           | Allows to create Txt from string, number, float, int, Any of function. | -               |
+ | TxtPregReplaced | Text with replacements by regex                                        | preg_replace    |
+ | TxtReplaced     | Text with replacements                                                 | str_replace     |
+ | TxtRtimmed      | Text trimmed from right                                                | rtrim           |
+ | TxtSticky       | Text with caching mechanism                                            | -               |
+ | TxtSubstr       | Sub-text                                                               | substr          |
+ | TxtToString     | Default implementation converting Txt to string via __toString()       | -               |
+ | TxtTrimmed      | Text trimmed                                                           | trim            |
+ | TxtUpper        | Text in a upper case                                                   | strtoupper      |
+ | TxtWrap         | Envelope for Txt classes                                               | -               |
 
 ### Tests
 
