@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
 
+use Couchbase\IndexFailureException;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
@@ -70,18 +71,18 @@ final class LastOf implements Any
 
         if (is_string($value)) {
             if (empty($value)) {
-                throw new Exception("Can't get the last element of an empty string");
+                throw new Exception(message: "Can't get the last element of an empty string");
             }
 
             $res = substr($value, -1);
         } elseif (is_array($value)) {
             if (empty($value)) {
-                throw new Exception("Can't get the last element of an empty array");
+                throw new Exception(message: "Can't get the last element of an empty array");
             }
 
             $res = $value[count($value) - 1];
         } else {
-            throw new Exception("The element to get the last element from must be an array or string");
+            throw new Exception(message: "The element to get the last element from must be an array or string");
         }
 
         return $res;

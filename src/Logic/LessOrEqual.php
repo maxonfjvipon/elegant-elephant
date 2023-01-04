@@ -24,25 +24,32 @@
  */
 declare(strict_types=1);
 
-namespace Maxonfjvipon\ElegantElephant\Any;
+namespace Maxonfjvipon\ElegantElephant\Logic;
 
-use Maxonfjvipon\ElegantElephant\Any;
+use Maxonfjvipon\ElegantElephant\Logic;
+use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Num\EnsureNum;
 
 /**
- * Amy wrapper.
+ * Less than or equal to.
  */
-abstract class AnyWrap implements Any
+final class LessOrEqual implements Logic
 {
+    use EnsureNum;
+
     /**
      * Ctor.
-     * @param Any $origin Origin Any
+     * @param float|int|Num $first
+     * @param float|int|Num $second
      */
-    public function __construct(private Any $origin)
-    {
+    final public function __construct(
+        private float|int|Num $first,
+        private float|int|Num $second
+    ) {
     }
 
-    final public function value(): mixed
+    final public function asBool(): bool
     {
-        return $this->origin->value();
+        return  $this->ensuredNumber($this->first) <= $this->ensuredNumber($this->second);
     }
 }
