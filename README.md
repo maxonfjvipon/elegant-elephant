@@ -352,30 +352,34 @@ Elegant boolean. `Logic` interface has only one method `asBool()` that must retu
 
 ### Logic classes
 
- | Class       | Description                                                                      | PHP              |
-|-------------|----------------------------------------------------------------------------------|------------------|
- | Conjunction | Conjunction, logical AND                                                         | and, &&          |
- | Conj        | Alias of Conjunction                                                             | and, &&          |
- | ContainsIn  | Check if something contains in string, Txt, array or Arr                         | -                | 
- | Disjunction | Disjunction, logical OR                                                          | or, \|\|         |
- | Disj        | Alias of Disjunction                                                             | or, \|\|         |
- | EnsureLogic | Helper trait to cast bool or Logic to bool                                       | -                |
- | InArray     | Check if something contains in array or Arr                                      | in_array         |
- | InText      | Check if string or Txt contains in other string or Arr                           | strcontains      |
- | IsEmpty     | Check if string, Txt, array or Arr is empty                                      | empty()          |
- | IsEqual     | Check if one mixed element is equal to another                                   | ===              |
- | IsNotEmpty  | Chekc if string, Txt, array or Arr is not empty                                  | !empty()         |
- | IsNotEqual  | Check if one mixed element is not equal to another                               | !==              |
- | IsNull      | Check if given element is null                                                   | === null         |
- | IsNotNull   | Check if given element is not null                                               | !== null         |
- | KeyExists   | Check if key exists in array or Arr                                              | array_key_exists |
- | LogicCond   | Alias of LogicFork                                                               | -                |
- | LogicFork   | Behaves like first given logic if given condition is TRUE, like second otherwise | -                |
- | LogicOf     | Allows you to create Logic from bool or function                                 | -                |
- | LogicSticky | Logic with caching mechanism                                                     | -                |
- | LogicWrap   | Envelope for Logic classes                                                       | -                |
- | Not         | Logical Not                                                                      | !                |
- | PregMatch   | Check if string or Txt is match to regular expression                            | preg_match       |
+ | Class          | Description                                                                      | PHP              |
+|----------------|----------------------------------------------------------------------------------|------------------|
+ | Conjunction    | Conjunction, logical AND                                                         | and, &&          |
+ | Conj           | Alias of Conjunction                                                             | and, &&          |
+ | ContainsIn     | Check if something contains in string, Txt, array or Arr                         | -                | 
+ | Disjunction    | Disjunction, logical OR                                                          | or, \|\|         |
+ | Disj           | Alias of Disjunction                                                             | or, \|\|         |
+ | EnsureLogic    | Helper trait to cast bool or Logic to bool                                       | -                |
+ | GreaterOrEqual | Check if first given number is greater than or equal to the second one           | \>=              |
+ | GreaterThan    | Check if first given number is greater than the second one                       | \>               |
+ | InArray        | Check if something contains in array or Arr                                      | in_array         |
+ | InText         | Check if string or Txt contains in other string or Arr                           | strcontains      |
+ | IsEmpty        | Check if string, Txt, array or Arr is empty                                      | empty()          |
+ | IsEqual        | Check if one mixed element is equal to another                                   | ===              |
+ | IsNotEmpty     | Chekc if string, Txt, array or Arr is not empty                                  | !empty()         |
+ | IsNotEqual     | Check if one mixed element is not equal to another                               | !==              |
+ | IsNull         | Check if given element is null                                                   | === null         |
+ | IsNotNull      | Check if given element is not null                                               | !== null         |
+ | KeyExists      | Check if key exists in array or Arr                                              | array_key_exists |
+ | LessOrEqual    | Check if first given number is less than or equal to the second one              | \<=              |
+ | LessThan       | Check if first given number is less than the second one                          | \<               |
+ | LogicCond      | Alias of LogicFork                                                               | -                |
+ | LogicFork      | Behaves like first given logic if given condition is TRUE, like second otherwise | -                |
+ | LogicOf        | Allows you to create Logic from bool or function                                 | -                |
+ | LogicSticky    | Logic with caching mechanism                                                     | -                |
+ | LogicWrap      | Envelope for Logic classes                                                       | -                |
+ | Not            | Logical Not                                                                      | !                |
+ | PregMatch      | Check if string or Txt is match to regular expression                            | preg_match       |
 
 ### Tests
 
