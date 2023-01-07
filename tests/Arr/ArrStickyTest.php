@@ -5,7 +5,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Arr;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\ArrSticky;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsArr;
+use Maxonfjvipon\ElegantElephant\Support\IsArr;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 
 final class ArrStickyTest extends TestCase

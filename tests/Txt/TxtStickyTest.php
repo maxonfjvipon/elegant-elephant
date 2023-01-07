@@ -3,7 +3,7 @@
 namespace Maxonfjvipon\ElegantElephant\Tests\Txt;
 
 use Exception;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsTxt;
+use Maxonfjvipon\ElegantElephant\Support\IsTxt;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt;
 use Maxonfjvipon\ElegantElephant\Txt\TxtSticky;

@@ -5,7 +5,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Any;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Any\AnyFork;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsTxt;
+use Maxonfjvipon\ElegantElephant\Support\IsTxt;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;

@@ -6,7 +6,7 @@ use Exception;
 use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use Maxonfjvipon\ElegantElephant\Logic\LogicCond;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsLogic;
+use Maxonfjvipon\ElegantElephant\Support\IsLogic;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsTrue;
 

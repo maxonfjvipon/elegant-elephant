@@ -22,7 +22,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Maxonfjvipon\\ElegantElephant\\": "src"
+      "Maxonfjvipon\\ElegantElephant\\": "src",
+      "Maxonfjvipon\\ElegantElephant\\Support\\": "support"
     }
   },
   "autoload-dev": {

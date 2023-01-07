@@ -4,7 +4,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Txt;
 
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsTxt;
+use Maxonfjvipon\ElegantElephant\Support\IsTxt;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtCond;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;

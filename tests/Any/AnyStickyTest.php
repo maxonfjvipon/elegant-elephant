@@ -5,7 +5,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Any;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Any\AnySticky;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsAny;
+use Maxonfjvipon\ElegantElephant\Support\IsAny;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 
 final class AnyStickyTest extends TestCase

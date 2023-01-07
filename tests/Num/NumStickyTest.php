@@ -5,7 +5,7 @@ namespace Maxonfjvipon\ElegantElephant\Tests\Num;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Num\NumSticky;
-use Maxonfjvipon\ElegantElephant\Tests\Support\IsNum;
+use Maxonfjvipon\ElegantElephant\Support\IsNum;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 
 final class NumStickyTest extends TestCase

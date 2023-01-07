@@ -2,14 +2,14 @@
 
 namespace Maxonfjvipon\ElegantElephant\Tests;
 
-use Maxonfjvipon\ElegantElephant\Tests\Support\Traits\AssertAnyThat;
-use Maxonfjvipon\ElegantElephant\Tests\Support\Traits\AssertArrThat;
-use Maxonfjvipon\ElegantElephant\Tests\Support\Traits\AssertLogicThat;
-use Maxonfjvipon\ElegantElephant\Tests\Support\Traits\AssertNumThat;
-use Maxonfjvipon\ElegantElephant\Tests\Support\Traits\AssertTxtThat;
+use Maxonfjvipon\ElegantElephant\Support\Traits\AssertAnyThat;
+use Maxonfjvipon\ElegantElephant\Support\Traits\AssertArrThat;
+use Maxonfjvipon\ElegantElephant\Support\Traits\AssertLogicThat;
+use Maxonfjvipon\ElegantElephant\Support\Traits\AssertNumThat;
+use Maxonfjvipon\ElegantElephant\Support\Traits\AssertTxtThat;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class TestCase extends BaseTestCase
+abstract class TestCase extends BaseTestCase
 {
     use AssertAnyThat;
     use AssertArrThat;
