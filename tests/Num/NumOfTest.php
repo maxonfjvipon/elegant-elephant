@@ -41,6 +41,43 @@ final class NumOfTest extends TestCase
      * @return void
      * @throws Exception
      */
+    public function numOfNotNumericTest(): void
+    {
+        $this->expectErrorMessage("Unsupported operand types: string * int");
+        NumOf::txt('foo')->asNumber();
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function numOfIntText(): void
+    {
+        $this->assertNumThat(
+            NumOf::txt("42"),
+            new IsEqual(42)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function numOfFloatText(): void
+    {
+        $this->assertNumThat(
+            NumOf::txt("42.5"),
+            new IsEqual(42.5)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
     public function numOfNumber(): void
     {
         $this->assertNumThat(

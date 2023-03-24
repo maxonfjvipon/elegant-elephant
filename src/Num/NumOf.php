@@ -28,6 +28,8 @@ namespace Maxonfjvipon\ElegantElephant\Num;
 
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Num;
+use Maxonfjvipon\ElegantElephant\Txt;
+use Maxonfjvipon\ElegantElephant\Txt\EnsureTxt;
 
 /**
  * Number of.
@@ -35,6 +37,7 @@ use Maxonfjvipon\ElegantElephant\Num;
 final class NumOf implements Num
 {
     use EnsureNum;
+    use EnsureTxt;
 
     /**
      * @var callable Callback
@@ -66,6 +69,15 @@ final class NumOf implements Num
     final public static function number(int|float $number): NumOf
     {
         return new NumOf(fn () => $number);
+    }
+
+    /**
+     * Num of text
+     * @param  string|Txt  $txt Text
+     */
+    final public static function txt(string|Txt $txt): NumOf
+    {
+        return new NumOf(fn (NumOf $self) => +$self->ensuredString($txt)); /** @phpstan-ignore-line */
     }
 
     /**
