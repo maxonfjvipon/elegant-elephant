@@ -29,6 +29,8 @@ namespace Maxonfjvipon\ElegantElephant\Logic;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic;
 
+use function Maxonfjvipon\ElegantElephant\Logic\ensured_bool;
+
 /**
  * Ensure logic.
  */
@@ -39,6 +41,6 @@ trait EnsureLogic
      */
     private function ensuredBool(bool|Logic $boolOrLogic): bool
     {
-        return is_bool($boolOrLogic) ? $boolOrLogic : $boolOrLogic->asBool();
+        return ensured_bool($boolOrLogic);
     }
 }

@@ -11,6 +11,8 @@ use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
+use function Maxonfjvipon\ElegantElephant\Any\any_cond;
+
 final class AnyCondTest extends TestCase
 {
     /**
@@ -21,6 +23,18 @@ final class AnyCondTest extends TestCase
     {
         $this->assertAnyThat(
             new AnyCond(true, "foo", "bar"),
+            new IsEqual("foo")
+        );
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function anyCondFuncionWithPrimitives(): void
+    {
+        $this->assertThat(
+            any_cond(true, "foo", "bar"),
             new IsEqual("foo")
         );
     }

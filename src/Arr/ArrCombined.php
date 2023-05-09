@@ -38,8 +38,6 @@ use Maxonfjvipon\ElegantElephant\Txt;
  */
 final class ArrCombined implements IterableArr
 {
-    use EnsureArr;
-    use EnsureAny;
     use HasArrIterator;
 
     /**
@@ -57,35 +55,6 @@ final class ArrCombined implements IterableArr
 
     final public function asArray(): array
     {
-        /**
-         * @var callable $callback
-         * @param string|int|float|Txt|Num|Any $item
-         * @return mixed
-         * @throws Exception
-         */
-        $callback = fn (string|int|float|Txt|Num|Any $item) => $this->ensuredAnyValue($item);
-
-        /** @var array<string|int> $keys */
-        $keys = array_map(
-            $callback,
-            $this->ensuredArray($this->keys)
-        );
-
-        /** @var array<mixed> $values */
-        $values = $this->ensuredArray($this->values);
-
-        if ($this->ensure) {
-            /** @var array<mixed> $values */
-            $values = array_map(
-                fn (mixed $item) => $this->ensuredAnyValue($item),
-                $this->ensuredArray($this->values)
-            );
-        }
-
-        if (count($keys) !== count($values)) {
-            throw new Exception("Keys and values arrays must have the same length");
-        }
-
-        return array_combine($keys, $values);
+        return array_combined($this->keys, $this->values, $this->ensure);
     }
 }

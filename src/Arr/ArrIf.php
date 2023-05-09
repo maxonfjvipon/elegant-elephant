@@ -43,7 +43,7 @@ final class ArrIf extends ArrWrap
     final public function __construct(bool|Logic $condition, array|Arr $arr)
     {
         parent::__construct(
-            new ArrCond(
+            new ArrFork(
                 $condition,
                 $arr,
                 new ArrEmpty()

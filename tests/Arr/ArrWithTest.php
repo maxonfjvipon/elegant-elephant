@@ -11,6 +11,8 @@ use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
+use function Maxonfjvipon\ElegantElephant\Arr\array_with;
+
 final class ArrWithTest extends TestCase
 {
     /**
@@ -22,6 +24,22 @@ final class ArrWithTest extends TestCase
     {
         $this->assertArrThat(
             new ArrWith(
+                new ArrEmpty(),
+                2
+            ),
+            new IsEqual([0 => 2])
+        );
+    }
+
+        /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function simpleArrWithFunc(): void
+    {
+        $this->assertThat(
+            array_with(
                 new ArrEmpty(),
                 2
             ),

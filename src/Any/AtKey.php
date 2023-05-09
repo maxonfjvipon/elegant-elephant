@@ -32,6 +32,8 @@ use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
+use function Maxonfjvipon\ElegantElephant\Any\at_key;
+
 /**
  * At key.
  */
@@ -54,6 +56,6 @@ final class AtKey implements Any
 
     public function value(): mixed
     {
-        return $this->ensuredArray($this->arr)[$this->ensuredAnyValue($this->key)];
+        return at_key($this->key, $this->arr);
     }
 }

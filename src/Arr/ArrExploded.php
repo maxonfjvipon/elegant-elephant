@@ -29,12 +29,13 @@ namespace Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Txt;
 use Maxonfjvipon\ElegantElephant\Txt\EnsureTxt;
 
+use function Maxonfjvipon\ElegantElephant\Arr\array_exploded;
+
 /**
  * Array exploded.
  */
 final class ArrExploded implements IterableArr
 {
-    use EnsureTxt;
     use HasArrIterator;
 
     /**
@@ -49,6 +50,7 @@ final class ArrExploded implements IterableArr
      * Ctor.
      *
      * @param non-empty-string|Txt $separator
+     * @param string|Txt $text
      */
     final public function __construct(private string|Txt $separator, private string|Txt $text)
     {
@@ -56,9 +58,6 @@ final class ArrExploded implements IterableArr
 
     final public function asArray(): array
     {
-        /** @var non-empty-string $separator */
-        $separator = $this->ensuredString($this->separator);
-
-        return explode($separator, $this->ensuredString($this->text));
+        return array_exploded($this->separator, $this->text);
     }
 }

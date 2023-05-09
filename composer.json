@@ -24,7 +24,13 @@
     "psr-4": {
       "Maxonfjvipon\\ElegantElephant\\": "src",
       "Maxonfjvipon\\ElegantElephant\\Support\\": "support"
-    }
+    },
+    "files": [
+      "src/Any/functions.php",
+      "src/Arr/functions.php",
+      "src/Logic/functions.php",
+      "src/Txt/functions.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {

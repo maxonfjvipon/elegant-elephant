@@ -27,9 +27,7 @@ declare(strict_types=1);
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
 use Maxonfjvipon\ElegantElephant\Any;
-use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Num;
-use Maxonfjvipon\ElegantElephant\Num\EnsureNum;
 use Maxonfjvipon\ElegantElephant\Txt;
 
 /**
@@ -37,8 +35,6 @@ use Maxonfjvipon\ElegantElephant\Txt;
  */
 final class ArrSingle implements IterableArr
 {
-    use EnsureNum;
-    use EnsureAny;
     use HasArrIterator;
 
     /**
@@ -52,6 +48,6 @@ final class ArrSingle implements IterableArr
 
     final public function asArray(): array
     {
-        return [$this->ensuredAnyValue($this->key) => $this->ensuredAnyValue($this->object)];
+        return array_single($this->key, $this->object);
     }
 }

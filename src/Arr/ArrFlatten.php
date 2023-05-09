@@ -34,7 +34,6 @@ use Maxonfjvipon\ElegantElephant\Arr;
  */
 final class ArrFlatten implements IterableArr
 {
-    use EnsureArr;
     use HasArrIterator;
 
     /**
@@ -48,25 +47,6 @@ final class ArrFlatten implements IterableArr
 
     final public function asArray(): array
     {
-        return $this->flat($this->ensuredArray($this->arr), []);
-    }
-
-    /**
-     * @param  array<mixed> $arr
-     * @param  array<mixed> $new
-     * @return array<mixed>
-     * @throws Exception
-     */
-    private function flat(array $arr, array $new, int $currentDeep = 0): array
-    {
-        foreach ($arr as $item) {
-            if ($this->deep !== $currentDeep && (is_array($item) || $item instanceof Arr)) {
-                $new = $this->flat($this->ensuredArray($item), $new, $currentDeep + 1);
-            } else {
-                $new[] = $item;
-            }
-        }
-
-        return $new;
+        return array_flatten($this->arr, $this->deep);
     }
 }

@@ -30,6 +30,8 @@ use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Logic\EnsureLogic;
 
+use function Maxonfjvipon\ElegantElephant\Any\any_fork;
+
 /**
  * Conditional Any.
  */
@@ -53,8 +55,6 @@ final class AnyFork implements Any
 
     public function value(): mixed
     {
-        return $this->ensuredBool($this->condition)
-            ? $this->ensuredAnyValue($this->first)
-            : $this->ensuredAnyValue($this->second);
+        return any_fork($this->condition, $this->first, $this->second);
     }
 }

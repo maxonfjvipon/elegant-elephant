@@ -26,10 +26,11 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
 
-use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Txt;
+
+use function Maxonfjvipon\ElegantElephant\Any\first_of;
 
 /**
  * First item.
@@ -68,16 +69,6 @@ final class FirstOf implements Any
 
     public function value(): mixed
     {
-        $value = $this->ensuredAnyValue($this->container);
-
-        if (!is_string($value) && !is_array($value)) {
-            throw new Exception("The element to get the first element from must be an array or string");
-        }
-
-        if (empty($value)) {
-            throw new Exception("Can't get the first element of an empty value");
-        }
-
-        return $value[0];
+        return first_of($this->container);
     }
 }

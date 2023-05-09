@@ -41,6 +41,6 @@ trait EnsureArr
      */
     private function ensuredArray(array|Arr $arr): array
     {
-        return is_array($arr) ? $arr : $arr->asArray();
+        return ensured_array($arr);
     }
 }

@@ -27,11 +27,8 @@ declare(strict_types=1);
 namespace Maxonfjvipon\ElegantElephant\Any;
 
 use Exception;
-use Maxonfjvipon\ElegantElephant\Any;
-use Maxonfjvipon\ElegantElephant\Arr;
-use Maxonfjvipon\ElegantElephant\Logic;
-use Maxonfjvipon\ElegantElephant\Num;
-use Maxonfjvipon\ElegantElephant\Txt;
+
+use function Maxonfjvipon\ElegantElephant\Any\ensured_any;
 
 /**
  * Ensured Any.
@@ -45,30 +42,6 @@ trait EnsureAny
      */
     private function ensuredAnyValue(mixed $any): mixed
     {
-        $getAny = function (mixed $any): Any {
-            if ($any instanceof Any) {
-                return $any;
-            }
-
-            if ($any instanceof Arr) {
-                return AnyOf::arr($any);
-            }
-
-            if ($any instanceof Txt) {
-                return AnyOf::text($any);
-            }
-
-            if ($any instanceof Num) {
-                return AnyOf::num($any);
-            }
-
-            if ($any instanceof Logic) {
-                return AnyOf::logic($any);
-            }
-
-            return AnyOf::just($any);
-        };
-
-        return $getAny($any)->value();
+        return ensured_any($any);
     }
 }

@@ -11,16 +11,30 @@ use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\IsEqual;
 
+use function Maxonfjvipon\ElegantElephant\Arr\array_cond;
+
 final class ArrCondTest extends TestCase
 {
     /**
      * @test
      * @throws Exception
      */
-    public function arrTernaryWithPrimitives(): void
+    public function arrCondWithPrimitives(): void
     {
         $this->assertArrThat(
             new ArrCond(true, [1, 2], [3, 4]),
+            new IsEqual([1, 2])
+        );
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function arrCondFuncWithPrimitives(): void
+    {
+        $this->assertThat(
+            array_cond(true, [1, 2], [3, 4]),
             new IsEqual([1, 2])
         );
     }

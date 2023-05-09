@@ -38,6 +38,7 @@ final class ArrCond extends ArrWrap
     /**
      * Ctor.
      *
+     * @param bool|Logic $condition
      * @param Arr|array<mixed> $first
      * @param array<mixed>|Arr $second
      */

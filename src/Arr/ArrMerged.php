@@ -33,7 +33,6 @@ use Maxonfjvipon\ElegantElephant\Arr;
  */
 final class ArrMerged implements IterableArr
 {
-    use EnsureArr;
     use HasArrIterator;
 
     /**
@@ -52,11 +51,6 @@ final class ArrMerged implements IterableArr
 
     final public function asArray(): array
     {
-        return array_merge(
-            ...array_map(
-                fn ($arr) => $this->ensuredArray($arr),
-                $this->items
-            )
-        );
+        return array_merged(...$this->items);
     }
 }

@@ -26,12 +26,13 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Any;
 
-use Exception;
 use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
+
+use function Maxonfjvipon\ElegantElephant\Any\at_value;
 
 /**
  * Key from array by element.
@@ -54,16 +55,6 @@ final class AtValue implements Any
 
     final public function value(): string|int
     {
-        $key = array_search(
-            needle: $this->ensuredAnyValue($this->value),
-            haystack: $this->ensuredArray($this->arr),
-            strict: true
-        );
-
-        if ($key === false) {
-            throw new Exception("Key by given value not found!");
-        }
-
-        return $key;
+        return at_value($this->value, $this->arr);
     }
 }

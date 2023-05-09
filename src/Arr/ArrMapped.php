@@ -26,19 +26,16 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
-use Closure;
-use Exception;
 use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Arr;
-use ReflectionFunction;
+
+use function Maxonfjvipon\ElegantElephant\Arr\array_mapped;
 
 /**
  * Mapped array.
  */
 final class ArrMapped implements IterableArr
 {
-    use EnsureArr;
-    use EnsureAny;
     use HasArrIterator;
 
     /**
@@ -61,25 +58,6 @@ final class ArrMapped implements IterableArr
 
     final public function asArray(): array
     {
-        $count = (new ReflectionFunction(Closure::fromCallable($this->callback)))->getNumberOfParameters();
-
-        if ($count < 1 || $count > 2) {
-            throw new Exception("Invalid amount of arguments");
-        }
-
-        $array = $this->ensuredArray($this->arr);
-
-        $arrays = ($isTwo = $count === 2) ? [array_keys($array), $array] : [$array];
-
-        $callback = $isTwo
-            ? fn ($key, $value) => $this->ensuredAnyValue(call_user_func($this->callback, $key, $value))
-            : fn ($value) => $this->ensuredAnyValue(call_user_func($this->callback, $value));
-
-        return array_map(
-            $this->ensure
-                ? $callback
-                : $this->callback,
-            ...$arrays
-        );
+        return array_mapped($this->arr, $this->callback, $this->ensure);
     }
 }

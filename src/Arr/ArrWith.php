@@ -26,33 +26,25 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
-use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Arr;
-use Maxonfjvipon\ElegantElephant\Logic\IsNull;
 
 /**
  * Arr with an element.
  */
-final class ArrWith extends ArrWrap
+final class ArrWith implements IterableArr
 {
-    use EnsureArr;
-    use EnsureAny;
+    use HasArrIterator;
 
     /**
-     * Ctor.
-     * @param array<mixed>|Arr $arr
-     */
-    final public function __construct(array|Arr $arr, mixed $keyOrValue, mixed $value = null)
+         * Ctor.
+         * @param array<mixed>|Arr $arr
+         */
+    final public function __construct(private array|Arr $arr, private mixed $keyOrValue, private mixed $value = null)
     {
-        parent::__construct(
-            new ArrMerged(
-                $arr,
-                new ArrCond(
-                    new IsNull($value),
-                    ArrOf::func(fn () => [$this->ensuredAnyValue($keyOrValue)]),
-                    ArrOf::func(fn () => new ArrSingle($keyOrValue, $value)) /** @phpstan-ignore-line */
-                )
-            )
-        );
+    }
+
+    public function asArray(): array
+    {
+        return array_with($this->arr, $this->keyOrValue, $this->value);
     }
 }

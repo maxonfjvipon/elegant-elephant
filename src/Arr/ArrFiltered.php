@@ -33,7 +33,6 @@ use Maxonfjvipon\ElegantElephant\Arr;
  */
 final class ArrFiltered implements IterableArr
 {
-    use EnsureArr;
     use HasArrIterator;
 
     /**
@@ -53,10 +52,6 @@ final class ArrFiltered implements IterableArr
 
     final public function asArray(): array
     {
-        return array_filter(
-            $this->ensuredArray($this->arr),
-            $this->callback,
-            ARRAY_FILTER_USE_BOTH
-        );
+        return array_filtered($this->arr, $this->callback);
     }
 }

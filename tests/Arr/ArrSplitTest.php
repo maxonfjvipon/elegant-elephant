@@ -8,6 +8,8 @@ use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
+use function Maxonfjvipon\ElegantElephant\Arr\array_split;
+
 final class ArrSplitTest extends TestCase
 {
     public const SEPARATOR = "-";
@@ -24,6 +26,18 @@ final class ArrSplitTest extends TestCase
     {
         $this->assertArrThat(
             new ArrSplit(self::SEPARATOR, self::STRING),
+            new IsEqual(self::EXPLODED)
+        );
+    }
+
+        /**
+     * @test
+     * @throws Exception
+     */
+    public function splitFunctionWithStrings(): void
+    {
+        $this->assertThat(
+            array_split(self::SEPARATOR, self::STRING),
             new IsEqual(self::EXPLODED)
         );
     }

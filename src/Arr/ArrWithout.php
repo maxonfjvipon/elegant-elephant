@@ -58,18 +58,6 @@ final class ArrWithout implements IterableArr
 
     final public function asArray(): array
     {
-        $arr = $this->ensuredArray($this->arr);
-
-        foreach ($this->keys as $key) {
-            /** @var int|string $key */
-            $key = $this->ensuredAnyValue($key);
-
-            if (array_key_exists($key, $arr)) {
-                unset($arr[$key]);
-            }
-        }
-
-
-        return $arr;
+        return array_without($this->arr, ...$this->keys);
     }
 }

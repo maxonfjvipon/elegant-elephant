@@ -9,6 +9,8 @@ use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 
+use function Maxonfjvipon\ElegantElephant\Arr\array_if;
+
 final class ArrIfTest extends TestCase
 {
     /**
@@ -20,6 +22,19 @@ final class ArrIfTest extends TestCase
     {
         $this->assertArrThat(
             new ArrIf(true, [1, 2, 3]),
+            new Count(3)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws Exception
+     */
+    public function arrayIfFunctionTrue(): void
+    {
+        $this->assertThat(
+            array_if(true, [1, 2, 3]),
             new Count(3)
         );
     }

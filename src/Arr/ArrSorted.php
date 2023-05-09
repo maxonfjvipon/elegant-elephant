@@ -33,7 +33,6 @@ use Maxonfjvipon\ElegantElephant\Arr;
  */
 final class ArrSorted implements IterableArr
 {
-    use EnsureArr;
     use HasArrIterator;
 
     /**
@@ -54,19 +53,6 @@ final class ArrSorted implements IterableArr
 
     final public function asArray(): array
     {
-        $arr = $this->ensuredArray($this->arr);
-
-        if ($this->compare !== null) {
-            usort(
-                $arr,
-                is_string($this->compare)
-                    ? fn ($a, $b) => $a[$this->compare] <=> $b[$this->compare]
-                    : $this->compare
-            );
-        } else {
-            sort($arr);
-        }
-
-        return $arr;
+        return array_sorted($this->arr, $this->compare);
     }
 }
