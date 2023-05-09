@@ -9,7 +9,7 @@ use Maxonfjvipon\ElegantElephant\Logic\LogicOf;
 use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use PHPUnit\Framework\Constraint\Count;
 
-use function Maxonfjvipon\ElegantElephant\Arr\array_if;
+use function Maxonfjvipon\ElegantElephant\array_if;
 
 final class ArrIfTest extends TestCase
 {

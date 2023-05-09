@@ -29,7 +29,7 @@ namespace Maxonfjvipon\ElegantElephant\Logic;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Logic;
 
-use function Maxonfjvipon\ElegantElephant\Logic\ensured_bool;
+use function Maxonfjvipon\ElegantElephant\ensured_bool;
 
 /**
  * Ensure logic.

@@ -11,7 +11,7 @@ use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-use function Maxonfjvipon\ElegantElephant\Arr\array_with;
+use function Maxonfjvipon\ElegantElephant\array_with;
 
 final class ArrWithTest extends TestCase
 {

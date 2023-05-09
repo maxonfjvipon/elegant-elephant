@@ -28,6 +28,8 @@ namespace Maxonfjvipon\ElegantElephant\Arr;
 
 use Maxonfjvipon\ElegantElephant\Arr;
 
+use function Maxonfjvipon\ElegantElephant\array_sorted;
+
 /**
  * Array sorted.
  */

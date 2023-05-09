@@ -27,9 +27,8 @@ declare(strict_types=1);
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
 use Maxonfjvipon\ElegantElephant\Txt;
-use Maxonfjvipon\ElegantElephant\Txt\EnsureTxt;
 
-use function Maxonfjvipon\ElegantElephant\Arr\array_exploded;
+use function Maxonfjvipon\ElegantElephant\array_exploded;
 
 /**
  * Array exploded.

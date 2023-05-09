@@ -32,7 +32,7 @@ use Maxonfjvipon\ElegantElephant\Arr\EnsureArr;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
-use function Maxonfjvipon\ElegantElephant\Any\at_value;
+use function Maxonfjvipon\ElegantElephant\at_value;
 
 /**
  * Key from array by element.

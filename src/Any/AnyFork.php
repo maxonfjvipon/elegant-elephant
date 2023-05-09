@@ -30,7 +30,7 @@ use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Logic;
 use Maxonfjvipon\ElegantElephant\Logic\EnsureLogic;
 
-use function Maxonfjvipon\ElegantElephant\Any\any_fork;
+use function Maxonfjvipon\ElegantElephant\any_fork;
 
 /**
  * Conditional Any.

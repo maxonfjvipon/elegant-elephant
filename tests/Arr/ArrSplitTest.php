@@ -8,7 +8,7 @@ use Maxonfjvipon\ElegantElephant\Tests\TestCase;
 use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-use function Maxonfjvipon\ElegantElephant\Arr\array_split;
+use function Maxonfjvipon\ElegantElephant\array_split;
 
 final class ArrSplitTest extends TestCase
 {

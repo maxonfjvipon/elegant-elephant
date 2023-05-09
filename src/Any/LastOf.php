@@ -30,7 +30,7 @@ use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Txt;
 
-use function Maxonfjvipon\ElegantElephant\Any\last_of;
+use function Maxonfjvipon\ElegantElephant\last_of;
 
 /**
  * Last of.

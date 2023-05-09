@@ -33,6 +33,8 @@ use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
+use function Maxonfjvipon\ElegantElephant\array_combined;
+
 /**
  * Array combined of keys and values.
  */

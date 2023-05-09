@@ -31,6 +31,8 @@ use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
+use function Maxonfjvipon\ElegantElephant\array_without;
+
 /**
  * Array without elements by keys.
  */

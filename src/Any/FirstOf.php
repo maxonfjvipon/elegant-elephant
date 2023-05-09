@@ -30,7 +30,7 @@ use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Arr;
 use Maxonfjvipon\ElegantElephant\Txt;
 
-use function Maxonfjvipon\ElegantElephant\Any\first_of;
+use function Maxonfjvipon\ElegantElephant\first_of;
 
 /**
  * First item.
