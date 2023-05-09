@@ -26,8 +26,9 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
-use Exception;
 use Maxonfjvipon\ElegantElephant\Arr;
+
+use function Maxonfjvipon\ElegantElephant\array_flatten;
 
 /**
  * Flatten array.

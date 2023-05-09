@@ -30,6 +30,8 @@ use Maxonfjvipon\ElegantElephant\Any;
 use Maxonfjvipon\ElegantElephant\Num;
 use Maxonfjvipon\ElegantElephant\Txt;
 
+use function Maxonfjvipon\ElegantElephant\array_single;
+
 /**
  * Single array element
  */

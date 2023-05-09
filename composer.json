@@ -26,10 +26,7 @@
       "Maxonfjvipon\\ElegantElephant\\Support\\": "support"
     },
     "files": [
-      "src/Any/functions.php",
-      "src/Arr/functions.php",
-      "src/Logic/functions.php",
-      "src/Txt/functions.php"
+      "src/functions.php"
     ]
   },
   "autoload-dev": {

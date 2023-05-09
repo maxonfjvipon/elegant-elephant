@@ -26,10 +26,9 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant\Arr;
 
-use Maxonfjvipon\ElegantElephant\Any\EnsureAny;
 use Maxonfjvipon\ElegantElephant\Arr;
 
-use function Maxonfjvipon\ElegantElephant\Arr\array_mapped;
+use function Maxonfjvipon\ElegantElephant\array_mapped;
 
 /**
  * Mapped array.

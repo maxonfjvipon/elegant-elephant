@@ -11,7 +11,7 @@ use Maxonfjvipon\ElegantElephant\Txt\TxtOf;
 use Maxonfjvipon\ElegantElephant\Txt\TxtUpper;
 use PHPUnit\Framework\Constraint\IsEqual;
 
-use function Maxonfjvipon\ElegantElephant\Any\any_cond;
+use function Maxonfjvipon\ElegantElephant\any_cond;
 
 final class AnyCondTest extends TestCase
 {

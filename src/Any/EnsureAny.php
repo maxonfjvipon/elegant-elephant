@@ -28,7 +28,7 @@ namespace Maxonfjvipon\ElegantElephant\Any;
 
 use Exception;
 
-use function Maxonfjvipon\ElegantElephant\Any\ensured_any;
+use function Maxonfjvipon\ElegantElephant\ensured_any;
 
 /**
  * Ensured Any.

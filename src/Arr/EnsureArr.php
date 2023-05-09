@@ -29,6 +29,8 @@ namespace Maxonfjvipon\ElegantElephant\Arr;
 use Exception;
 use Maxonfjvipon\ElegantElephant\Arr;
 
+use function Maxonfjvipon\ElegantElephant\ensured_array;
+
 /**
  * Ensure {@see Arr}
  */
