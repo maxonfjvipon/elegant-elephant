@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The MIT License (MIT)
  *
@@ -26,14 +27,9 @@ declare(strict_types=1);
 
 namespace Maxonfjvipon\ElegantElephant;
 
-use Exception;
-use Maxonfjvipon\ElegantElephant\Any;
-use Maxonfjvipon\ElegantElephant\Any\AnyOf;
-use Maxonfjvipon\ElegantElephant\Arr;
-use Maxonfjvipon\ElegantElephant\Logic;
-use Maxonfjvipon\ElegantElephant\Num;
-use Maxonfjvipon\ElegantElephant\Txt;
 use Closure;
+use Exception;
+use Maxonfjvipon\ElegantElephant\Any\AnyOf;
 use ReflectionFunction;
 
 // ENSURED
@@ -41,7 +37,7 @@ if (!function_exists('ensured_any')) {
     /**
      * Ensure any value.
      *
-     * @param mixed $any Value to be ensured
+     * @param  mixed  $any  Value to be ensured
      * @return mixed Ensured value
      * @throws Exception If fails
      */
@@ -79,7 +75,7 @@ if (!function_exists('ensured_array')) {
     /**
      * Ensured array.
      *
-     * @param array<mixed>|Arr $arr
+     * @param  array<mixed>|Arr  $arr
      * @return array<mixed>
      * @throws Exception
      */
@@ -100,7 +96,7 @@ if (!function_exists('ensured_string')) {
     /**
      * Ensured string.
      *
-     * @param string|Txt $stringOrTxt Text to be ensured
+     * @param  string|Txt  $stringOrTxt  Text to be ensured
      * @return string Ensured string
      * @throws Exception If fails
      */
@@ -115,9 +111,9 @@ if (!function_exists('any_cond')) {
     /**
      * Conditional Any.
      *
-     * @param bool|Logic $condition Condition
-     * @param mixed $first First value
-     * @param mixed $second Alternative value
+     * @param  bool|Logic  $condition  Condition
+     * @param  mixed  $first  First value
+     * @param  mixed  $second  Alternative value
      *
      * @see AnyCond
      */
@@ -131,9 +127,9 @@ if (!function_exists('any_fork')) {
     /**
      * Conditional Any.
      *
-     * @param bool|Logic $condition Condition
-     * @param mixed $first First value
-     * @param mixed $second Alternative value
+     * @param  bool|Logic  $condition  Condition
+     * @param  mixed  $first  First value
+     * @param  mixed  $second  Alternative value
      *
      * @see AnyFork
      */
@@ -143,12 +139,33 @@ if (!function_exists('any_fork')) {
     }
 }
 
+if (!function_exists('reduced')) {
+    /**
+     * @param  array<mixed>|Arr  $arr
+     * @param  callable  $callback
+     * @param  mixed  $init
+     * @param  bool  $ensureInit
+     * @return mixed
+     * @throws Exception
+     */
+    function reduced(array|Arr $arr, callable $callback, mixed $init, bool $ensureInit = false): mixed
+    {
+        return ensured_any(
+            array_reduce(
+                array: ensured_array($arr),
+                callback: $callback,
+                initial: $ensureInit ? (ensured_any($init)) : $init
+            )
+        );
+    }
+}
+
 if (!function_exists('at_key')) {
     /**
      * At key.
      *
-     * @param string|int|float|Num|Txt $key Key to get value by
-     * @param Arr|array<mixed> $arr Array to get value from
+     * @param  string|int|float|Num|Txt  $key  Key to get value by
+     * @param  Arr|array<mixed>  $arr  Array to get value from
      *
      * @see AtKey
      */
@@ -162,8 +179,8 @@ if (!function_exists('at_value')) {
     /**
      * Key from array by element.
      *
-     * @param string|int|Txt|Num|Any $value
-     * @param array<mixed>|Arr $arr
+     * @param  string|int|Txt|Num|Any  $value
+     * @param  array<mixed>|Arr  $arr
      *
      * @see AtValue
      */
@@ -187,7 +204,7 @@ if (!function_exists('first_of')) {
     /**
      * First item.
      *
-     * @param string|Any|Arr|array<mixed>|Txt $container Container to get first element from
+     * @param  string|Any|Arr|array<mixed>|Txt  $container  Container to get first element from
      *
      * @see FirstOf
      */
@@ -211,7 +228,7 @@ if (!function_exists('last_of')) {
     /**
      * Last of.
      *
-     * @param string|array<mixed>|Txt|Arr|Any $container Container to get last element from
+     * @param  string|array<mixed>|Txt|Arr|Any  $container  Container to get last element from
      *
      * @see LastOf
      */
@@ -244,9 +261,9 @@ if (!function_exists('array_combined')) {
     /**
      * Ctor.
      *
-     * @param array<string|int|float|Txt|Num|Any>|Arr $keys
-     * @param array<mixed>|Arr                        $values
-     * @param bool                                    $ensure
+     * @param  array<string|int|float|Txt|Num|Any>|Arr  $keys
+     * @param  array<mixed>|Arr  $values
+     * @param  bool  $ensure
      * @return array<string|int,mixed>
      *
      * @see ArrCombined
@@ -277,13 +294,14 @@ if (!function_exists('array_combined')) {
 if (!function_exists('array_cond')) {
     /**
      * Conditional array.
-     * Alias of @see array_fork
+     * Alias of @param  bool|Logic  $condition
      *
-     * @param bool|Logic $condition
-     * @param Arr|array<mixed> $first
-     * @param array<mixed>|Arr $second
+     * @param  Arr|array<mixed>  $first
+     * @param  array<mixed>|Arr  $second
      *
      * @return array<mixed>
+     *
+     * @see array_fork
      *
      * @see ArrCond
      */
@@ -297,8 +315,8 @@ if (!function_exists('array_exploded')) {
     /**
      * Array exploded.
      *
-     * @param non-empty-string|Txt $separator
-     * @param string|Txt $text
+     * @param  non-empty-string|Txt  $separator
+     * @param  string|Txt  $text
      *
      * @return array<mixed>
      *
@@ -317,8 +335,8 @@ if (!function_exists('array_filtered')) {
     /**
      * Array filtered.
      *
-     * @param array<mixed>|Arr $arr
-     * @param callable $callback
+     * @param  array<mixed>|Arr  $arr
+     * @param  callable  $callback
      *
      * @return array<mixed>
      * @see ArrFiltered
@@ -337,8 +355,8 @@ if (!function_exists('array_flatten')) {
     /**
      * Flatten array.
      *
-     * @param array<mixed>|Arr $arr
-     * @param int $deep
+     * @param  array<mixed>|Arr  $arr
+     * @param  int  $deep
      *
      * @return array<mixed>
      *
@@ -347,10 +365,10 @@ if (!function_exists('array_flatten')) {
     function array_flatten(array|Arr $arr, int $deep = 1): array
     {
         /**
-         * @param array<mixed> $array
-         * @param array<mixed> $new
-         * @param int $currentDeep
-         * @param int $deep
+         * @param  array<mixed>  $array
+         * @param  array<mixed>  $new
+         * @param  int  $currentDeep
+         * @param  int  $deep
          *
          * @return array<mixed>
          */
@@ -374,9 +392,9 @@ if (!function_exists('array_fork')) {
     /**
      * Conditional array.
      *
-     * @param bool|Logic $condition
-     * @param Arr|array<mixed> $first
-     * @param array<mixed>|Arr $second
+     * @param  bool|Logic  $condition
+     * @param  Arr|array<mixed>  $first
+     * @param  array<mixed>|Arr  $second
      *
      * @return array<mixed>
      *
@@ -384,7 +402,7 @@ if (!function_exists('array_fork')) {
      */
     function array_fork(bool|Logic $condition, array|Arr $first, array|Arr $second): array
     {
-        return (array) any_fork($condition, AnyOf::arr($first), AnyOf::arr($second));
+        return (array)any_fork($condition, AnyOf::arr($first), AnyOf::arr($second));
     }
 }
 
@@ -392,8 +410,8 @@ if (!function_exists('array_if')) {
     /**
      * Conditional array.
      *
-     * @param bool|Logic $condition
-     * @param Arr|array<mixed> $arr
+     * @param  bool|Logic  $condition
+     * @param  Arr|array<mixed>  $arr
      *
      * @return array<mixed>
      *
@@ -409,7 +427,7 @@ if (!function_exists('array_mapped')) {
     /**
      * Array mapped.
      *
-     * @param array<mixed>|Arr $arr
+     * @param  array<mixed>|Arr  $arr
      * @return array<mixed>
      *
      * @return array<mixed>
@@ -445,7 +463,7 @@ if (!function_exists('array_merged')) {
     /**
      * Array merged.
      *
-     * @param array<mixed>|Arr ...$items Items to be merged
+     * @param  array<mixed>|Arr  ...$items  Items to be merged
      *
      * @return array<mixed>
      *
@@ -466,8 +484,8 @@ if (!function_exists('array_single')) {
     /**
      * Single element array.
      *
-     * @param string|int|float|Txt|Num|Any $key
-     * @param mixed $value
+     * @param  string|int|float|Txt|Num|Any  $key
+     * @param  mixed  $value
      *
      * @return array<mixed>
      *
@@ -483,8 +501,8 @@ if (!function_exists('array_sorted')) {
     /**
      * Sorted array.
      *
-     * @param array<mixed>|Arr     $arr
-     * @param callable|string|null $compare
+     * @param  array<mixed>|Arr  $arr
+     * @param  callable|string|null  $compare
      *
      * @return array<mixed>
      *
@@ -512,12 +530,15 @@ if (!function_exists('array_sorted')) {
 if (!function_exists('array_split')) {
     /**
      * Split array.
-     * Alias of @see array_exploded
+     * Alias of @see array_exploded()
      *
-     * @param non-empty-string|Txt $separator
-     * @param string|Txt $text
+     * @param  non-empty-string|Txt  $separator
+     *
+     * @param  string|Txt  $text
      *
      * @return array<mixed>
+     *
+     * @see array_exploded
      *
      * @see ArrSplit
      */
@@ -531,9 +552,9 @@ if (!function_exists('array_with')) {
     /**
      * Array with an element.
      *
-     * @param array<mixed>|Arr $arr
-     * @param mixed $keyOrValue
-     * @param mixed $value
+     * @param  array<mixed>|Arr  $arr
+     * @param  mixed  $keyOrValue
+     * @param  mixed  $value
      *
      * @return array<mixed>
      *
@@ -557,8 +578,8 @@ if (!function_exists('array_without')) {
     /**
      * Array without an element.
      *
-     * @param array<mixed>|Arr $arr
-     * @param string|int|Txt|Num ...$keys
+     * @param  array<mixed>|Arr  $arr
+     * @param  string|int|Txt|Num  ...$keys
      *
      * @return array<mixed>
      *
