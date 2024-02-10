@@ -10,14 +10,15 @@ ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cact
 [![Hits-of-Code](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant?branch=master)](https://hitsofcode.com/github/maxonfjvipon/elegant-elephant/view?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/maxonfjvipon/elegant-elephant/blob/master/LICENSE)
 [![Tag](https://img.shields.io/github/tag/maxonfjvipon/elegant-elephant.svg)](https://github.com/maxonfjvipon/elegant-elephant/releases)
+[![Total lines](https://sloc.xyz/github/maxonfjvipon/elegant-elephant)](https://sloc.xyz/github/maxonfjvipon/elegant-elephant)
 
 ## **Motivation**
 
 PHP was designed and created like a procedural language. Then PHP started support OOP paradigm, but it's not really pure OOP. We got classes but we still use them in a procedural way. This library enforces you to write real objects in a real OOP.
 
 ## Principles
- | Priciple                                        | Yes/No             |
- | ----------------------------------------------- |--------------------|
+ | Principle                                       | Yes/No             |
+ |-------------------------------------------------|--------------------|
  | No null                                         | :heavy_minus_sign: |
  | No code in constructors                         | :heavy_check_mark: |
  | No getters and setters                          | :heavy_check_mark: |
@@ -312,7 +313,7 @@ All `Arr` classes in the library can be spead.
 ### Arr classes
 
  | Class          | Description                                                             | PHP               |
-|----------------|-------------------------------------------------------------------------|-------------------|
+ |----------------|-------------------------------------------------------------------------|-------------------|
  | ArrCast        | Cast all elements in given array                                        | -                 |
  | ArrCombined    | Combine two arrays into signe one                                       | array_combine     |
  | ArrFork        | Behaves like first array if condition is TRUE, like second otherwise    | -                 |
@@ -353,7 +354,7 @@ Elegant boolean. `Logic` interface has only one method `asBool()` that must retu
 ### Logic classes
 
  | Class          | Description                                                                      | PHP              |
-|----------------|----------------------------------------------------------------------------------|------------------|
+ |----------------|----------------------------------------------------------------------------------|------------------|
  | Conjunction    | Conjunction, logical AND                                                         | and, &&          |
  | Conj           | Alias of Conjunction                                                             | and, &&          |
  | ContainsIn     | Check if something contains in string, Txt, array or Arr                         | -                | 
@@ -391,7 +392,7 @@ Elegant numbers. `Num` interface has only one method `asNumber()` that must retu
 ### Num classes
 
  | Class      | Description                                                           | PHP           |
-|------------|-----------------------------------------------------------------------|---------------|
+ |------------|-----------------------------------------------------------------------|---------------|
  | ArraySum   | Alias of SumOf                                                        | array_sum     |
  | Divided    | Division                                                              | a / b         |
  | EnsureNum  | Helper trait for casting number or Num to float or int                | -             |
@@ -448,7 +449,7 @@ All `Txt` classes in the library implements `StringableTxt`.
 ### Txt classes
 
  | Class           | Description                                                            | PHP             |
-|-----------------|------------------------------------------------------------------------|-----------------|
+ |-----------------|------------------------------------------------------------------------|-----------------|
  | EnsureTxt       | Helper trait for casting string or Txt to string                       | -               |
  | TxtBlank        | Empty text.                                                            | ""              |
  | TxtFork         | Behaves like first text if condition is TRUE, like second otherwise    | -               |
