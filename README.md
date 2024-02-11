@@ -1,3 +1,5 @@
+<img alt="logo" src="https://github.com/maxonfjvipon/elegant-elephant/blob/fa2664c6e9c30c30ca255b0608615faacc8b6556/logo/logo.jpg" width="128px" height="128px" />
+
 # ElegantElephant
 
 ElegantElephant - small library of PHP primitives in EO style. Inspired by [Cactoos](https://github.com/yegor256/cactoos) from [@yegor256](https://github.com/yegor256).
